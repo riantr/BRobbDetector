@@ -48,6 +48,22 @@
           <TextBlock Text="线开运算长度 LineOpenLen" FontSize="11" />
           <NumericUpDown Value="{Binding LineOpenLength}" Minimum="5" Maximum="50" Increment="5" />
 
+          <Separator Margin="0,8,0,0" />
+          <CheckBox Content="启用OCR识别 (RapidOCR)" IsChecked="{Binding EnableOcr}" Margin="0,8,0,0" />
+          <TextBlock Text="类别列表 (逗号分隔)" FontSize="11" IsVisible="{Binding EnableOcr}" />
+          <TextBox Text="{Binding CategoryList}" IsVisible="{Binding EnableOcr}" FontSize="11" />
+          <TextBlock Text="文字位置" FontSize="11" IsVisible="{Binding EnableOcr}" Margin="0,4,0,0" />
+          <ComboBox SelectedIndex="{Binding OcrTextPositionIndex}" IsVisible="{Binding EnableOcr}" HorizontalAlignment="Stretch">
+            <ComboBoxItem Content="框上 Above" />
+            <ComboBoxItem Content="框下 Below" />
+            <ComboBoxItem Content="框左 Left" />
+            <ComboBoxItem Content="框右 Right" />
+            <ComboBoxItem Content="框内 Inside" />
+          </ComboBox>
+          <TextBlock Text="文字范围 (px)" FontSize="11" IsVisible="{Binding EnableOcr}" Margin="0,4,0,0" />
+          <NumericUpDown Value="{Binding OcrTextExtent}" Minimum="10" Maximum="200" Increment="5"
+                         IsVisible="{Binding EnableOcr}" />
+
           <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
             <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
             <Button Content="取消" Command="{Binding CancelCommand}" />
@@ -58,14 +74,14 @@
 
         </StackPanel>
 
-        <Grid Grid.Column="1" ColumnDefinitions="*,240" Margin="8,0,0,0">
+        <Grid Grid.Column="1" ColumnDefinitions="*,260" Margin="8,0,0,0">
           <Border Grid.Column="0" BorderBrush="#AAAAAA" BorderThickness="1" Background="#222222">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
               <Panel>
-                <Image Source="{Binding PreviewImage}" Width="{Binding PreviewImage.PixelSize.Width}"
-                       Height="{Binding PreviewImage.PixelSize.Height}"
+                <Image Source="{Binding PreviewImage}" Width="{Binding PreviewWidth}"
+                       Height="{Binding PreviewHeight}"
                        IsVisible="{Binding PreviewImage, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                <Canvas Background="Transparent">
+                <Canvas Width="{Binding PreviewWidth}" Height="{Binding PreviewHeight}" Background="Transparent">
                   <ItemsControl ItemsSource="{Binding Overlays}">
                     <ItemsControl.ItemsPanel>
                       <ItemsPanelTemplate>
@@ -85,16 +101,25 @@
 
           <StackPanel Grid.Column="1" Margin="8,0,0,0">
             <TextBlock Text="检测结果" FontWeight="Bold" />
-            <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="380">
+            <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="350">
               <ListBox.ItemTemplate>
                 <DataTemplate>
-                  <TextBlock Text="{Binding Summary}" />
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="{Binding ImageName}" FontSize="11" />
+                    <TextBlock Grid.Column="1" Text="{Binding BoxCount}" FontSize="11"
+                               Foreground="{Binding BoxCount, Converter={x:Static views:BoxCountColorConverter.Instance}}" />
+                  </Grid>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
 
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+              <Button Content="◀ 上一张" Command="{Binding PrevCommand}" Padding="8,4" />
+              <Button Content="下一张 ▶" Command="{Binding NextCommand}" Padding="8,4" />
+            </StackPanel>
+
             <TextBlock Text="日志" FontWeight="Bold" Margin="0,8,0,0" />
-            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="180" />
+            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="160" />
           </StackPanel>
         </Grid>
       </Grid>

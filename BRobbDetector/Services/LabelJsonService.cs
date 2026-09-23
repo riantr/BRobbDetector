@@ -140,7 +140,8 @@ public class LabelJsonService
             Infos = boxes.Select(b => new LabelInfo
             {
                 Points = b.PointsText,
-                Type = b.Type
+                Type = b.Type,
+                Score = b.OcrConfidence
             }).ToList()
         };
 

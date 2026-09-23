@@ -10,6 +10,7 @@ public class DetectedBox
 {
     public List<Point> Corners { get; set; } = new();
     public string Type { get; set; } = string.Empty;
+    public double OcrConfidence { get; set; }
 
     public string PointsText => string.Join(";", Corners.Select(c => $"{c.X},{c.Y}"));
 }

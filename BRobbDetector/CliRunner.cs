@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using BRobbDetector.Models;
+using OpenCvSharp;
 
 namespace BRobbDetector;
 
@@ -17,15 +18,16 @@ public static class CliRunner
 
         if (args.Length >= 3 && args[0] == "--cli")
         {
-            RunDetect(args[1], args[2]);
+            var useOcr = args.Contains("--ocr");
+            RunDetect(args[1], args[2], useOcr);
             return;
         }
 
-        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir>");
+        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr]");
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
-    private static void RunDetect(string inputDir, string outputDir)
+    private static void RunDetect(string inputDir, string outputDir, bool useOcr)
     {
         if (!Directory.Exists(inputDir))
         {
@@ -43,6 +45,26 @@ public static class CliRunner
             .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
             .OrderBy(f => f)
             .ToList();
+
+        Services.OcrService? ocrService = null;
+        Services.CategoryNormalizer? normalizer = null;
+
+        if (useOcr)
+        {
+            try
+            {
+                ocrService = new Services.OcrService();
+                ocrService.Start();
+                normalizer = new Services.CategoryNormalizer();
+                Console.WriteLine("[OCR] Service started.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[OCR] Failed to start: {ex.Message}");
+                ocrService = null;
+                normalizer = null;
+            }
+        }
 
         int errors = 0;
         int totalBoxes = 0;
@@ -63,15 +85,75 @@ public static class CliRunner
                 continue;
             }
 
+            if (ocrService != null && normalizer != null && boxes.Count > 0)
+            {
+                boxes = RunOcrForBoxes(file, boxes, ocrService, normalizer, TextPosition.Above, 35);
+            }
+
             var outputPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".json");
             jsonService.WriteResult(outputPath, name, boxes);
             totalBoxes += boxes.Count;
 
-            if ((i + 1) % 500 == 0)
+            if ((i + 1) % 50 == 0 || i == 0)
                 Console.WriteLine($"[Progress] {i + 1}/{files.Count} boxes={totalBoxes} errors={errors}");
         }
 
+        ocrService?.Dispose();
         Console.WriteLine($"[Done] {files.Count} images, {totalBoxes} boxes, {errors} errors -> {outputDir}");
+    }
+
+    private static List<Services.DetectedBox> RunOcrForBoxes(string imagePath, List<Services.DetectedBox> boxes,
+        Services.OcrService ocrService, Services.CategoryNormalizer normalizer,
+        TextPosition textPos = TextPosition.Above, int textExtent = 35)
+    {
+        using var image = Cv2.ImRead(imagePath);
+        if (image.Empty())
+            return boxes;
+
+        var tempDir = Path.Combine(Path.GetTempPath(), "brobb_ocr");
+        Directory.CreateDirectory(tempDir);
+        var result = new List<Services.DetectedBox>();
+
+        foreach (var box in boxes)
+        {
+            int minX = box.Corners.Min(c => c.X);
+            int minY = box.Corners.Min(c => c.Y);
+            int maxX = box.Corners.Max(c => c.X);
+            int maxY = box.Corners.Max(c => c.Y);
+
+            var rect = Services.OcrService.CropForOcr(image.Width, image.Height, minX, minY, maxX, maxY,
+                textPos, textExtent);
+
+            if (rect.Width < 10 || rect.Height < 10)
+            {
+                result.Add(box);
+                continue;
+            }
+
+            using var crop = new Mat(image, rect);
+            var tempPath = Path.Combine(tempDir, $"crop_{Guid.NewGuid():N}.jpg");
+            Cv2.ImWrite(tempPath, crop);
+
+            try
+            {
+                var ocrResult = ocrService.Recognize(tempPath);
+                var catResult = normalizer.Normalize(ocrResult.Text);
+                result.Add(new Services.DetectedBox
+                {
+                    Corners = box.Corners,
+                    Type = string.IsNullOrEmpty(catResult.Category) ? box.Type : catResult.Category,
+                    OcrConfidence = catResult.Confidence
+                });
+                if (!string.IsNullOrEmpty(ocrResult.Text))
+                    Console.WriteLine($"    [OCR] raw='{ocrResult.Text}' -> '{catResult.Category}' conf={catResult.Confidence:0.00}");
+            }
+            finally
+            {
+                try { File.Delete(tempPath); } catch { }
+            }
+        }
+
+        return result;
     }
 
     private static void RunCheck(string imageDir, string labelDir)

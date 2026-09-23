@@ -12,4 +12,5 @@ public class ImageDetectionResult
     public List<DetectedBox> Boxes { get; set; } = new();
 
     public string Summary => $"{ImageName} ({Boxes.Count} box)";
+    public int BoxCount => Boxes.Count;
 }

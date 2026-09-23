@@ -3,6 +3,15 @@ using System.Text.Json.Serialization;
 
 namespace BRobbDetector.Models;
 
+public enum TextPosition
+{
+    Above,
+    Below,
+    Left,
+    Right,
+    Inside
+}
+
 public class ColorRule
 {
     [JsonPropertyName("type")]
@@ -61,4 +70,7 @@ public class DetectionParams
     public int TwoPassShrink { get; set; } = 2;
     public int TwoPassMaxCompSize { get; set; } = 30;
     public int TwoPassMaxCompArea { get; set; } = 600;
+
+    public TextPosition OcrTextPosition { get; set; } = TextPosition.Above;
+    public int OcrTextExtent { get; set; } = 35;
 }

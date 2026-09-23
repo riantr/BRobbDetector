@@ -12,6 +12,7 @@ using BRobbDetector.Models;
 using BRobbDetector.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using OpenCvSharp;
 
 namespace BRobbDetector.ViewModels;
 
@@ -21,6 +22,8 @@ public partial class MainViewModel : ViewModelBase
     private readonly LabelJsonService _jsonService;
     private CancellationTokenSource? _cts;
     private DetectionParams? _activeParams;
+    private OcrService? _ocrService;
+    private CategoryNormalizer? _categoryNormalizer;
 
     [ObservableProperty]
     private string _inputDirectory = string.Empty;
@@ -53,6 +56,18 @@ public partial class MainViewModel : ViewModelBase
     private int _lineOpenLength = 15;
 
     [ObservableProperty]
+    private bool _enableOcr;
+
+    [ObservableProperty]
+    private string _categoryList = "子弹,工具,枪支,液体,火种,烟火制品,管制器具,锂电池,锐器";
+
+    [ObservableProperty]
+    private int _ocrTextPositionIndex;
+
+    [ObservableProperty]
+    private int _ocrTextExtent = 35;
+
+    [ObservableProperty]
     private bool _isProcessing;
 
     [ObservableProperty]
@@ -69,6 +84,12 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty]
     private string _previewInfo = string.Empty;
+
+    [ObservableProperty]
+    private int _previewWidth;
+
+    [ObservableProperty]
+    private int _previewHeight;
 
     public ObservableCollection<ImageDetectionResult> Results { get; } = new();
 
@@ -165,6 +186,24 @@ public partial class MainViewModel : ViewModelBase
         _activeParams = parameters;
         int totalBoxes = 0;
 
+        if (EnableOcr)
+        {
+            try
+            {
+                _ocrService = new OcrService();
+                _ocrService.Start();
+                _categoryNormalizer = new CategoryNormalizer(
+                    CategoryList.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+                Log("[OCR] Service started.");
+            }
+            catch (Exception ex)
+            {
+                Log($"[OCR] Failed to start: {ex.Message}");
+                _ocrService = null;
+                _categoryNormalizer = null;
+            }
+        }
+
         try
         {
             await Task.Run(() =>
@@ -195,22 +234,32 @@ public partial class MainViewModel : ViewModelBase
                         continue;
                     }
 
+                    if (EnableOcr && boxes.Count > 0 && _ocrService != null && _categoryNormalizer != null)
+                    {
+                        try
+                        {
+                            boxes = RunOcrForBoxes(file, boxes);
+                        }
+                        catch (Exception ex)
+                        {
+                            Dispatcher.UIThread.Post(() =>
+                                LogMessages.Insert(0, $"[OCR] {name}: {ex.Message}"));
+                        }
+                    }
+
                     var jsonPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".json");
                     _jsonService.WriteResult(jsonPath, name, boxes);
 
                     totalBoxes += boxes.Count;
 
-                    if (boxes.Count > 0)
+                    var result = new ImageDetectionResult
                     {
-                        var result = new ImageDetectionResult
-                        {
-                            ImagePath = file,
-                            ImageName = name,
-                            JsonPath = jsonPath,
-                            Boxes = boxes
-                        };
-                        Dispatcher.UIThread.Post(() => Results.Add(result));
-                    }
+                        ImagePath = file,
+                        ImageName = name,
+                        JsonPath = jsonPath,
+                        Boxes = boxes
+                    };
+                    Dispatcher.UIThread.Post(() => Results.Add(result));
 
                     if ((i + 1) % 500 == 0)
                         GC.Collect(2, GCCollectionMode.Optimized, false);
@@ -234,6 +283,8 @@ public partial class MainViewModel : ViewModelBase
         }
         finally
         {
+            _ocrService?.Dispose();
+            _ocrService = null;
             IsProcessing = false;
             DetectCommand.NotifyCanExecuteChanged();
             ProgressText = string.Empty;
@@ -248,9 +299,31 @@ public partial class MainViewModel : ViewModelBase
         _cts?.Cancel();
     }
 
+    private bool CanPrev() => Results.Count > 0 && SelectedResult != null && Results.IndexOf(SelectedResult) > 0;
+
+    [RelayCommand(CanExecute = nameof(CanPrev))]
+    private void Prev()
+    {
+        var idx = Results.IndexOf(SelectedResult!);
+        if (idx > 0)
+            SelectedResult = Results[idx - 1];
+    }
+
+    private bool CanNext() => Results.Count > 0 && SelectedResult != null && Results.IndexOf(SelectedResult) < Results.Count - 1;
+
+    [RelayCommand(CanExecute = nameof(CanNext))]
+    private void Next()
+    {
+        var idx = Results.IndexOf(SelectedResult!);
+        if (idx >= 0 && idx < Results.Count - 1)
+            SelectedResult = Results[idx + 1];
+    }
+
     partial void OnSelectedResultChanged(ImageDetectionResult? value)
     {
         _ = LoadPreviewAsync(value);
+        PrevCommand.NotifyCanExecuteChanged();
+        NextCommand.NotifyCanExecuteChanged();
     }
 
     private async Task LoadPreviewAsync(ImageDetectionResult? result)
@@ -260,6 +333,8 @@ public partial class MainViewModel : ViewModelBase
             PreviewImage = null;
             Overlays = new List<BoxOverlay>();
             PreviewInfo = string.Empty;
+            PreviewWidth = 0;
+            PreviewHeight = 0;
             return;
         }
 
@@ -274,6 +349,9 @@ public partial class MainViewModel : ViewModelBase
             var old = PreviewImage;
             PreviewImage = bitmap;
             old?.Dispose();
+
+            PreviewWidth = bitmap.PixelSize.Width;
+            PreviewHeight = bitmap.PixelSize.Height;
 
             Overlays = result.Boxes.Select(b => new BoxOverlay
             {
@@ -293,6 +371,58 @@ public partial class MainViewModel : ViewModelBase
     {
         var rule = _activeParams?.ColorRules.FirstOrDefault(r => r.Type == type);
         return rule == null ? Brushes.Cyan : BoxOverlay.CreateComplementBrush(rule);
+    }
+
+    private List<DetectedBox> RunOcrForBoxes(string imagePath, List<DetectedBox> boxes)
+    {
+        using var image = Cv2.ImRead(imagePath);
+        if (image.Empty())
+            return boxes;
+
+        var tempDir = Path.Combine(Path.GetTempPath(), "brobb_ocr");
+        Directory.CreateDirectory(tempDir);
+        var result = new List<DetectedBox>();
+
+        foreach (var box in boxes)
+        {
+            int minX = box.Corners.Min(c => c.X);
+            int minY = box.Corners.Min(c => c.Y);
+            int maxX = box.Corners.Max(c => c.X);
+            int maxY = box.Corners.Max(c => c.Y);
+
+            var pos = (TextPosition)OcrTextPositionIndex;
+            var rect = OcrService.CropForOcr(image.Width, image.Height, minX, minY, maxX, maxY,
+                pos, OcrTextExtent);
+
+            if (rect.Width < 10 || rect.Height < 10)
+            {
+                result.Add(box);
+                continue;
+            }
+
+            using var crop = new Mat(image, rect);
+            var tempPath = Path.Combine(tempDir, $"crop_{Guid.NewGuid():N}.jpg");
+            Cv2.ImWrite(tempPath, crop);
+
+            try
+            {
+                var ocrResult = _ocrService!.Recognize(tempPath);
+                var catResult = _categoryNormalizer!.Normalize(ocrResult.Text);
+                var newBox = new DetectedBox
+                {
+                    Corners = box.Corners,
+                    Type = string.IsNullOrEmpty(catResult.Category) ? box.Type : catResult.Category,
+                    OcrConfidence = catResult.Confidence
+                };
+                result.Add(newBox);
+            }
+            finally
+            {
+                try { File.Delete(tempPath); } catch { }
+            }
+        }
+
+        return result;
     }
 
     private void Log(string message)

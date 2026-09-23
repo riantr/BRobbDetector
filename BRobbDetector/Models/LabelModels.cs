@@ -19,4 +19,8 @@ public class LabelInfo
 
     [JsonPropertyName("type")]
     public string Type { get; set; } = string.Empty;
+
+    [JsonPropertyName("score")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public double Score { get; set; }
 }
