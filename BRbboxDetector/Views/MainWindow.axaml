@@ -1,0 +1,151 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BRbboxDetector.ViewModels"
+        xmlns:views="using:BRbboxDetector.Views"
+        xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="BRbboxDetector.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="BRbboxDetector - 边界框检测工具"
+        Width="1200" Height="950"
+        MinWidth="800" MinHeight="600">
+    
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+    
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="15,8"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style Selector="Slider">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style Selector="CheckBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid ColumnDefinitions="400,*">
+        <!-- Left Panel: Settings -->
+        <ScrollViewer Grid.Column="0">
+            <StackPanel Margin="10">
+                <!-- Title -->
+                <TextBlock Text="BRbboxDetector" 
+                           FontSize="24" FontWeight="Bold" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,10,0,20"/>
+                
+                <!-- Path Settings Group -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="路径设置" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        
+                        <Grid ColumnDefinitions="120,*,80" Margin="0,5">
+                            <TextBlock Text="输入图像目录:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Text="{Binding InputDirDisplayName}" IsReadOnly="True"/>
+                            <Button Grid.Column="2" Content="浏览..." 
+                                    Command="{Binding BrowseInputDirCommand}"/>
+                        </Grid>
+                        
+                        <Grid ColumnDefinitions="120,*,80" Margin="0,5">
+                            <TextBlock Text="模板目录:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Text="{Binding TemplateDirDisplayName}" IsReadOnly="True"/>
+                            <Button Grid.Column="2" Content="浏览..." 
+                                    Command="{Binding BrowseTemplateDirCommand}"/>
+                        </Grid>
+                        
+                        <Grid ColumnDefinitions="120,*,80" Margin="0,5">
+                            <TextBlock Text="输出目录:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Text="{Binding OutputDirDisplayName}" IsReadOnly="True"/>
+                            <Button Grid.Column="2" Content="浏览..." 
+                                    Command="{Binding BrowseOutputDirCommand}"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Preprocess Settings Group -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="预处理设置" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        
+                        <CheckBox Content="启用预处理" IsChecked="{Binding UsePreprocess}"/>
+                        
+                        <Grid ColumnDefinitions="120,*,50" IsVisible="{Binding UsePreprocess}" Margin="0,5">
+                            <TextBlock Text="最小灰度阈值:" VerticalAlignment="Center"/>
+                            <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding MinThreshold}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding MinThreshold}" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <Grid ColumnDefinitions="120,*,50" IsVisible="{Binding UsePreprocess}" Margin="0,5">
+                            <TextBlock Text="最大灰度阈值:" VerticalAlignment="Center"/>
+                            <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding MaxThreshold}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding MaxThreshold}" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <CheckBox Content="启用去噪" IsChecked="{Binding UseDenoise}" IsVisible="{Binding UsePreprocess}"/>
+                        
+                        <Grid ColumnDefinitions="120,*,50" IsVisible="{Binding UseDenoise}" Margin="0,5">
+                            <TextBlock Text="去噪阈值:" VerticalAlignment="Center"/>
+                            <Slider Grid.Column="1" Minimum="1" Maximum="100" Value="{Binding DenoiseThreshold}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding DenoiseThreshold}" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <Button Content="预览效果" Command="{Binding ShowGrayscalePreviewCommand}" IsEnabled="{Binding ImagePreview.HasOriginalImage}" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Match Settings Group -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="匹配设置" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        
+                        <CheckBox Content="使用空心模板" IsChecked="{Binding UseHollowTemplate}"/>
+                        
+                        <Grid ColumnDefinitions="120,*,50" Margin="0,5">
+                            <TextBlock Text="匹配阈值 (0-1):" VerticalAlignment="Center"/>
+                            <Slider Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding MatchThreshold}" 
+                                    SmallChange="0.01" LargeChange="0.1"/>
+                            <TextBlock Grid.Column="2" Text="{Binding MatchThreshold, StringFormat={}{0:F2}}" 
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Progress -->
+                <StackPanel IsVisible="{Binding IsProcessing}" Margin="0,0,0,10">
+                    <ProgressBar Value="{Binding ProgressValue}" Maximum="{Binding ProgressMax}" Height="20"/>
+                    <TextBlock Text="{Binding ProgressValue, StringFormat={}{0} / {0} images}" 
+                               HorizontalAlignment="Center" Margin="0,5"/>
+                </StackPanel>
+                
+                <!-- Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <Button Content="开始检测" Command="{Binding StartDetectionCommand}" 
+                            IsEnabled="{Binding !IsProcessing}"/>
+                    <Button Content="取消" Command="{Binding CancelDetectionCommand}" 
+                            IsEnabled="{Binding IsProcessing}"/>
+                </StackPanel>
+                
+                <!-- Log Area -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5" Margin="0,10,0,0">
+                    <ScrollViewer Height="200">
+                        <TextBox Text="{Binding LogText}" 
+                                 IsReadOnly="True" 
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <!-- Right Panel: Image Preview -->
+        <views:ImagePreviewView Grid.Column="1" DataContext="{Binding ImagePreview}"/>
+    </Grid>
+</Window>

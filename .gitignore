@@ -1,0 +1,27 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Results / temp / debug
+Result_*/
+BRobbDetector/Result/
+tmp_*/
+debug_*/
+debug_*.png
+result/
+
+# Binaries
+*.exe
+*.dll
+*.evb
+
+# IDE
+.idea/
+.vscode/

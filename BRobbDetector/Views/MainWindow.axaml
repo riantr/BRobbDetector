@@ -1,0 +1,107 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BRobbDetector.ViewModels"
+        xmlns:views="using:BRobbDetector.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="720"
+        x:Class="BRobbDetector.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="BRobbDetector - 标注框颜色检测"
+        Width="1100" Height="720">
+
+  <TabControl>
+    <TabItem Header="检测 Detection">
+      <Grid ColumnDefinitions="300,*" Margin="8">
+        <StackPanel Grid.Column="0" Spacing="8">
+
+          <TextBlock Text="输入目录 (图片)" FontWeight="Bold" />
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBox Grid.Column="0" Text="{Binding InputDirectory}" Watermark="Select input folder..." />
+            <Button Grid.Column="1" Content="..." Margin="4,0,0,0" Click="OnPickInputDir" />
+          </Grid>
+
+          <TextBlock Text="输出目录 (JSON)" FontWeight="Bold" Margin="0,8,0,0" />
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBox Grid.Column="0" Text="{Binding OutputDirectory}" Watermark="Select output folder..." />
+            <Button Grid.Column="1" Content="..." Margin="4,0,0,0" Click="OnPickOutputDir" />
+          </Grid>
+
+          <Separator Margin="0,8,0,0" />
+          <TextBlock Text="颜色规则 (标注框颜色)" FontWeight="Bold" Margin="0,8,0,0" />
+          <TextBlock Text="类型 (Type)" FontSize="11" />
+          <TextBox Text="{Binding TypeName}" />
+          <TextBlock Text="饱和度下限 SatMin" FontSize="11" />
+          <NumericUpDown Value="{Binding SatMin}" Minimum="0" Maximum="255" Increment="5" />
+          <TextBlock Text="明度下限 ValMin" FontSize="11" />
+          <NumericUpDown Value="{Binding ValMin}" Minimum="0" Maximum="255" Increment="5" />
+
+          <TextBlock Text="孔洞检测" FontWeight="Bold" Margin="0,8,0,0" />
+          <TextBlock Text="最小孔面积 HoleMinArea" FontSize="11" />
+          <NumericUpDown Value="{Binding HoleMinArea}" Minimum="50" Maximum="100000" Increment="50" />
+          <TextBlock Text="最小边 HoleMinSide (px)" FontSize="11" />
+          <NumericUpDown Value="{Binding HoleMinSide}" Minimum="5" Maximum="500" Increment="5" />
+          <TextBlock Text="最小填充率 HoleMinFill (%)" FontSize="11" />
+          <NumericUpDown Value="{Binding HoleMinFillPercent}" Minimum="10" Maximum="100" Increment="5" />
+          <TextBlock Text="最小边支撑 HoleMinSupport (%)" FontSize="11" />
+          <NumericUpDown Value="{Binding HoleMinSupportPercent}" Minimum="10" Maximum="100" Increment="5" />
+          <TextBlock Text="线开运算长度 LineOpenLen" FontSize="11" />
+          <NumericUpDown Value="{Binding LineOpenLength}" Minimum="5" Maximum="50" Increment="5" />
+
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+            <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
+            <Button Content="取消" Command="{Binding CancelCommand}" />
+          </StackPanel>
+          <ProgressBar IsIndeterminate="{Binding IsProcessing}" Height="4" Margin="0,8,0,0"
+                       IsVisible="{Binding IsProcessing}" />
+          <TextBlock Text="{Binding ProgressText}" FontSize="11" Opacity="0.7" />
+
+        </StackPanel>
+
+        <Grid Grid.Column="1" ColumnDefinitions="*,240" Margin="8,0,0,0">
+          <Border Grid.Column="0" BorderBrush="#AAAAAA" BorderThickness="1" Background="#222222">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+              <Panel>
+                <Image Source="{Binding PreviewImage}" Width="{Binding PreviewImage.PixelSize.Width}"
+                       Height="{Binding PreviewImage.PixelSize.Height}"
+                       IsVisible="{Binding PreviewImage, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <Canvas Background="Transparent">
+                  <ItemsControl ItemsSource="{Binding Overlays}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <Canvas />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="2" />
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </Canvas>
+              </Panel>
+            </ScrollViewer>
+          </Border>
+
+          <StackPanel Grid.Column="1" Margin="8,0,0,0">
+            <TextBlock Text="检测结果" FontWeight="Bold" />
+            <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="380">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Summary}" />
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Text="日志" FontWeight="Bold" Margin="0,8,0,0" />
+            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="180" />
+          </StackPanel>
+        </Grid>
+      </Grid>
+    </TabItem>
+
+    <TabItem Header="检查 Checker">
+      <views:CheckerView DataContext="{Binding Checker}" />
+    </TabItem>
+  </TabControl>
+</Window>

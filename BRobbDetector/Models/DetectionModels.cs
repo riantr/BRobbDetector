@@ -1,0 +1,64 @@
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace BRobbDetector.Models;
+
+public class ColorRule
+{
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = "液体";
+
+    [JsonPropertyName("h_low")]
+    public int HueLow { get; set; } = 0;
+
+    [JsonPropertyName("h_high")]
+    public int HueHigh { get; set; } = 10;
+
+    [JsonPropertyName("h_low2")]
+    public int HueLow2 { get; set; } = 170;
+
+    [JsonPropertyName("h_high2")]
+    public int HueHigh2 { get; set; } = 180;
+
+    [JsonPropertyName("s_min")]
+    public int SatMin { get; set; } = 80;
+
+    [JsonPropertyName("v_min")]
+    public int ValMin { get; set; } = 110;
+
+    public bool UseSecondRange { get; set; } = true;
+}
+
+public class DetectionParams
+{
+    public List<ColorRule> ColorRules { get; set; } = new()
+    {
+        new ColorRule()
+    };
+
+    public double MaxImageFraction { get; set; } = 0.5;
+
+    public int TextGlyphMaxSize { get; set; } = 28;
+    public int TextGlyphMaxArea { get; set; } = 450;
+    public int TextMinCluster { get; set; } = 2;
+    public int TextJoinX { get; set; } = 21;
+    public int TextJoinY { get; set; } = 7;
+
+    public int LineOpenLength { get; set; } = 15;
+    public int LineOpenStep { get; set; } = 15;
+
+    public int HoleMinArea { get; set; } = 300;
+    public int HoleMinSide { get; set; } = 12;
+    public double HoleMinFill { get; set; } = 0.50;
+    public double HoleMinSupport { get; set; } = 0.50;
+    public int HoleStroke { get; set; } = 3;
+    public int CloseIterations { get; set; } = 2;
+
+    public double NmsThreshold { get; set; } = 0.4;
+    public double DedupContainThreshold { get; set; } = 0.85;
+
+    public int TwoPassEdgeBand { get; set; } = 5;
+    public int TwoPassShrink { get; set; } = 2;
+    public int TwoPassMaxCompSize { get; set; } = 30;
+    public int TwoPassMaxCompArea { get; set; } = 600;
+}

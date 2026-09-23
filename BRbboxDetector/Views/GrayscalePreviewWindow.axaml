@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BRbboxDetector.ViewModels"
+        x:Class="BRbboxDetector.Views.GrayscalePreviewWindow"
+        x:DataType="vm:GrayscalePreviewViewModel"
+        Title="灰度图预览"
+        Width="1000" Height="750"
+        MinWidth="700" MinHeight="500"
+        WindowStartupLocation="CenterOwner"
+        Closed="OnWindowClosed">
+    
+    <Design.DataContext>
+        <vm:GrayscalePreviewViewModel/>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="10">
+        <!-- Top Navigation -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="5">
+                <Button Content="上一张" Command="{Binding PreviousImageCommand}" Padding="15,8"/>
+                <Button Content="下一张" Command="{Binding NextImageCommand}" Padding="15,8"/>
+            </StackPanel>
+            
+            <TextBlock Grid.Column="1" 
+                       Text="{Binding ImageCounter}" 
+                       FontSize="14" 
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            
+            <TextBlock Grid.Column="2" 
+                       Text="{Binding ImagePath}" 
+                       FontSize="12" 
+                       Foreground="Gray"
+                       TextTrimming="CharacterEllipsis"
+                       MaxWidth="400"/>
+        </Grid>
+        
+        <!-- Preprocess Controls -->
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock Text="预处理设置" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                
+                <Grid ColumnDefinitions="120,*,50" Margin="0,5">
+                    <TextBlock Text="最小灰度阈值:" VerticalAlignment="Center"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding MinThreshold}"/>
+                    <TextBlock Grid.Column="2" Text="{Binding MinThreshold}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+                
+                <Grid ColumnDefinitions="120,*,50" Margin="0,5">
+                    <TextBlock Text="最大灰度阈值:" VerticalAlignment="Center"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding MaxThreshold}"/>
+                    <TextBlock Grid.Column="2" Text="{Binding MaxThreshold}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+                
+                <CheckBox Content="启用去噪" IsChecked="{Binding UseDenoise}" Margin="0,5"/>
+                
+                <Grid ColumnDefinitions="120,*,50" IsVisible="{Binding UseDenoise}" Margin="0,5">
+                    <TextBlock Text="去噪阈值:" VerticalAlignment="Center"/>
+                    <Slider Grid.Column="1" Minimum="1" Maximum="100" Value="{Binding DenoiseThreshold}"/>
+                    <TextBlock Grid.Column="2" Text="{Binding DenoiseThreshold}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        
+        <!-- Image Display -->
+        <ScrollViewer Grid.Row="2" 
+                      HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto"
+                      Background="#F8F8F8">
+            <Image Source="{Binding GrayscaleImage}" 
+                   Stretch="None" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"/>
+        </ScrollViewer>
+        
+        <!-- Bottom Button -->
+        <Button Grid.Row="3" 
+                Content="返回" 
+                Command="{Binding CloseCommand}" 
+                HorizontalAlignment="Center" 
+                Padding="30,10" 
+                Margin="0,10,0,0"/>
+    </Grid>
+</Window>

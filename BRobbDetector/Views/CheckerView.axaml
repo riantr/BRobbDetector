@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BRobbDetector.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1050" d:DesignHeight="650"
+             x:Class="BRobbDetector.Views.CheckerView"
+             x:DataType="vm:CheckerViewModel">
+
+  <Grid Margin="8" ColumnDefinitions="300,*">
+
+    <StackPanel Grid.Column="0" Grid.RowSpan="2" Spacing="8">
+      <TextBlock Text="图片目录" FontWeight="Bold" />
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBox Grid.Column="0" Text="{Binding ImageDirectory}" Watermark="Image folder..." />
+        <Button Grid.Column="1" Content="..." Margin="4,0,0,0" Click="OnPickImageDir" />
+      </Grid>
+
+      <TextBlock Text="标注目录 (JSON)" FontWeight="Bold" Margin="0,8,0,0" />
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBox Grid.Column="0" Text="{Binding LabelDirectory}" Watermark="Label folder..." />
+        <Button Grid.Column="1" Content="..." Margin="4,0,0,0" Click="OnPickLabelDir" />
+      </Grid>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+        <Button Content="加载" Command="{Binding LoadDataCommand}" />
+        <Button Content="计算灰度均值" Command="{Binding CalculateCommand}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <Button Content="升序" Command="{Binding SortAscendingCommand}" />
+        <Button Content="降序" Command="{Binding SortDescendingCommand}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <Button Content="◀ 上一个" Command="{Binding PreviousCommand}" />
+        <Button Content="下一个 ▶" Command="{Binding NextCommand}" />
+      </StackPanel>
+
+      <TextBlock Text="{Binding PositionText}" FontWeight="Bold" Margin="0,8,0,0" />
+
+      <Button Content="标记/取消待删除" Command="{Binding ToggleMarkForDeleteCommand}" Margin="0,12,0,0" />
+      <Button Content="应用删除 (重写JSON)" Command="{Binding ApplyDeletionsCommand}" />
+
+      <Border BorderBrush="#AAAAAA" BorderThickness="1" Padding="6" Margin="0,12,0,0">
+        <TextBlock Text="{Binding InfoText}" TextWrapping="Wrap" FontSize="11" />
+      </Border>
+    </StackPanel>
+
+    <Border Grid.Column="1" BorderBrush="#AAAAAA" BorderThickness="1" Background="#222222" Margin="8,0,0,0">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Panel>
+          <Image Source="{Binding PreviewImage}" Width="{Binding PreviewImage.PixelSize.Width}"
+                 Height="{Binding PreviewImage.PixelSize.Height}"
+                 IsVisible="{Binding PreviewImage, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          <Canvas Background="Transparent">
+            <ItemsControl ItemsSource="{Binding Overlays}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <Canvas />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="2" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </Canvas>
+        </Panel>
+      </ScrollViewer>
+    </Border>
+  </Grid>
+</UserControl>

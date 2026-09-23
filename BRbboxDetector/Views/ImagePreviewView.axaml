@@ -1,0 +1,157 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BRbboxDetector.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="using:BRbboxDetector.Views"
+             x:Class="BRbboxDetector.Views.ImagePreviewView"
+             x:DataType="vm:ImagePreviewViewModel"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="600">
+    
+    <UserControl.Resources>
+        <views:FileNameConverter x:Key="FileNameConverter"/>
+    </UserControl.Resources>
+    
+    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10">
+        <Grid RowDefinitions="Auto,1*,Auto,5*">
+            <!-- Image List Header -->
+            <TextBlock Grid.Row="0" Text="图像列表" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            
+            <!-- Image List -->
+            <ListBox Grid.Row="1" 
+                     ItemsSource="{Binding ImageFiles}"
+                     SelectedItem="{Binding SelectedImagePath}"
+                     Margin="0,0,0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={StaticResource FileNameConverter}}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            <!-- Preview Header -->
+            <TextBlock Grid.Row="2" Text="图像预览" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            
+            <!-- Image Display -->
+            <Grid Grid.Row="3">
+                <!-- Single View Mode (Original Image Only) -->
+                <Border IsVisible="{Binding !IsPreviewMode}" BorderBrush="Gray" BorderThickness="1" Background="#F5F5F5" MinHeight="150">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <!-- Image Layer -->
+                            <Image Source="{Binding OriginalImage}" 
+                                   IsVisible="{Binding HasOriginalImage}"
+                                   Stretch="None" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                            <!-- Canvas for Bounding Boxes (Overlay Layer) -->
+                            <Canvas Width="{Binding ImageWidth}" 
+                                    Height="{Binding ImageHeight}"
+                                    IsVisible="{Binding HasBoundingBoxes}"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                <ItemsControl ItemsSource="{Binding BoundingBoxes}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Canvas>
+                                                <!-- 四边形边界框（灰色） -->
+                                                <Polygon Points="{Binding Points}"
+                                                         Stroke="Gray"
+                                                         StrokeThickness="2"
+                                                         Fill="#40808080"/>
+                                                <!-- 对角线1：点1到点3 -->
+                                                <Line StartPoint="{Binding Diagonal1Start}"
+                                                      EndPoint="{Binding Diagonal1End}"
+                                                      Stroke="Gray"
+                                                      StrokeThickness="1"/>
+                                                <!-- 对角线2：点2到点4 -->
+                                                <Line StartPoint="{Binding Diagonal2Start}"
+                                                      EndPoint="{Binding Diagonal2End}"
+                                                      Stroke="Gray"
+                                                      StrokeThickness="1"/>
+                                            </Canvas>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Canvas>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+                
+                <!-- Preview Mode (Original + Preprocessed) -->
+                <Grid IsVisible="{Binding IsPreviewMode}" ColumnDefinitions="*,*">
+                    <!-- Left: Original Image -->
+                    <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Background="#F5F5F5" Margin="0,0,5,0">
+                        <StackPanel>
+                            <TextBlock Text="原图" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,5"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <!-- Image Layer -->
+                                    <Image Source="{Binding OriginalImage}" 
+                                           IsVisible="{Binding HasOriginalImage}"
+                                           Stretch="None" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                    <!-- Canvas for Bounding Boxes (Overlay Layer) -->
+                                    <Canvas Width="{Binding ImageWidth}" 
+                                            Height="{Binding ImageHeight}"
+                                            IsVisible="{Binding HasBoundingBoxes}"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
+                                        <ItemsControl ItemsSource="{Binding BoundingBoxes}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <Canvas/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Canvas>
+                                                        <!-- 四边形边界框（灰色） -->
+                                                        <Polygon Points="{Binding Points}"
+                                                                 Stroke="Gray"
+                                                                 StrokeThickness="2"
+                                                                 Fill="#40808080"/>
+                                                        <!-- 对角线1：点1到点3 -->
+                                                        <Line StartPoint="{Binding Diagonal1Start}"
+                                                              EndPoint="{Binding Diagonal1End}"
+                                                              Stroke="Gray"
+                                                              StrokeThickness="1"/>
+                                                        <!-- 对角线2：点2到点4 -->
+                                                        <Line StartPoint="{Binding Diagonal2Start}"
+                                                              EndPoint="{Binding Diagonal2End}"
+                                                              Stroke="Gray"
+                                                              StrokeThickness="1"/>
+                                                    </Canvas>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Canvas>
+                                </Grid>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Right: Preprocessed Image -->
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Background="#F5F5F5" Margin="5,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="预处理效果" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,5"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <Image Source="{Binding PreprocessedImage}" 
+                                       IsVisible="{Binding HasPreprocessedImage}"
+                                       Stretch="None" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
