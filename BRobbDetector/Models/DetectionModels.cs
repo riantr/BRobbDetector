@@ -17,6 +17,8 @@ public class ColorRule
     [JsonPropertyName("type")]
     public string Type { get; set; } = "液体";
 
+    public string Name { get; set; } = string.Empty;
+
     [JsonPropertyName("h_low")]
     public int HueLow { get; set; } = 0;
 

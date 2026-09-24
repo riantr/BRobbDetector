@@ -1,4 +1,5 @@
 using System;
+using Avalonia;
 using Avalonia.Media;
 using BRobbDetector.Models;
 
@@ -6,12 +7,12 @@ namespace BRobbDetector.ViewModels;
 
 public class BoxOverlay
 {
-    public string Points { get; set; } = string.Empty;
+    public Points Points { get; set; } = new Points();
     public IBrush Stroke { get; set; } = Brushes.Cyan;
 
-    public static string ToPointsString(IEnumerable<(double X, double Y)> corners)
+    public static Points ToPoints(IEnumerable<(double X, double Y)> corners)
     {
-        return string.Join(" ", corners.Select(c => $"{c.X:0},{c.Y:0}"));
+        return new Points(corners.Select(c => new Point(c.X, c.Y)));
     }
 
     /// <summary>

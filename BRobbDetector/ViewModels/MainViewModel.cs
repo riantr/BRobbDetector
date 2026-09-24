@@ -68,6 +68,9 @@ public partial class MainViewModel : ViewModelBase
     private int _ocrTextExtent = 35;
 
     [ObservableProperty]
+    private int _displayMode;
+
+    [ObservableProperty]
     private bool _isProcessing;
 
     [ObservableProperty]
@@ -91,9 +94,26 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private int _previewHeight;
 
+    [ObservableProperty]
+    private int _canvasWidth = 800;
+
+    [ObservableProperty]
+    private int _canvasHeight = 600;
+
     public ObservableCollection<ImageDetectionResult> Results { get; } = new();
 
     public ObservableCollection<string> LogMessages { get; } = new();
+
+    public ObservableCollection<ColorOption> ColorOptions { get; } = new()
+    {
+        new ColorOption { Name = "红 Red", Swatch = Brushes.Red, HueLow = 0, HueHigh = 10, HueLow2 = 170, HueHigh2 = 180, IsSelected = true },
+        new ColorOption { Name = "橙 Orange", Swatch = Brushes.Orange, HueLow = 11, HueHigh = 25 },
+        new ColorOption { Name = "黄 Yellow", Swatch = Brushes.Yellow, HueLow = 26, HueHigh = 34 },
+        new ColorOption { Name = "绿 Green", Swatch = Brushes.Green, HueLow = 35, HueHigh = 78 },
+        new ColorOption { Name = "青 Cyan", Swatch = Brushes.Cyan, HueLow = 79, HueHigh = 99 },
+        new ColorOption { Name = "蓝 Blue", Swatch = Brushes.Blue, HueLow = 100, HueHigh = 130 },
+        new ColorOption { Name = "紫 Purple", Swatch = Brushes.Purple, HueLow = 131, HueHigh = 170 },
+    };
 
     public CheckerViewModel Checker { get; }
 
@@ -125,21 +145,40 @@ public partial class MainViewModel : ViewModelBase
 
     private DetectionParams BuildParams()
     {
+        var rules = ColorOptions
+            .Where(c => c.IsSelected)
+            .Select(c => new ColorRule
+            {
+                Name = c.Name,
+                Type = TypeName,
+                HueLow = c.HueLow,
+                HueHigh = c.HueHigh,
+                UseSecondRange = c.HueLow2 >= 0,
+                HueLow2 = c.HueLow2,
+                HueHigh2 = c.HueHigh2,
+                SatMin = SatMin,
+                ValMin = ValMin
+            })
+            .ToList();
+
+        if (rules.Count == 0)
+        {
+            rules.Add(new ColorRule
+            {
+                Name = "Red",
+                Type = TypeName,
+                HueLow = 0,
+                HueHigh = 10,
+                HueLow2 = 170,
+                HueHigh2 = 180,
+                SatMin = SatMin,
+                ValMin = ValMin
+            });
+        }
+
         return new DetectionParams
         {
-            ColorRules = new List<ColorRule>
-            {
-                new ColorRule
-                {
-                    Type = TypeName,
-                    HueLow = 0,
-                    HueHigh = 10,
-                    HueLow2 = 170,
-                    HueHigh2 = 180,
-                    SatMin = SatMin,
-                    ValMin = ValMin
-                }
-            },
+            ColorRules = rules,
             HoleMinArea = HoleMinArea,
             HoleMinSide = HoleMinSide,
             HoleMinFill = HoleMinFillPercent / 100.0,
@@ -309,6 +348,14 @@ public partial class MainViewModel : ViewModelBase
             SelectedResult = Results[idx - 1];
     }
 
+    private bool CanRefresh() => SelectedResult != null;
+
+    [RelayCommand(CanExecute = nameof(CanRefresh))]
+    private void Refresh()
+    {
+        _ = LoadPreviewAsync(SelectedResult);
+    }
+
     private bool CanNext() => Results.Count > 0 && SelectedResult != null && Results.IndexOf(SelectedResult) < Results.Count - 1;
 
     [RelayCommand(CanExecute = nameof(CanNext))]
@@ -323,6 +370,7 @@ public partial class MainViewModel : ViewModelBase
     {
         _ = LoadPreviewAsync(value);
         PrevCommand.NotifyCanExecuteChanged();
+        RefreshCommand.NotifyCanExecuteChanged();
         NextCommand.NotifyCanExecuteChanged();
     }
 
@@ -353,11 +401,17 @@ public partial class MainViewModel : ViewModelBase
             PreviewWidth = bitmap.PixelSize.Width;
             PreviewHeight = bitmap.PixelSize.Height;
 
-            Overlays = result.Boxes.Select(b => new BoxOverlay
-            {
-                Points = BoxOverlay.ToPointsString(b.Corners.Select(c => ((double)c.X, (double)c.Y))),
-                Stroke = GetBrushForType(b.Type)
-            }).ToList();
+            double scale = Math.Min((double)CanvasWidth / PreviewWidth, (double)CanvasHeight / PreviewHeight);
+            double offsetX = (CanvasWidth - PreviewWidth * scale) / 2.0;
+            double offsetY = (CanvasHeight - PreviewHeight * scale) / 2.0;
+
+            Overlays = DisplayMode == 2
+                ? new List<BoxOverlay>()
+                : result.Boxes.Select(b => new BoxOverlay
+                {
+                    Points = BoxOverlay.ToPoints(b.Corners.Select(c => (c.X * scale + offsetX, c.Y * scale + offsetY))),
+                    Stroke = GetBrushForBox(b)
+                }).ToList();
 
             PreviewInfo = $"{result.ImageName} - {result.Boxes.Count} box(es)";
         }
@@ -367,9 +421,31 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    private IBrush GetBrushForType(string type)
+    partial void OnDisplayModeChanged(int value)
     {
-        var rule = _activeParams?.ColorRules.FirstOrDefault(r => r.Type == type);
+        _ = LoadPreviewAsync(SelectedResult);
+    }
+
+    partial void OnCanvasWidthChanged(int value)
+    {
+        _ = LoadPreviewAsync(SelectedResult);
+    }
+
+    partial void OnCanvasHeightChanged(int value)
+    {
+        _ = LoadPreviewAsync(SelectedResult);
+    }
+
+    private IBrush GetBrushForBox(DetectedBox box)
+    {
+        if (DisplayMode == 1)
+        {
+            var opt = ColorOptions.FirstOrDefault(c => c.Name == box.RuleName);
+            if (opt != null) return opt.Swatch;
+        }
+
+        var rule = _activeParams?.ColorRules.FirstOrDefault(r => r.Name == box.RuleName && !string.IsNullOrEmpty(box.RuleName))
+            ?? _activeParams?.ColorRules.FirstOrDefault(r => r.Type == box.Type);
         return rule == null ? Brushes.Cyan : BoxOverlay.CreateComplementBrush(rule);
     }
 

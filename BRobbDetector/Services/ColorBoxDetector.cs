@@ -10,6 +10,7 @@ public class DetectedBox
 {
     public List<Point> Corners { get; set; } = new();
     public string Type { get; set; } = string.Empty;
+    public string RuleName { get; set; } = string.Empty;
     public double OcrConfidence { get; set; }
 
     public string PointsText => string.Join(";", Corners.Select(c => $"{c.X},{c.Y}"));
@@ -49,11 +50,11 @@ public class ColorBoxDetector
 
         var rects = DetectPass(mask, p, imgWidth, imgHeight);
         if (rects.Count == 0)
-            return rects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type)).ToList();
+            return rects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
 
         using var cleaned = ObbRemoveTextComponents(mask, rects, p);
         var rects2 = DetectPass(cleaned, p, imgWidth, imgHeight);
-        return rects2.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type)).ToList();
+        return rects2.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
     }
 
     private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight)
@@ -387,13 +388,13 @@ public class ColorBoxDetector
         return innerCount > 0 ? (double)interCount / innerCount : 0.0;
     }
 
-    private static DetectedBox RectToDetectedBox(RotatedRect rect, int imgWidth, int imgHeight, string type)
+    private static DetectedBox RectToDetectedBox(RotatedRect rect, int imgWidth, int imgHeight, string type, string ruleName = "")
     {
         var pts = Cv2.BoxPoints(rect);
         var corners = pts.Select(f => new Point(
             Math.Clamp((int)Math.Round(f.X), 0, imgWidth - 1),
             Math.Clamp((int)Math.Round(f.Y), 0, imgHeight - 1))).ToList();
-        return new DetectedBox { Corners = OrderCorners(corners), Type = type };
+        return new DetectedBox { Corners = OrderCorners(corners), Type = type, RuleName = ruleName };
     }
 
     public static List<Point> OrderCorners(List<Point> pts)

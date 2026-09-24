@@ -278,7 +278,7 @@ public partial class CheckerViewModel : ViewModelBase
             {
                 new BoxOverlay
                 {
-                    Points = BoxOverlay.ToPointsString(new List<(double, double)>
+                    Points = BoxOverlay.ToPoints(new List<(double, double)>
                     {
                         (item.X1, item.Y1), (item.X2, item.Y1), (item.X2, item.Y2), (item.X1, item.Y2)
                     }),
@@ -286,7 +286,7 @@ public partial class CheckerViewModel : ViewModelBase
                 },
                 new BoxOverlay
                 {
-                    Points = BoxOverlay.ToPointsString(new List<(double, double)>
+                    Points = BoxOverlay.ToPoints(new List<(double, double)>
                     {
                         (item.X1Inner, item.Y1Inner), (item.X2Inner, item.Y1Inner),
                         (item.X2Inner, item.Y2Inner), (item.X1Inner, item.Y2Inner)

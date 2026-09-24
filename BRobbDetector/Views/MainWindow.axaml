@@ -13,7 +13,8 @@
   <TabControl>
     <TabItem Header="检测 Detection">
       <Grid ColumnDefinitions="300,*" Margin="8">
-        <StackPanel Grid.Column="0" Spacing="8">
+        <ScrollViewer Grid.Column="0">
+        <StackPanel Spacing="8">
 
           <TextBlock Text="输入目录 (图片)" FontWeight="Bold" />
           <Grid ColumnDefinitions="*,Auto">
@@ -64,44 +65,85 @@
           <NumericUpDown Value="{Binding OcrTextExtent}" Minimum="10" Maximum="200" Increment="5"
                          IsVisible="{Binding EnableOcr}" />
 
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
-            <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
-            <Button Content="取消" Command="{Binding CancelCommand}" />
-          </StackPanel>
-          <ProgressBar IsIndeterminate="{Binding IsProcessing}" Height="4" Margin="0,8,0,0"
-                       IsVisible="{Binding IsProcessing}" />
-          <TextBlock Text="{Binding ProgressText}" FontSize="11" Opacity="0.7" />
-
         </StackPanel>
+        </ScrollViewer>
 
         <Grid Grid.Column="1" ColumnDefinitions="*,260" Margin="8,0,0,0">
           <Border Grid.Column="0" BorderBrush="#AAAAAA" BorderThickness="1" Background="#222222">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
               <Panel>
-                <Image Source="{Binding PreviewImage}" Width="{Binding PreviewWidth}"
-                       Height="{Binding PreviewHeight}"
+                <Image Source="{Binding PreviewImage}" Width="{Binding CanvasWidth}"
+                       Height="{Binding CanvasHeight}" Stretch="Uniform"
                        IsVisible="{Binding PreviewImage, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                <Canvas Width="{Binding PreviewWidth}" Height="{Binding PreviewHeight}" Background="Transparent">
-                  <ItemsControl ItemsSource="{Binding Overlays}">
-                    <ItemsControl.ItemsPanel>
-                      <ItemsPanelTemplate>
-                        <Canvas />
-                      </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                      <DataTemplate>
-                        <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="2" />
-                      </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                  </ItemsControl>
-                </Canvas>
+                <ItemsControl ItemsSource="{Binding Overlays}"
+                              Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}"
+                              Background="Transparent">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <Canvas />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="3"
+                               Fill="Transparent" IsHitTestVisible="False" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
               </Panel>
             </ScrollViewer>
           </Border>
 
           <StackPanel Grid.Column="1" Margin="8,0,0,0">
-            <TextBlock Text="检测结果" FontWeight="Bold" />
-            <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="350">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
+              <Button Content="取消" Command="{Binding CancelCommand}" />
+            </StackPanel>
+            <ProgressBar IsIndeterminate="{Binding IsProcessing}" Height="4" Margin="0,4,0,0"
+                         IsVisible="{Binding IsProcessing}" />
+            <TextBlock Text="{Binding ProgressText}" FontSize="11" Opacity="0.7" TextWrapping="Wrap" />
+
+            <TextBlock Text="标注框色彩" FontWeight="Bold" Margin="0,8,0,0" />
+            <ItemsControl ItemsSource="{Binding ColorOptions}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <ToggleButton IsChecked="{Binding IsSelected}" Margin="0,0,4,4" Padding="4,2">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                      <Rectangle Width="12" Height="12" Fill="{Binding Swatch}" />
+                      <TextBlock Text="{Binding Name}" FontSize="11" />
+                    </StackPanel>
+                  </ToggleButton>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+              <Button Content="◀ 上一张" Command="{Binding PrevCommand}" Padding="8,4" />
+              <Button Content="↻ 刷新" Command="{Binding RefreshCommand}" Padding="8,4" />
+              <Button Content="下一张 ▶" Command="{Binding NextCommand}" Padding="8,4" />
+            </StackPanel>
+
+            <TextBlock Text="显示结果" FontWeight="Bold" Margin="0,8,0,0" />
+            <ComboBox SelectedIndex="{Binding DisplayMode}" HorizontalAlignment="Stretch">
+              <ComboBoxItem Content="补色 (Complement)" />
+              <ComboBoxItem Content="原色 (Original)" />
+              <ComboBoxItem Content="不显示 (None)" />
+            </ComboBox>
+
+            <Grid ColumnDefinitions="Auto,*,Auto,*" Margin="0,4,0,0">
+              <TextBlock Grid.Column="0" Text="画布 W" FontSize="11" VerticalAlignment="Center" />
+              <NumericUpDown Grid.Column="1" Value="{Binding CanvasWidth}" Minimum="200" Maximum="2000" Increment="50" Margin="4,0,0,0" />
+              <TextBlock Grid.Column="2" Text="H" FontSize="11" VerticalAlignment="Center" Margin="4,0,0,0" />
+              <NumericUpDown Grid.Column="3" Value="{Binding CanvasHeight}" Minimum="200" Maximum="2000" Increment="50" Margin="4,0,0,0" />
+            </Grid>
+
+            <TextBlock Text="检测结果" FontWeight="Bold" Margin="0,8,0,0" />
+            <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="280">
               <ListBox.ItemTemplate>
                 <DataTemplate>
                   <Grid ColumnDefinitions="*,Auto">
@@ -113,13 +155,8 @@
               </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
-              <Button Content="◀ 上一张" Command="{Binding PrevCommand}" Padding="8,4" />
-              <Button Content="下一张 ▶" Command="{Binding NextCommand}" Padding="8,4" />
-            </StackPanel>
-
             <TextBlock Text="日志" FontWeight="Bold" Margin="0,8,0,0" />
-            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="160" />
+            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="120" />
           </StackPanel>
         </Grid>
       </Grid>
