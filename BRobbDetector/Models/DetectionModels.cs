@@ -34,8 +34,14 @@ public class ColorRule
     [JsonPropertyName("s_min")]
     public int SatMin { get; set; } = 80;
 
+    [JsonPropertyName("s_max")]
+    public int SatMax { get; set; } = 255;
+
     [JsonPropertyName("v_min")]
     public int ValMin { get; set; } = 110;
+
+    [JsonPropertyName("v_max")]
+    public int ValMax { get; set; } = 255;
 
     public bool UseSecondRange { get; set; } = true;
 }
@@ -59,9 +65,13 @@ public class DetectionParams
     public int LineOpenStep { get; set; } = 15;
 
     public int HoleMinArea { get; set; } = 300;
+    public int HoleMaxArea { get; set; } = 100000;
     public int HoleMinSide { get; set; } = 12;
+    public int HoleMaxSide { get; set; } = 500;
     public double HoleMinFill { get; set; } = 0.50;
+    public double HoleMaxFill { get; set; } = 1.0;
     public double HoleMinSupport { get; set; } = 0.50;
+    public double HoleMaxSupport { get; set; } = 1.0;
     public int HoleStroke { get; set; } = 3;
     public int CloseIterations { get; set; } = 2;
 

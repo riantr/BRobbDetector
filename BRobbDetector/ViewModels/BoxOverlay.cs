@@ -9,6 +9,7 @@ public class BoxOverlay
 {
     public Points Points { get; set; } = new Points();
     public IBrush Stroke { get; set; } = Brushes.Cyan;
+    public double StrokeThickness { get; set; } = 3.0;
 
     public static Points ToPoints(IEnumerable<(double X, double Y)> corners)
     {
@@ -41,4 +42,11 @@ public class BoxOverlay
         else { r = c; g = 0; b = x; }
         return ((byte)Math.Round((r + m) * 255), (byte)Math.Round((g + m) * 255), (byte)Math.Round((b + m) * 255));
     }
+}
+public class TextOverlay
+{
+    public string Text { get; set; } = string.Empty;
+    public double X { get; set; }
+    public double Y { get; set; }
+    public IBrush Foreground { get; set; } = Brushes.White;
 }

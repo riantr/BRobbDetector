@@ -29,25 +29,104 @@
           </Grid>
 
           <Separator Margin="0,8,0,0" />
-          <TextBlock Text="颜色规则 (标注框颜色)" FontWeight="Bold" Margin="0,8,0,0" />
-          <TextBlock Text="类型 (Type)" FontSize="11" />
-          <TextBox Text="{Binding TypeName}" />
-          <TextBlock Text="饱和度下限 SatMin" FontSize="11" />
-          <NumericUpDown Value="{Binding SatMin}" Minimum="0" Maximum="255" Increment="5" />
-          <TextBlock Text="明度下限 ValMin" FontSize="11" />
-          <NumericUpDown Value="{Binding ValMin}" Minimum="0" Maximum="255" Increment="5" />
+          <TextBlock Text="颜色规则 (标注框颜色)" FontWeight="Bold" Margin="2,8,0,0" />
+          <Grid ColumnDefinitions="Auto,*" Margin="2,4,0,0">
+            <TextBlock Grid.Column="0" Text="目标色" FontSize="11" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" SelectedIndex="{Binding TargetColorIndex}" HorizontalAlignment="Stretch" Margin="4,0,0,0">
+              <ComboBoxItem Content="黑" />
+              <ComboBoxItem Content="灰" />
+              <ComboBoxItem Content="白" />
+              <ComboBoxItem Content="红" />
+              <ComboBoxItem Content="橙" />
+              <ComboBoxItem Content="黄" />
+              <ComboBoxItem Content="绿" />
+              <ComboBoxItem Content="青" />
+              <ComboBoxItem Content="蓝" />
+              <ComboBoxItem Content="紫" />
+            </ComboBox>
+          </Grid>
+          <ItemsControl ItemsSource="{Binding TypeCategories}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border BorderBrush="#444444" BorderThickness="1" CornerRadius="3" Padding="4" Margin="0,0,0,4">
+                  <StackPanel Spacing="3">
+                    <Grid ColumnDefinitions="*,Auto">
+                      <TextBox Grid.Column="0" Text="{Binding Name}" Watermark="类别名称" FontSize="11" />
+                      <Button Grid.Column="1" Content="✕" Margin="4,0,0,0" Padding="4,2"
+                              Click="OnRemoveCategory" Tag="{Binding}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,2,0,0">
+                      <TextBlock Grid.Column="0" Text="H" FontSize="10" VerticalAlignment="Center" />
+                      <Slider Grid.Column="1" Minimum="0" Maximum="180" Value="{Binding HueLow}" TickFrequency="10" />
+                      <TextBlock Grid.Column="2" Text="{Binding HueLow}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Slider Grid.Column="3" Minimum="0" Maximum="180" Value="{Binding HueHigh}" TickFrequency="10" />
+                      <TextBlock Grid.Column="4" Text="{Binding HueHigh}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                    <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                      <TextBlock Grid.Column="0" Text="S" FontSize="10" VerticalAlignment="Center" />
+                      <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding SatMin}" TickFrequency="16" />
+                      <TextBlock Grid.Column="2" Text="{Binding SatMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding SatMax}" TickFrequency="16" />
+                      <TextBlock Grid.Column="4" Text="{Binding SatMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                    <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                      <TextBlock Grid.Column="0" Text="V" FontSize="10" VerticalAlignment="Center" />
+                      <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding ValMin}" TickFrequency="16" />
+                      <TextBlock Grid.Column="2" Text="{Binding ValMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding ValMax}" TickFrequency="16" />
+                      <TextBlock Grid.Column="4" Text="{Binding ValMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2,0,0">
+            <Button Content="+ 添加类别" Command="{Binding AddCategoryCommand}" Padding="4,2" />
+            <Button Content="自动求阈值" Command="{Binding AutoColorThresholdCommand}" Padding="4,2" />
+            <Button Content="还原" Command="{Binding RestoreColorDefaultsCommand}" Padding="4,2" />
+          </StackPanel>
 
           <TextBlock Text="孔洞检测" FontWeight="Bold" Margin="0,8,0,0" />
-          <TextBlock Text="最小孔面积 HoleMinArea" FontSize="11" />
-          <NumericUpDown Value="{Binding HoleMinArea}" Minimum="50" Maximum="100000" Increment="50" />
-          <TextBlock Text="最小边 HoleMinSide (px)" FontSize="11" />
-          <NumericUpDown Value="{Binding HoleMinSide}" Minimum="5" Maximum="500" Increment="5" />
-          <TextBlock Text="最小填充率 HoleMinFill (%)" FontSize="11" />
-          <NumericUpDown Value="{Binding HoleMinFillPercent}" Minimum="10" Maximum="100" Increment="5" />
-          <TextBlock Text="最小边支撑 HoleMinSupport (%)" FontSize="11" />
-          <NumericUpDown Value="{Binding HoleMinSupportPercent}" Minimum="10" Maximum="100" Increment="5" />
-          <TextBlock Text="线开运算长度 LineOpenLen" FontSize="11" />
-          <NumericUpDown Value="{Binding LineOpenLength}" Minimum="5" Maximum="50" Increment="5" />
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2,0,2">
+            <Button Content="自动求阈值" Command="{Binding AutoThresholdCommand}" Padding="4,2" />
+            <Button Content="还原" Command="{Binding RestoreDefaultsCommand}" Padding="4,2" />
+          </StackPanel>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,2,0,0">
+            <TextBlock Grid.Column="0" Text="孔面积" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="50" Maximum="100000" Value="{Binding HoleMinArea}" TickFrequency="500" />
+            <TextBlock Grid.Column="2" Text="{Binding HoleMinArea}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="50" Maximum="100000" Value="{Binding HoleMaxArea}" TickFrequency="500" />
+            <TextBlock Grid.Column="4" Text="{Binding HoleMaxArea}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="边长" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="5" Maximum="500" Value="{Binding HoleMinSide}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding HoleMinSide}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="5" Maximum="500" Value="{Binding HoleMaxSide}" TickFrequency="5" />
+            <TextBlock Grid.Column="4" Text="{Binding HoleMaxSide}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="填充率" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="10" Maximum="100" Value="{Binding HoleMinFillPercent}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding HoleMinFillPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="10" Maximum="100" Value="{Binding HoleMaxFillPercent}" TickFrequency="5" />
+            <TextBlock Grid.Column="4" Text="{Binding HoleMaxFillPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="支撑率" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="10" Maximum="100" Value="{Binding HoleMinSupportPercent}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding HoleMinSupportPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="10" Maximum="100" Value="{Binding HoleMaxSupportPercent}" TickFrequency="5" />
+            <TextBlock Grid.Column="4" Text="{Binding HoleMaxSupportPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="开运算" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding LineOpenLength}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding LineOpenLength}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="1" Maximum="30" Value="{Binding LineOpenStep}" TickFrequency="2" />
+            <TextBlock Grid.Column="4" Text="{Binding LineOpenStep}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
 
           <Separator Margin="0,8,0,0" />
           <CheckBox Content="启用OCR识别 (RapidOCR)" IsChecked="{Binding EnableOcr}" Margin="0,8,0,0" />
@@ -85,11 +164,43 @@
                   </ItemsControl.ItemsPanel>
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                      <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="3"
+                      <Polygon Points="{Binding Points}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"
                                Fill="Transparent" IsHitTestVisible="False" />
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <ItemsControl ItemsSource="{Binding TextOverlays}"
+                              Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}"
+                              Background="Transparent">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <Canvas />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.Styles>
+                    <Style Selector="ContentPresenter">
+                      <Setter Property="Canvas.Left" Value="{Binding X}" />
+                      <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    </Style>
+                  </ItemsControl.Styles>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Text}" Foreground="{Binding Foreground}"
+                                 FontSize="13" FontWeight="Bold" IsHitTestVisible="False" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Border Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}"
+                        Background="Transparent" IsHitTestVisible="True"
+                        PointerPressed="OnCanvasPointerPressed">
+                  <Border.ContextMenu>
+                    <ContextMenu Opening="OnContextMenuOpening">
+                      <MenuItem Header="求取边框HSV色值" Click="OnGetBoxHsv" />
+                      <MenuItem Header="计算孔洞面积" Click="OnComputeHoleArea" />
+                      <MenuItem Header="测量最小边长" Click="OnMeasureMinSide" />
+                    </ContextMenu>
+                  </Border.ContextMenu>
+                </Border>
               </Panel>
             </ScrollViewer>
           </Border>
@@ -103,24 +214,29 @@
                          IsVisible="{Binding IsProcessing}" />
             <TextBlock Text="{Binding ProgressText}" FontSize="11" Opacity="0.7" TextWrapping="Wrap" />
 
-            <TextBlock Text="标注框色彩" FontWeight="Bold" Margin="0,8,0,0" />
-            <ItemsControl ItemsSource="{Binding ColorOptions}">
-              <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <WrapPanel />
-                </ItemsPanelTemplate>
-              </ItemsControl.ItemsPanel>
-              <ItemsControl.ItemTemplate>
+            <TextBlock Text="标注框色彩 (HSV参考)" FontWeight="Bold" Margin="0,8,0,0" />
+            <ListBox ItemsSource="{Binding ColorOptions}" MaxHeight="180" Padding="2">
+              <ListBox.ItemTemplate>
                 <DataTemplate>
-                  <ToggleButton IsChecked="{Binding IsSelected}" Margin="0,0,4,4" Padding="4,2">
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                      <Rectangle Width="12" Height="12" Fill="{Binding Swatch}" />
-                      <TextBlock Text="{Binding Name}" FontSize="11" />
+                  <Grid ColumnDefinitions="20,16,24,Auto" Margin="0,1">
+                    <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" Padding="0" />
+                    <Rectangle Grid.Column="1" Width="12" Height="12" Fill="{Binding Swatch}" Margin="2,0,4,0" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Text="{Binding Name}" FontSize="11" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                      <TextBlock FontSize="9" Opacity="0.7">
+                        <Run Text="H:" /><Run Text="{Binding HueLow}" /><Run Text="-" /><Run Text="{Binding HueHigh}" />
+                      </TextBlock>
+                      <TextBlock FontSize="9" Opacity="0.7">
+                        <Run Text="S:" /><Run Text="{Binding SatMin}" /><Run Text="-" /><Run Text="{Binding SatMax}" />
+                      </TextBlock>
+                      <TextBlock FontSize="9" Opacity="0.7">
+                        <Run Text="V:" /><Run Text="{Binding ValMin}" /><Run Text="-" /><Run Text="{Binding ValMax}" />
+                      </TextBlock>
                     </StackPanel>
-                  </ToggleButton>
+                  </Grid>
                 </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
+              </ListBox.ItemTemplate>
+            </ListBox>
 
             <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
               <Button Content="◀ 上一张" Command="{Binding PrevCommand}" Padding="8,4" />
@@ -146,17 +262,27 @@
             <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}" MaxHeight="280">
               <ListBox.ItemTemplate>
                 <DataTemplate>
-                  <Grid ColumnDefinitions="*,Auto">
-                    <TextBlock Grid.Column="0" Text="{Binding ImageName}" FontSize="11" />
-                    <TextBlock Grid.Column="1" Text="{Binding BoxCount}" FontSize="11"
-                               Foreground="{Binding BoxCount, Converter={x:Static views:BoxCountColorConverter.Instance}}" />
+                  <Grid ColumnDefinitions="90,*">
+                    <Image Grid.Column="0" Source="{Binding Thumbnail}" Width="80" Height="60"
+                           Stretch="Uniform" Margin="0,1" />
+                    <StackPanel Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center">
+                      <TextBlock Text="{Binding ImageName}" FontSize="10" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Text="{Binding BoxCount}" FontSize="10"
+                                 Foreground="{Binding BoxCount, Converter={x:Static views:BoxCountColorConverter.Instance}}" />
+                    </StackPanel>
                   </Grid>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
 
             <TextBlock Text="日志" FontWeight="Bold" Margin="0,8,0,0" />
-            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="120" />
+            <ListBox ItemsSource="{Binding LogMessages}" FontSize="11" MaxHeight="120">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding}" TextWrapping="Wrap" FontSize="11" />
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
           </StackPanel>
         </Grid>
       </Grid>

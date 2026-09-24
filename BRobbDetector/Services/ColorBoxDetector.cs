@@ -16,6 +16,15 @@ public class DetectedBox
     public string PointsText => string.Join(";", Corners.Select(c => $"{c.X},{c.Y}"));
 }
 
+public class HoleStats
+{
+    public double Area;
+    public double MinSide;
+    public double MaxSide;
+    public double FillRatio;
+    public double Support;
+}
+
 public class ColorBoxDetector
 {
     public List<DetectedBox> Detect(Mat image, DetectionParams? parameters = null)
@@ -44,6 +53,62 @@ public class ColorBoxDetector
         return Detect(image, parameters);
     }
 
+    public List<HoleStats> CollectHoleStats(string imagePath, DetectionParams parameters)
+    {
+        using var image = Cv2.ImRead(imagePath);
+        if (image.Empty()) return new List<HoleStats>();
+        using var hsv = new Mat();
+        Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
+
+        var allStats = new List<HoleStats>();
+        foreach (var rule in parameters.ColorRules)
+        {
+            using var mask = BuildRuleMask(hsv, rule);
+            using var noText = RemoveText(mask, parameters);
+            using var cleaned = LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
+            var stats = CollectHoleStatsFromMask(cleaned, parameters, image.Width, image.Height);
+            allStats.AddRange(stats);
+        }
+        return allStats;
+    }
+
+    private static List<HoleStats> CollectHoleStatsFromMask(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        var stats = new List<HoleStats>();
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var closed = new Mat();
+        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+
+        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        if (hierarchy == null || hierarchy.Length == 0) return stats;
+
+        for (int i = 0; i < contours.Length; i++)
+        {
+            if (hierarchy[i].Parent < 0) continue;
+            double area = Cv2.ContourArea(contours[i]);
+            if (area < 50 || area > maxPixels) continue;
+
+            var rect = Cv2.MinAreaRect(contours[i]);
+            double rw = rect.Size.Width;
+            double rh = rect.Size.Height;
+            double minSide = Math.Min(rw, rh);
+            double maxSide = Math.Max(rw, rh);
+            if (minSide < 3) continue;
+
+            double rectArea = rw * rh;
+            if (rectArea <= 0) continue;
+            double fillRatio = area / rectArea;
+
+            var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+            double support = PerimeterSupport(expanded, cleaned, 2);
+
+            stats.Add(new HoleStats { Area = area, MinSide = minSide, MaxSide = maxSide, FillRatio = fillRatio, Support = support });
+        }
+        return stats;
+    }
+
     private List<DetectedBox> DetectByRule(Mat hsv, ColorRule rule, DetectionParams p, int imgWidth, int imgHeight)
     {
         using var mask = BuildRuleMask(hsv, rule);
@@ -70,12 +135,12 @@ public class ColorBoxDetector
     private Mat BuildRuleMask(Mat hsv, ColorRule rule)
     {
         var mask = new Mat();
-        Cv2.InRange(hsv, new Scalar(rule.HueLow, rule.SatMin, rule.ValMin), new Scalar(rule.HueHigh, 255, 255), mask);
+        Cv2.InRange(hsv, new Scalar(rule.HueLow, rule.SatMin, rule.ValMin), new Scalar(rule.HueHigh, rule.SatMax, rule.ValMax), mask);
 
         if (rule.UseSecondRange)
         {
             using var mask2 = new Mat();
-            Cv2.InRange(hsv, new Scalar(rule.HueLow2, rule.SatMin, rule.ValMin), new Scalar(rule.HueHigh2, 255, 255), mask2);
+            Cv2.InRange(hsv, new Scalar(rule.HueLow2, rule.SatMin, rule.ValMin), new Scalar(rule.HueHigh2, rule.SatMax, rule.ValMax), mask2);
             Cv2.BitwiseOr(mask, mask2, mask);
         }
 
@@ -264,21 +329,27 @@ public class ColorBoxDetector
                 continue;
 
             double area = Cv2.ContourArea(contours[i]);
-            if (area < p.HoleMinArea || area > maxPixels)
+            if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels)
                 continue;
 
             var rect = Cv2.MinAreaRect(contours[i]);
             double rw = rect.Size.Width;
             double rh = rect.Size.Height;
-            if (Math.Min(rw, rh) < p.HoleMinSide)
+            double minSide = Math.Min(rw, rh);
+            double maxSide = Math.Max(rw, rh);
+            if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide)
                 continue;
 
             double rectArea = rw * rh;
-            if (rectArea <= 0 || area / rectArea < p.HoleMinFill)
+            if (rectArea <= 0)
+                continue;
+            double fillRatio = area / rectArea;
+            if (fillRatio < p.HoleMinFill || fillRatio > p.HoleMaxFill)
                 continue;
 
             var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
-            if (PerimeterSupport(expanded, cleaned, 2) < p.HoleMinSupport)
+            double support = PerimeterSupport(expanded, cleaned, 2);
+            if (support < p.HoleMinSupport || support > p.HoleMaxSupport)
                 continue;
 
             rects.Add(expanded);

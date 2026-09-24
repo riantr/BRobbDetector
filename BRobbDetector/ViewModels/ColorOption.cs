@@ -11,6 +11,10 @@ public partial class ColorOption : ObservableObject
     public int HueHigh { get; init; }
     public int HueLow2 { get; init; } = -1;
     public int HueHigh2 { get; init; } = -1;
+    public int SatMin { get; init; }
+    public int SatMax { get; init; } = 255;
+    public int ValMin { get; init; }
+    public int ValMax { get; init; } = 255;
 
     [ObservableProperty]
     private bool _isSelected;
