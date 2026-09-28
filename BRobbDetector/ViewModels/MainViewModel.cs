@@ -79,6 +79,9 @@ public partial class MainViewModel : ViewModelBase
     private int _lineOpenStep = 15;
 
     [ObservableProperty]
+    private double _holeSplitSolidityPercent = 88;
+
+    [ObservableProperty]
     private bool _enableOcr;
 
     [ObservableProperty]
@@ -268,6 +271,7 @@ public partial class MainViewModel : ViewModelBase
             HoleMaxFill = HoleMaxFillPercent / 100.0,
             HoleMinSupport = HoleMinSupportPercent / 100.0,
             HoleMaxSupport = HoleMaxSupportPercent / 100.0,
+            HoleSplitSolidity = HoleSplitSolidityPercent / 100.0,
             LineOpenLength = LineOpenLength,
             LineOpenStep = LineOpenStep
         };
@@ -349,7 +353,7 @@ public partial class MainViewModel : ViewModelBase
                     var file = files[i];
                     var name = Path.GetFileName(file);
 
-                    if ((i + 1) % 50 == 0 || i == 0)
+                    if ((i + 1) % 50 == 0 || i == 0 || files.Count <= 50)
                     {
                         Dispatcher.UIThread.Post(() =>
                             ProgressText = $"[{i + 1}/{files.Count}] boxes={totalBoxes} errors={errors}");
@@ -392,6 +396,8 @@ public partial class MainViewModel : ViewModelBase
                         {
                             existing.JsonPath = jsonPath;
                             existing.Boxes = boxes;
+                            if (ReferenceEquals(existing, SelectedResult))
+                                _ = LoadPreviewAsync(existing);
                         }
                         else
                         {
@@ -414,7 +420,9 @@ public partial class MainViewModel : ViewModelBase
             }, _cts.Token);
 
             Log($"[Done] Processed {files.Count} image(s), {totalBoxes} box(es). Output: {outputDir}");
-            if (Results.Count > 0)
+            if (SelectedResult != null)
+                await LoadPreviewAsync(SelectedResult);
+            else if (Results.Count > 0)
                 SelectedResult = Results[0];
         }
         catch (OperationCanceledException)
@@ -462,6 +470,7 @@ public partial class MainViewModel : ViewModelBase
         HoleMaxSupportPercent = 100;
         LineOpenLength = 15;
         LineOpenStep = 15;
+        HoleSplitSolidityPercent = 88;
         Log("[Restore] Hole detection parameters restored to defaults.");
     }
 

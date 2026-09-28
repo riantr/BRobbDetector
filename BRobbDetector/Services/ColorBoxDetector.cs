@@ -87,24 +87,28 @@ public class ColorBoxDetector
         for (int i = 0; i < contours.Length; i++)
         {
             if (hierarchy[i].Parent < 0) continue;
-            double area = Cv2.ContourArea(contours[i]);
-            if (area < 50 || area > maxPixels) continue;
 
-            var rect = Cv2.MinAreaRect(contours[i]);
-            double rw = rect.Size.Width;
-            double rh = rect.Size.Height;
-            double minSide = Math.Min(rw, rh);
-            double maxSide = Math.Max(rw, rh);
-            if (minSide < 3) continue;
+            foreach (var holeContour in SplitIfMerged(contours[i], p))
+            {
+                double area = Cv2.ContourArea(holeContour);
+                if (area < 50 || area > maxPixels) continue;
 
-            double rectArea = rw * rh;
-            if (rectArea <= 0) continue;
-            double fillRatio = area / rectArea;
+                var rect = Cv2.MinAreaRect(holeContour);
+                double rw = rect.Size.Width;
+                double rh = rect.Size.Height;
+                double minSide = Math.Min(rw, rh);
+                double maxSide = Math.Max(rw, rh);
+                if (minSide < 3) continue;
 
-            var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
-            double support = PerimeterSupport(expanded, cleaned, 2);
+                double rectArea = rw * rh;
+                if (rectArea <= 0) continue;
+                double fillRatio = area / rectArea;
 
-            stats.Add(new HoleStats { Area = area, MinSide = minSide, MaxSide = maxSide, FillRatio = fillRatio, Support = support });
+                var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+                double support = PerimeterSupport(expanded, cleaned, 2);
+
+                stats.Add(new HoleStats { Area = area, MinSide = minSide, MaxSide = maxSide, FillRatio = fillRatio, Support = support });
+            }
         }
         return stats;
     }
@@ -328,33 +332,183 @@ public class ColorBoxDetector
             if (hierarchy[i].Parent < 0)
                 continue;
 
-            double area = Cv2.ContourArea(contours[i]);
-            if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels)
-                continue;
+            foreach (var holeContour in SplitIfMerged(contours[i], p))
+            {
+                double area = Cv2.ContourArea(holeContour);
+                if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels)
+                    continue;
 
-            var rect = Cv2.MinAreaRect(contours[i]);
-            double rw = rect.Size.Width;
-            double rh = rect.Size.Height;
-            double minSide = Math.Min(rw, rh);
-            double maxSide = Math.Max(rw, rh);
-            if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide)
-                continue;
+                var rect = Cv2.MinAreaRect(holeContour);
+                double rw = rect.Size.Width;
+                double rh = rect.Size.Height;
+                double minSide = Math.Min(rw, rh);
+                double maxSide = Math.Max(rw, rh);
+                if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide)
+                    continue;
 
-            double rectArea = rw * rh;
-            if (rectArea <= 0)
-                continue;
-            double fillRatio = area / rectArea;
-            if (fillRatio < p.HoleMinFill || fillRatio > p.HoleMaxFill)
-                continue;
+                double rectArea = rw * rh;
+                if (rectArea <= 0)
+                    continue;
+                double fillRatio = area / rectArea;
+                if (fillRatio < p.HoleMinFill || fillRatio > p.HoleMaxFill)
+                    continue;
 
-            var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
-            double support = PerimeterSupport(expanded, cleaned, 2);
-            if (support < p.HoleMinSupport || support > p.HoleMaxSupport)
-                continue;
+                var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+                double support = PerimeterSupport(expanded, cleaned, 2);
+                if (support < p.HoleMinSupport || support > p.HoleMaxSupport)
+                    continue;
 
-            rects.Add(expanded);
+                rects.Add(expanded);
+            }
         }
         return rects;
+    }
+
+    /// <summary>
+    /// Splits a hole contour that is actually the union of two or more overlapping
+    /// rectangles into its constituent parts, using shape concavity as the signal.
+    /// A single clean box hole is convex (solidity ~0.95); an overlapping union is
+    /// non-convex (solidity ~0.82-0.84). Splits at the concave "seam" junctions.
+    /// </summary>
+    private static List<Point[]> SplitIfMerged(Point[] contour, DetectionParams p, int maxDepth = 2)
+    {
+        var output = new List<Point[]>();
+        SplitRecursive(contour, p, maxDepth, output);
+        return output;
+    }
+
+    private static void SplitRecursive(Point[] contour, DetectionParams p, int depth, List<Point[]> output)
+    {
+        if (depth <= 0 || contour.Length < 12)
+        {
+            output.Add(contour);
+            return;
+        }
+
+        double area = Cv2.ContourArea(contour);
+        if (area <= 0)
+        {
+            output.Add(contour);
+            return;
+        }
+
+        var hull = Cv2.ConvexHull(contour);
+        double hullArea = Cv2.ContourArea(hull);
+        if (hullArea <= 0 || area / hullArea >= p.HoleSplitSolidity)
+        {
+            output.Add(contour);
+            return;
+        }
+
+        var parts = TrySplitAtConcavities(contour);
+        if (parts == null)
+        {
+            output.Add(contour);
+            return;
+        }
+
+        foreach (var part in parts)
+            SplitRecursive(part, p, depth - 1, output);
+    }
+
+    private static List<Point[]>? TrySplitAtConcavities(Point[] contour)
+    {
+        double peri = Cv2.ArcLength(contour, true);
+        if (peri <= 0)
+            return null;
+
+        var approx = Cv2.ApproxPolyDP(contour, 0.01 * peri, true);
+        if (approx.Length < 5)
+            return null;
+
+        var poly = SignedArea(approx) < 0 ? approx.Reverse().ToArray() : approx;
+
+        int n = poly.Length;
+        var concave = new List<Point>();
+        for (int i = 0; i < n; i++)
+        {
+            var pp = poly[(i - 1 + n) % n];
+            var c = poly[i];
+            var nx = poly[(i + 1) % n];
+            double cross = (double)(c.X - pp.X) * (nx.Y - c.Y) - (double)(c.Y - pp.Y) * (nx.X - c.X);
+            if (cross < 0)
+                concave.Add(c);
+        }
+
+        // A union of exactly two rectangles has exactly two reflex (concave) vertices.
+        // Anything else is noise / a single irregular box, so don't split.
+        if (concave.Count != 2)
+            return null;
+
+        Point pa = concave[0], pb = concave[1];
+
+        int ia = NearestIndex(contour, pa);
+        int ib = NearestIndex(contour, pb);
+        if (ia == ib)
+            return null;
+        if (ia > ib)
+            (ia, ib) = (ib, ia);
+
+        var subA = new List<Point>();
+        for (int i = ia; i <= ib; i++) subA.Add(contour[i]);
+        var subB = new List<Point>();
+        for (int i = ib; i < contour.Length; i++) subB.Add(contour[i]);
+        for (int i = 0; i <= ia; i++) subB.Add(contour[i]);
+
+        if (subA.Count < 4 || subB.Count < 4)
+            return null;
+
+        double total = Cv2.ContourArea(contour);
+        double areaA = Cv2.ContourArea(subA);
+        double areaB = Cv2.ContourArea(subB);
+        if (total <= 0 || areaA < 0.15 * total || areaB < 0.15 * total)
+            return null;
+
+        // Each part must itself be a clean (near-convex) rectangle.
+        if (Solidity(subA) < PartSolidity || Solidity(subB) < PartSolidity)
+            return null;
+
+        return new List<Point[]> { subA.ToArray(), subB.ToArray() };
+    }
+
+    private const double PartSolidity = 0.88;
+
+    private static double Solidity(List<Point> pts)
+    {
+        double area = Cv2.ContourArea(pts);
+        var hull = Cv2.ConvexHull(pts);
+        double hullArea = Cv2.ContourArea(hull);
+        return hullArea > 0 ? area / hullArea : 0.0;
+    }
+
+    private static double SignedArea(Point[] pts)
+    {
+        double s = 0;
+        for (int i = 0; i < pts.Length; i++)
+        {
+            var a = pts[i];
+            var b = pts[(i + 1) % pts.Length];
+            s += (double)a.X * b.Y - (double)b.X * a.Y;
+        }
+        return s / 2.0;
+    }
+
+    private static int NearestIndex(Point[] contour, Point target)
+    {
+        int best = 0;
+        double bd = double.MaxValue;
+        for (int i = 0; i < contour.Length; i++)
+        {
+            double dx = contour[i].X - target.X;
+            double dy = contour[i].Y - target.Y;
+            double d = dx * dx + dy * dy;
+            if (d < bd)
+            {
+                bd = d;
+                best = i;
+            }
+        }
+        return best;
     }
 
     private static double PerimeterSupport(RotatedRect rect, Mat evidence, int dilate)

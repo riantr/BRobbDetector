@@ -74,6 +74,7 @@ public class DetectionParams
     public double HoleMaxSupport { get; set; } = 1.0;
     public int HoleStroke { get; set; } = 3;
     public int CloseIterations { get; set; } = 2;
+    public double HoleSplitSolidity { get; set; } = 0.88;
 
     public double NmsThreshold { get; set; } = 0.4;
     public double DedupContainThreshold { get; set; } = 0.85;
