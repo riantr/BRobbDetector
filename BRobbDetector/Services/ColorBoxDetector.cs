@@ -128,8 +128,82 @@ public class ColorBoxDetector
         allRects.AddRange(rects2);
         allRects = Nms(allRects, p.NmsThreshold);
         allRects = DedupContained(allRects, p.DedupContainThreshold);
+        allRects = allRects.Select(r => RefineBox(r, mask)).ToList();
 
         return allRects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
+    }
+
+    /// <summary>
+    /// Refines a detected OBB so each edge aligns with the median position of
+    /// target-color pixels along that edge. For each edge, collects red pixels
+    /// in a perpendicular band, computes their median offset, shifts the edge
+    /// to that offset, then intersects the 4 shifted lines for new corners.
+    /// </summary>
+    private static RotatedRect RefineBox(RotatedRect rect, Mat mask, int band = 15)
+    {
+        var pts = Cv2.BoxPoints(rect);
+        int h = mask.Rows, w = mask.Cols;
+
+        var shiftedLines = new (Point2d point, Point2d dir)[4];
+        for (int i = 0; i < 4; i++)
+        {
+            var p1 = pts[i];
+            var p2 = pts[(i + 1) % 4];
+            double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+            double edgeLen = Math.Sqrt(dx * dx + dy * dy);
+            if (edgeLen < 1)
+            {
+                shiftedLines[i] = (new Point2d(p1.X, p1.Y), new Point2d(dx, dy));
+                continue;
+            }
+
+            double tx = dx / edgeLen, ty = dy / edgeLen;
+            double nx = -ty, ny = tx;
+
+            var offsets = new List<double>();
+            int nSamples = (int)edgeLen;
+            for (int t = 0; t <= nSamples; t++)
+            {
+                double frac = (double)t / nSamples;
+                double cx = p1.X + dx * frac;
+                double cy = p1.Y + dy * frac;
+                for (int d = -band; d <= band; d++)
+                {
+                    int px = (int)Math.Round(cx + nx * d);
+                    int py = (int)Math.Round(cy + ny * d);
+                    if (px >= 0 && px < w && py >= 0 && py < h && mask.At<byte>(py, px) > 0)
+                        offsets.Add((double)d);
+                }
+            }
+
+            double shift = offsets.Count >= 10 ? Median(offsets) : 0;
+            shiftedLines[i] = (new Point2d(p1.X + nx * shift, p1.Y + ny * shift), new Point2d(dx, dy));
+        }
+
+        var newCorners = new Point2d[4];
+        for (int i = 0; i < 4; i++)
+        {
+            var (c1, d1) = shiftedLines[i];
+            var (c2, d2) = shiftedLines[(i + 1) % 4];
+            double det = d1.X * (-d2.Y) - (-d2.X) * d1.Y;
+            if (Math.Abs(det) < 1e-6)
+            {
+                newCorners[i] = new Point2d(pts[i].X, pts[i].Y);
+                continue;
+            }
+            double t1 = ((c2.X - c1.X) * (-d2.Y) - (-d2.X) * (c2.Y - c1.Y)) / det;
+            newCorners[i] = new Point2d(c1.X + t1 * d1.X, c1.Y + t1 * d1.Y);
+        }
+
+        var contour = newCorners.Select(c => new Point((int)Math.Round(c.X), (int)Math.Round(c.Y))).ToArray();
+        return Cv2.MinAreaRect(contour);
+    }
+
+    private static double Median(List<double> values)
+    {
+        var sorted = values.OrderBy(v => v).ToList();
+        int n = sorted.Count;
+        return n % 2 == 0 ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0 : sorted[n / 2];
     }
 
     private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight, Mat? validationMask = null)
