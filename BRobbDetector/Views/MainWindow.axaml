@@ -132,6 +132,13 @@
             <Slider Grid.Column="1" Minimum="50" Maximum="100" Value="{Binding HoleSplitSolidityPercent}" TickFrequency="2" />
             <TextBlock Grid.Column="2" Text="{Binding HoleSplitSolidityPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
           </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="边线" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding EdgeMinSupportPercent}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding EdgeMinSupportPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="0" Maximum="4" Value="{Binding MinEdgesWithSupport}" TickFrequency="1" />
+            <TextBlock Grid.Column="4" Text="{Binding MinEdgesWithSupport}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
 
           <Separator Margin="0,8,0,0" />
           <CheckBox Content="启用OCR识别 (RapidOCR)" IsChecked="{Binding EnableOcr}" Margin="0,8,0,0" />

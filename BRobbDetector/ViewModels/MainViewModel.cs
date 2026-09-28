@@ -82,6 +82,12 @@ public partial class MainViewModel : ViewModelBase
     private double _holeSplitSolidityPercent = 88;
 
     [ObservableProperty]
+    private double _edgeMinSupportPercent = 25;
+
+    [ObservableProperty]
+    private int _minEdgesWithSupport = 3;
+
+    [ObservableProperty]
     private bool _enableOcr;
 
     [ObservableProperty]
@@ -272,6 +278,8 @@ public partial class MainViewModel : ViewModelBase
             HoleMinSupport = HoleMinSupportPercent / 100.0,
             HoleMaxSupport = HoleMaxSupportPercent / 100.0,
             HoleSplitSolidity = HoleSplitSolidityPercent / 100.0,
+            EdgeMinSupport = EdgeMinSupportPercent / 100.0,
+            MinEdgesWithSupport = MinEdgesWithSupport,
             LineOpenLength = LineOpenLength,
             LineOpenStep = LineOpenStep
         };
@@ -471,6 +479,8 @@ public partial class MainViewModel : ViewModelBase
         LineOpenLength = 15;
         LineOpenStep = 15;
         HoleSplitSolidityPercent = 88;
+        EdgeMinSupportPercent = 25;
+        MinEdgesWithSupport = 3;
         Log("[Restore] Hole detection parameters restored to defaults.");
     }
 

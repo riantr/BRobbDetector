@@ -79,6 +79,9 @@ public class DetectionParams
     public double NmsThreshold { get; set; } = 0.4;
     public double DedupContainThreshold { get; set; } = 0.85;
 
+    public double EdgeMinSupport { get; set; } = 0.25;
+    public int MinEdgesWithSupport { get; set; } = 3;
+
     public int TwoPassEdgeBand { get; set; } = 5;
     public int TwoPassShrink { get; set; } = 2;
     public int TwoPassMaxCompSize { get; set; } = 30;

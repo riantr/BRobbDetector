@@ -117,13 +117,108 @@ public class ColorBoxDetector
     {
         using var mask = BuildRuleMask(hsv, rule);
 
-        var rects = DetectPass(mask, p, imgWidth, imgHeight);
+        var rects = DetectPass(mask, p, imgWidth, imgHeight, mask);
         if (rects.Count == 0)
-            return rects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
+            return new List<DetectedBox>();
 
         using var cleaned = ObbRemoveTextComponents(mask, rects, p);
-        var rects2 = DetectPass(cleaned, p, imgWidth, imgHeight);
-        return rects2.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
+        var rects2 = DetectPass(cleaned, p, imgWidth, imgHeight, mask);
+
+        var allRects = new List<RotatedRect>(rects);
+        allRects.AddRange(rects2);
+        allRects = Nms(allRects, p.NmsThreshold);
+        allRects = DedupContained(allRects, p.DedupContainThreshold);
+
+        return allRects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
+    }
+
+    private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight, Mat? validationMask = null)
+    {
+        using var noText = RemoveText(mask, p);
+        using var cleaned = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
+        var rects = DetectHoles(cleaned, p, imgWidth, imgHeight);
+        if (validationMask != null)
+            rects = ValidateEdges(rects, validationMask, p);
+        rects = Nms(rects, p.NmsThreshold);
+        rects = DedupContained(rects, p.DedupContainThreshold);
+        return rects;
+    }
+
+    /// <summary>
+    /// Filters out detected rects whose edges don't align with target-color line
+    /// segments. For each edge, opens the mask with a line kernel in the edge's
+    /// own direction — only red pixels forming a line parallel to the edge survive.
+    /// A spurious hole whose edges merely cross through unrelated red pixels is
+    /// rejected because those pixels don't form lines in the edge direction.
+    /// </summary>
+    private static List<RotatedRect> ValidateEdges(List<RotatedRect> rects, Mat mask, DetectionParams p)
+    {
+        if (p.MinEdgesWithSupport <= 0 || p.EdgeMinSupport <= 0)
+            return rects;
+
+        var keep = new List<RotatedRect>();
+        foreach (var rect in rects)
+        {
+            if (HasEdgeSupport(rect, mask, p))
+                keep.Add(rect);
+        }
+        return keep;
+    }
+
+    private static bool HasEdgeSupport(RotatedRect rect, Mat mask, DetectionParams p)
+    {
+        var pts = Cv2.BoxPoints(rect);
+        int h = mask.Rows, w = mask.Cols;
+        int klen = p.LineOpenLength;
+
+        int edgesWithSupport = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            var p1 = pts[i];
+            var p2 = pts[(i + 1) % 4];
+            double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+            double edgeLen = Math.Sqrt(dx * dx + dy * dy);
+            if (edgeLen < 1) continue;
+
+            int angleDeg = (int)Math.Round(Math.Atan2(dy, dx) * 180.0 / Math.PI);
+            angleDeg = ((angleDeg % 180) + 180) % 180;
+
+            int kl = Math.Min(klen, (int)edgeLen);
+            if (kl < 3) continue;
+            int half = kl / 2;
+            int c = kl / 2;
+            double rad = angleDeg * Math.PI / 180.0;
+            var k1 = new Point((int)Math.Round(c - Math.Cos(rad) * half), (int)Math.Round(c - Math.Sin(rad) * half));
+            var k2 = new Point((int)Math.Round(c + Math.Cos(rad) * half), (int)Math.Round(c + Math.Sin(rad) * half));
+
+            using var kernel = new Mat(kl, kl, MatType.CV_8UC1, Scalar.Black);
+            Cv2.Line(kernel, k1, k2, new Scalar(1), 1);
+            using var opened = new Mat();
+            Cv2.MorphologyEx(mask, opened, MorphTypes.Open, kernel);
+
+            using var dilateKernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+            using var dilated = new Mat();
+            Cv2.Dilate(opened, dilated, dilateKernel);
+
+            int n = Math.Max(24, (int)edgeLen / 2);
+            int total = 0, hit = 0;
+            for (int t = 0; t <= n; t++)
+            {
+                double frac = (double)t / n;
+                int x = (int)Math.Round(p1.X + dx * frac);
+                int y = (int)Math.Round(p1.Y + dy * frac);
+                if (x >= 0 && x < w && y >= 0 && y < h)
+                {
+                    total++;
+                    if (dilated.At<byte>(y, x) > 0)
+                        hit++;
+                }
+            }
+            double edgeSupport = total > 0 ? (double)hit / total : 0.0;
+            if (edgeSupport >= p.EdgeMinSupport)
+                edgesWithSupport++;
+        }
+        return edgesWithSupport >= p.MinEdgesWithSupport;
     }
 
     private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight)
