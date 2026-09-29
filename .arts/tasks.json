@@ -1,0 +1,23 @@
+{
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "args": ["build", "BRobbDetector/BRobbDetector.csproj", "-c", "Debug"],
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-release",
+            "command": "dotnet",
+            "args": ["build", "BRobbDetector/BRobbDetector.csproj", "-c", "Release"],
+            "type": "process",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

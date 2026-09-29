@@ -25,3 +25,5 @@ result/
 # IDE
 .idea/
 .vscode/
+
+*@evaluation/

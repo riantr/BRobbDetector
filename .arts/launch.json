@@ -1,0 +1,43 @@
+{
+    "configurations": [
+        {
+            "name": "Run GUI",
+            "type": "dotnet",
+            "request": "launch",
+            "program": "${workspaceFolder}/BRobbDetector/bin/Debug/net10.0-windows/BRobbDetector.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false
+        },
+        {
+            "name": "CLI Detection",
+            "type": "dotnet",
+            "request": "launch",
+            "program": "${workspaceFolder}/BRobbDetector/bin/Debug/net10.0-windows/BRobbDetector.dll",
+            "args": ["--cli", "data/Image@test", "Result"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "CLI Detection +OCR",
+            "type": "dotnet",
+            "request": "launch",
+            "program": "${workspaceFolder}/BRobbDetector/bin/Debug/net10.0-windows/BRobbDetector.dll",
+            "args": ["--cli", "data/Image@types", "Result_ocr", "--ocr"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Checker",
+            "type": "dotnet",
+            "request": "launch",
+            "program": "${workspaceFolder}/BRobbDetector/bin/Debug/net10.0-windows/BRobbDetector.dll",
+            "args": ["--check", "data/Image@test", "data/Label@test"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}

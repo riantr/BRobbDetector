@@ -1,0 +1,15 @@
+{
+    "dotnet.sdk": "10.0.401",
+    "dotnet.project": "BRobbDetector/BRobbDetector.csproj",
+    "dotnet.language": "csharp",
+    "files.exclude": {
+        "bin/": true,
+        "obj/": true,
+        "Result_*/": true,
+        "debug_*/": true,
+        "tmp_*": true
+    },
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "d:\\src\\CodeArts\\BRobbDetector\\BRbboxDetector\\BRbboxDetector.sln"
+    ]
+}
