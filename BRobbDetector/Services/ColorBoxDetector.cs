@@ -86,10 +86,24 @@ public class ColorBoxDetector
     }
 
     /// <summary>
-    /// Step 2: Hole detection from filtered mask. Returns detected boxes.
-    /// Input is a filtered binary mask from Step 1.
+    /// Step 2: Preserve holes — morphological close to strengthen hole enclosures.
+    /// Input is a filtered binary mask from Step 1, output is a cleaned mask
+    /// with hole structures preserved.
     /// </summary>
-    public List<DetectedBox> Step2Detect(Mat filteredMask, DetectionParams? parameters = null)
+    public Mat Step2PreserveHoles(Mat binaryMask, DetectionParams? parameters = null)
+    {
+        parameters ??= new DetectionParams();
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3));
+        var result = new Mat();
+        Cv2.MorphologyEx(binaryMask, result, MorphTypes.Close, kernel, iterations: parameters.CloseIterations);
+        return result;
+    }
+
+    /// <summary>
+    /// Step 3: Hole detection from filtered mask. Returns detected boxes.
+    /// Input is a preserved binary mask from Step 2.
+    /// </summary>
+    public List<DetectedBox> Step3Detect(Mat filteredMask, DetectionParams? parameters = null)
     {
         parameters ??= new DetectionParams();
         int imgWidth = filteredMask.Cols, imgHeight = filteredMask.Rows;
@@ -103,6 +117,143 @@ public class ColorBoxDetector
         var type = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Type : "";
         var ruleName = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Name : "";
         return rects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, type, ruleName)).ToList();
+    }
+
+    /// <summary>
+    /// Auto-optimize HSV bounds (SatMin, ValMin, SatMax, ValMax) using knee-point
+    /// detection on the retention curve. Retention = |Step1| / |Step0| since Step1 ⊆ Step0.
+    /// Sweeps ±sweepRange around the picked color center, finds where retention drops
+    /// sharply (knee), and picks the most aggressive value before the cliff.
+    /// </summary>
+    public AutoOptimizeResult AutoOptimizeThreshold(List<string> imagePaths, DetectionParams baseParams,
+        int centerSat, int centerVal, int sweepRange = 25, double kneeRatio = 0.9)
+    {
+        var result = new AutoOptimizeResult();
+        var hsvImages = new List<Mat>();
+        try
+        {
+            foreach (var path in imagePaths)
+            {
+                using var img = Cv2.ImRead(path);
+                if (img.Empty()) continue;
+                var hsv = new Mat();
+                Cv2.CvtColor(img, hsv, ColorConversionCodes.BGR2HSV);
+                hsvImages.Add(hsv);
+            }
+            if (hsvImages.Count == 0) return result;
+
+            var rule0 = baseParams.ColorRules[0];
+            int satMin = rule0.SatMin, satMax = rule0.SatMax;
+            int valMin = rule0.ValMin, valMax = rule0.ValMax;
+
+            int satLo = Math.Max(0, centerSat - sweepRange);
+            int satHi = Math.Min(255, centerSat + sweepRange);
+            int valLo = Math.Max(0, centerVal - sweepRange);
+            int valHi = Math.Min(255, centerVal + sweepRange);
+            int step = 5;
+
+            // 1. SatMin: sweep [satLo→satHi], pick highest value on the retention plateau
+            var satMinPts = SweepParam(hsvImages, baseParams, "SatMin", satLo, satHi, step,
+                v => (v, satMax, valMin, valMax));
+            result.SweepData.AddRange(satMinPts);
+            satMin = FindKneeHigh(satMinPts, kneeRatio);
+
+            // 2. ValMin: sweep [valLo→valHi], pick highest value on the retention plateau
+            var valMinPts = SweepParam(hsvImages, baseParams, "ValMin", valLo, valHi, step,
+                v => (satMin, satMax, v, valMax));
+            result.SweepData.AddRange(valMinPts);
+            valMin = FindKneeHigh(valMinPts, kneeRatio);
+
+            // 3. SatMax: sweep [satHi→satLo], pick lowest value on the retention plateau
+            var satMaxPts = SweepParam(hsvImages, baseParams, "SatMax", satHi, satLo, -step,
+                v => (satMin, v, valMin, valMax));
+            result.SweepData.AddRange(satMaxPts);
+            satMax = FindKneeLow(satMaxPts, kneeRatio);
+
+            // 4. ValMax: sweep [valHi→valLo], pick lowest value on the retention plateau
+            var valMaxPts = SweepParam(hsvImages, baseParams, "ValMax", valHi, valLo, -step,
+                v => (satMin, satMax, valMin, v));
+            result.SweepData.AddRange(valMaxPts);
+            valMax = FindKneeLow(valMaxPts, kneeRatio);
+
+            var (finalRet, _) = EvalRetention(hsvImages, baseParams, satMin, satMax, valMin, valMax);
+            result.OptimalSatMin = satMin;
+            result.OptimalSatMax = satMax;
+            result.OptimalValMin = valMin;
+            result.OptimalValMax = valMax;
+            result.OptimalRetention = finalRet;
+        }
+        finally
+        {
+            foreach (var hsv in hsvImages) hsv.Dispose();
+        }
+        return result;
+    }
+
+    private List<AutoOptimizeSweepPoint> SweepParam(List<Mat> hsvImages, DetectionParams baseParams,
+        string param, int from, int to, int step,
+        Func<int, (int satMin, int satMax, int valMin, int valMax)> getBounds)
+    {
+        var pts = new List<AutoOptimizeSweepPoint>();
+        for (int v = from; step > 0 ? v <= to : v >= to; v += step)
+        {
+            var (sMin, sMax, vMin, vMax) = getBounds(v);
+            var (ret, sig) = EvalRetention(hsvImages, baseParams, sMin, sMax, vMin, vMax);
+            pts.Add(new AutoOptimizeSweepPoint { Parameter = param, Value = v, Retention = ret, Signal = sig });
+        }
+        return pts;
+    }
+
+    private static int FindKneeHigh(List<AutoOptimizeSweepPoint> pts, double ratio)
+    {
+        if (pts.Count == 0) return 0;
+        double maxRet = pts.Max(p => p.Retention);
+        if (maxRet <= 0) return pts[0].Value;
+        double threshold = maxRet * ratio;
+        return pts.Where(p => p.Retention >= threshold).Max(p => p.Value);
+    }
+
+    private static int FindKneeLow(List<AutoOptimizeSweepPoint> pts, double ratio)
+    {
+        if (pts.Count == 0) return 255;
+        double maxRet = pts.Max(p => p.Retention);
+        if (maxRet <= 0) return pts[0].Value;
+        double threshold = maxRet * ratio;
+        return pts.Where(p => p.Retention >= threshold).Min(p => p.Value);
+    }
+
+    private (double retention, double signal) EvalRetention(List<Mat> hsvImages, DetectionParams baseParams,
+        int satMin, int satMax, int valMin, int valMax, double maxFraction = 0.25)
+    {
+        double totalRetention = 0, totalSignal = 0;
+        int validCount = 0;
+        foreach (var hsv in hsvImages)
+        {
+            using var mask = new Mat(hsv.Size(), MatType.CV_8UC1, Scalar.Black);
+            foreach (var rule in baseParams.ColorRules)
+            {
+                var adjusted = new ColorRule
+                {
+                    HueLow = rule.HueLow, HueHigh = rule.HueHigh,
+                    HueLow2 = rule.HueLow2, HueHigh2 = rule.HueHigh2,
+                    SatMin = satMin, SatMax = satMax,
+                    ValMin = valMin, ValMax = valMax,
+                    UseSecondRange = rule.UseSecondRange
+                };
+                using var ruleMask = BuildRuleMask(hsv, adjusted);
+                Cv2.BitwiseOr(mask, ruleMask, mask);
+            }
+            int count0 = Cv2.CountNonZero(mask);
+            if (count0 == 0) continue;
+            if (count0 > maxFraction * hsv.Rows * hsv.Cols) continue;
+            using var filtered = Step1Filter(mask, baseParams);
+            int count1 = Cv2.CountNonZero(filtered);
+            totalRetention += (double)count1 / count0;
+            totalSignal += count1;
+            validCount++;
+        }
+        if (validCount == 0) return (0, 0);
+        return (totalRetention / validCount, totalSignal / validCount);
     }
 
     public List<HoleStats> CollectHoleStats(string imagePath, DetectionParams parameters)

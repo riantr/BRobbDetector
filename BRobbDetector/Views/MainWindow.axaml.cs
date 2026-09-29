@@ -43,6 +43,13 @@ public partial class MainWindow : Window
     {
         if (sender is not Control control || ViewModel == null) return;
         var point = e.GetPosition(control);
+
+        if (ViewModel.IsPickingColor)
+        {
+            ViewModel.PickColorAt(point.X, point.Y);
+            return;
+        }
+
         int boxIndex = ViewModel.HitTestBox(point.X, point.Y);
 
         var props = e.GetCurrentPoint(control).Properties;

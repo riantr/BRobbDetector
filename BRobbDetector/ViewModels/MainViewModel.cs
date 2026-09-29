@@ -32,6 +32,9 @@ public partial class MainViewModel : ViewModelBase
     private string _outputDirectory = string.Empty;
 
     [ObservableProperty]
+    private string _sourceDirectory = string.Empty;
+
+    [ObservableProperty]
     private string _typeName = "液体";
 
     public ObservableCollection<CategoryEntry> TypeCategories { get; } = new()
@@ -77,6 +80,12 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty]
     private int _lineOpenStep = 15;
+
+    [ObservableProperty]
+    private int _textGlyphMaxSize = 28;
+
+    [ObservableProperty]
+    private int _textGlyphMaxArea = 450;
 
     [ObservableProperty]
     private double _holeSplitSolidityPercent = 88;
@@ -141,6 +150,15 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private int _selectedBoxIndex = -1;
 
+    [ObservableProperty]
+    private bool _isPickingColor;
+
+    private const int PickColorCount = 9;
+    private readonly List<(int h, int s, int v)> _pickedColors = new();
+    private bool _hasPickedColor;
+    private int _pickedSatCenter;
+    private int _pickedValCenter;
+
     private double _previewScale = 1.0;
     private double _previewOffsetX;
     private double _previewOffsetY;
@@ -196,13 +214,15 @@ public partial class MainViewModel : ViewModelBase
         if (value != null)
         {
             var name = Path.GetFileName(value.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-            if (name.StartsWith("Step2@")) CurrentStep = 3;
+            if (name.StartsWith("Step3@")) CurrentStep = 4;
+            else if (name.StartsWith("Step2@")) CurrentStep = 3;
             else if (name.StartsWith("Step1@")) CurrentStep = 2;
             else if (name.StartsWith("Step0@")) CurrentStep = 1;
-            else CurrentStep = 0;
+            else { CurrentStep = 0; SourceDirectory = value; }
             Step0Command?.NotifyCanExecuteChanged();
             Step1Command?.NotifyCanExecuteChanged();
             Step2Command?.NotifyCanExecuteChanged();
+            Step3Command?.NotifyCanExecuteChanged();
         }
         _ = LoadImagesFromDirectoryAsync();
     }
@@ -295,7 +315,9 @@ public partial class MainViewModel : ViewModelBase
             EdgeMinSupport = EdgeMinSupportPercent / 100.0,
             MinEdgesWithSupport = MinEdgesWithSupport,
             LineOpenLength = LineOpenLength,
-            LineOpenStep = LineOpenStep
+            LineOpenStep = LineOpenStep,
+            TextGlyphMaxSize = TextGlyphMaxSize,
+            TextGlyphMaxArea = TextGlyphMaxArea
         };
     }
 
@@ -476,27 +498,28 @@ public partial class MainViewModel : ViewModelBase
         return Path.Combine(parent ?? ".", $"Step{step}@{suffix}");
     }
 
-    private bool CanStep0() => !IsProcessing && !string.IsNullOrWhiteSpace(InputDirectory) && Directory.Exists(InputDirectory);
+    private bool CanStep0() => !IsProcessing && !string.IsNullOrWhiteSpace(SourceDirectory) && Directory.Exists(SourceDirectory);
     private bool CanStep1() => !IsProcessing && CurrentStep >= 1;
     private bool CanStep2() => !IsProcessing && CurrentStep >= 2;
+    private bool CanStep3() => !IsProcessing && CurrentStep >= 3;
 
     [RelayCommand(CanExecute = nameof(CanStep0))]
     private async Task Step0Async()
     {
-        var outputDir = ComputeStepDir(InputDirectory, 0);
+        var outputDir = ComputeStepDir(SourceDirectory, 0);
         await RunStepAsync(0, outputDir, (detector, p, file) =>
         {
             using var image = Cv2.ImRead(file);
             using var mask = detector.Step0Binarize(image, p);
             Cv2.ImWrite(Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg"), mask);
-        });
+        }, SourceDirectory);
     }
 
     [RelayCommand(CanExecute = nameof(CanStep1))]
     private async Task Step1Async()
     {
-        var inputDir = ComputeStepDir(InputDirectory, 0);
-        var outputDir = ComputeStepDir(InputDirectory, 1);
+        var inputDir = ComputeStepDir(SourceDirectory, 0);
+        var outputDir = ComputeStepDir(SourceDirectory, 1);
         await RunStepAsync(1, outputDir, (detector, p, file) =>
         {
             using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
@@ -508,13 +531,26 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanStep2))]
     private async Task Step2Async()
     {
-        var inputDir = ComputeStepDir(InputDirectory, 1);
-        var outputDir = ComputeStepDir(InputDirectory, 2);
-        var jsonService = new LabelJsonService();
+        var inputDir = ComputeStepDir(SourceDirectory, 1);
+        var outputDir = ComputeStepDir(SourceDirectory, 2);
         await RunStepAsync(2, outputDir, (detector, p, file) =>
         {
             using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
-            var boxes = detector.Step2Detect(mask, p);
+            using var preserved = detector.Step2PreserveHoles(mask, p);
+            Cv2.ImWrite(Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg"), preserved);
+        }, inputDir);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanStep3))]
+    private async Task Step3Async()
+    {
+        var inputDir = ComputeStepDir(SourceDirectory, 2);
+        var outputDir = ComputeStepDir(SourceDirectory, 3);
+        var jsonService = new LabelJsonService();
+        await RunStepAsync(3, outputDir, (detector, p, file) =>
+        {
+            using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
+            var boxes = detector.Step3Detect(mask, p);
             var stem = Path.GetFileNameWithoutExtension(file);
             jsonService.WriteResult(Path.Combine(outputDir, stem + ".json"), stem + ".jpg", boxes);
             using var vis = new Mat();
@@ -546,6 +582,7 @@ public partial class MainViewModel : ViewModelBase
         Step0Command.NotifyCanExecuteChanged();
         Step1Command.NotifyCanExecuteChanged();
         Step2Command.NotifyCanExecuteChanged();
+        Step3Command.NotifyCanExecuteChanged();
         var parameters = BuildParams();
         int count = 0;
         try
@@ -565,6 +602,7 @@ public partial class MainViewModel : ViewModelBase
             Step0Command.NotifyCanExecuteChanged();
             Step1Command.NotifyCanExecuteChanged();
             Step2Command.NotifyCanExecuteChanged();
+            Step3Command.NotifyCanExecuteChanged();
             InputDirectory = outputDir;
         }
         catch (Exception ex) { Log($"[Error] {ex.Message}"); }
@@ -574,6 +612,7 @@ public partial class MainViewModel : ViewModelBase
             Step0Command.NotifyCanExecuteChanged();
             Step1Command.NotifyCanExecuteChanged();
             Step2Command.NotifyCanExecuteChanged();
+            Step3Command.NotifyCanExecuteChanged();
             ProgressText = string.Empty;
         }
     }
@@ -601,12 +640,20 @@ public partial class MainViewModel : ViewModelBase
         HoleMaxFillPercent = 100;
         HoleMinSupportPercent = 50;
         HoleMaxSupportPercent = 100;
-        LineOpenLength = 15;
-        LineOpenStep = 15;
         HoleSplitSolidityPercent = 88;
         EdgeMinSupportPercent = 25;
         MinEdgesWithSupport = 3;
         Log("[Restore] Hole detection parameters restored to defaults.");
+    }
+
+    [RelayCommand]
+    private void RestoreDenoiseDefaults()
+    {
+        LineOpenLength = 15;
+        LineOpenStep = 15;
+        TextGlyphMaxSize = 28;
+        TextGlyphMaxArea = 450;
+        Log("[Restore] Denoise parameters restored to defaults.");
     }
 
     private bool CanAutoColorThreshold() => SelectedResult != null && File.Exists(SelectedResult.ImagePath);
@@ -681,6 +728,7 @@ public partial class MainViewModel : ViewModelBase
     {
         foreach (var cat in TypeCategories)
         {
+            cat.TargetColorIndex = 3;
             cat.HueLow = 0;
             cat.HueHigh = 10;
             cat.HueLow2 = 170;
@@ -697,17 +745,7 @@ public partial class MainViewModel : ViewModelBase
     {
         if (value < 0 || value >= ColorOptions.Count) return;
         var opt = ColorOptions[value];
-        foreach (var cat in TypeCategories)
-        {
-            cat.HueLow = opt.HueLow;
-            cat.HueHigh = opt.HueHigh;
-            cat.HueLow2 = opt.HueLow2;
-            cat.HueHigh2 = opt.HueHigh2;
-            cat.SatMin = opt.SatMin;
-            cat.SatMax = opt.SatMax;
-            cat.ValMin = opt.ValMin;
-            cat.ValMax = opt.ValMax;
-        }
+
         Log($"[TargetColor] Set to {opt.Name}: H[{opt.HueLow}-{opt.HueHigh}] S[{opt.SatMin}-{opt.SatMax}] V[{opt.ValMin}-{opt.ValMax}]");
     }
 
@@ -791,6 +829,54 @@ public partial class MainViewModel : ViewModelBase
         Log($"[AutoThreshold] {stats.Count} candidates from {Path.GetFileName(imagePath)}: " +
             $"area[{HoleMinArea}-{HoleMaxArea}] side[{HoleMinSide}-{HoleMaxSide}] " +
             $"fill[{HoleMinFillPercent:F0}-{HoleMaxFillPercent:F0}] support[{HoleMinSupportPercent:F0}-{HoleMaxSupportPercent:F0}]");
+    }
+
+    private bool CanAutoOptimizeThreshold() => !IsProcessing && !IsPickingColor && _hasPickedColor &&
+        !string.IsNullOrWhiteSpace(SourceDirectory) && Directory.Exists(SourceDirectory);
+
+    [RelayCommand(CanExecute = nameof(CanAutoOptimizeThreshold))]
+    private async Task AutoOptimizeThresholdAsync()
+    {
+        var supported = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff" };
+        var files = Directory.GetFiles(SourceDirectory)
+            .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
+            .OrderBy(f => f).Take(10).ToList();
+        if (files.Count == 0) { Log("[AutoOpt] No images found."); return; }
+
+        IsProcessing = true;
+        AutoOptimizeThresholdCommand.NotifyCanExecuteChanged();
+        try
+        {
+            var parameters = BuildParams();
+            var result = await Task.Run(() => _detector.AutoOptimizeThreshold(
+                files, parameters, _pickedSatCenter, _pickedValCenter, 25));
+
+            if (result.SweepData.Count > 0)
+            {
+                foreach (var cat in TypeCategories)
+                {
+                    cat.SatMin = result.OptimalSatMin;
+                    cat.SatMax = result.OptimalSatMax;
+                    cat.ValMin = result.OptimalValMin;
+                    cat.ValMax = result.OptimalValMax;
+                }
+                Log($"[AutoOpt] Sat[{result.OptimalSatMin}-{result.OptimalSatMax}] " +
+                    $"Val[{result.OptimalValMin}-{result.OptimalValMax}] " +
+                    $"retention={result.OptimalRetention:F2} from {files.Count} images");
+                foreach (var p in result.SweepData)
+                    Log($"  {p.Parameter}={p.Value,3}  retention={p.Retention:F3}  signal={p.Signal:F0}");
+            }
+            else
+            {
+                Log("[AutoOpt] No optimal threshold found.");
+            }
+        }
+        catch (Exception ex) { Log($"[AutoOpt] Error: {ex.Message}"); }
+        finally
+        {
+            IsProcessing = false;
+            AutoOptimizeThresholdCommand.NotifyCanExecuteChanged();
+        }
     }
 
     private static double Percentile(List<double> sorted, double p)
@@ -927,6 +1013,152 @@ public partial class MainViewModel : ViewModelBase
                 return i;
         }
         return -1;
+    }
+
+    [RelayCommand]
+    private void TogglePickColor()
+    {
+        IsPickingColor = !IsPickingColor;
+        if (IsPickingColor)
+        {
+            _pickedColors.Clear();
+            _hasPickedColor = false;
+            AutoOptimizeThresholdCommand.NotifyCanExecuteChanged();
+            Log($"[拾色] Click {PickColorCount} times on the image to sample color (0/{PickColorCount}).");
+        }
+        else
+        {
+            Log("[拾色] Cancelled.");
+        }
+    }
+
+    public void PickColorAt(double canvasX, double canvasY)
+    {
+        if (SelectedResult == null || !File.Exists(SelectedResult.ImagePath)) return;
+
+        double imgX = (canvasX - _previewOffsetX) / _previewScale;
+        double imgY = (canvasY - _previewOffsetY) / _previewScale;
+        int px = (int)Math.Round(imgX);
+        int py = (int)Math.Round(imgY);
+
+        using var image = Cv2.ImRead(SelectedResult.ImagePath);
+        if (px < 0 || px >= image.Cols || py < 0 || py >= image.Rows) return;
+
+        var bgr = image.At<OpenCvSharp.Vec3b>(py, px);
+        using var hsvPixel = new Mat(1, 1, MatType.CV_8UC3, new Scalar(bgr[0], bgr[1], bgr[2]));
+        Cv2.CvtColor(hsvPixel, hsvPixel, ColorConversionCodes.BGR2HSV);
+        var hsv = hsvPixel.At<OpenCvSharp.Vec3b>(0, 0);
+        int h = hsv[0], s = hsv[1], v = hsv[2];
+
+        _pickedColors.Add((h, s, v));
+        Log($"[拾色] Sample {_pickedColors.Count}/{PickColorCount}: HSV({h},{s},{v})");
+
+        if (_pickedColors.Count < PickColorCount) return;
+
+        int avgH = CircularHueAverage(_pickedColors.Select(c => c.h).ToList());
+        int avgS = (int)Math.Round(_pickedColors.Average(c => c.s));
+        int avgV = (int)Math.Round(_pickedColors.Average(c => c.v));
+        _pickedSatCenter = avgS;
+        _pickedValCenter = avgV;
+        _hasPickedColor = true;
+        ApplyPickedColor(avgH, avgS, avgV);
+        IsPickingColor = false;
+        AutoOptimizeThresholdCommand.NotifyCanExecuteChanged();
+    }
+
+    private void ApplyPickedColor(int h, int s, int v)
+    {
+        int hueTol = 10;
+        int hueLow = Math.Max(0, h - hueTol);
+        int hueHigh = Math.Min(180, h + hueTol);
+        int hueLow2 = -1, hueHigh2 = -1;
+        if (h - hueTol < 0)
+        {
+            hueLow = 0;
+            hueHigh = h + hueTol;
+            hueLow2 = 180 + (h - hueTol);
+            hueHigh2 = 180;
+        }
+        if (h + hueTol > 180)
+        {
+            hueLow = h - hueTol;
+            hueHigh = 180;
+            hueLow2 = 0;
+            hueHigh2 = (h + hueTol) - 180;
+        }
+        int satMin = Math.Max(0, s - 30);
+        int satMax = Math.Min(255, s + 30);
+        int valMin = Math.Max(0, v - 30);
+        int valMax = Math.Min(255, v + 30);
+
+        int colorIdx = FindClosestColorIndex(h, s, v);
+        TargetColorIndex = colorIdx;
+
+        if (colorIdx >= 0 && colorIdx < ColorOptions.Count)
+        {
+            var old = ColorOptions[colorIdx];
+            ColorOptions[colorIdx] = new ColorOption
+            {
+                Name = old.Name,
+                Swatch = old.Swatch,
+                HueLow = hueLow,
+                HueHigh = hueHigh,
+                HueLow2 = hueLow2,
+                HueHigh2 = hueHigh2,
+                SatMin = satMin,
+                SatMax = satMax,
+                ValMin = valMin,
+                ValMax = valMax,
+                IsSelected = true
+            };
+        }
+
+        foreach (var cat in TypeCategories)
+        {
+            cat.TargetColorIndex = colorIdx;
+            cat.HueLow = hueLow;
+            cat.HueHigh = hueHigh;
+            cat.HueLow2 = hueLow2;
+            cat.HueHigh2 = hueHigh2;
+            cat.SatMin = satMin;
+            cat.SatMax = satMax;
+            cat.ValMin = valMin;
+            cat.ValMax = valMax;
+        }
+
+        Log($"[拾色] Avg HSV({h},{s},{v}) → {ColorOptions[colorIdx].Name}");
+    }
+
+    private static int CircularHueAverage(List<int> hues)
+    {
+        double sumX = 0, sumY = 0;
+        foreach (var h in hues)
+        {
+            double rad = h * Math.PI / 180.0;
+            sumX += Math.Cos(rad);
+            sumY += Math.Sin(rad);
+        }
+        double avgRad = Math.Atan2(sumY / hues.Count, sumX / hues.Count);
+        int avg = (int)Math.Round(avgRad * 180.0 / Math.PI);
+        if (avg < 0) avg += 180;
+        return avg;
+    }
+
+    private static int FindClosestColorIndex(int h, int s, int v)
+    {
+        if (s < 43)
+        {
+            if (v <= 46) return 0;
+            if (v <= 220) return 1;
+            return 2;
+        }
+        if (h <= 10 || h >= 170) return 3;
+        if (h <= 25) return 4;
+        if (h <= 34) return 5;
+        if (h <= 77) return 6;
+        if (h <= 99) return 7;
+        if (h <= 124) return 8;
+        return 9;
     }
 
     private static bool PointInPolygon(double x, double y, List<Point> polygon)

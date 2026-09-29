@@ -90,3 +90,20 @@ public class DetectionParams
     public TextPosition OcrTextPosition { get; set; } = TextPosition.Above;
     public int OcrTextExtent { get; set; } = 35;
 }
+public class AutoOptimizeSweepPoint
+{
+    public string Parameter { get; set; } = "";
+    public int Value { get; set; }
+    public double Retention { get; set; }
+    public double Signal { get; set; }
+}
+
+public class AutoOptimizeResult
+{
+    public int OptimalSatMin { get; set; }
+    public int OptimalSatMax { get; set; } = 255;
+    public int OptimalValMin { get; set; }
+    public int OptimalValMax { get; set; } = 255;
+    public double OptimalRetention { get; set; }
+    public List<AutoOptimizeSweepPoint> SweepData { get; set; } = new();
+}

@@ -30,29 +30,31 @@
 
           <Separator Margin="0,8,0,0" />
           <TextBlock Text="颜色规则 (标注框颜色)" FontWeight="Bold" Margin="2,8,0,0" />
-          <Grid ColumnDefinitions="Auto,*" Margin="2,4,0,0">
-            <TextBlock Grid.Column="0" Text="目标色" FontSize="11" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" SelectedIndex="{Binding TargetColorIndex}" HorizontalAlignment="Stretch" Margin="4,0,0,0">
-              <ComboBoxItem Content="黑" />
-              <ComboBoxItem Content="灰" />
-              <ComboBoxItem Content="白" />
-              <ComboBoxItem Content="红" />
-              <ComboBoxItem Content="橙" />
-              <ComboBoxItem Content="黄" />
-              <ComboBoxItem Content="绿" />
-              <ComboBoxItem Content="青" />
-              <ComboBoxItem Content="蓝" />
-              <ComboBoxItem Content="紫" />
-            </ComboBox>
-          </Grid>
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="2,4,0,2">
+            <Button Content="+ 添加类别" Command="{Binding AddCategoryCommand}" Padding="4,2" />
+            <Button Content="自动求阈值" Command="{Binding AutoColorThresholdCommand}" Padding="4,2" />
+            <Button Content="还原" Command="{Binding RestoreColorDefaultsCommand}" Padding="4,2" />
+          </StackPanel>
           <ItemsControl ItemsSource="{Binding TypeCategories}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
                 <Border BorderBrush="#444444" BorderThickness="1" CornerRadius="3" Padding="4" Margin="0,0,0,4">
                   <StackPanel Spacing="3">
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*,Auto,Auto">
                       <TextBox Grid.Column="0" Text="{Binding Name}" Watermark="类别名称" FontSize="11" />
-                      <Button Grid.Column="1" Content="✕" Margin="4,0,0,0" Padding="4,2"
+                      <ComboBox Grid.Column="1" SelectedIndex="{Binding TargetColorIndex}" Margin="4,0,4,0" VerticalAlignment="Center" MinWidth="50">
+                        <ComboBoxItem Content="黑" />
+                        <ComboBoxItem Content="灰" />
+                        <ComboBoxItem Content="白" />
+                        <ComboBoxItem Content="红" />
+                        <ComboBoxItem Content="橙" />
+                        <ComboBoxItem Content="黄" />
+                        <ComboBoxItem Content="绿" />
+                        <ComboBoxItem Content="青" />
+                        <ComboBoxItem Content="蓝" />
+                        <ComboBoxItem Content="紫" />
+                      </ComboBox>
+                      <Button Grid.Column="2" Content="✕" Padding="4,2"
                               Click="OnRemoveCategory" Tag="{Binding}" />
                     </Grid>
                     <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,2,0,0">
@@ -81,12 +83,28 @@
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2,0,0">
-            <Button Content="+ 添加类别" Command="{Binding AddCategoryCommand}" Padding="4,2" />
-            <Button Content="自动求阈值" Command="{Binding AutoColorThresholdCommand}" Padding="4,2" />
-            <Button Content="还原" Command="{Binding RestoreColorDefaultsCommand}" Padding="4,2" />
-          </StackPanel>
 
+          <Separator Margin="0,8,0,0" />
+          <TextBlock Text="降噪阈值" FontWeight="Bold" Margin="0,8,0,0" />
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,2">
+            <Button Content="还原" Command="{Binding RestoreDenoiseDefaultsCommand}" Padding="4,2" />
+          </StackPanel>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,2,0,0">
+            <TextBlock Grid.Column="0" Text="字形" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="5" Maximum="80" Value="{Binding TextGlyphMaxSize}" TickFrequency="2" />
+            <TextBlock Grid.Column="2" Text="{Binding TextGlyphMaxSize}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="50" Maximum="2000" Value="{Binding TextGlyphMaxArea}" TickFrequency="50" />
+            <TextBlock Grid.Column="4" Text="{Binding TextGlyphMaxArea}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
+            <TextBlock Grid.Column="0" Text="开运算" FontSize="10" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding LineOpenLength}" TickFrequency="5" />
+            <TextBlock Grid.Column="2" Text="{Binding LineOpenLength}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider Grid.Column="3" Minimum="1" Maximum="30" Value="{Binding LineOpenStep}" TickFrequency="2" />
+            <TextBlock Grid.Column="4" Text="{Binding LineOpenStep}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+          </Grid>
+
+          <Separator Margin="0,8,0,0" />
           <TextBlock Text="孔洞检测" FontWeight="Bold" Margin="0,8,0,0" />
           <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2,0,2">
             <Button Content="自动求阈值" Command="{Binding AutoThresholdCommand}" Padding="4,2" />
@@ -120,13 +138,7 @@
             <Slider Grid.Column="3" Minimum="10" Maximum="100" Value="{Binding HoleMaxSupportPercent}" TickFrequency="5" />
             <TextBlock Grid.Column="4" Text="{Binding HoleMaxSupportPercent}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
           </Grid>
-          <Grid ColumnDefinitions="50,*,30,*,30" Margin="0,1,0,0">
-            <TextBlock Grid.Column="0" Text="开运算" FontSize="10" VerticalAlignment="Center" />
-            <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding LineOpenLength}" TickFrequency="5" />
-            <TextBlock Grid.Column="2" Text="{Binding LineOpenLength}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            <Slider Grid.Column="3" Minimum="1" Maximum="30" Value="{Binding LineOpenStep}" TickFrequency="2" />
-            <TextBlock Grid.Column="4" Text="{Binding LineOpenStep}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
-          </Grid>
+
           <Grid ColumnDefinitions="50,*,70" Margin="0,1,0,0">
             <TextBlock Grid.Column="0" Text="拆分度" FontSize="10" VerticalAlignment="Center" />
             <Slider Grid.Column="1" Minimum="50" Maximum="100" Value="{Binding HoleSplitSolidityPercent}" TickFrequency="2" />
@@ -219,13 +231,16 @@
 
           <StackPanel Grid.Column="1" Margin="8,0,0,0">
             <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Content="拾色" Command="{Binding TogglePickColorCommand}" Padding="8,3" FontSize="11" />
+              <Button Content="自动优化阈值" Command="{Binding AutoOptimizeThresholdCommand}" Padding="8,3" FontSize="11" />
               <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
               <Button Content="取消" Command="{Binding CancelCommand}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
-              <Button Content="Step0: 二值化" Command="{Binding Step0Command}" Padding="8,3" FontSize="11" />
-              <Button Content="Step1: 过滤" Command="{Binding Step1Command}" Padding="8,3" FontSize="11" />
-              <Button Content="Step2: 检测" Command="{Binding Step2Command}" Padding="8,3" FontSize="11" />
+              <Button Content="1-二值" Command="{Binding Step0Command}" Padding="8,3" FontSize="11" />
+              <Button Content="2-降噪" Command="{Binding Step1Command}" Padding="8,3" FontSize="11" />
+              <Button Content="3-保孔" Command="{Binding Step2Command}" Padding="8,3" FontSize="11" />
+              <Button Content="4-检测" Command="{Binding Step3Command}" Padding="8,3" FontSize="11" />
             </StackPanel>
             <ProgressBar IsIndeterminate="{Binding IsProcessing}" Height="4" Margin="0,4,0,0"
                          IsVisible="{Binding IsProcessing}" />
