@@ -53,6 +53,58 @@ public class ColorBoxDetector
         return Detect(image, parameters);
     }
 
+    /// <summary>
+    /// Step 0: Binarize image by target color. Returns a binary mask where
+    /// white = target color, black = background.
+    /// </summary>
+    public Mat Step0Binarize(Mat image, DetectionParams? parameters = null)
+    {
+        parameters ??= new DetectionParams();
+        var result = new Mat(image.Size(), MatType.CV_8UC1, Scalar.Black);
+        if (image.Empty()) return result;
+
+        using var hsv = new Mat();
+        Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
+
+        foreach (var rule in parameters.ColorRules)
+        {
+            using var ruleMask = BuildRuleMask(hsv, rule);
+            Cv2.BitwiseOr(result, ruleMask, result);
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Step 1: Filter binary mask — remove text glyphs and non-line regions.
+    /// Input is a binary mask from Step 0, output is a cleaned binary mask.
+    /// </summary>
+    public Mat Step1Filter(Mat binaryMask, DetectionParams? parameters = null)
+    {
+        parameters ??= new DetectionParams();
+        using var noText = RemoveText(binaryMask, parameters);
+        return LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
+    }
+
+    /// <summary>
+    /// Step 2: Hole detection from filtered mask. Returns detected boxes.
+    /// Input is a filtered binary mask from Step 1.
+    /// </summary>
+    public List<DetectedBox> Step2Detect(Mat filteredMask, DetectionParams? parameters = null)
+    {
+        parameters ??= new DetectionParams();
+        int imgWidth = filteredMask.Cols, imgHeight = filteredMask.Rows;
+
+        var rects = DetectHoles(filteredMask, parameters, imgWidth, imgHeight);
+        rects = ValidateEdges(rects, filteredMask, parameters);
+        rects = Nms(rects, parameters.NmsThreshold);
+        rects = DedupContained(rects, parameters.DedupContainThreshold);
+        rects = rects.Select(r => RefineBox(r, filteredMask)).ToList();
+
+        var type = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Type : "";
+        var ruleName = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Name : "";
+        return rects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, type, ruleName)).ToList();
+    }
+
     public List<HoleStats> CollectHoleStats(string imagePath, DetectionParams parameters)
     {
         using var image = Cv2.ImRead(imagePath);

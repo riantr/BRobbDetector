@@ -222,6 +222,11 @@
               <Button Content="开始检测" Command="{Binding DetectCommand}" Padding="12,4" />
               <Button Content="取消" Command="{Binding CancelCommand}" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+              <Button Content="Step0: 二值化" Command="{Binding Step0Command}" Padding="8,3" FontSize="11" />
+              <Button Content="Step1: 过滤" Command="{Binding Step1Command}" Padding="8,3" FontSize="11" />
+              <Button Content="Step2: 检测" Command="{Binding Step2Command}" Padding="8,3" FontSize="11" />
+            </StackPanel>
             <ProgressBar IsIndeterminate="{Binding IsProcessing}" Height="4" Margin="0,4,0,0"
                          IsVisible="{Binding IsProcessing}" />
             <TextBlock Text="{Binding ProgressText}" FontSize="11" Opacity="0.7" TextWrapping="Wrap" />

@@ -16,6 +16,24 @@ public static class CliRunner
             return;
         }
 
+        if (args.Length >= 3 && args[0] == "--step0")
+        {
+            RunStep0(args[1], args[2]);
+            return;
+        }
+
+        if (args.Length >= 3 && args[0] == "--step1")
+        {
+            RunStep1(args[1], args[2]);
+            return;
+        }
+
+        if (args.Length >= 3 && args[0] == "--step2")
+        {
+            RunStep2(args[1], args[2]);
+            return;
+        }
+
         if (args.Length >= 3 && args[0] == "--cli")
         {
             var useOcr = args.Contains("--ocr");
@@ -24,6 +42,9 @@ public static class CliRunner
         }
 
         Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr]");
+        Console.WriteLine("       BRobbDetector --step0 <inputDir> <outputDir>");
+        Console.WriteLine("       BRobbDetector --step1 <inputDir> <outputDir>");
+        Console.WriteLine("       BRobbDetector --step2 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
@@ -154,6 +175,82 @@ public static class CliRunner
         }
 
         return result;
+    }
+
+    private static void RunStep0(string inputDir, string outputDir)
+    {
+        if (!Directory.Exists(inputDir)) { Console.WriteLine($"Input not found: {inputDir}"); return; }
+        Directory.CreateDirectory(outputDir);
+        var detector = new Services.ColorBoxDetector();
+        var supported = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff" };
+        var files = Directory.GetFiles(inputDir)
+            .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
+            .OrderBy(f => f).ToList();
+        int count = 0;
+        foreach (var file in files)
+        {
+            using var image = Cv2.ImRead(file);
+            using var mask = detector.Step0Binarize(image, new DetectionParams());
+            var outPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg");
+            Cv2.ImWrite(outPath, mask);
+            count++;
+            if (count % 50 == 0 || count == 1) Console.WriteLine($"[Step0] {count}/{files.Count}");
+        }
+        Console.WriteLine($"[Step0 Done] {count} images -> {outputDir}");
+    }
+
+    private static void RunStep1(string inputDir, string outputDir)
+    {
+        if (!Directory.Exists(inputDir)) { Console.WriteLine($"Input not found: {inputDir}"); return; }
+        Directory.CreateDirectory(outputDir);
+        var detector = new Services.ColorBoxDetector();
+        var supported = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff" };
+        var files = Directory.GetFiles(inputDir)
+            .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
+            .OrderBy(f => f).ToList();
+        int count = 0;
+        foreach (var file in files)
+        {
+            using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
+            using var filtered = detector.Step1Filter(mask, new DetectionParams());
+            var outPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg");
+            Cv2.ImWrite(outPath, filtered);
+            count++;
+            if (count % 50 == 0 || count == 1) Console.WriteLine($"[Step1] {count}/{files.Count}");
+        }
+        Console.WriteLine($"[Step1 Done] {count} images -> {outputDir}");
+    }
+
+    private static void RunStep2(string inputDir, string outputDir)
+    {
+        if (!Directory.Exists(inputDir)) { Console.WriteLine($"Input not found: {inputDir}"); return; }
+        Directory.CreateDirectory(outputDir);
+        var detector = new Services.ColorBoxDetector();
+        var jsonService = new Services.LabelJsonService();
+        var supported = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff" };
+        var files = Directory.GetFiles(inputDir)
+            .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
+            .OrderBy(f => f).ToList();
+        int count = 0, totalBoxes = 0;
+        foreach (var file in files)
+        {
+            using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
+            var boxes = detector.Step2Detect(mask, new DetectionParams());
+            var stem = Path.GetFileNameWithoutExtension(file);
+            jsonService.WriteResult(Path.Combine(outputDir, stem + ".json"), stem + ".jpg", boxes);
+            using var vis = new Mat();
+            Cv2.CvtColor(mask, vis, ColorConversionCodes.GRAY2BGR);
+            foreach (var box in boxes)
+            {
+                var pts = box.Corners.Select(c => new OpenCvSharp.Point(c.X, c.Y)).ToArray();
+                Cv2.Polylines(vis, new[] { pts }, true, new Scalar(0, 255, 0), 2);
+            }
+            Cv2.ImWrite(Path.Combine(outputDir, stem + ".jpg"), vis);
+            totalBoxes += boxes.Count;
+            count++;
+            if (count % 50 == 0 || count == 1) Console.WriteLine($"[Step2] {count}/{files.Count} boxes={totalBoxes}");
+        }
+        Console.WriteLine($"[Step2 Done] {count} images, {totalBoxes} boxes -> {outputDir}");
     }
 
     private static void RunCheck(string imageDir, string labelDir)

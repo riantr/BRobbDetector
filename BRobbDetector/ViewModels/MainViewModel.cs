@@ -106,6 +106,9 @@ public partial class MainViewModel : ViewModelBase
     private bool _isProcessing;
 
     [ObservableProperty]
+    private int _currentStep;
+
+    [ObservableProperty]
     private string _progressText = string.Empty;
 
     [ObservableProperty]
@@ -190,6 +193,17 @@ public partial class MainViewModel : ViewModelBase
 
     partial void OnInputDirectoryChanged(string value)
     {
+        if (value != null)
+        {
+            var name = Path.GetFileName(value.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            if (name.StartsWith("Step2@")) CurrentStep = 3;
+            else if (name.StartsWith("Step1@")) CurrentStep = 2;
+            else if (name.StartsWith("Step0@")) CurrentStep = 1;
+            else CurrentStep = 0;
+            Step0Command?.NotifyCanExecuteChanged();
+            Step1Command?.NotifyCanExecuteChanged();
+            Step2Command?.NotifyCanExecuteChanged();
+        }
         _ = LoadImagesFromDirectoryAsync();
     }
 
@@ -450,6 +464,117 @@ public partial class MainViewModel : ViewModelBase
             ProgressText = string.Empty;
             _cts.Dispose();
             _cts = null;
+        }
+    }
+
+    private static string ComputeStepDir(string inputDir, int step)
+    {
+        var trimmed = inputDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var dirName = Path.GetFileName(trimmed);
+        var parent = Path.GetDirectoryName(trimmed);
+        string suffix = dirName.Contains('@') ? dirName[(dirName.IndexOf('@') + 1)..] : dirName;
+        return Path.Combine(parent ?? ".", $"Step{step}@{suffix}");
+    }
+
+    private bool CanStep0() => !IsProcessing && !string.IsNullOrWhiteSpace(InputDirectory) && Directory.Exists(InputDirectory);
+    private bool CanStep1() => !IsProcessing && CurrentStep >= 1;
+    private bool CanStep2() => !IsProcessing && CurrentStep >= 2;
+
+    [RelayCommand(CanExecute = nameof(CanStep0))]
+    private async Task Step0Async()
+    {
+        var outputDir = ComputeStepDir(InputDirectory, 0);
+        await RunStepAsync(0, outputDir, (detector, p, file) =>
+        {
+            using var image = Cv2.ImRead(file);
+            using var mask = detector.Step0Binarize(image, p);
+            Cv2.ImWrite(Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg"), mask);
+        });
+    }
+
+    [RelayCommand(CanExecute = nameof(CanStep1))]
+    private async Task Step1Async()
+    {
+        var inputDir = ComputeStepDir(InputDirectory, 0);
+        var outputDir = ComputeStepDir(InputDirectory, 1);
+        await RunStepAsync(1, outputDir, (detector, p, file) =>
+        {
+            using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
+            using var filtered = detector.Step1Filter(mask, p);
+            Cv2.ImWrite(Path.Combine(outputDir, Path.GetFileNameWithoutExtension(file) + ".jpg"), filtered);
+        }, inputDir);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanStep2))]
+    private async Task Step2Async()
+    {
+        var inputDir = ComputeStepDir(InputDirectory, 1);
+        var outputDir = ComputeStepDir(InputDirectory, 2);
+        var jsonService = new LabelJsonService();
+        await RunStepAsync(2, outputDir, (detector, p, file) =>
+        {
+            using var mask = Cv2.ImRead(file, ImreadModes.Grayscale);
+            var boxes = detector.Step2Detect(mask, p);
+            var stem = Path.GetFileNameWithoutExtension(file);
+            jsonService.WriteResult(Path.Combine(outputDir, stem + ".json"), stem + ".jpg", boxes);
+            using var vis = new Mat();
+            Cv2.CvtColor(mask, vis, ColorConversionCodes.GRAY2BGR);
+            foreach (var box in boxes)
+            {
+                var pts = box.Corners.Select(c => new OpenCvSharp.Point(c.X, c.Y)).ToArray();
+                Cv2.Polylines(vis, new[] { pts }, true, new Scalar(0, 255, 0), 2);
+            }
+            Cv2.ImWrite(Path.Combine(outputDir, stem + ".jpg"), vis);
+        }, inputDir);
+    }
+
+    private async Task RunStepAsync(int step, string outputDir,
+        Action<ColorBoxDetector, DetectionParams, string> processFile,
+        string? inputDir = null)
+    {
+        inputDir ??= InputDirectory;
+        if (!Directory.Exists(inputDir)) { Log($"[Error] Input not found: {inputDir}"); return; }
+        Directory.CreateDirectory(outputDir);
+
+        var supported = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff" };
+        var files = Directory.GetFiles(inputDir)
+            .Where(f => supported.Contains(Path.GetExtension(f).ToLowerInvariant()))
+            .OrderBy(f => f).ToList();
+        if (files.Count == 0) { Log("[Error] No images found."); return; }
+
+        IsProcessing = true;
+        Step0Command.NotifyCanExecuteChanged();
+        Step1Command.NotifyCanExecuteChanged();
+        Step2Command.NotifyCanExecuteChanged();
+        var parameters = BuildParams();
+        int count = 0;
+        try
+        {
+            await Task.Run(() =>
+            {
+                var detector = new ColorBoxDetector();
+                for (int i = 0; i < files.Count; i++)
+                {
+                    processFile(detector, parameters, files[i]);
+                    count++;
+                    ProgressText = $"Step{step}: {count}/{files.Count}";
+                }
+            });
+            Log($"[Step{step} Done] {count} images -> {outputDir}");
+            CurrentStep = step + 1;
+            Step0Command.NotifyCanExecuteChanged();
+            Step1Command.NotifyCanExecuteChanged();
+            Step2Command.NotifyCanExecuteChanged();
+            InputDirectory = outputDir;
+        }
+        catch (Exception ex) { Log($"[Error] {ex.Message}"); }
+        finally
+        {
+            IsProcessing = false;
+            Step0Command.NotifyCanExecuteChanged();
+            Step1Command.NotifyCanExecuteChanged();
+            Step2Command.NotifyCanExecuteChanged();
+            ProgressText = string.Empty;
         }
     }
 
