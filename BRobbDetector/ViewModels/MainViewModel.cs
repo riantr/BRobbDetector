@@ -986,7 +986,7 @@ public partial class MainViewModel : ViewModelBase
 
     private string ResolvePreviewPath(ImageDetectionResult result)
     {
-        if (ViewMode == 0)
+        if (ViewMode == 0 || ViewMode == 4)
             return result.ImagePath;
 
         int step = ViewMode - 1;
