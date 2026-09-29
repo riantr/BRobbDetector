@@ -112,6 +112,11 @@ public partial class MainViewModel : ViewModelBase
     private int _displayMode;
 
     [ObservableProperty]
+    private int _viewMode = 4;
+
+    public bool IsDetectionView => ViewMode == 4;
+
+    [ObservableProperty]
     private bool _isProcessing;
 
     [ObservableProperty]
@@ -910,11 +915,24 @@ public partial class MainViewModel : ViewModelBase
 
     private async Task LoadPreviewAsync(ImageDetectionResult? result)
     {
-        if (result == null || !File.Exists(result.ImagePath))
+        if (result == null)
         {
             PreviewImage = null;
             Overlays = new List<BoxOverlay>();
+            TextOverlays = new List<TextOverlay>();
             PreviewInfo = string.Empty;
+            PreviewWidth = 0;
+            PreviewHeight = 0;
+            return;
+        }
+
+        var imagePath = ResolvePreviewPath(result);
+        if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+        {
+            PreviewImage = null;
+            Overlays = new List<BoxOverlay>();
+            TextOverlays = new List<TextOverlay>();
+            PreviewInfo = $"{result.ImageName} - (step image not found)";
             PreviewWidth = 0;
             PreviewHeight = 0;
             return;
@@ -924,7 +942,7 @@ public partial class MainViewModel : ViewModelBase
         {
             var bitmap = await Task.Run(() =>
             {
-                using var stream = File.OpenRead(result.ImagePath);
+                using var stream = File.OpenRead(imagePath);
                 return new Bitmap(stream);
             });
 
@@ -942,25 +960,56 @@ public partial class MainViewModel : ViewModelBase
             _previewOffsetX = offsetX;
             _previewOffsetY = offsetY;
 
-            Overlays = DisplayMode == 2
-                ? new List<BoxOverlay>()
-                : result.Boxes.Select((b, i) => new BoxOverlay
+            bool showOverlays = ViewMode == 4 && DisplayMode != 2;
+            Overlays = showOverlays
+                ? result.Boxes.Select((b, i) => new BoxOverlay
                 {
                     Points = BoxOverlay.ToPoints(b.Corners.Select(c => (c.X * scale + offsetX, c.Y * scale + offsetY))),
                     Stroke = GetBrushForBox(b),
                     StrokeThickness = i == SelectedBoxIndex ? 6.0 : 3.0
-                }).ToList();
+                }).ToList()
+                : new List<BoxOverlay>();
 
-            TextOverlays = DisplayMode == 2
-                ? new List<TextOverlay>()
-                : result.Boxes.Select(b => CreateTextOverlay(b, scale, offsetX, offsetY)).ToList();
+            TextOverlays = showOverlays
+                ? result.Boxes.Select(b => CreateTextOverlay(b, scale, offsetX, offsetY)).ToList()
+                : new List<TextOverlay>();
 
-            PreviewInfo = $"{result.ImageName} - {result.Boxes.Count} box(es)";
+            PreviewInfo = ViewMode == 4
+                ? $"{result.ImageName} - {result.Boxes.Count} box(es)"
+                : $"{result.ImageName} - {ViewModeName(ViewMode)}";
         }
         catch (Exception ex)
         {
             Log($"[Error] Failed to load preview: {ex.Message}");
         }
+    }
+
+    private string ResolvePreviewPath(ImageDetectionResult result)
+    {
+        if (ViewMode == 0)
+            return result.ImagePath;
+
+        int step = ViewMode - 1;
+        var stepDir = ComputeStepDir(SourceDirectory, step);
+        var stem = Path.GetFileNameWithoutExtension(result.ImageName);
+        var candidate = Path.Combine(stepDir, stem + ".jpg");
+        return candidate;
+    }
+
+    private static string ViewModeName(int mode) => mode switch
+    {
+        0 => "原图",
+        1 => "二值图",
+        2 => "降噪图",
+        3 => "保孔图",
+        4 => "检测结果",
+        _ => string.Empty
+    };
+
+    partial void OnViewModeChanged(int value)
+    {
+        OnPropertyChanged(nameof(IsDetectionView));
+        _ = LoadPreviewAsync(SelectedResult);
     }
 
     partial void OnDisplayModeChanged(int value)
@@ -985,7 +1034,7 @@ public partial class MainViewModel : ViewModelBase
 
     private void RebuildOverlays()
     {
-        if (SelectedResult == null || DisplayMode == 2) return;
+        if (SelectedResult == null || ViewMode != 4 || DisplayMode == 2) return;
         var boxes = SelectedResult.Boxes;
         double scale = _previewScale;
         double offsetX = _previewOffsetX;

@@ -277,11 +277,40 @@
             </StackPanel>
 
             <TextBlock Text="显示结果" FontWeight="Bold" Margin="0,8,0,0" />
-            <ComboBox SelectedIndex="{Binding DisplayMode}" HorizontalAlignment="Stretch">
-              <ComboBoxItem Content="补色 (Complement)" />
-              <ComboBoxItem Content="原色 (Original)" />
-              <ComboBoxItem Content="不显示 (None)" />
-            </ComboBox>
+            <ListBox SelectedIndex="{Binding ViewMode}" HorizontalAlignment="Stretch" Padding="0">
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" Spacing="0" />
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="Padding" Value="0" />
+                  <Setter Property="Margin" Value="0" />
+                  <Setter Property="HorizontalContentAlignment" Value="Center" />
+                  <Setter Property="MinWidth" Value="0" />
+                </Style>
+                <Style Selector="ListBoxItem:selected">
+                  <Setter Property="Background" Value="#007ACC" />
+                  <Setter Property="Foreground" Value="White" />
+                </Style>
+              </ListBox.Styles>
+              <ListBoxItem Content="原图"   MinWidth="52" Padding="4,3" />
+              <ListBoxItem Content="二值图" MinWidth="52" Padding="4,3" />
+              <ListBoxItem Content="降噪图" MinWidth="52" Padding="4,3" />
+              <ListBoxItem Content="保孔图" MinWidth="52" Padding="4,3" />
+              <ListBoxItem Content="检测"   MinWidth="52" Padding="4,3" />
+            </ListBox>
+
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,0"
+                        IsVisible="{Binding IsDetectionView}">
+              <TextBlock Text="叠加" FontSize="11" VerticalAlignment="Center" />
+              <ComboBox SelectedIndex="{Binding DisplayMode}" MinWidth="120">
+                <ComboBoxItem Content="补色" />
+                <ComboBoxItem Content="原色" />
+                <ComboBoxItem Content="不显示" />
+              </ComboBox>
+            </StackPanel>
 
             <Grid ColumnDefinitions="Auto,*,Auto,*" Margin="0,4,0,0">
               <TextBlock Grid.Column="0" Text="画布 W" FontSize="11" VerticalAlignment="Center" />

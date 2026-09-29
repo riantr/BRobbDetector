@@ -82,7 +82,8 @@ public class ColorBoxDetector
     {
         parameters ??= new DetectionParams();
         using var noText = RemoveText(binaryMask, parameters);
-        return LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
+        using var opened = LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
+        return LineClose(opened, parameters.LineOpenLength, parameters.LineOpenStep);
     }
 
     /// <summary>
@@ -683,6 +684,16 @@ public class ColorBoxDetector
             Cv2.BitwiseOr(output, opened, output);
         }
         return output;
+    }
+
+    private static Mat LineClose(Mat mask, int length, int step)
+    {
+        using var inverted = new Mat();
+        Cv2.BitwiseNot(mask, inverted);
+        using var opened = LineOpen(inverted, length, step);
+        var result = new Mat();
+        Cv2.BitwiseNot(opened, result);
+        return result;
     }
 
     private static List<RotatedRect> DetectHoles(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
