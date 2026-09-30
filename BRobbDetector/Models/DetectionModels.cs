@@ -89,6 +89,8 @@ public class DetectionParams
 
     public TextPosition OcrTextPosition { get; set; } = TextPosition.Above;
     public int OcrTextExtent { get; set; } = 35;
+
+    public string DetectionMethod { get; set; } = "hole";
 }
 public class AutoOptimizeSweepPoint
 {

@@ -9,6 +9,7 @@ OUT_DIR = r"D:\src\CodeArts\BRobbDetector\tmp_cars_out"
 
 def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 500
+    method = sys.argv[2] if len(sys.argv) > 2 else "hole"
     exp = load_expected()
     ids = [k for k, v in exp.items() if v >= 1 and os.path.exists(os.path.join(IMG, k + ".jpg"))]
     ids.sort()
@@ -30,11 +31,11 @@ def main():
             except OSError:
                 shutil.copy2(src, dst)
 
-    print(f"Running C# detector on {n} images...")
+    print(f"Running C# detector on {n} images (method={method})...")
     t0 = time.time()
     result = subprocess.run(
-        ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR],
-        capture_output=True, text=True, timeout=600
+        ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR, "--method", method],
+        capture_output=True, text=True, timeout=600, encoding="utf-8", errors="replace"
     )
     print(f"  {result.stdout.strip()}")
     if result.returncode != 0:

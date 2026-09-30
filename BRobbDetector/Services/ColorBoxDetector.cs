@@ -414,7 +414,7 @@ public class ColorBoxDetector
     {
         using var noText = RemoveText(mask, p);
         using var cleaned = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
-        var rects = DetectHoles(cleaned, p, imgWidth, imgHeight);
+        var rects = DetectByMethod(cleaned, p, imgWidth, imgHeight);
         if (validationMask != null)
             rects = ValidateEdges(rects, validationMask, p);
         rects = Nms(rects, p.NmsThreshold);
@@ -694,6 +694,281 @@ public class ColorBoxDetector
         var result = new Mat();
         Cv2.BitwiseNot(opened, result);
         return result;
+    }
+
+    private static List<RotatedRect> DetectByMethod(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        return p.DetectionMethod switch
+        {
+            "hole" => DetectHoles(cleaned, p, imgWidth, imgHeight),
+            "contour" => DetectContourShape(cleaned, p, imgWidth, imgHeight),
+            "holeShape" => DetectHolePlusShape(cleaned, p, imgWidth, imgHeight),
+            "hough" => DetectHoughLines(cleaned, p, imgWidth, imgHeight),
+            "ring" => DetectRingShape(cleaned, p, imgWidth, imgHeight),
+            "hybrid" => DetectHybrid(cleaned, p, imgWidth, imgHeight),
+            _ => DetectHoles(cleaned, p, imgWidth, imgHeight)
+        };
+    }
+
+    /// <summary>
+    /// Approach B: Outer contour + ApproxPolyDP — find contours that approximate
+    /// to 4 vertices with near-90° angles. Directly finds rectangular shapes
+    /// without requiring hole topology.
+    /// </summary>
+    private static List<RotatedRect> DetectContourShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var closed = new Mat();
+        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+
+        Cv2.FindContours(closed, out Point[][] contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+        var rects = new List<RotatedRect>();
+
+        foreach (var contour in contours)
+        {
+            double area = Cv2.ContourArea(contour);
+            if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels) continue;
+
+            double perimeter = Cv2.ArcLength(contour, true);
+            if (perimeter < 4) continue;
+
+            var approx = Cv2.ApproxPolyDP(contour, 0.04 * perimeter, true);
+            if (approx.Length != 4) continue;
+
+            if (!IsApproximatelyRectangular(approx)) continue;
+
+            var rect = Cv2.MinAreaRect(contour);
+            double rw = rect.Size.Width, rh = rect.Size.Height;
+            double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+            if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide) continue;
+
+            var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+            double support = PerimeterSupport(expanded, cleaned, 2);
+            if (support < p.HoleMinSupport) continue;
+
+            rects.Add(expanded);
+        }
+        return rects;
+    }
+
+    /// <summary>
+    /// Approach C: Hole + shape validation — current hole detection with additional
+    /// ApproxPolyDP shape check on the hole contour. Hybrid: topology + geometry.
+    /// </summary>
+    private static List<RotatedRect> DetectHolePlusShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var closed = new Mat();
+        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+
+        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        var rects = new List<RotatedRect>();
+        if (hierarchy == null || hierarchy.Length == 0) return rects;
+
+        for (int i = 0; i < contours.Length; i++)
+        {
+            if (hierarchy[i].Parent < 0) continue;
+
+            foreach (var holeContour in SplitIfMerged(contours[i], p))
+            {
+                double area = Cv2.ContourArea(holeContour);
+                if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels) continue;
+
+                double perimeter = Cv2.ArcLength(holeContour, true);
+                var approx = Cv2.ApproxPolyDP(holeContour, 0.04 * perimeter, true);
+                if (approx.Length is < 4 or > 6) continue;
+
+                var rect = Cv2.MinAreaRect(holeContour);
+                double rw = rect.Size.Width, rh = rect.Size.Height;
+                double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+                if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide) continue;
+
+                double rectArea = rw * rh;
+                if (rectArea <= 0) continue;
+                double fillRatio = area / rectArea;
+                if (fillRatio < p.HoleMinFill || fillRatio > p.HoleMaxFill) continue;
+
+                var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+                double support = PerimeterSupport(expanded, cleaned, 2);
+                if (support < p.HoleMinSupport || support > p.HoleMaxSupport) continue;
+
+                rects.Add(expanded);
+            }
+        }
+        return rects;
+    }
+
+    /// <summary>
+    /// Approach D: Hough line assembly — detect line segments, group by angle,
+    /// find parallel pairs and perpendicular intersections to form rectangles.
+    /// </summary>
+    private static List<RotatedRect> DetectHoughLines(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+        using var edges = new Mat();
+        Cv2.Canny(cleaned, edges, 50, 150);
+
+        var lines = Cv2.HoughLinesP(edges, 1, Cv2.PI / 180, 30, p.HoleMinSide, 5);
+        if (lines.Length < 4) return new List<RotatedRect>();
+
+        var segments = new List<(Point2d a, Point2d b, double angle, double length)>();
+        foreach (var line in lines)
+        {
+            var a = new Point2d(line.P1.X, line.P1.Y);
+            var b = new Point2d(line.P2.X, line.P2.Y);
+            double dx = b.X - a.X, dy = b.Y - a.Y;
+            double len = Math.Sqrt(dx * dx + dy * dy);
+            if (len < p.HoleMinSide) continue;
+            double angle = Math.Atan2(dy, dx);
+            segments.Add((a, b, angle, len));
+        }
+        if (segments.Count < 4) return new List<RotatedRect>();
+
+        var rects = new List<RotatedRect>();
+        for (int i = 0; i < segments.Count; i++)
+        {
+            for (int j = i + 1; j < segments.Count; j++)
+            {
+                double dAngle = AngleDiff(segments[i].angle, segments[j].angle);
+                if (dAngle > 0.15) continue;
+
+                for (int k = 0; k < segments.Count; k++)
+                {
+                    if (k == i || k == j) continue;
+                    double aIK = AngleDiff(segments[i].angle, segments[k].angle);
+                    if (Math.Abs(aIK - Math.PI / 2) > 0.2) continue;
+
+                    for (int m = k + 1; m < segments.Count; m++)
+                    {
+                        if (m == i || m == j) continue;
+                        double aJM = AngleDiff(segments[j].angle, segments[m].angle);
+                        if (Math.Abs(aJM - Math.PI / 2) > 0.2) continue;
+                        double aKM = AngleDiff(segments[k].angle, segments[m].angle);
+                        if (aKM > 0.15) continue;
+
+                        var corners = new[]
+                        {
+                            LineIntersect(segments[i].a, segments[i].b, segments[k].a, segments[k].b),
+                            LineIntersect(segments[i].a, segments[i].b, segments[m].a, segments[m].b),
+                            LineIntersect(segments[j].a, segments[j].b, segments[m].a, segments[m].b),
+                            LineIntersect(segments[j].a, segments[j].b, segments[k].a, segments[k].b)
+                        };
+                        if (corners.Any(c => c == null)) continue;
+
+                        var pts = corners.Select(c => new Point((int)c!.Value.X, (int)c.Value.Y)).ToArray();
+                        double area = Cv2.ContourArea(pts);
+                        if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels) continue;
+
+                        var rect = Cv2.MinAreaRect(pts);
+                        double rw = rect.Size.Width, rh = rect.Size.Height;
+                        double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+                        if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide) continue;
+
+                        var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+                        rects.Add(expanded);
+                    }
+                }
+            }
+        }
+        return rects;
+    }
+
+    /// <summary>
+    /// Approach E: Ring shape — outer contour with hole child + rectangular
+    /// outer boundary. Combines topology (has hole) + geometry (4 vertices).
+    /// </summary>
+    private static List<RotatedRect> DetectRingShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var closed = new Mat();
+        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+
+        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        var rects = new List<RotatedRect>();
+        if (hierarchy == null || hierarchy.Length == 0) return rects;
+
+        for (int i = 0; i < contours.Length; i++)
+        {
+            if (hierarchy[i].Parent >= 0) continue;
+            bool hasHole = false;
+            for (int j = 0; j < contours.Length; j++)
+            {
+                if (hierarchy[j].Parent == i) { hasHole = true; break; }
+            }
+            if (!hasHole) continue;
+
+            double outerArea = Cv2.ContourArea(contours[i]);
+            if (outerArea < p.HoleMinArea || outerArea > maxPixels) continue;
+
+            double perimeter = Cv2.ArcLength(contours[i], true);
+            if (perimeter < 4) continue;
+            var approx = Cv2.ApproxPolyDP(contours[i], 0.04 * perimeter, true);
+            if (approx.Length is < 4 or > 8) continue;
+
+            var rect = Cv2.MinAreaRect(contours[i]);
+            double rw = rect.Size.Width, rh = rect.Size.Height;
+            double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+            if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide) continue;
+
+            var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+            double support = PerimeterSupport(expanded, cleaned, 2);
+            if (support < p.HoleMinSupport) continue;
+
+            rects.Add(expanded);
+        }
+        return rects;
+    }
+
+    /// <summary>
+    /// Approach F: Hybrid — union of hole-based (A) and contour-shape (B),
+    /// then NMS to deduplicate. Orthogonal: topology + geometry.
+    /// </summary>
+    private static List<RotatedRect> DetectHybrid(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        var holeRects = DetectHoles(cleaned, p, imgWidth, imgHeight);
+        var shapeRects = DetectContourShape(cleaned, p, imgWidth, imgHeight);
+        var all = new List<RotatedRect>(holeRects);
+        all.AddRange(shapeRects);
+        return Nms(all, p.NmsThreshold);
+    }
+
+    private static bool IsApproximatelyRectangular(Point[] pts)
+    {
+        if (pts.Length != 4) return false;
+        for (int i = 0; i < 4; i++)
+        {
+            var prev = pts[(i + 3) % 4];
+            var curr = pts[i];
+            var next = pts[(i + 1) % 4];
+            double v1x = prev.X - curr.X, v1y = prev.Y - curr.Y;
+            double v2x = next.X - curr.X, v2y = next.Y - curr.Y;
+            double dot = v1x * v2x + v1y * v2y;
+            double mag1 = Math.Sqrt(v1x * v1x + v1y * v1y);
+            double mag2 = Math.Sqrt(v2x * v2x + v2y * v2y);
+            if (mag1 < 1 || mag2 < 1) return false;
+            double cosAngle = Math.Abs(dot) / (mag1 * mag2);
+            if (cosAngle > 0.35) return false;
+        }
+        return true;
+    }
+
+    private static double AngleDiff(double a1, double a2)
+    {
+        double d = Math.Abs(a1 - a2) % Math.PI;
+        return Math.Min(d, Math.PI - d);
+    }
+
+    private static Point2d? LineIntersect(Point2d p1, Point2d p2, Point2d p3, Point2d p4)
+    {
+        double d1x = p2.X - p1.X, d1y = p2.Y - p1.Y;
+        double d2x = p4.X - p3.X, d2y = p4.Y - p3.Y;
+        double det = d1x * (-d2y) - (-d2x) * d1y;
+        if (Math.Abs(det) < 1e-6) return null;
+        double t = ((p3.X - p1.X) * (-d2y) - (-d2x) * (p3.Y - p1.Y)) / det;
+        return new Point2d(p1.X + t * d1x, p1.Y + t * d1y);
     }
 
     private static List<RotatedRect> DetectHoles(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)

@@ -49,11 +49,13 @@ public static class CliRunner
         if (args.Length >= 3 && args[0] == "--cli")
         {
             var useOcr = args.Contains("--ocr");
-            RunDetect(args[1], args[2], useOcr);
+            var methodIdx = Array.IndexOf(args, "--method");
+            var method = methodIdx >= 0 && methodIdx + 1 < args.Length ? args[methodIdx + 1] : "hole";
+            RunDetect(args[1], args[2], useOcr, method);
             return;
         }
 
-        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr]");
+        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|contour|holeShape|hough|ring|hybrid]");
         Console.WriteLine("       BRobbDetector --step0 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step1 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step2 <inputDir> <outputDir>");
@@ -61,7 +63,7 @@ public static class CliRunner
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
-    private static void RunDetect(string inputDir, string outputDir, bool useOcr)
+    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole")
     {
         if (!Directory.Exists(inputDir))
         {
@@ -110,7 +112,7 @@ public static class CliRunner
             List<Services.DetectedBox> boxes;
             try
             {
-                boxes = detector.DetectFile(file, new DetectionParams());
+                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method });
             }
             catch (Exception ex)
             {
