@@ -133,9 +133,43 @@ public class ColorBoxDetector
     public Mat Step2PreserveHoles(Mat binaryMask, DetectionParams? parameters = null)
     {
         parameters ??= new DetectionParams();
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3));
+        return ApplyClose(binaryMask, parameters);
+    }
+
+    private static Mat ApplyClose(Mat mask, DetectionParams p)
+    {
         var result = new Mat();
-        Cv2.MorphologyEx(binaryMask, result, MorphTypes.Close, kernel, iterations: parameters.CloseIterations);
+        switch (p.CloseMode)
+        {
+            case "iter1":
+                using (var k = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3)))
+                    Cv2.MorphologyEx(mask, result, MorphTypes.Close, k, iterations: 1);
+                break;
+            case "directional":
+                using (var kh = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(5, 1)))
+                using (var kv = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(1, 5)))
+                {
+                    var tmp = new Mat();
+                    Cv2.MorphologyEx(mask, tmp, MorphTypes.Close, kh, iterations: 1);
+                    Cv2.MorphologyEx(tmp, result, MorphTypes.Close, kv, iterations: 1);
+                    tmp.Dispose();
+                }
+                break;
+            case "directional2":
+                using (var kh = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(7, 1)))
+                using (var kv = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(1, 7)))
+                {
+                    var tmp = new Mat();
+                    Cv2.MorphologyEx(mask, tmp, MorphTypes.Close, kh, iterations: 1);
+                    Cv2.MorphologyEx(tmp, result, MorphTypes.Close, kv, iterations: 1);
+                    tmp.Dispose();
+                }
+                break;
+            default:
+                using (var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3)))
+                    Cv2.MorphologyEx(mask, result, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+                break;
+        }
         return result;
     }
 
@@ -320,9 +354,7 @@ public class ColorBoxDetector
         var stats = new List<HoleStats>();
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
 
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
-        using var closed = new Mat();
-        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+        using var closed = ApplyClose(cleaned, p);
 
         Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
         if (hierarchy == null || hierarchy.Length == 0) return stats;
@@ -1084,9 +1116,7 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectContourShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
-        using var closed = new Mat();
-        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+        using var closed = ApplyClose(cleaned, p);
 
         Cv2.FindContours(closed, out Point[][] contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
@@ -1125,9 +1155,7 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectHolePlusShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
-        using var closed = new Mat();
-        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+        using var closed = ApplyClose(cleaned, p);
 
         Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
@@ -1248,9 +1276,7 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectRingShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
-        using var closed = new Mat();
-        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+        using var closed = ApplyClose(cleaned, p);
 
         Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
@@ -1437,9 +1463,7 @@ public class ColorBoxDetector
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
 
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
-        using var closed = new Mat();
-        Cv2.MorphologyEx(cleaned, closed, MorphTypes.Close, kernel, iterations: p.CloseIterations);
+        using var closed = ApplyClose(cleaned, p);
 
         Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
 
