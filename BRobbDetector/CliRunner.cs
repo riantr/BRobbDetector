@@ -53,11 +53,13 @@ public static class CliRunner
             var method = methodIdx >= 0 && methodIdx + 1 < args.Length ? args[methodIdx + 1] : "hole";
             var filterIdx = Array.IndexOf(args, "--filter");
             var filter = filterIdx >= 0 && filterIdx + 1 < args.Length ? args[filterIdx + 1] : "none";
-            RunDetect(args[1], args[2], useOcr, method, filter);
+            var csIdx = Array.IndexOf(args, "--colorspace");
+            var colorspace = csIdx >= 0 && csIdx + 1 < args.Length ? args[csIdx + 1] : "hsv";
+            RunDetect(args[1], args[2], useOcr, method, filter, colorspace);
             return;
         }
 
-        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|contour|holeShape|hough|ring|hybrid] [--filter none|strokeWidth|rightAngle|straightness|symmetry|dtWidth|all]");
+        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|...] [--filter none|...] [--colorspace hsv|hsvLab|hsvRgb|hsvLabRgb]");
         Console.WriteLine("       BRobbDetector --step0 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step1 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step2 <inputDir> <outputDir>");
@@ -65,7 +67,7 @@ public static class CliRunner
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
-    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole", string filter = "none")
+    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole", string filter = "none", string colorspace = "hsv")
     {
         if (!Directory.Exists(inputDir))
         {
@@ -114,7 +116,7 @@ public static class CliRunner
             List<Services.DetectedBox> boxes;
             try
             {
-                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method, FilterMethod = filter });
+                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method, FilterMethod = filter, ColorSpace = colorspace });
             }
             catch (Exception ex)
             {

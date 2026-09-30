@@ -44,6 +44,20 @@ public class ColorRule
     public int ValMax { get; set; } = 255;
 
     public bool UseSecondRange { get; set; } = true;
+
+    public int LabAMin { get; set; } = 165;
+    public int LabAMax { get; set; } = 255;
+    public int LabBMin { get; set; } = 110;
+    public int LabBMax { get; set; } = 185;
+    public int LabLMin { get; set; } = 60;
+    public int LabLMax { get; set; } = 200;
+
+    public int RgbRMin { get; set; } = 120;
+    public int RgbRMax { get; set; } = 255;
+    public int RgbGMin { get; set; } = 0;
+    public int RgbGMax { get; set; } = 120;
+    public int RgbBMin { get; set; } = 0;
+    public int RgbBMax { get; set; } = 120;
 }
 
 public class DetectionParams
@@ -92,6 +106,7 @@ public class DetectionParams
 
     public string DetectionMethod { get; set; } = "hole";
     public string FilterMethod { get; set; } = "none";
+    public string ColorSpace { get; set; } = "hsv";
 }
 public class AutoOptimizeSweepPoint
 {

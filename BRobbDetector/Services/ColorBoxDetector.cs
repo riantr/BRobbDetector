@@ -38,10 +38,27 @@ public class ColorBoxDetector
         using var hsv = new Mat();
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        foreach (var rule in parameters.ColorRules)
+        Mat? lab = null, rgb = null;
+        try
         {
-            var boxes = DetectByRule(hsv, rule, parameters, image.Width, image.Height);
-            results.AddRange(boxes);
+            if (parameters.ColorSpace.Contains("Lab"))
+            {
+                lab = new Mat();
+                Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+            }
+            if (parameters.ColorSpace.Contains("Rgb"))
+                rgb = image.Clone();
+
+            foreach (var rule in parameters.ColorRules)
+            {
+                var boxes = DetectByRule(hsv, image, rule, parameters, image.Width, image.Height, lab, rgb);
+                results.AddRange(boxes);
+            }
+        }
+        finally
+        {
+            lab?.Dispose();
+            rgb?.Dispose();
         }
 
         return results;
@@ -66,10 +83,32 @@ public class ColorBoxDetector
         using var hsv = new Mat();
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        foreach (var rule in parameters.ColorRules)
+        Mat? lab = null, rgb = null;
+        try
         {
-            using var ruleMask = BuildRuleMask(hsv, rule);
-            Cv2.BitwiseOr(result, ruleMask, result);
+            if (parameters.ColorSpace.Contains("Lab"))
+            {
+                lab = new Mat();
+                Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+            }
+            if (parameters.ColorSpace.Contains("Rgb"))
+            {
+                rgb = image.Clone();
+            }
+
+            foreach (var rule in parameters.ColorRules)
+            {
+                using var ruleMask = BuildRuleMask(hsv, rule);
+                using var csMask = ApplyColorSpaceFilter(image.Size(), rule, lab, rgb);
+                using var combined = new Mat();
+                Cv2.BitwiseAnd(ruleMask, csMask, combined);
+                Cv2.BitwiseOr(result, combined, result);
+            }
+        }
+        finally
+        {
+            lab?.Dispose();
+            rgb?.Dispose();
         }
         return result;
     }
@@ -317,9 +356,12 @@ public class ColorBoxDetector
         return stats;
     }
 
-    private List<DetectedBox> DetectByRule(Mat hsv, ColorRule rule, DetectionParams p, int imgWidth, int imgHeight)
+    private List<DetectedBox> DetectByRule(Mat hsv, Mat image, ColorRule rule, DetectionParams p, int imgWidth, int imgHeight, Mat? lab = null, Mat? rgb = null)
     {
-        using var mask = BuildRuleMask(hsv, rule);
+        using var hsvMask = BuildRuleMask(hsv, rule);
+        using var csMask = ApplyColorSpaceFilter(image.Size(), rule, lab, rgb);
+        using var mask = new Mat();
+        Cv2.BitwiseAnd(hsvMask, csMask, mask);
 
         var rects = DetectPass(mask, p, imgWidth, imgHeight, mask);
         if (rects.Count == 0)
@@ -815,6 +857,35 @@ public class ColorBoxDetector
         }
 
         return mask;
+    }
+
+    /// <summary>
+    /// Applies Lab and/or RGB conjunctive constraints. Returns a binary mask
+    /// where white = passes all active color space filters.
+    /// </summary>
+    private static Mat ApplyColorSpaceFilter(OpenCvSharp.Size size, ColorRule rule, Mat? lab, Mat? rgb)
+    {
+        var result = new Mat(size, MatType.CV_8UC1, new Scalar(255));
+
+        if (lab != null)
+        {
+            using var labMask = new Mat();
+            Cv2.InRange(lab,
+                new Scalar(rule.LabLMin, rule.LabAMin, rule.LabBMin),
+                new Scalar(rule.LabLMax, rule.LabAMax, rule.LabBMax), labMask);
+            Cv2.BitwiseAnd(result, labMask, result);
+        }
+
+        if (rgb != null)
+        {
+            using var rgbMask = new Mat();
+            Cv2.InRange(rgb,
+                new Scalar(rule.RgbBMin, rule.RgbGMin, rule.RgbRMin),
+                new Scalar(rule.RgbBMax, rule.RgbGMax, rule.RgbRMax), rgbMask);
+            Cv2.BitwiseAnd(result, rgbMask, result);
+        }
+
+        return result;
     }
 
     private static Mat RemoveText(Mat mask, DetectionParams p)

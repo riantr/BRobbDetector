@@ -11,6 +11,7 @@ def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 500
     method = sys.argv[2] if len(sys.argv) > 2 else "hole"
     flt = sys.argv[3] if len(sys.argv) > 3 else "none"
+    cs = sys.argv[4] if len(sys.argv) > 4 else "hsv"
     exp = load_expected()
     ids = [k for k, v in exp.items() if v >= 1 and os.path.exists(os.path.join(IMG, k + ".jpg"))]
     ids.sort()
@@ -32,10 +33,10 @@ def main():
             except OSError:
                 shutil.copy2(src, dst)
 
-    print(f"Running C# detector on {n} images (method={method}, filter={flt})...")
+    print(f"Running C# detector on {n} images (method={method}, filter={flt}, cs={cs})...")
     t0 = time.time()
     result = subprocess.run(
-        ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR, "--method", method, "--filter", flt],
+        ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR, "--method", method, "--filter", flt, "--colorspace", cs],
         capture_output=True, text=True, timeout=600, encoding="utf-8", errors="replace"
     )
     print(f"  {result.stdout.strip()}")
