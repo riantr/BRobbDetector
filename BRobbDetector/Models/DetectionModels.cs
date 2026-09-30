@@ -91,6 +91,7 @@ public class DetectionParams
     public int OcrTextExtent { get; set; } = 35;
 
     public string DetectionMethod { get; set; } = "hole";
+    public string FilterMethod { get; set; } = "none";
 }
 public class AutoOptimizeSweepPoint
 {

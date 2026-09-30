@@ -51,11 +51,13 @@ public static class CliRunner
             var useOcr = args.Contains("--ocr");
             var methodIdx = Array.IndexOf(args, "--method");
             var method = methodIdx >= 0 && methodIdx + 1 < args.Length ? args[methodIdx + 1] : "hole";
-            RunDetect(args[1], args[2], useOcr, method);
+            var filterIdx = Array.IndexOf(args, "--filter");
+            var filter = filterIdx >= 0 && filterIdx + 1 < args.Length ? args[filterIdx + 1] : "none";
+            RunDetect(args[1], args[2], useOcr, method, filter);
             return;
         }
 
-        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|contour|holeShape|hough|ring|hybrid]");
+        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|contour|holeShape|hough|ring|hybrid] [--filter none|strokeWidth|rightAngle|straightness|symmetry|dtWidth|all]");
         Console.WriteLine("       BRobbDetector --step0 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step1 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step2 <inputDir> <outputDir>");
@@ -63,7 +65,7 @@ public static class CliRunner
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
-    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole")
+    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole", string filter = "none")
     {
         if (!Directory.Exists(inputDir))
         {
@@ -112,7 +114,7 @@ public static class CliRunner
             List<Services.DetectedBox> boxes;
             try
             {
-                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method });
+                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method, FilterMethod = filter });
             }
             catch (Exception ex)
             {

@@ -417,9 +417,302 @@ public class ColorBoxDetector
         var rects = DetectByMethod(cleaned, p, imgWidth, imgHeight);
         if (validationMask != null)
             rects = ValidateEdges(rects, validationMask, p);
+        rects = ApplyFilter(rects, validationMask ?? mask, p);
         rects = Nms(rects, p.NmsThreshold);
         rects = DedupContained(rects, p.DedupContainThreshold);
         return rects;
+    }
+
+    private static List<RotatedRect> ApplyFilter(List<RotatedRect> rects, Mat mask, DetectionParams p)
+    {
+        return p.FilterMethod switch
+        {
+            "none" => rects,
+            "strokeWidth" => FilterByStrokeWidth(rects, mask),
+            "rightAngle" => FilterByRightAngles(rects, mask),
+            "straightness" => FilterByEdgeStraightness(rects, mask),
+            "symmetry" => FilterBySymmetry(rects),
+            "dtWidth" => FilterByDistanceTransformWidth(rects, mask),
+            "all" => FilterBySymmetry(FilterByRightAngles(FilterByStrokeWidth(rects, mask), mask)),
+            _ => rects
+        };
+    }
+
+    /// <summary>
+    /// Filter 1: Stroke width consistency. For each OBB edge, sample perpendicular
+    /// cross-sections at regular intervals, count red pixels (= local stroke width).
+    /// Reject if width variance along an edge is high or width differs across edges.
+    /// </summary>
+    private static List<RotatedRect> FilterByStrokeWidth(List<RotatedRect> rects, Mat mask, int band = 15, int nSamples = 20, double maxCv = 1.2)
+    {
+        var keep = new List<RotatedRect>();
+        int h = mask.Rows, w = mask.Cols;
+        foreach (var rect in rects)
+        {
+            var pts = Cv2.BoxPoints(rect);
+            var edgeWidths = new List<double>();
+            bool ok = true;
+            for (int edge = 0; edge < 4 && ok; edge++)
+            {
+                var p1 = pts[edge];
+                var p2 = pts[(edge + 1) % 4];
+                double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+                double len = Math.Sqrt(dx * dx + dy * dy);
+                if (len < 5) { ok = false; break; }
+                double tx = dx / len, ty = dy / len;
+                double nx = -ty, ny = tx;
+                var widths = new List<double>();
+                for (int s = 0; s <= nSamples; s++)
+                {
+                    double frac = (double)s / nSamples;
+                    double cx = p1.X + dx * frac;
+                    double cy = p1.Y + dy * frac;
+                    int count = 0;
+                    for (int d = -band; d <= band; d++)
+                    {
+                        int px = (int)Math.Round(cx + nx * d);
+                        int py = (int)Math.Round(cy + ny * d);
+                        if (px >= 0 && px < w && py >= 0 && py < h && mask.At<byte>(py, px) > 0)
+                            count++;
+                    }
+                    widths.Add(count);
+                }
+                if (widths.Count == 0) { ok = false; break; }
+                double mean = widths.Average();
+                if (mean < 1) { ok = false; break; }
+                double std = Math.Sqrt(widths.Sum(v => (v - mean) * (v - mean)) / widths.Count);
+                if (std / mean > maxCv) { ok = false; break; }
+                edgeWidths.Add(mean);
+            }
+            if (ok && edgeWidths.Count == 4)
+            {
+                double overallMean = edgeWidths.Average();
+                if (overallMean >= 1)
+                {
+                    double overallStd = Math.Sqrt(edgeWidths.Sum(v => (v - overallMean) * (v - overallMean)) / 4);
+                    if (overallStd / overallMean <= maxCv)
+                        keep.Add(rect);
+                }
+            }
+        }
+        return keep;
+    }
+
+    /// <summary>
+    /// Filter 2: 90° angle validation. For each OBB corner, collect red pixels in
+    /// two perpendicular bands along the adjacent edges, fit lines, compute angle.
+    /// Reject if any corner angle deviates >15° from 90°.
+    /// </summary>
+    private static List<RotatedRect> FilterByRightAngles(List<RotatedRect> rects, Mat mask, double maxDeviation = 25.0, int cornerRadius = 25)
+    {
+        var keep = new List<RotatedRect>();
+        int h = mask.Rows, w = mask.Cols;
+        foreach (var rect in rects)
+        {
+            var pts = Cv2.BoxPoints(rect);
+            bool ok = true;
+            for (int c = 0; c < 4 && ok; c++)
+            {
+                var corner = pts[c];
+                var prev = pts[(c + 3) % 4];
+                var next = pts[(c + 1) % 4];
+                var dir1 = new Point2d(prev.X - corner.X, prev.Y - corner.Y);
+                var dir2 = new Point2d(next.X - corner.X, next.Y - corner.Y);
+                double l1 = Math.Sqrt(dir1.X * dir1.X + dir1.Y * dir1.Y);
+                double l2 = Math.Sqrt(dir2.X * dir2.X + dir2.Y * dir2.Y);
+                if (l1 < 1 || l2 < 1) { ok = false; break; }
+                dir1 = new Point2d(dir1.X / l1, dir1.Y / l1);
+                dir2 = new Point2d(dir2.X / l2, dir2.Y / l2);
+
+                var pts1 = new List<Point2d>();
+                var pts2 = new List<Point2d>();
+                for (int t = 3; t <= cornerRadius; t++)
+                {
+                    for (int d = -3; d <= 3; d++)
+                    {
+                        double x1 = corner.X + dir1.X * t + (-dir1.Y) * d;
+                        double y1 = corner.Y + dir1.Y * t + dir1.X * d;
+                        int px1 = (int)Math.Round(x1), py1 = (int)Math.Round(y1);
+                        if (px1 >= 0 && px1 < w && py1 >= 0 && py1 < h && mask.At<byte>(py1, px1) > 0)
+                            pts1.Add(new Point2d(x1, y1));
+
+                        double x2 = corner.X + dir2.X * t + (-dir2.Y) * d;
+                        double y2 = corner.Y + dir2.Y * t + dir2.X * d;
+                        int px2 = (int)Math.Round(x2), py2 = (int)Math.Round(y2);
+                        if (px2 >= 0 && px2 < w && py2 >= 0 && py2 < h && mask.At<byte>(py2, px2) > 0)
+                            pts2.Add(new Point2d(x2, y2));
+                    }
+                }
+                if (pts1.Count < 5 || pts2.Count < 5) { ok = false; break; }
+
+                var line1 = FitLine(pts1);
+                var line2 = FitLine(pts2);
+                double angle = Math.Abs(Math.Atan2(line1.dirX * line2.dirY - line1.dirY * line2.dirX, line1.dirX * line2.dirX + line1.dirY * line2.dirY));
+                angle = Math.Min(angle, Math.PI - angle);
+                double deviation = Math.Abs(angle - Math.PI / 2) * 180.0 / Math.PI;
+                if (deviation > maxDeviation) { ok = false; break; }
+            }
+            if (ok) keep.Add(rect);
+        }
+        return keep;
+    }
+
+    /// <summary>
+    /// Filter 3: Edge straightness. For each OBB edge, collect red pixels in a
+    /// perpendicular band, fit a line, compute max residual. Reject if any edge
+    /// has max residual > 3 pixels (curved/jagged).
+    /// </summary>
+    private static List<RotatedRect> FilterByEdgeStraightness(List<RotatedRect> rects, Mat mask, int band = 8, double maxResidual = 5.0)
+    {
+        var keep = new List<RotatedRect>();
+        int h = mask.Rows, w = mask.Cols;
+        foreach (var rect in rects)
+        {
+            var pts = Cv2.BoxPoints(rect);
+            bool ok = true;
+            for (int edge = 0; edge < 4 && ok; edge++)
+            {
+                var p1 = pts[edge];
+                var p2 = pts[(edge + 1) % 4];
+                double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+                double len = Math.Sqrt(dx * dx + dy * dy);
+                if (len < 5) continue;
+                double tx = dx / len, ty = dy / len;
+                double nx = -ty, ny = tx;
+
+                var centers = new List<Point2d>();
+                int nSamp = Math.Min((int)len, 40);
+                for (int s = 0; s <= nSamp; s++)
+                {
+                    double frac = (double)s / nSamp;
+                    double cx = p1.X + dx * frac;
+                    double cy = p1.Y + dy * frac;
+                    double sumX = 0, sumY = 0;
+                    int count = 0;
+                    for (int d = -band; d <= band; d++)
+                    {
+                        int px = (int)Math.Round(cx + nx * d);
+                        int py = (int)Math.Round(cy + ny * d);
+                        if (px >= 0 && px < w && py >= 0 && py < h && mask.At<byte>(py, px) > 0)
+                        {
+                            sumX += px;
+                            sumY += py;
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                        centers.Add(new Point2d(sumX / count, sumY / count));
+                }
+                if (centers.Count < 5) { ok = false; break; }
+
+                var fit = FitLine(centers);
+                double maxR = centers.Max(p => Math.Abs((p.X - fit.point.X) * fit.dirY - (p.Y - fit.point.Y) * fit.dirX));
+                if (maxR > maxResidual) { ok = false; break; }
+            }
+            if (ok) keep.Add(rect);
+        }
+        return keep;
+    }
+
+    /// <summary>
+    /// Filter 4: Opposite edge parallelism + equal length. Check edge1∥edge3,
+    /// edge2∥edge4, |edge1|≈|edge3|, |edge2|≈|edge4|. Reject asymmetric shapes.
+    /// </summary>
+    private static List<RotatedRect> FilterBySymmetry(List<RotatedRect> rects, double maxAngleDiff = 5.0, double minLengthRatio = 0.85)
+    {
+        var keep = new List<RotatedRect>();
+        foreach (var rect in rects)
+        {
+            var pts = Cv2.BoxPoints(rect);
+            var edges = new double[4];
+            var angles = new double[4];
+            for (int i = 0; i < 4; i++)
+            {
+                double dx = pts[(i + 1) % 4].X - pts[i].X;
+                double dy = pts[(i + 1) % 4].Y - pts[i].Y;
+                edges[i] = Math.Sqrt(dx * dx + dy * dy);
+                angles[i] = Math.Atan2(dy, dx);
+            }
+            double dAngle13 = Math.Abs(AngleDiff(angles[0], angles[2])) * 180.0 / Math.PI;
+            double dAngle24 = Math.Abs(AngleDiff(angles[1], angles[3])) * 180.0 / Math.PI;
+            double ratio13 = Math.Min(edges[0], edges[2]) / Math.Max(edges[0], edges[2]);
+            double ratio24 = Math.Min(edges[1], edges[3]) / Math.Max(edges[1], edges[3]);
+            if (dAngle13 <= maxAngleDiff && dAngle24 <= maxAngleDiff &&
+                ratio13 >= minLengthRatio && ratio24 >= minLengthRatio)
+                keep.Add(rect);
+        }
+        return keep;
+    }
+
+    /// <summary>
+    /// Filter 5: Distance transform stroke width. Compute DT of binary mask,
+    /// measure stroke width = 2×max DT value along the OBB centerline.
+    /// Filter by width consistency across all 4 edges.
+    /// </summary>
+    private static List<RotatedRect> FilterByDistanceTransformWidth(List<RotatedRect> rects, Mat mask, double maxCv = 0.8)
+    {
+        using var dt = new Mat();
+        Cv2.DistanceTransform(mask, dt, DistanceTypes.L2, 0);
+        int h = mask.Rows, w = mask.Cols;
+        var keep = new List<RotatedRect>();
+        foreach (var rect in rects)
+        {
+            var pts = Cv2.BoxPoints(rect);
+            var edgeWidths = new List<double>();
+            bool ok = true;
+            for (int edge = 0; edge < 4 && ok; edge++)
+            {
+                var p1 = pts[edge];
+                var p2 = pts[(edge + 1) % 4];
+                double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+                double len = Math.Sqrt(dx * dx + dy * dy);
+                if (len < 5) { ok = false; break; }
+                double maxDt = 0;
+                int nSamp = (int)len;
+                for (int s = 0; s <= nSamp; s++)
+                {
+                    double frac = (double)s / nSamp;
+                    int px = (int)Math.Round(p1.X + dx * frac);
+                    int py = (int)Math.Round(p1.Y + dy * frac);
+                    if (px >= 0 && px < w && py >= 0 && py < h)
+                        maxDt = Math.Max(maxDt, dt.At<float>(py, px));
+                }
+                edgeWidths.Add(maxDt * 2);
+            }
+            if (ok && edgeWidths.Count == 4)
+            {
+                double mean = edgeWidths.Average();
+                if (mean >= 1)
+                {
+                    double std = Math.Sqrt(edgeWidths.Sum(v => (v - mean) * (v - mean)) / 4);
+                    if (std / mean <= maxCv)
+                        keep.Add(rect);
+                }
+            }
+        }
+        return keep;
+    }
+
+    private static (Point2d point, double dirX, double dirY) FitLine(List<Point2d> pts)
+    {
+        double mx = pts.Average(p => p.X), my = pts.Average(p => p.Y);
+        double sxx = pts.Sum(p => (p.X - mx) * (p.X - mx));
+        double syy = pts.Sum(p => (p.Y - my) * (p.Y - my));
+        double sxy = pts.Sum(p => (p.X - mx) * (p.Y - my));
+        double dirX, dirY;
+        if (sxx >= syy)
+        {
+            dirX = 1;
+            dirY = sxx > 0 ? sxy / sxx : 0;
+        }
+        else
+        {
+            dirX = syy > 0 ? sxy / syy : 0;
+            dirY = 1;
+        }
+        double mag = Math.Sqrt(dirX * dirX + dirY * dirY);
+        if (mag > 0) { dirX /= mag; dirY /= mag; }
+        return (new Point2d(mx, my), dirX, dirY);
     }
 
     /// <summary>
@@ -706,6 +999,8 @@ public class ColorBoxDetector
             "hough" => DetectHoughLines(cleaned, p, imgWidth, imgHeight),
             "ring" => DetectRingShape(cleaned, p, imgWidth, imgHeight),
             "hybrid" => DetectHybrid(cleaned, p, imgWidth, imgHeight),
+            "perpEdges" => DetectPerpendicularEdges(cleaned, p, imgWidth, imgHeight),
+            "holePlusPerp" => DetectHolePlusPerp(cleaned, p, imgWidth, imgHeight),
             _ => DetectHoles(cleaned, p, imgWidth, imgHeight)
         };
     }
@@ -932,6 +1227,102 @@ public class ColorBoxDetector
         var shapeRects = DetectContourShape(cleaned, p, imgWidth, imgHeight);
         var all = new List<RotatedRect>(holeRects);
         all.AddRange(shapeRects);
+        return Nms(all, p.NmsThreshold);
+    }
+
+    /// <summary>
+    /// Approach: Perpendicular edge pair detection. Detects line segments via
+    /// HoughLinesP, finds L-shaped perpendicular pairs, then searches for a
+    /// closing parallel pair to form a rectangle. Catches boxes with broken
+    /// holes (incomplete outlines that hole detection misses).
+    /// </summary>
+    private static List<RotatedRect> DetectPerpendicularEdges(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
+        using var edges = new Mat();
+        Cv2.Canny(cleaned, edges, 50, 150);
+        var lines = Cv2.HoughLinesP(edges, 1, Cv2.PI / 180, 20, p.HoleMinSide, 3);
+        if (lines.Length < 4) return new List<RotatedRect>();
+
+        var segs = new List<(Point2d a, Point2d b, double angle, double length)>();
+        foreach (var line in lines)
+        {
+            var a = new Point2d(line.P1.X, line.P1.Y);
+            var b = new Point2d(line.P2.X, line.P2.Y);
+            double dx = b.X - a.X, dy = b.Y - a.Y;
+            double len = Math.Sqrt(dx * dx + dy * dy);
+            if (len < p.HoleMinSide) continue;
+            segs.Add((a, b, Math.Atan2(dy, dx), len));
+        }
+        if (segs.Count < 4) return new List<RotatedRect>();
+        segs = segs.OrderByDescending(s => s.length).Take(40).ToList();
+
+        var rects = new List<RotatedRect>();
+        double perpTol = 0.25;
+        double paraTol = 0.20;
+
+        for (int i = 0; i < segs.Count; i++)
+        {
+            for (int j = 0; j < segs.Count; j++)
+            {
+                if (i == j) continue;
+                double dAngle = AngleDiff(segs[i].angle, segs[j].angle);
+                if (Math.Abs(dAngle - Math.PI / 2) > perpTol) continue;
+
+                var ci = segs[i].a;
+                var cj = segs[j].a;
+                double dist = Math.Sqrt((ci.X - cj.X) * (ci.X - cj.X) + (ci.Y - cj.Y) * (ci.Y - cj.Y));
+                if (dist > 15) continue;
+
+                for (int k = 0; k < segs.Count; k++)
+                {
+                    if (k == i || k == j) continue;
+                    if (AngleDiff(segs[k].angle, segs[i].angle) > paraTol) continue;
+
+                    for (int m = 0; m < segs.Count; m++)
+                    {
+                        if (m == i || m == j || m == k) continue;
+                        if (AngleDiff(segs[m].angle, segs[j].angle) > paraTol) continue;
+
+                        var c1 = LineIntersect(segs[i].a, segs[i].b, segs[j].a, segs[j].b);
+                        var c2 = LineIntersect(segs[i].a, segs[i].b, segs[m].a, segs[m].b);
+                        var c3 = LineIntersect(segs[k].a, segs[k].b, segs[m].a, segs[m].b);
+                        var c4 = LineIntersect(segs[k].a, segs[k].b, segs[j].a, segs[j].b);
+                        if (c1 == null || c2 == null || c3 == null || c4 == null) continue;
+
+                        var pts = new[] { c1, c2, c3, c4 }
+                            .Select(c => new Point((int)Math.Round(c!.Value.X), (int)Math.Round(c.Value.Y)))
+                            .ToArray();
+                        double area = Cv2.ContourArea(pts);
+                        if (area < p.HoleMinArea || area > p.HoleMaxArea || area > maxPixels) continue;
+
+                        var rect = Cv2.MinAreaRect(pts);
+                        double rw = rect.Size.Width, rh = rect.Size.Height;
+                        double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+                        if (minSide < p.HoleMinSide || maxSide > p.HoleMaxSide) continue;
+
+                        var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
+                        double support = PerimeterSupport(expanded, cleaned, 2);
+                        if (support < p.HoleMinSupport) continue;
+
+                        rects.Add(expanded);
+                    }
+                }
+            }
+        }
+        return rects;
+    }
+
+    /// <summary>
+    /// Hybrid: hole-based + perpendicular edge detection. Union + NMS.
+    /// Hole catches complete outlines, perpEdges catches broken ones.
+    /// </summary>
+    private static List<RotatedRect> DetectHolePlusPerp(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    {
+        var holeRects = DetectHoles(cleaned, p, imgWidth, imgHeight);
+        var perpRects = DetectPerpendicularEdges(cleaned, p, imgWidth, imgHeight);
+        var all = new List<RotatedRect>(holeRects);
+        all.AddRange(perpRects);
         return Nms(all, p.NmsThreshold);
     }
 
