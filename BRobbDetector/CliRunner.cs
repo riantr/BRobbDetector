@@ -54,7 +54,7 @@ public static class CliRunner
             var filterIdx = Array.IndexOf(args, "--filter");
             var filter = filterIdx >= 0 && filterIdx + 1 < args.Length ? args[filterIdx + 1] : "none";
             var csIdx = Array.IndexOf(args, "--colorspace");
-            var colorspace = csIdx >= 0 && csIdx + 1 < args.Length ? args[csIdx + 1] : "hsv";
+            var colorspace = csIdx >= 0 && csIdx + 1 < args.Length ? args[csIdx + 1] : "hsvLabRgb";
             RunDetect(args[1], args[2], useOcr, method, filter, colorspace);
             return;
         }
