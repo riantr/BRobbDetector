@@ -78,6 +78,54 @@
                       <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding ValMax}" TickFrequency="16" />
                       <TextBlock Grid.Column="4" Text="{Binding ValMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
+                    <Expander Header="Lab / RGB" IsExpanded="False" Margin="0,2,0,0" FontSize="10">
+                      <StackPanel Margin="0,2,0,0">
+                        <TextBlock Text="Lab" FontSize="9" FontWeight="Bold" Margin="0,0,0,1" />
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="L" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding LabLMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding LabLMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding LabLMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding LabLMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="a" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding LabAMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding LabAMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding LabAMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding LabAMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="b" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding LabBMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding LabBMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding LabBMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding LabBMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <TextBlock Text="RGB" FontSize="9" FontWeight="Bold" Margin="0,3,0,1" />
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="R" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding RgbRMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding RgbRMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding RgbRMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding RgbRMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="G" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding RgbGMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding RgbGMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding RgbGMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding RgbGMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="14,*,30,*,30" Margin="0,1,0,0">
+                          <TextBlock Grid.Column="0" Text="B" FontSize="10" VerticalAlignment="Center" />
+                          <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding RgbBMin}" TickFrequency="16" />
+                          <TextBlock Grid.Column="2" Text="{Binding RgbBMin}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Slider Grid.Column="3" Minimum="0" Maximum="255" Value="{Binding RgbBMax}" TickFrequency="16" />
+                          <TextBlock Grid.Column="4" Text="{Binding RgbBMax}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                      </StackPanel>
+                    </Expander>
                   </StackPanel>
                 </Border>
               </DataTemplate>

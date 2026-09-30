@@ -48,6 +48,42 @@ public partial class CategoryEntry : ObservableObject
     [ObservableProperty]
     private int _valMax = 255;
 
+    [ObservableProperty]
+    private int _labLMin = 60;
+
+    [ObservableProperty]
+    private int _labLMax = 200;
+
+    [ObservableProperty]
+    private int _labAMin = 165;
+
+    [ObservableProperty]
+    private int _labAMax = 255;
+
+    [ObservableProperty]
+    private int _labBMin = 110;
+
+    [ObservableProperty]
+    private int _labBMax = 185;
+
+    [ObservableProperty]
+    private int _rgbRMin = 120;
+
+    [ObservableProperty]
+    private int _rgbRMax = 255;
+
+    [ObservableProperty]
+    private int _rgbGMin = 0;
+
+    [ObservableProperty]
+    private int _rgbGMax = 120;
+
+    [ObservableProperty]
+    private int _rgbBMin = 0;
+
+    [ObservableProperty]
+    private int _rgbBMax = 120;
+
     partial void OnTargetColorIndexChanged(int value)
     {
         if (value < 0 || value >= ColorPresets.Length) return;

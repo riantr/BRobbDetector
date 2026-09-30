@@ -296,7 +296,19 @@ public partial class MainViewModel : ViewModelBase
                 SatMin = c.SatMin,
                 SatMax = c.SatMax,
                 ValMin = c.ValMin,
-                ValMax = c.ValMax
+                ValMax = c.ValMax,
+                LabLMin = c.LabLMin,
+                LabLMax = c.LabLMax,
+                LabAMin = c.LabAMin,
+                LabAMax = c.LabAMax,
+                LabBMin = c.LabBMin,
+                LabBMax = c.LabBMax,
+                RgbRMin = c.RgbRMin,
+                RgbRMax = c.RgbRMax,
+                RgbGMin = c.RgbGMin,
+                RgbGMax = c.RgbGMax,
+                RgbBMin = c.RgbBMin,
+                RgbBMax = c.RgbBMax
             })
             .ToList();
 
@@ -742,6 +754,18 @@ public partial class MainViewModel : ViewModelBase
             cat.SatMax = 255;
             cat.ValMin = 46;
             cat.ValMax = 255;
+            cat.LabLMin = 60;
+            cat.LabLMax = 200;
+            cat.LabAMin = 165;
+            cat.LabAMax = 255;
+            cat.LabBMin = 110;
+            cat.LabBMax = 185;
+            cat.RgbRMin = 120;
+            cat.RgbRMax = 255;
+            cat.RgbGMin = 0;
+            cat.RgbGMax = 120;
+            cat.RgbBMin = 0;
+            cat.RgbBMax = 120;
         }
         Log("[Restore] Color rules restored to defaults (red).");
     }
