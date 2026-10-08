@@ -203,7 +203,7 @@ public class ColorBoxDetector
         int centerSat, int centerVal, int sweepRange = 25, double kneeRatio = 0.9)
     {
         var result = new AutoOptimizeResult();
-        var hsvImages = new List<Mat>();
+        var images = new List<(Mat hsv, Mat? lab, Mat? rgb)>();
         try
         {
             foreach (var path in imagePaths)
@@ -212,9 +212,17 @@ public class ColorBoxDetector
                 if (img.Empty()) continue;
                 var hsv = new Mat();
                 Cv2.CvtColor(img, hsv, ColorConversionCodes.BGR2HSV);
-                hsvImages.Add(hsv);
+                Mat? lab = null, rgb = null;
+                if (baseParams.ColorSpace.Contains("Lab"))
+                {
+                    lab = new Mat();
+                    Cv2.CvtColor(img, lab, ColorConversionCodes.BGR2Lab);
+                }
+                if (baseParams.ColorSpace.Contains("Rgb"))
+                    rgb = img.Clone();
+                images.Add((hsv, lab, rgb));
             }
-            if (hsvImages.Count == 0) return result;
+            if (images.Count == 0) return result;
 
             var rule0 = baseParams.ColorRules[0];
             int satMin = rule0.SatMin, satMax = rule0.SatMax;
@@ -227,30 +235,30 @@ public class ColorBoxDetector
             int step = 5;
 
             // 1. SatMin: sweep [satLo→satHi], pick highest value on the retention plateau
-            var satMinPts = SweepParam(hsvImages, baseParams, "SatMin", satLo, satHi, step,
+            var satMinPts = SweepParam(images, baseParams, "SatMin", satLo, satHi, step,
                 v => (v, satMax, valMin, valMax));
             result.SweepData.AddRange(satMinPts);
             satMin = FindKneeHigh(satMinPts, kneeRatio);
 
             // 2. ValMin: sweep [valLo→valHi], pick highest value on the retention plateau
-            var valMinPts = SweepParam(hsvImages, baseParams, "ValMin", valLo, valHi, step,
+            var valMinPts = SweepParam(images, baseParams, "ValMin", valLo, valHi, step,
                 v => (satMin, satMax, v, valMax));
             result.SweepData.AddRange(valMinPts);
             valMin = FindKneeHigh(valMinPts, kneeRatio);
 
             // 3. SatMax: sweep [satHi→satLo], pick lowest value on the retention plateau
-            var satMaxPts = SweepParam(hsvImages, baseParams, "SatMax", satHi, satLo, -step,
+            var satMaxPts = SweepParam(images, baseParams, "SatMax", satHi, satLo, -step,
                 v => (satMin, v, valMin, valMax));
             result.SweepData.AddRange(satMaxPts);
             satMax = FindKneeLow(satMaxPts, kneeRatio);
 
             // 4. ValMax: sweep [valHi→valLo], pick lowest value on the retention plateau
-            var valMaxPts = SweepParam(hsvImages, baseParams, "ValMax", valHi, valLo, -step,
+            var valMaxPts = SweepParam(images, baseParams, "ValMax", valHi, valLo, -step,
                 v => (satMin, satMax, valMin, v));
             result.SweepData.AddRange(valMaxPts);
             valMax = FindKneeLow(valMaxPts, kneeRatio);
 
-            var (finalRet, _) = EvalRetention(hsvImages, baseParams, satMin, satMax, valMin, valMax);
+            var (finalRet, _) = EvalRetention(images, baseParams, satMin, satMax, valMin, valMax);
             result.OptimalSatMin = satMin;
             result.OptimalSatMax = satMax;
             result.OptimalValMin = valMin;
@@ -259,12 +267,12 @@ public class ColorBoxDetector
         }
         finally
         {
-            foreach (var hsv in hsvImages) hsv.Dispose();
+            foreach (var (hsv, lab, rgb) in images) { hsv.Dispose(); lab?.Dispose(); rgb?.Dispose(); }
         }
         return result;
     }
 
-    private List<AutoOptimizeSweepPoint> SweepParam(List<Mat> hsvImages, DetectionParams baseParams,
+    private List<AutoOptimizeSweepPoint> SweepParam(List<(Mat hsv, Mat? lab, Mat? rgb)> images, DetectionParams baseParams,
         string param, int from, int to, int step,
         Func<int, (int satMin, int satMax, int valMin, int valMax)> getBounds)
     {
@@ -272,7 +280,7 @@ public class ColorBoxDetector
         for (int v = from; step > 0 ? v <= to : v >= to; v += step)
         {
             var (sMin, sMax, vMin, vMax) = getBounds(v);
-            var (ret, sig) = EvalRetention(hsvImages, baseParams, sMin, sMax, vMin, vMax);
+            var (ret, sig) = EvalRetention(images, baseParams, sMin, sMax, vMin, vMax);
             pts.Add(new AutoOptimizeSweepPoint { Parameter = param, Value = v, Retention = ret, Signal = sig });
         }
         return pts;
@@ -296,12 +304,12 @@ public class ColorBoxDetector
         return pts.Where(p => p.Retention >= threshold).Min(p => p.Value);
     }
 
-    private (double retention, double signal) EvalRetention(List<Mat> hsvImages, DetectionParams baseParams,
+    private (double retention, double signal) EvalRetention(List<(Mat hsv, Mat? lab, Mat? rgb)> images, DetectionParams baseParams,
         int satMin, int satMax, int valMin, int valMax, double maxFraction = 0.25)
     {
         double totalRetention = 0, totalSignal = 0;
         int validCount = 0;
-        foreach (var hsv in hsvImages)
+        foreach (var (hsv, lab, rgb) in images)
         {
             using var mask = new Mat(hsv.Size(), MatType.CV_8UC1, Scalar.Black);
             foreach (var rule in baseParams.ColorRules)
@@ -315,7 +323,10 @@ public class ColorBoxDetector
                     UseSecondRange = rule.UseSecondRange
                 };
                 using var ruleMask = BuildRuleMask(hsv, adjusted);
-                Cv2.BitwiseOr(mask, ruleMask, mask);
+                using var csMask = ApplyColorSpaceFilter(hsv.Size(), rule, lab, rgb);
+                using var combined = new Mat();
+                Cv2.BitwiseAnd(ruleMask, csMask, combined);
+                Cv2.BitwiseOr(mask, combined, mask);
             }
             int count0 = Cv2.CountNonZero(mask);
             if (count0 == 0) continue;
@@ -337,16 +348,36 @@ public class ColorBoxDetector
         using var hsv = new Mat();
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        var allStats = new List<HoleStats>();
-        foreach (var rule in parameters.ColorRules)
+        Mat? lab = null, rgb = null;
+        try
         {
-            using var mask = BuildRuleMask(hsv, rule);
-            using var noText = RemoveText(mask, parameters);
-            using var cleaned = LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
-            var stats = CollectHoleStatsFromMask(cleaned, parameters, image.Width, image.Height);
-            allStats.AddRange(stats);
+            if (parameters.ColorSpace.Contains("Lab"))
+            {
+                lab = new Mat();
+                Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+            }
+            if (parameters.ColorSpace.Contains("Rgb"))
+                rgb = image.Clone();
+
+            var allStats = new List<HoleStats>();
+            foreach (var rule in parameters.ColorRules)
+            {
+                using var hsvMask = BuildRuleMask(hsv, rule);
+                using var csMask = ApplyColorSpaceFilter(image.Size(), rule, lab, rgb);
+                using var mask = new Mat();
+                Cv2.BitwiseAnd(hsvMask, csMask, mask);
+                using var noText = RemoveText(mask, parameters);
+                using var opened = LineOpen(noText, parameters.LineOpenLength, parameters.LineOpenStep);
+                var stats = CollectHoleStatsFromMask(opened, parameters, image.Width, image.Height);
+                allStats.AddRange(stats);
+            }
+            return allStats;
         }
-        return allStats;
+        finally
+        {
+            lab?.Dispose();
+            rgb?.Dispose();
+        }
     }
 
     private static List<HoleStats> CollectHoleStatsFromMask(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
@@ -484,14 +515,38 @@ public class ColorBoxDetector
         return n % 2 == 0 ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0 : sorted[n / 2];
     }
 
+    /// <summary>
+    /// Canonical detection pass shared by <see cref="DetectByRule"/> and the
+    /// Step0..Step3 visualization/CLI pipeline:
+    ///   denoise (RemoveText + LineOpen + LineClose) -> preserve holes (ApplyClose)
+    ///   -> detect rects -> validate/filter/NMS.
+    /// </summary>
     private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight, Mat? validationMask = null)
     {
+        using var preserved = DenoiseAndPreserve(mask, p);
+        return DetectFromPreserved(preserved, p, imgWidth, imgHeight, validationMask ?? mask);
+    }
+
+    /// <summary>
+    /// Step 1 + Step 2 of the canonical pipeline: RemoveText -> LineOpen ->
+    /// LineClose -> ApplyClose. Used by both the detector and the step buttons.
+    /// </summary>
+    private static Mat DenoiseAndPreserve(Mat mask, DetectionParams p)
+    {
         using var noText = RemoveText(mask, p);
-        using var cleaned = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
-        var rects = DetectByMethod(cleaned, p, imgWidth, imgHeight);
-        if (validationMask != null)
-            rects = ValidateEdges(rects, validationMask, p);
-        rects = ApplyFilter(rects, validationMask ?? mask, p);
+        using var opened = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
+        return ApplyClose(opened, p);
+    }
+
+    /// <summary>
+    /// Step 3 of the canonical pipeline: rectangle detection from a mask that has
+    /// already been denoised and hole-preserved. No further morphological close.
+    /// </summary>
+    private static List<RotatedRect> DetectFromPreserved(Mat preserved, DetectionParams p, int imgWidth, int imgHeight, Mat validationMask)
+    {
+        var rects = DetectByMethod(preserved, p, imgWidth, imgHeight);
+        rects = ValidateEdges(rects, validationMask, p);
+        rects = ApplyFilter(rects, validationMask, p);
         rects = Nms(rects, p.NmsThreshold);
         rects = DedupContained(rects, p.DedupContainThreshold);
         return rects;
@@ -866,15 +921,6 @@ public class ColorBoxDetector
         return edgesWithSupport >= p.MinEdgesWithSupport;
     }
 
-    private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight)
-    {
-        using var noText = RemoveText(mask, p);
-        using var cleaned = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
-        var rects = DetectHoles(cleaned, p, imgWidth, imgHeight);
-        rects = Nms(rects, p.NmsThreshold);
-        rects = DedupContained(rects, p.DedupContainThreshold);
-        return rects;
-    }
 
     private Mat BuildRuleMask(Mat hsv, ColorRule rule)
     {
@@ -1116,9 +1162,8 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectContourShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var closed = ApplyClose(cleaned, p);
 
-        Cv2.FindContours(closed, out Point[][] contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+        Cv2.FindContours(cleaned, out Point[][] contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
 
         foreach (var contour in contours)
@@ -1155,9 +1200,8 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectHolePlusShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var closed = ApplyClose(cleaned, p);
 
-        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        Cv2.FindContours(cleaned, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
         if (hierarchy == null || hierarchy.Length == 0) return rects;
 
@@ -1276,9 +1320,8 @@ public class ColorBoxDetector
     private static List<RotatedRect> DetectRingShape(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
-        using var closed = ApplyClose(cleaned, p);
 
-        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        Cv2.FindContours(cleaned, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
         var rects = new List<RotatedRect>();
         if (hierarchy == null || hierarchy.Length == 0) return rects;
 
@@ -1459,13 +1502,11 @@ public class ColorBoxDetector
         return new Point2d(p1.X + t * d1x, p1.Y + t * d1y);
     }
 
-    private static List<RotatedRect> DetectHoles(Mat cleaned, DetectionParams p, int imgWidth, int imgHeight)
+    private static List<RotatedRect> DetectHoles(Mat preserved, DetectionParams p, int imgWidth, int imgHeight)
     {
         int maxPixels = (int)(p.MaxImageFraction * imgWidth * imgHeight);
 
-        using var closed = ApplyClose(cleaned, p);
-
-        Cv2.FindContours(closed, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+        Cv2.FindContours(preserved, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
 
         var rects = new List<RotatedRect>();
         if (hierarchy == null || hierarchy.Length == 0)
@@ -1498,7 +1539,7 @@ public class ColorBoxDetector
                     continue;
 
                 var expanded = new RotatedRect(rect.Center, new OpenCvSharp.Size(rw + p.HoleStroke, rh + p.HoleStroke), rect.Angle);
-                double support = PerimeterSupport(expanded, cleaned, 2);
+                double support = PerimeterSupport(expanded, preserved, 2);
                 if (support < p.HoleMinSupport || support > p.HoleMaxSupport)
                     continue;
 

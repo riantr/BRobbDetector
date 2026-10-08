@@ -1346,8 +1346,6 @@ public partial class MainViewModel : ViewModelBase
             Cv2.BitwiseAnd(darkMask, interiorMask, holesInside);
             int darkArea = Cv2.CountNonZero(holesInside);
 
-            using var borderMask = new Mat();
-            Cv2.Polylines(new Mat(image.Rows, image.Cols, MatType.CV_8UC1, Scalar.Black), new[] { ptsInt }, true, new Scalar(255), 3);
             var colorRule = _activeParams?.ColorRules.FirstOrDefault(r => r.Name == box.RuleName && !string.IsNullOrEmpty(box.RuleName))
                 ?? _activeParams?.ColorRules.FirstOrDefault(r => r.Type == box.Type);
             int colorArea = 0;
@@ -1360,7 +1358,7 @@ public partial class MainViewModel : ViewModelBase
             }
 
             Log($"[Hole] Box #{boxIndex} ({box.Type}): " +
-                $"polygon_area={polyArea:F0} | dark_hole_area={darkArea} | color_border_area={colorArea} | " +
+                $"polygon_area={polyArea:F0} | dark_hole_area={darkArea} | color_area={colorArea} | " +
                 $"fill_ratio={(polyArea > 0 ? darkArea / polyArea * 100 : 0):F1}%");
         }
         catch (Exception ex)
@@ -1496,7 +1494,8 @@ public partial class MainViewModel : ViewModelBase
                 {
                     Corners = box.Corners,
                     Type = string.IsNullOrEmpty(catResult.Category) ? box.Type : catResult.Category,
-                    OcrConfidence = catResult.Confidence
+                    OcrConfidence = catResult.Confidence,
+                    RuleName = box.RuleName
                 };
                 result.Add(newBox);
             }
