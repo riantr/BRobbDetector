@@ -508,12 +508,93 @@ public class ColorBoxDetector
         return Cv2.MinAreaRect(contour);
     }
 
+    /// <summary>
+    /// Grows a strip-like rect by scanning each edge outward to find the farthest
+    /// red pixel cluster. For each edge, samples lines parallel to the edge at
+    /// increasing distances, finds the farthest distance with ≥50% pixel support,
+    /// and shifts the edge there. Reconstructs the rect from 4 shifted lines.
+    /// </summary>
+    private static RotatedRect GrowBox(RotatedRect rect, Mat mask, int maxScan)
+    {
+        var pts = Cv2.BoxPoints(rect);
+        int h = mask.Rows, w = mask.Cols;
+        double rw = rect.Size.Width, rh = rect.Size.Height;
+        double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+        var shiftedLines = new (Point2d point, Point2d dir)[4];
+
+        for (int i = 0; i < 4; i++)
+        {
+            var p1 = pts[i];
+            var p2 = pts[(i + 1) % 4];
+            double dx = p2.X - p1.X, dy = p2.Y - p1.Y;
+            double edgeLen = Math.Sqrt(dx * dx + dy * dy);
+            if (edgeLen < 1)
+            {
+                shiftedLines[i] = (new Point2d(p1.X, p1.Y), new Point2d(dx, dy));
+                continue;
+            }
+
+            double tx = dx / edgeLen, ty = dy / edgeLen;
+            double nx = -ty, ny = tx;
+
+            // Only grow LONG edges (perpendicular to short axis)
+            int bestDist = 0;
+            if (edgeLen > minSide * 1.5)
+            {
+                int nSamples = (int)edgeLen;
+                double bestSupport = 0.50;
+
+                for (int d = 1; d <= maxScan; d++)
+                {
+                    int total = 0, hit = 0;
+                    for (int t = 0; t <= nSamples; t++)
+                    {
+                        double frac = (double)t / nSamples;
+                        double cx = p1.X + dx * frac + nx * d;
+                        double cy = p1.Y + dy * frac + ny * d;
+                        int px = (int)Math.Round(cx), py = (int)Math.Round(cy);
+                        if (px >= 0 && px < w && py >= 0 && py < h)
+                        {
+                            total++;
+                            if (mask.At<byte>(py, px) > 0)
+                                hit++;
+                        }
+                    }
+                    double support = total > 0 ? (double)hit / total : 0;
+                    if (support >= bestSupport)
+                        bestDist = d;
+                }
+            }
+
+            shiftedLines[i] = (new Point2d(p1.X + nx * bestDist, p1.Y + ny * bestDist), new Point2d(dx, dy));
+        }
+
+        var newCorners = new Point2d[4];
+        for (int i = 0; i < 4; i++)
+        {
+            var (c1, d1) = shiftedLines[i];
+            var (c2, d2) = shiftedLines[(i + 1) % 4];
+            double det = d1.X * (-d2.Y) - (-d2.X) * d1.Y;
+            if (Math.Abs(det) < 1e-6)
+            {
+                newCorners[i] = new Point2d(pts[i].X, pts[i].Y);
+                continue;
+            }
+            double t1 = ((c2.X - c1.X) * (-d2.Y) - (-d2.X) * (c2.Y - c1.Y)) / det;
+            newCorners[i] = new Point2d(c1.X + t1 * d1.X, c1.Y + t1 * d1.Y);
+        }
+
+        var contour2 = newCorners.Select(c => new Point((int)Math.Round(c.X), (int)Math.Round(c.Y))).ToArray();
+        return Cv2.MinAreaRect(contour2);
+    }
+
     private static double Median(List<double> values)
     {
         var sorted = values.OrderBy(v => v).ToList();
         int n = sorted.Count;
         return n % 2 == 0 ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0 : sorted[n / 2];
     }
+
 
     /// <summary>
     /// Canonical detection pass shared by <see cref="DetectByRule"/> and the
@@ -535,8 +616,53 @@ public class ColorBoxDetector
     {
         using var noText = RemoveText(mask, p);
         using var opened = LineOpen(noText, p.LineOpenLength, p.LineOpenStep);
-        return ApplyClose(opened, p);
+        using var stitched = StitchLineFragments(opened);
+        return ApplyClose(stitched, p);
     }
+
+    /// <summary>
+    /// Bridges gaps in broken outline fragments by applying a directional close
+    /// (21×1 + 1×21) only to line-like components (thin strokes, fill ratio &lt; 0.3).
+    /// This repairs broken box outlines without filling thin-box holes.
+    /// </summary>
+    private static Mat StitchLineFragments(Mat mask)
+    {
+        using var labels = new Mat();
+        using var stats = new Mat();
+        using var centroids = new Mat();
+        Cv2.ConnectedComponentsWithStats(mask, labels, stats, centroids, PixelConnectivity.Connectivity8);
+        int nLabels = stats.Rows;
+        if (nLabels <= 2) return mask.Clone();
+
+        using var lineMask = new Mat(mask.Size(), MatType.CV_8UC1, Scalar.Black);
+        for (int i = 1; i < nLabels; i++)
+        {
+            int area = stats.At<int>(i, (int)ConnectedComponentsTypes.Area);
+            int w = stats.At<int>(i, (int)ConnectedComponentsTypes.Width);
+            int h = stats.At<int>(i, (int)ConnectedComponentsTypes.Height);
+            int bboxArea = w * h;
+            if (bboxArea == 0 || area < 20) continue;
+            double fillRatio = (double)area / bboxArea;
+            if (fillRatio < 0.3)
+            {
+                using var componentMask = new Mat();
+                Cv2.Compare(labels, new Scalar(i), componentMask, CmpType.EQ);
+                Cv2.BitwiseOr(lineMask, componentMask, lineMask);
+            }
+        }
+
+        using var kh = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(7, 1));
+        using var kv = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(1, 7));
+        using var closedH = new Mat();
+        using var closedV = new Mat();
+        Cv2.MorphologyEx(lineMask, closedH, MorphTypes.Close, kh);
+        Cv2.MorphologyEx(closedH, closedV, MorphTypes.Close, kv);
+
+        var result = new Mat();
+        Cv2.BitwiseOr(mask, closedV, result);
+        return result;
+    }
+
 
     /// <summary>
     /// Step 3 of the canonical pipeline: rectangle detection from a mask that has
@@ -1546,7 +1672,23 @@ public class ColorBoxDetector
                 rects.Add(expanded);
             }
         }
-        return rects;
+
+        // Fallback: for strip-like detections (narrow fragments of larger boxes),
+        // grow each edge outward to find the farthest red pixel cluster.
+        var grown = new List<RotatedRect>();
+        foreach (var rect in rects)
+        {
+            double rw = rect.Size.Width, rh = rect.Size.Height;
+            double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
+            if (minSide / maxSide >= 0.5 || maxSide < p.HoleMinSide * 2)
+            {
+                grown.Add(rect);
+                continue;
+            }
+            grown.Add(GrowBox(rect, preserved, maxScan: (int)(maxSide * 0.8)));
+        }
+
+        return grown;
     }
 
     /// <summary>
