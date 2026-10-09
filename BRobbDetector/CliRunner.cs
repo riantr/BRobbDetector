@@ -57,11 +57,13 @@ public static class CliRunner
             var colorspace = csIdx >= 0 && csIdx + 1 < args.Length ? args[csIdx + 1] : "hsvLabRgb";
             var cmIdx = Array.IndexOf(args, "--closemode");
             var closemode = cmIdx >= 0 && cmIdx + 1 < args.Length ? args[cmIdx + 1] : "iter1";
-            RunDetect(args[1], args[2], useOcr, method, filter, colorspace, closemode);
+            var purifyIdx = Array.IndexOf(args, "--purify");
+            var purify = purifyIdx >= 0 && purifyIdx + 1 < args.Length ? args[purifyIdx + 1] : "none";
+            RunDetect(args[1], args[2], useOcr, method, filter, colorspace, closemode, purify);
             return;
         }
 
-        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|...] [--filter none|...] [--colorspace hsv|hsvLab|hsvRgb|hsvLabRgb] [--closemode default|iter1|directional|directional2]");
+        Console.WriteLine("Usage: BRobbDetector --cli <inputDir> <outputDir> [--ocr] [--method hole|...] [--filter none|...] [--colorspace hsv|hsvLab|hsvRgb|hsvLabRgb] [--closemode default|iter1|directional|directional2] [--purify none|lab]");
         Console.WriteLine("       BRobbDetector --step0 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step1 <inputDir> <outputDir>");
         Console.WriteLine("       BRobbDetector --step2 <inputDir> <outputDir>");
@@ -69,7 +71,7 @@ public static class CliRunner
         Console.WriteLine("       BRobbDetector --check <imageDir> <labelDir>");
     }
 
-    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole", string filter = "none", string colorspace = "hsvLabRgb", string closemode = "iter1")
+    private static void RunDetect(string inputDir, string outputDir, bool useOcr, string method = "hole", string filter = "none", string colorspace = "hsvLabRgb", string closemode = "iter1", string purify = "none")
     {
         if (!Directory.Exists(inputDir))
         {
@@ -118,7 +120,7 @@ public static class CliRunner
             List<Services.DetectedBox> boxes;
             try
             {
-                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method, FilterMethod = filter, ColorSpace = colorspace, CloseMode = closemode });
+                boxes = detector.DetectFile(file, new DetectionParams { DetectionMethod = method, FilterMethod = filter, ColorSpace = colorspace, CloseMode = closemode, PurifyMode = purify });
             }
             catch (Exception ex)
             {

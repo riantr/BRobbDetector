@@ -27,6 +27,106 @@ public class HoleStats
 
 public class ColorBoxDetector
 {
+    /// <summary>
+    /// Purifies the target color in Lab space. Two modes:
+    /// "lab": snap core red pixels (±10 around median) to median Lab values
+    /// "labBlur": median blur on a* and b* channels to smooth chroma transitions
+    /// Lab a* and b* have 3-4x less scattering than HSV hue, making Lab the
+    /// optimal space for color normalization.
+    /// </summary>
+    private static Mat PurifyTargetColor(Mat image, ColorRule rule, string mode = "lab")
+    {
+        using var lab = new Mat();
+        Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+
+        if (mode == "labBlur")
+        {
+            var ch = new Mat[3];
+            Cv2.Split(lab, out ch);
+            using var blurredA = new Mat();
+            using var blurredB = new Mat();
+            Cv2.MedianBlur(ch[1], blurredA, 5);
+            Cv2.MedianBlur(ch[2], blurredB, 5);
+            ch[1].Dispose();
+            ch[2].Dispose();
+            ch[1] = blurredA.Clone();
+            ch[2] = blurredB.Clone();
+            using var merged = new Mat();
+            Cv2.Merge(ch, merged);
+            foreach (var c in ch) c.Dispose();
+            var result = new Mat();
+            Cv2.CvtColor(merged, result, ColorConversionCodes.Lab2BGR);
+            return result;
+        }
+
+        if (mode == "bilateral")
+        {
+            var result = new Mat();
+            Cv2.BilateralFilter(image, result, 7, 50, 7);
+            return result;
+        }
+
+        using var broadMask = new Mat();
+        Cv2.InRange(lab,
+            new Scalar(rule.LabLMin, rule.LabAMin, rule.LabBMin),
+            new Scalar(rule.LabLMax, rule.LabAMax, rule.LabBMax),
+            broadMask);
+
+        int count = Cv2.CountNonZero(broadMask);
+        if (count < 10)
+            return image.Clone();
+
+        using var maskedLab = new Mat();
+        lab.CopyTo(maskedLab, broadMask);
+
+        var channels = new Mat[3];
+        Cv2.Split(maskedLab, out channels);
+        byte medL = MedianByte(channels[0], broadMask);
+        byte medA = MedianByte(channels[1], broadMask);
+        byte medB = MedianByte(channels[2], broadMask);
+        foreach (var ch in channels) ch.Dispose();
+
+        using var tightMask = new Mat();
+        Cv2.InRange(lab,
+            new Scalar(Math.Max(0, medL - 10), Math.Max(0, medA - 10), Math.Max(0, medB - 10)),
+            new Scalar(Math.Min(255, medL + 10), Math.Min(255, medA + 10), Math.Min(255, medB + 10)),
+            tightMask);
+
+        lab.SetTo(new Scalar(medL, medA, medB), tightMask);
+
+        var purified = new Mat();
+        Cv2.CvtColor(lab, purified, ColorConversionCodes.Lab2BGR);
+        return purified;
+    }
+
+    private static byte MedianByte(Mat channel, Mat mask)
+    {
+        int[] hist = new int[256];
+        int h = channel.Rows, w = channel.Cols;
+        int total = 0;
+        for (int y = 0; y < h; y++)
+        {
+            for (int x = 0; x < w; x++)
+            {
+                if (mask.At<byte>(y, x) > 0)
+                {
+                    hist[channel.At<byte>(y, x)]++;
+                    total++;
+                }
+            }
+        }
+        if (total == 0) return 0;
+        int half = total / 2;
+        int cum = 0;
+        for (int i = 0; i < 256; i++)
+        {
+            cum += hist[i];
+            if (cum >= half)
+                return (byte)i;
+        }
+        return 0;
+    }
+
     public List<DetectedBox> Detect(Mat image, DetectionParams? parameters = null)
     {
         parameters ??= new DetectionParams();
@@ -35,8 +135,17 @@ public class ColorBoxDetector
         if (image.Empty())
             return results;
 
+        Mat working = image;
+        Mat? purified = null;
+        if (parameters.PurifyMode != "none" && parameters.ColorRules.Count > 0)
+        {
+            purified = PurifyTargetColor(image, parameters.ColorRules[0], parameters.PurifyMode);
+            working = purified;
+        }
+        try
+        {
         using var hsv = new Mat();
-        Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
+        Cv2.CvtColor(working, hsv, ColorConversionCodes.BGR2HSV);
 
         Mat? lab = null, rgb = null;
         try
@@ -44,14 +153,14 @@ public class ColorBoxDetector
             if (parameters.ColorSpace.Contains("Lab"))
             {
                 lab = new Mat();
-                Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+                Cv2.CvtColor(working, lab, ColorConversionCodes.BGR2Lab);
             }
             if (parameters.ColorSpace.Contains("Rgb"))
-                rgb = image.Clone();
+                rgb = working.Clone();
 
             foreach (var rule in parameters.ColorRules)
             {
-                var boxes = DetectByRule(hsv, image, rule, parameters, image.Width, image.Height, lab, rgb);
+                var boxes = DetectByRule(hsv, working, rule, parameters, working.Width, working.Height, lab, rgb);
                 results.AddRange(boxes);
             }
         }
@@ -59,6 +168,11 @@ public class ColorBoxDetector
         {
             lab?.Dispose();
             rgb?.Dispose();
+        }
+        }
+        finally
+        {
+            purified?.Dispose();
         }
 
         return results;
@@ -80,8 +194,17 @@ public class ColorBoxDetector
         var result = new Mat(image.Size(), MatType.CV_8UC1, Scalar.Black);
         if (image.Empty()) return result;
 
+        Mat working = image;
+        Mat? purified = null;
+        if (parameters.PurifyMode != "none" && parameters.ColorRules.Count > 0)
+        {
+            purified = PurifyTargetColor(image, parameters.ColorRules[0], parameters.PurifyMode);
+            working = purified;
+        }
+        try
+        {
         using var hsv = new Mat();
-        Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
+        Cv2.CvtColor(working, hsv, ColorConversionCodes.BGR2HSV);
 
         Mat? lab = null, rgb = null;
         try
@@ -89,17 +212,17 @@ public class ColorBoxDetector
             if (parameters.ColorSpace.Contains("Lab"))
             {
                 lab = new Mat();
-                Cv2.CvtColor(image, lab, ColorConversionCodes.BGR2Lab);
+                Cv2.CvtColor(working, lab, ColorConversionCodes.BGR2Lab);
             }
             if (parameters.ColorSpace.Contains("Rgb"))
             {
-                rgb = image.Clone();
+                rgb = working.Clone();
             }
 
             foreach (var rule in parameters.ColorRules)
             {
                 using var ruleMask = BuildRuleMask(hsv, rule);
-                using var csMask = ApplyColorSpaceFilter(image.Size(), rule, lab, rgb);
+                using var csMask = ApplyColorSpaceFilter(working.Size(), rule, lab, rgb);
                 using var combined = new Mat();
                 Cv2.BitwiseAnd(ruleMask, csMask, combined);
                 Cv2.BitwiseOr(result, combined, result);
@@ -109,6 +232,11 @@ public class ColorBoxDetector
         {
             lab?.Dispose();
             rgb?.Dispose();
+        }
+        }
+        finally
+        {
+            purified?.Dispose();
         }
         return result;
     }

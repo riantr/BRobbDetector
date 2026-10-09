@@ -108,6 +108,7 @@ public class DetectionParams
     public string FilterMethod { get; set; } = "none";
     public string ColorSpace { get; set; } = "hsvLabRgb";
     public string CloseMode { get; set; } = "iter1";
+    public string PurifyMode { get; set; } = "none";
 }
 public class AutoOptimizeSweepPoint
 {

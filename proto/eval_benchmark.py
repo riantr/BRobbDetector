@@ -60,7 +60,7 @@ def match_boxes(det_boxes, gt_boxes, iou_thr=IOU_THRESHOLD):
     return tp, fp, fn, iou_sum, max(tp, 1)
 
 
-def run_detector(n, method, flt, cs, cm):
+def run_detector(n, method, flt, cs, cm, purify="none"):
     exp = load_expected()
     ids = [k for k, v in exp.items() if v >= 1 and os.path.exists(os.path.join(IMG, k + ".jpg"))]
     ids.sort()
@@ -81,13 +81,13 @@ def run_detector(n, method, flt, cs, cm):
             except OSError:
                 shutil.copy2(src, dst)
 
-    print(f"Running C# detector on {n} images (method={method}, filter={flt}, cs={cs}, cm={cm})...")
+    print(f"Running C# detector on {n} images (method={method}, filter={flt}, cs={cs}, cm={cm}, purify={purify})...")
     t0 = time.time()
-    result = subprocess.run(
-        ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR,
-         "--method", method, "--filter", flt, "--colorspace", cs, "--closemode", cm],
-        capture_output=True, text=True, timeout=600, encoding="utf-8", errors="replace"
-    )
+    cmd = ["dotnet", "run", "--project", CSPROJ, "--", "--cli", TMP_DIR, OUT_DIR,
+         "--method", method, "--filter", flt, "--colorspace", cs, "--closemode", cm]
+    if purify != "none":
+        cmd += ["--purify", purify]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600, encoding="utf-8", errors="replace")
     if result.returncode != 0:
         print(f"  ERROR: {result.stderr[:500]}")
         return None
@@ -160,13 +160,14 @@ def main():
     ap.add_argument("--filter", default="none")
     ap.add_argument("--colorspace", default="hsvLabRgb")
     ap.add_argument("--closemode", default="iter1")
+    ap.add_argument("--purify", default="none", help="color purification mode: none|lab")
     ap.add_argument("--save", default=None, help="save benchmark JSON to benchmark/<name>.json")
     ap.add_argument("--compare", default=None, help="compare against benchmark/<name>.json")
     ap.add_argument("--no-run", action="store_true", help="skip detection, reuse existing output")
     args = ap.parse_args()
 
     if not args.no_run:
-        result = run_detector(args.n, args.method, args.filter, args.colorspace, args.closemode)
+        result = run_detector(args.n, args.method, args.filter, args.colorspace, args.closemode, args.purify)
         if result is None:
             return
         ids, elapsed = result
@@ -184,6 +185,7 @@ def main():
         metrics["config"] = {
             "method": args.method, "filter": args.filter,
             "colorspace": args.colorspace, "closemode": args.closemode,
+            "purify": args.purify,
         }
         metrics["elapsed_seconds"] = round(elapsed, 1)
 
