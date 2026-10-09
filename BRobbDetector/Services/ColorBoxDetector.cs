@@ -514,7 +514,7 @@ public class ColorBoxDetector
     /// increasing distances, finds the farthest distance with ≥50% pixel support,
     /// and shifts the edge there. Reconstructs the rect from 4 shifted lines.
     /// </summary>
-    private static RotatedRect GrowBox(RotatedRect rect, Mat mask, int maxScan)
+    private static RotatedRect GrowBox(RotatedRect rect, Mat mask, int maxScan, double supportThreshold = 0.30)
     {
         var pts = Cv2.BoxPoints(rect);
         int h = mask.Rows, w = mask.Cols;
@@ -542,26 +542,33 @@ public class ColorBoxDetector
             if (edgeLen > minSide * 1.5)
             {
                 int nSamples = (int)edgeLen;
-                double bestSupport = 0.50;
 
-                for (int d = 1; d <= maxScan; d++)
+                int maxScanSafe = Math.Min(maxScan, Math.Max(w, h));
+                var hitCounts = new int[maxScanSafe + 1];
+                int maxHit = 0;
+
+                for (int d = 0; d <= maxScanSafe; d++)
                 {
-                    int total = 0, hit = 0;
+                    int hit = 0;
                     for (int t = 0; t <= nSamples; t++)
                     {
                         double frac = (double)t / nSamples;
                         double cx = p1.X + dx * frac + nx * d;
                         double cy = p1.Y + dy * frac + ny * d;
                         int px = (int)Math.Round(cx), py = (int)Math.Round(cy);
-                        if (px >= 0 && px < w && py >= 0 && py < h)
-                        {
-                            total++;
-                            if (mask.At<byte>(py, px) > 0)
-                                hit++;
-                        }
+                        if (px >= 0 && px < w && py >= 0 && py < h && mask.At<byte>(py, px) > 0)
+                            hit++;
                     }
-                    double support = total > 0 ? (double)hit / total : 0;
-                    if (support >= bestSupport)
+                    hitCounts[d] = hit;
+                    if (hit > maxHit)
+                        maxHit = hit;
+                }
+
+                int adaptiveThreshold = Math.Max(3, maxHit / 4);
+                int growthLimit = (int)(minSide * 3);
+                for (int d = 1; d <= maxScanSafe && d <= growthLimit; d++)
+                {
+                    if (hitCounts[d] >= adaptiveThreshold)
                         bestDist = d;
                 }
             }
@@ -1675,6 +1682,7 @@ public class ColorBoxDetector
 
         // Fallback: for strip-like detections (narrow fragments of larger boxes),
         // grow each edge outward to find the farthest red pixel cluster.
+        // Iterative: repeat until box stabilizes or max 3 iterations.
         var grown = new List<RotatedRect>();
         foreach (var rect in rects)
         {
@@ -1685,7 +1693,23 @@ public class ColorBoxDetector
                 grown.Add(rect);
                 continue;
             }
-            grown.Add(GrowBox(rect, preserved, maxScan: (int)(maxSide * 0.8)));
+
+            var current = rect;
+            for (int iter = 0; iter < 3; iter++)
+            {
+                double curMin = Math.Min(current.Size.Width, current.Size.Height);
+                double curMax = Math.Max(current.Size.Width, current.Size.Height);
+                if (curMin / curMax >= 0.5)
+                    break;
+
+                var next = GrowBox(current, preserved, maxScan: (int)(curMax * 1.5));
+                double nextMin = Math.Min(next.Size.Width, next.Size.Height);
+                if (nextMin <= curMin * 1.05)
+                    break;
+
+                current = next;
+            }
+            grown.Add(current);
         }
 
         return grown;
