@@ -1,0 +1,25 @@
+{
+  "mode": "lsd",
+  "tp": 682,
+  "fn": 64,
+  "raw_fp": 257,
+  "true_fp": 11,
+  "real_unlabeled": 246,
+  "recall": 91.4,
+  "raw_fpr": 27.4,
+  "raw_f1": 80.9,
+  "corrected_precision": 98.4,
+  "corrected_fpr": 1.6,
+  "corrected_f1": 94.8,
+  "avg_iou": 0.728,
+  "lsd_params": {
+    "cover_thr": 0.55,
+    "edge_sup_thr": 0.3,
+    "min_edges": 3,
+    "min_len": 12.0,
+    "min_side": 12.0,
+    "angle_tol": 10.0,
+    "post_aspect_max": 3.0,
+    "post_side_min": 50.0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "source": "combine",
+  "dist_thr": 8.0,
+  "tp": 298,
+  "fn": 448,
+  "raw_fp": 1553,
+  "true_fp": 716,
+  "real_unlabeled": 837,
+  "recall": 39.9,
+  "raw_f1": 22.9,
+  "corrected_f1": 33.9
+}

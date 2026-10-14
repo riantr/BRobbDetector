@@ -1,0 +1,23 @@
+{
+  "tp": 677,
+  "fn": 69,
+  "raw_fp": 238,
+  "true_fp": 8,
+  "real_unlabeled": 230,
+  "recall": 90.8,
+  "raw_f1": 81.5,
+  "raw_fpr": 26.0,
+  "corrected_f1": 94.6,
+  "corrected_fpr": 1.2,
+  "avg_iou": 0.728,
+  "near_to_tp": 0,
+  "was_tp": 693,
+  "gated": 900,
+  "hidden": [
+    64,
+    32,
+    16
+  ],
+  "iou_min": 0.1,
+  "clipped": true
+}

@@ -21,6 +21,8 @@ result/
 *.exe
 *.dll
 *.evb
+*.onnx
+*.pt
 
 # IDE
 .idea/

@@ -1,0 +1,16 @@
+{
+  "mode": "m8",
+  "tp": 677,
+  "fn": 69,
+  "raw_fp": 238,
+  "true_fp": 8,
+  "real_unlabeled": 230,
+  "recall": 90.8,
+  "raw_fpr": 26.0,
+  "raw_f1": 81.5,
+  "corrected_precision": 98.8,
+  "corrected_fpr": 1.2,
+  "corrected_f1": 94.6,
+  "avg_iou": 0.729,
+  "lsd_params": null
+}

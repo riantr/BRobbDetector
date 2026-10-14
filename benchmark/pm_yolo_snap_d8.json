@@ -1,0 +1,12 @@
+{
+  "source": "yolo",
+  "dist_thr": 8.0,
+  "tp": 271,
+  "fn": 475,
+  "raw_fp": 665,
+  "true_fp": 271,
+  "real_unlabeled": 394,
+  "recall": 36.3,
+  "raw_f1": 32.2,
+  "corrected_f1": 42.1
+}

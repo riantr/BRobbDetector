@@ -1,0 +1,12 @@
+{
+  "source": "m8",
+  "dist_thr": 12.0,
+  "tp": 284,
+  "fn": 462,
+  "raw_fp": 631,
+  "true_fp": 228,
+  "real_unlabeled": 403,
+  "recall": 38.1,
+  "raw_f1": 34.2,
+  "corrected_f1": 45.2
+}

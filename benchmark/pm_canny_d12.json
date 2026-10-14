@@ -1,0 +1,12 @@
+{
+  "source": "tmp_canny_out",
+  "dist_thr": 12.0,
+  "tp": 354,
+  "fn": 392,
+  "raw_fp": 53,
+  "true_fp": 21,
+  "real_unlabeled": 32,
+  "recall": 47.5,
+  "raw_f1": 61.4,
+  "corrected_f1": 63.2
+}

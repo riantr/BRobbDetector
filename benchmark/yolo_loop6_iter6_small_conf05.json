@@ -1,0 +1,11 @@
+{
+  "tp": 730,
+  "fn": 16,
+  "raw_fp": 226,
+  "true_fp": 24,
+  "real_unlabeled": 202,
+  "recall": 97.9,
+  "raw_f1": 85.8,
+  "corrected_f1": 97.3,
+  "avg_iou": 0.792
+}

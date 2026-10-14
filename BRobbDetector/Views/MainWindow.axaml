@@ -201,6 +201,7 @@
           </Grid>
 
           <Separator Margin="0,8,0,0" />
+          <CheckBox Content="使用YOLOv8-OBB检测" IsChecked="{Binding UseYolo}" Margin="0,8,0,0" />
           <CheckBox Content="启用OCR识别 (RapidOCR)" IsChecked="{Binding EnableOcr}" Margin="0,8,0,0" />
           <TextBlock Text="类别列表 (逗号分隔)" FontSize="11" IsVisible="{Binding EnableOcr}" />
           <TextBox Text="{Binding CategoryList}" IsVisible="{Binding EnableOcr}" FontSize="11" />

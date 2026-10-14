@@ -66,6 +66,11 @@ public class ColorBoxDetector
             return result;
         }
 
+        if (mode.StartsWith("svd"))
+        {
+            return PurifySvd(lab, rule, mode);
+        }
+
         using var broadMask = new Mat();
         Cv2.InRange(lab,
             new Scalar(rule.LabLMin, rule.LabAMin, rule.LabBMin),
@@ -97,6 +102,191 @@ public class ColorBoxDetector
         var purified = new Mat();
         Cv2.CvtColor(lab, purified, ColorConversionCodes.Lab2BGR);
         return purified;
+    }
+
+    /// <summary>
+    /// SVD-based color purification. Applies truncated SVD to a* and b* channels
+    /// per connected component of red pixels. A rectangle outline is approximately
+    /// rank-4, so keeping top-k singular values (k=5..20) preserves box structure
+    /// while removing JPEG block noise (Eckart-Young optimal rank-k approximation).
+    /// Mode format: "svd" (default k=10), "svd5", "svd20", etc.
+    /// </summary>
+    private static Mat PurifySvd(Mat lab, ColorRule rule, string mode)
+    {
+        int k = 10;
+        if (mode.Length > 3 && int.TryParse(mode.AsSpan(3), out int kv))
+            k = kv;
+
+        using var broadMask = new Mat();
+        Cv2.InRange(lab,
+            new Scalar(rule.LabLMin, rule.LabAMin, rule.LabBMin),
+            new Scalar(rule.LabLMax, rule.LabAMax, rule.LabBMax),
+            broadMask);
+
+        if (Cv2.CountNonZero(broadMask) < 10)
+            return lab.Clone();
+
+        using var labels = new Mat();
+        using var stats = new Mat();
+        using var centroids = new Mat();
+        int nComp = Cv2.ConnectedComponentsWithStats(broadMask, labels, stats, centroids, PixelConnectivity.Connectivity8);
+        var rects = new List<Rect>();
+        for (int i = 1; i < nComp; i++)
+        {
+            int area = (int)stats.At<int>(i, (int)ConnectedComponentsTypes.Area);
+            if (area < 50) continue;
+            int x = stats.At<int>(i, (int)ConnectedComponentsTypes.Left);
+            int y = stats.At<int>(i, (int)ConnectedComponentsTypes.Top);
+            int w = stats.At<int>(i, (int)ConnectedComponentsTypes.Width);
+            int h = stats.At<int>(i, (int)ConnectedComponentsTypes.Height);
+            if (w < 5 || h < 5 || w > 400 || h > 400) continue;
+            rects.Add(new Rect(x, y, w, h));
+        }
+
+        if (rects.Count == 0)
+            return lab.Clone();
+
+        var channels = new Mat[3];
+        Cv2.Split(lab, out channels);
+
+        Mat result;
+        try
+        {
+            foreach (var rect in rects)
+            {
+                SvdDenoiseChannel(channels[1], rect, k);
+                SvdDenoiseChannel(channels[2], rect, k);
+            }
+
+            using var merged = new Mat();
+            Cv2.Merge(channels, merged);
+            result = new Mat();
+            Cv2.CvtColor(merged, result, ColorConversionCodes.Lab2BGR);
+        }
+        finally
+        {
+            foreach (var c in channels) c.Dispose();
+        }
+        return result;
+    }
+
+    private static void SvdDenoiseChannel(Mat channel, Rect rect, int k)
+    {
+        using var roi = new Mat(channel, rect);
+        using var sub = roi.Clone();
+        using var f32 = new Mat();
+        sub.ConvertTo(f32, MatType.CV_32FC1);
+
+        using var w = new Mat();
+        using var u = new Mat();
+        using var vt = new Mat();
+        Cv2.SVDecomp(f32, w, u, vt);
+
+        int kk = Math.Min(k, Math.Min(u.Cols, vt.Rows));
+        if (kk < 1) return;
+
+        using var uCols = new Mat(u, new Rect(0, 0, kk, u.Rows));
+        using var uSub = uCols.Clone();
+        using var vtRows = new Mat(vt, new Rect(0, 0, vt.Cols, kk));
+        using var vtSub = vtRows.Clone();
+
+        using var diagW = Mat.Zeros(kk, kk, MatType.CV_32FC1).ToMat();
+        for (int i = 0; i < kk; i++)
+            diagW.At<float>(i, i) = w.At<float>(i);
+
+        using var temp = new Mat();
+        Cv2.Gemm(uSub, diagW, 1, new Mat(), 0, temp);
+
+        using var reconF = new Mat();
+        Cv2.Gemm(temp, vtSub, 1, new Mat(), 0, reconF);
+
+        using var reconU8 = new Mat();
+        reconF.ConvertTo(reconU8, MatType.CV_8UC1);
+
+        using var roiBack = new Mat(channel, rect);
+        reconU8.CopyTo(roiBack);
+    }
+
+    /// <summary>
+    /// Post-binarization rank-2 projection cleaning (SVD of a binary rectangle
+    /// outline reduces to row/column projections). For each connected component,
+    /// keeps only pixels on high-support rows/columns, removing noise pixels.
+    /// Mode format: "svdPost" (default mult=0.3), "svdPost2" (0.2), "svdPost4" (0.4).
+    /// </summary>
+    private static Mat SvdCleanBinaryMask(Mat mask, string mode)
+    {
+        double thrMult = 0.3;
+        if (mode.Length > 7 && int.TryParse(mode.AsSpan(7), out int tv))
+            thrMult = tv / 10.0;
+
+        using var labels = new Mat();
+        using var stats = new Mat();
+        using var centroids = new Mat();
+        int nComp = Cv2.ConnectedComponentsWithStats(mask, labels, stats, centroids, PixelConnectivity.Connectivity8);
+
+        var result = mask.Clone();
+        for (int i = 1; i < nComp; i++)
+        {
+            int area = (int)stats.At<int>(i, (int)ConnectedComponentsTypes.Area);
+            if (area < 50) continue;
+            int x = stats.At<int>(i, (int)ConnectedComponentsTypes.Left);
+            int y = stats.At<int>(i, (int)ConnectedComponentsTypes.Top);
+            int w = stats.At<int>(i, (int)ConnectedComponentsTypes.Width);
+            int h = stats.At<int>(i, (int)ConnectedComponentsTypes.Height);
+            if (w < 5 || h < 5 || w > 300 || h > 300) continue;
+
+            SvdCleanBinaryRegion(result, new Rect(x, y, w, h), thrMult);
+        }
+        return result;
+    }
+
+    private static void SvdCleanBinaryRegion(Mat mask, Rect rect, double thrMult)
+    {
+        using var roi = new Mat(mask, rect);
+        using var sub = roi.Clone();
+
+        int h = sub.Rows, w = sub.Cols;
+        var subData = new byte[h * w];
+        sub.GetArray(out subData);
+
+        int[] rowSum = new int[h];
+        int[] colSum = new int[w];
+        int total = 0;
+        for (int y = 0; y < h; y++)
+        {
+            int offset = y * w;
+            for (int x = 0; x < w; x++)
+            {
+                if (subData[offset + x] > 0)
+                {
+                    rowSum[y]++;
+                    colSum[x]++;
+                    total++;
+                }
+            }
+        }
+        if (total == 0) return;
+
+        double rowMean = (double)total / h;
+        double colMean = (double)total / w;
+        double rowThr = Math.Max(2, rowMean * thrMult);
+        double colThr = Math.Max(2, colMean * thrMult);
+
+        var cleanedData = new byte[h * w];
+        for (int y = 0; y < h; y++)
+        {
+            bool rowEdge = rowSum[y] >= rowThr;
+            int offset = y * w;
+            for (int x = 0; x < w; x++)
+            {
+                if (subData[offset + x] > 0 && (rowEdge || colSum[x] >= colThr))
+                    cleanedData[offset + x] = 255;
+            }
+        }
+
+        using var cleaned = new Mat(h, w, MatType.CV_8UC1);
+        cleaned.SetArray(cleanedData);
+        cleaned.CopyTo(roi);
     }
 
     private static byte MedianByte(Mat channel, Mat mask)
@@ -135,9 +325,15 @@ public class ColorBoxDetector
         if (image.Empty())
             return results;
 
+        if (parameters.DetectionMethod == "yolo")
+            return DetectWithYolo(image);
+
+        if (parameters.DetectionMethod == "cvhybrid")
+            return CvHybridDetector.Detect(image);
+
         Mat working = image;
         Mat? purified = null;
-        if (parameters.PurifyMode != "none" && parameters.ColorRules.Count > 0)
+        if (parameters.PurifyMode != "none" && !parameters.PurifyMode.StartsWith("svdPost") && parameters.ColorRules.Count > 0)
         {
             purified = PurifyTargetColor(image, parameters.ColorRules[0], parameters.PurifyMode);
             working = purified;
@@ -184,6 +380,29 @@ public class ColorBoxDetector
         return Detect(image, parameters);
     }
 
+    private static YoloObbDetector? _yoloDetector;
+    private static readonly object _yoloLock = new();
+
+    /// <summary>
+    /// YOLOv8s-OBB end-to-end inference (LOOP-6). Lazily loads the ONNX model
+    /// once and reuses it. Selected via DetectionMethod == "yolo".
+    /// </summary>
+    public static List<DetectedBox> DetectWithYolo(Mat image)
+    {
+        if (_yoloDetector == null)
+        {
+            lock (_yoloLock)
+            {
+                if (_yoloDetector == null)
+                {
+                    var path = YoloObbDetector.ResolveDefaultModelPath();
+                    _yoloDetector = new YoloObbDetector(path);
+                }
+            }
+        }
+        return _yoloDetector.Detect(image);
+    }
+
     /// <summary>
     /// Step 0: Binarize image by target color. Returns a binary mask where
     /// white = target color, black = background.
@@ -196,7 +415,7 @@ public class ColorBoxDetector
 
         Mat working = image;
         Mat? purified = null;
-        if (parameters.PurifyMode != "none" && parameters.ColorRules.Count > 0)
+        if (parameters.PurifyMode != "none" && !parameters.PurifyMode.StartsWith("svdPost") && parameters.ColorRules.Count > 0)
         {
             purified = PurifyTargetColor(image, parameters.ColorRules[0], parameters.PurifyMode);
             working = purified;
@@ -315,6 +534,11 @@ public class ColorBoxDetector
         rects = Nms(rects, parameters.NmsThreshold);
         rects = DedupContained(rects, parameters.DedupContainThreshold);
         rects = rects.Select(r => RefineBox(r, filteredMask)).ToList();
+
+        using var refineKernelS = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var maskDS = new Mat();
+        Cv2.Dilate(filteredMask, maskDS, refineKernelS, iterations: 3);
+        rects = rects.Select(r => BoxRefinement.RefineWithPreserveSup(r, maskDS)).ToList();
 
         var type = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Type : "";
         var ruleName = parameters.ColorRules.Count > 0 ? parameters.ColorRules[0].Name : "";
@@ -567,6 +791,11 @@ public class ColorBoxDetector
         allRects = DedupContained(allRects, p.DedupContainThreshold);
         allRects = allRects.Select(r => RefineBox(r, mask)).ToList();
 
+        using var refineKernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+        using var maskD = new Mat();
+        Cv2.Dilate(mask, maskD, refineKernel, iterations: 3);
+        allRects = allRects.Select(r => BoxRefinement.RefineWithPreserveSup(r, maskD)).ToList();
+
         return allRects.Select(r => RectToDetectedBox(r, imgWidth, imgHeight, rule.Type, rule.Name)).ToList();
     }
 
@@ -699,6 +928,43 @@ public class ColorBoxDetector
                     if (hitCounts[d] >= adaptiveThreshold)
                         bestDist = d;
                 }
+
+                {
+                    int minRunLen = Math.Max(5, nSamples / 7);
+                    int startDist = Math.Max(1, (int)(minSide * 0.5));
+                    for (int d = startDist; d <= maxScanSafe && d <= growthLimit; d++)
+                    {
+                        int maxRun = 0, curRun = 0, gap = 0;
+                        for (int t = 0; t <= nSamples; t++)
+                        {
+                            double frac = (double)t / nSamples;
+                            double cx = p1.X + dx * frac + nx * d;
+                            double cy = p1.Y + dy * frac + ny * d;
+                            int px = (int)Math.Round(cx), py = (int)Math.Round(cy);
+                            bool isRed = px >= 0 && px < w && py >= 0 && py < h && mask.At<byte>(py, px) > 0;
+                            if (isRed)
+                            {
+                                curRun++;
+                                gap = 0;
+                            }
+                            else
+                            {
+                                gap++;
+                                if (gap > 1)
+                                {
+                                    if (curRun > maxRun) maxRun = curRun;
+                                    curRun = 0;
+                                }
+                            }
+                        }
+                        if (curRun > maxRun) maxRun = curRun;
+                        if (maxRun >= minRunLen && d > bestDist)
+                        {
+                            bestDist = d;
+                            break;
+                        }
+                    }
+                }
             }
 
             shiftedLines[i] = (new Point2d(p1.X + nx * bestDist, p1.Y + ny * bestDist), new Point2d(dx, dy));
@@ -739,8 +1005,22 @@ public class ColorBoxDetector
     /// </summary>
     private static List<RotatedRect> DetectPass(Mat mask, DetectionParams p, int imgWidth, int imgHeight, Mat? validationMask = null)
     {
-        using var preserved = DenoiseAndPreserve(mask, p);
-        return DetectFromPreserved(preserved, p, imgWidth, imgHeight, validationMask ?? mask);
+        Mat input = mask;
+        Mat? svdCleaned = null;
+        if (p.PurifyMode != null && p.PurifyMode.StartsWith("svdPost"))
+        {
+            svdCleaned = SvdCleanBinaryMask(mask, p.PurifyMode);
+            input = svdCleaned;
+        }
+        try
+        {
+            using var preserved = DenoiseAndPreserve(input, p);
+            return DetectFromPreserved(preserved, p, imgWidth, imgHeight, validationMask ?? mask);
+        }
+        finally
+        {
+            svdCleaned?.Dispose();
+        }
     }
 
     /// <summary>
@@ -810,6 +1090,7 @@ public class ColorBoxDetector
         rects = ApplyFilter(rects, validationMask, p);
         rects = Nms(rects, p.NmsThreshold);
         rects = DedupContained(rects, p.DedupContainThreshold);
+
         return rects;
     }
 
@@ -1812,8 +2093,9 @@ public class ColorBoxDetector
         // grow each edge outward to find the farthest red pixel cluster.
         // Iterative: repeat until box stabilizes or max 3 iterations.
         var grown = new List<RotatedRect>();
-        foreach (var rect in rects)
+        for (int idx = 0; idx < rects.Count; idx++)
         {
+            var rect = rects[idx];
             double rw = rect.Size.Width, rh = rect.Size.Height;
             double minSide = Math.Min(rw, rh), maxSide = Math.Max(rw, rh);
             if (minSide / maxSide >= 0.5 || maxSide < p.HoleMinSide * 2)

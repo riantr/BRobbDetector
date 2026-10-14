@@ -100,6 +100,9 @@ public partial class MainViewModel : ViewModelBase
     private bool _enableOcr;
 
     [ObservableProperty]
+    private bool _useYolo;
+
+    [ObservableProperty]
     private string _categoryList = "子弹,工具,枪支,液体,火种,烟火制品,管制器具,锂电池,锐器";
 
     [ObservableProperty]
@@ -320,6 +323,7 @@ public partial class MainViewModel : ViewModelBase
         return new DetectionParams
         {
             ColorRules = rules,
+            DetectionMethod = UseYolo ? "yolo" : "hole",
             HoleMinArea = HoleMinArea,
             HoleMaxArea = HoleMaxArea,
             HoleMinSide = HoleMinSide,
