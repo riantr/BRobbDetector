@@ -1,0 +1,114 @@
+{
+  "pm5_d5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 293,
+    "true_fp": 157,
+    "real_unlabeled": 136,
+    "n_gt": 746,
+    "n_det": 795
+  },
+  "fn_analysis": {
+    "total": 244,
+    "imprecise_match": 18,
+    "imprecise_close_3px": 7,
+    "imprecise_3_to_5px": 11,
+    "truly_missed": 226,
+    "other": 0
+  },
+  "real_unlabeled_analysis": {
+    "total": 285,
+    "isolated_unannotated": 267,
+    "gt_extension": 18
+  },
+  "gt_completion": {
+    "baseline_gt_size": 746,
+    "added_isolated": 267,
+    "added_extension": 18,
+    "new_gt_size": 1031
+  },
+  "metrics_base": {
+    "3": {
+      "tp": 490,
+      "fn": 256,
+      "fp": 305,
+      "n_gt": 746,
+      "n_det": 795,
+      "recall": 65.68,
+      "precision": 61.64,
+      "f1": 63.6
+    },
+    "5": {
+      "tp": 502,
+      "fn": 244,
+      "fp": 293,
+      "n_gt": 746,
+      "n_det": 795,
+      "recall": 67.29,
+      "precision": 63.14,
+      "f1": 65.15
+    },
+    "8": {
+      "tp": 517,
+      "fn": 229,
+      "fp": 278,
+      "n_gt": 746,
+      "n_det": 795,
+      "recall": 69.3,
+      "precision": 65.03,
+      "f1": 67.1
+    },
+    "12": {
+      "tp": 524,
+      "fn": 222,
+      "fp": 271,
+      "n_gt": 746,
+      "n_det": 795,
+      "recall": 70.24,
+      "precision": 65.91,
+      "f1": 68.01
+    }
+  },
+  "metrics_augmented": {
+    "3": {
+      "tp": 775,
+      "fn": 256,
+      "fp": 20,
+      "n_gt": 1031,
+      "n_det": 795,
+      "recall": 75.17,
+      "precision": 97.48,
+      "f1": 84.88
+    },
+    "5": {
+      "tp": 787,
+      "fn": 244,
+      "fp": 8,
+      "n_gt": 1031,
+      "n_det": 795,
+      "recall": 76.33,
+      "precision": 98.99,
+      "f1": 86.2
+    },
+    "8": {
+      "tp": 789,
+      "fn": 242,
+      "fp": 6,
+      "n_gt": 1031,
+      "n_det": 795,
+      "recall": 76.53,
+      "precision": 99.25,
+      "f1": 86.42
+    },
+    "12": {
+      "tp": 789,
+      "fn": 242,
+      "fp": 6,
+      "n_gt": 1031,
+      "n_det": 795,
+      "recall": 76.53,
+      "precision": 99.25,
+      "f1": 86.42
+    }
+  }
+}

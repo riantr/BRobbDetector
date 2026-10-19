@@ -1,0 +1,73 @@
+{
+  "n_images": 500,
+  "total_evals": 19500,
+  "dist_thr": 5.0,
+  "decisions": {
+    "stage1": {
+      "smin": 60,
+      "vmin": 90,
+      "f1": 48.225214198286416,
+      "tp": 197,
+      "dml": {
+        "theta": 5.486390396875252e-07,
+        "p_value": 0.3943474371408291,
+        "effect_magnitude": 7.75931568321828e-06,
+        "ci_lower": -7.138210946275586e-07,
+        "ci_upper": 1.811099174002609e-06,
+        "n_samples": 10000
+      }
+    },
+    "stage2": {
+      "denoise_min_area": 0,
+      "f1": 48.225214198286416,
+      "tp": 197,
+      "dml": {
+        "theta": 8.901399194305836e-07,
+        "p_value": 0.09628657280507336,
+        "effect_magnitude": 5.6028831652658814e-05,
+        "ci_lower": -1.588718871136487e-07,
+        "ci_upper": 1.939151725974816e-06,
+        "n_samples": 4000
+      }
+    },
+    "stage4": {
+      "fit_band": 3.0,
+      "fit_min_pts": 8,
+      "fit_jump": 15.0,
+      "dml": {
+        "theta": 0.0,
+        "p_value": NaN,
+        "effect_magnitude": 0.0,
+        "ci_lower": 0.0,
+        "ci_upper": 0.0,
+        "n_samples": 5500
+      }
+    }
+  },
+  "dml": {
+    "stage1": {
+      "theta": 5.486390396875252e-07,
+      "p_value": 0.3943474371408291,
+      "effect_magnitude": 7.75931568321828e-06,
+      "ci_lower": -7.138210946275586e-07,
+      "ci_upper": 1.811099174002609e-06,
+      "n_samples": 10000
+    },
+    "stage2": {
+      "theta": 8.901399194305836e-07,
+      "p_value": 0.09628657280507336,
+      "effect_magnitude": 5.6028831652658814e-05,
+      "ci_lower": -1.588718871136487e-07,
+      "ci_upper": 1.939151725974816e-06,
+      "n_samples": 4000
+    },
+    "stage4": {
+      "theta": 0.0,
+      "p_value": NaN,
+      "effect_magnitude": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "n_samples": 5500
+    }
+  }
+}

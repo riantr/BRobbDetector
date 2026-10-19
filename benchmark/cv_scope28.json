@@ -1,0 +1,604 @@
+{
+  "n_images": 500,
+  "total_gt": 746,
+  "baseline_tp": 502,
+  "baseline_f1": 71.5,
+  "denoise_grid": [
+    0,
+    20,
+    40,
+    60,
+    80,
+    100,
+    120,
+    150,
+    200,
+    300,
+    500
+  ],
+  "results": {
+    "0": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "20": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "40": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "60": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "80": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "100": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "120": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "150": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "200": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "300": {
+      "n_det": 804,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 65.7,
+          "raw_f1": 63.2,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 67.3,
+          "raw_f1": 64.8,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 69.3,
+          "raw_f1": 66.7,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 804,
+          "recall": 70.2,
+          "raw_f1": 67.6,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "500": {
+      "n_det": 802,
+      "per_D": {
+        "3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 312,
+          "true_fp": 166,
+          "real_unlabeled": 146,
+          "n_gt": 746,
+          "n_det": 802,
+          "recall": 65.7,
+          "raw_f1": 63.3,
+          "corrected_f1": 69.9
+        },
+        "5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 300,
+          "true_fp": 161,
+          "real_unlabeled": 139,
+          "n_gt": 746,
+          "n_det": 802,
+          "recall": 67.3,
+          "raw_f1": 64.9,
+          "corrected_f1": 71.3
+        },
+        "8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 285,
+          "true_fp": 150,
+          "real_unlabeled": 135,
+          "n_gt": 746,
+          "n_det": 802,
+          "recall": 69.3,
+          "raw_f1": 66.8,
+          "corrected_f1": 73.2
+        },
+        "12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 278,
+          "true_fp": 145,
+          "real_unlabeled": 133,
+          "n_gt": 746,
+          "n_det": 802,
+          "recall": 70.2,
+          "raw_f1": 67.7,
+          "corrected_f1": 74.1
+        }
+      }
+    }
+  }
+}

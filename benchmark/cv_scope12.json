@@ -1,0 +1,59 @@
+{
+  "pm5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 302,
+    "true_fp": 161,
+    "real_unlabeled": 141,
+    "recall": 67.3,
+    "corrected_f1": 71.3
+  },
+  "methods": {
+    "tophat+ransac": {
+      "tp": 498,
+      "fn": 248,
+      "raw_fp": 348,
+      "true_fp": 178,
+      "real_unlabeled": 170,
+      "recall": 66.8,
+      "corrected_f1": 70.0,
+      "runtime_s": 43.2,
+      "verdict": "DEAD"
+    },
+    "union+ransac": {
+      "tp": 498,
+      "fn": 248,
+      "raw_fp": 348,
+      "true_fp": 176,
+      "real_unlabeled": 172,
+      "recall": 66.8,
+      "corrected_f1": 70.1,
+      "runtime_s": 46.3,
+      "verdict": "DEAD"
+    },
+    "tophat+multi": {
+      "tp": 498,
+      "fn": 248,
+      "raw_fp": 348,
+      "true_fp": 178,
+      "real_unlabeled": 170,
+      "recall": 66.8,
+      "corrected_f1": 70.0,
+      "runtime_s": 34.9,
+      "verdict": "DEAD"
+    },
+    "or_of_dets": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 351,
+      "true_fp": 176,
+      "real_unlabeled": 175,
+      "recall": 67.3,
+      "corrected_f1": 70.5,
+      "runtime_s": 56.0,
+      "verdict": "MARGINAL"
+    }
+  },
+  "dist_thr": 5.0,
+  "n_images": 500
+}

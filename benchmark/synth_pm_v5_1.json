@@ -1,0 +1,9149 @@
+{
+  "name": "synth_pm_v5_1",
+  "method": "pm_v5_1",
+  "params": {
+    "denoise_min_area": 40,
+    "canny_lo": 50,
+    "canny_hi": 150,
+    "dilate_mask": 1,
+    "hough_thr": 20,
+    "hough_min_len": 15,
+    "hough_max_gap": 15,
+    "line_thick": 3,
+    "close_len": 9,
+    "link_dist": 18,
+    "approx_eps": 0.03,
+    "approx_adaptive": 1,
+    "use_centerline": 1,
+    "min_area": 1000,
+    "min_side": 15.0,
+    "max_side": 800.0,
+    "max_aspect": 12.0,
+    "ortho_tol": 15.0,
+    "boundary_band": 12.0,
+    "dedup_iou": 0.3,
+    "merge_collinear": 1,
+    "merge_ang_tol": 4.0,
+    "merge_line_tol": 3.0,
+    "merge_gap_tol": 20.0,
+    "fit_band": 6.0,
+    "fit_min_pts": 12,
+    "fit_jump": 20.0
+  },
+  "results": {
+    "config": {
+      "n_bg": 50,
+      "brokenness_values": [
+        0.0,
+        0.05,
+        0.1,
+        0.2,
+        0.3
+      ],
+      "n_per_value": 4,
+      "total_images": 1000,
+      "dist_thr": 5.0
+    },
+    "box_level": {
+      "tp": 131,
+      "fp": 126,
+      "fn": 869,
+      "total_gt": 1000,
+      "total_det": 257,
+      "recall": 13.1,
+      "precision": 50.97,
+      "f1": 20.84
+    },
+    "by_brokenness": {
+      "0.0": {
+        "tp": 121,
+        "fn": 79,
+        "fp": 79,
+        "n_gt": 200,
+        "n_det": 200,
+        "recall": 60.5,
+        "precision": 60.5
+      },
+      "0.05": {
+        "tp": 10,
+        "fn": 190,
+        "fp": 47,
+        "n_gt": 200,
+        "n_det": 57,
+        "recall": 5.0,
+        "precision": 17.54
+      },
+      "0.1": {
+        "tp": 0,
+        "fn": 200,
+        "fp": 0,
+        "n_gt": 200,
+        "n_det": 0,
+        "recall": 0.0,
+        "precision": 0
+      },
+      "0.2": {
+        "tp": 0,
+        "fn": 200,
+        "fp": 0,
+        "n_gt": 200,
+        "n_det": 0,
+        "recall": 0.0,
+        "precision": 0
+      },
+      "0.3": {
+        "tp": 0,
+        "fn": 200,
+        "fp": 0,
+        "n_gt": 200,
+        "n_det": 0,
+        "recall": 0.0,
+        "precision": 0
+      }
+    },
+    "per_image": [
+      {
+        "id": "synth_000_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_000_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_000_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_000_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_000_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_000_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_001_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_002_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_002_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_003_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_003_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_003_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_004_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_004_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_004_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_004_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_005_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_005_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_005_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_005_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_006_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_007_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_007_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_007_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_007_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_008_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_008_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_008_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_008_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_008_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_008_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_009_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_009_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_010_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_010_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_010_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_010_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_010_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_011_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_011_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_011_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_011_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_011_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_012_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_012_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_012_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_012_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_013_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_013_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_013_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_013_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_013_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_014_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_014_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_014_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_014_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_014_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_015_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_015_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_015_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_016_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_016_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_016_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_016_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_016_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_017_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_017_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_017_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_017_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_017_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_018_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_018_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_018_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_018_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_018_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_019_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_019_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_019_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_020_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_020_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_021_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_021_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_021_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_022_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_022_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_022_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_022_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_022_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_023_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_023_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_023_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_023_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_023_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_024_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_024_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_025_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_026_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_026_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_027_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_027_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_028_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_028_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_028_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_029_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_029_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_029_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_029_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_029_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_030_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_030_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_030_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_031_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_031_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_031_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_031_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_031_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_032_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_032_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_032_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_033_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_033_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_033_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_033_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_034_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_034_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_034_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_034_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_034_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_035_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_035_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_035_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_035_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_036_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_036_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_036_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_037_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_037_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_038_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_038_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_038_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_038_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_039_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_039_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_039_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_039_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_040_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_040_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_040_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_040_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_041_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_041_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_041_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_042_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_042_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_042_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_042_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_043_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_043_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_043_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_043_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_043_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_043_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_044_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_044_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_045_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_045_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_045_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_046_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_046_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_046_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_047_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_047_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_047_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_047_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_047_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_048_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_048_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_048_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_048_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.00_0",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_049_b0.00_1",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.00_2",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.00_3",
+        "brokenness": 0.0,
+        "gt": 1,
+        "det": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "id": "synth_049_b0.05_0",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.05_1",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.05_2",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.05_3",
+        "brokenness": 0.05,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.10_0",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.10_1",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.10_2",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.10_3",
+        "brokenness": 0.1,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.20_0",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.20_1",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.20_2",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.20_3",
+        "brokenness": 0.2,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.30_0",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.30_1",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.30_2",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      {
+        "id": "synth_049_b0.30_3",
+        "brokenness": 0.3,
+        "gt": 1,
+        "det": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      }
+    ]
+  },
+  "multi_d": {
+    "D3": {
+      "tp": 129,
+      "fp": 128,
+      "fn": 871,
+      "total_gt": 1000,
+      "total_det": 257,
+      "recall": 12.9,
+      "precision": 50.19,
+      "f1": 20.53
+    },
+    "D5": {
+      "tp": 131,
+      "fp": 126,
+      "fn": 869,
+      "total_gt": 1000,
+      "total_det": 257,
+      "recall": 13.1,
+      "precision": 50.97,
+      "f1": 20.84
+    },
+    "D8": {
+      "tp": 133,
+      "fp": 124,
+      "fn": 867,
+      "total_gt": 1000,
+      "total_det": 257,
+      "recall": 13.3,
+      "precision": 51.75,
+      "f1": 21.16
+    },
+    "D12": {
+      "tp": 146,
+      "fp": 111,
+      "fn": 854,
+      "total_gt": 1000,
+      "total_det": 257,
+      "recall": 14.6,
+      "precision": 56.81,
+      "f1": 23.23
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "loop": "LOOP-9",
+  "method": "CornerNet-style heatmap corner regression",
+  "config": {
+    "res": 384,
+    "sigma": 2.0,
+    "base_ch": 16,
+    "batch": 8,
+    "epochs": 15,
+    "lr": 0.001,
+    "pos_weight": 30.0
+  },
+  "heatmap_all500": {
+    "D3": {
+      "tp": 84,
+      "fn": 662,
+      "raw_fp": 707,
+      "true_fp": 441,
+      "real_unlabeled": 266,
+      "recall": 11.3,
+      "raw_f1": 10.9,
+      "corrected_f1": 13.2
+    },
+    "D5": {
+      "tp": 151,
+      "fn": 595,
+      "raw_fp": 640,
+      "true_fp": 382,
+      "real_unlabeled": 258,
+      "recall": 20.2,
+      "raw_f1": 19.6,
+      "corrected_f1": 23.6
+    },
+    "D8": {
+      "tp": 202,
+      "fn": 544,
+      "raw_fp": 589,
+      "true_fp": 336,
+      "real_unlabeled": 253,
+      "recall": 27.1,
+      "raw_f1": 26.3,
+      "corrected_f1": 31.5
+    },
+    "D12": {
+      "tp": 242,
+      "fn": 504,
+      "raw_fp": 549,
+      "true_fp": 301,
+      "real_unlabeled": 248,
+      "recall": 32.4,
+      "raw_f1": 31.5,
+      "corrected_f1": 37.5
+    }
+  },
+  "heatmap_val100": {
+    "D3": {
+      "tp": 13,
+      "fn": 145,
+      "raw_fp": 161,
+      "true_fp": 93,
+      "real_unlabeled": 68,
+      "recall": 8.2,
+      "raw_f1": 7.8,
+      "corrected_f1": 9.8
+    },
+    "D5": {
+      "tp": 24,
+      "fn": 134,
+      "raw_fp": 150,
+      "true_fp": 83,
+      "real_unlabeled": 67,
+      "recall": 15.2,
+      "raw_f1": 14.5,
+      "corrected_f1": 18.1
+    },
+    "D8": {
+      "tp": 33,
+      "fn": 125,
+      "raw_fp": 141,
+      "true_fp": 74,
+      "real_unlabeled": 67,
+      "recall": 20.9,
+      "raw_f1": 19.9,
+      "corrected_f1": 24.9
+    },
+    "D12": {
+      "tp": 40,
+      "fn": 118,
+      "raw_fp": 134,
+      "true_fp": 68,
+      "real_unlabeled": 66,
+      "recall": 25.3,
+      "raw_f1": 24.1,
+      "corrected_f1": 30.1
+    }
+  },
+  "pm5_val100": {
+    "D3": {
+      "tp": 98,
+      "fn": 60,
+      "raw_fp": 69,
+      "true_fp": 42,
+      "real_unlabeled": 27,
+      "recall": 62.0,
+      "raw_f1": 60.3,
+      "corrected_f1": 65.8
+    },
+    "D5": {
+      "tp": 103,
+      "fn": 55,
+      "raw_fp": 64,
+      "true_fp": 40,
+      "real_unlabeled": 24,
+      "recall": 65.2,
+      "raw_f1": 63.4,
+      "corrected_f1": 68.4
+    },
+    "D8": {
+      "tp": 107,
+      "fn": 51,
+      "raw_fp": 60,
+      "true_fp": 36,
+      "real_unlabeled": 24,
+      "recall": 67.7,
+      "raw_f1": 65.8,
+      "corrected_f1": 71.1
+    },
+    "D12": {
+      "tp": 108,
+      "fn": 50,
+      "raw_fp": 59,
+      "true_fp": 35,
+      "real_unlabeled": 24,
+      "recall": 68.4,
+      "raw_f1": 66.5,
+      "corrected_f1": 71.8
+    }
+  },
+  "verdict": "DEAD",
+  "corner_recall_val100": {
+    "D3": "46.7% (295/632)",
+    "D5": "59.2% (374/632)",
+    "D8": "65.2% (412/632)",
+    "D12": "72.3% (457/632)",
+    "note": "per-corner recall; quad recall ~= per_corner^4, matches observed quad recall"
+  },
+  "union_pm5_hm9_all500_D5": {
+    "tp": 502,
+    "raw_fp": 648,
+    "true_fp": 351,
+    "recall": 67.3,
+    "corrected_f1": 62.8
+  },
+  "verdict_reason": "Bottleneck is corner PRECISION, not grouping: per-corner D=5 recall 59.2% -> all-4-corners quad recall ~12% (observed 15.2%) vs pm_v5 65.2%. Downscaling to RES=384 loses sub-pixel accuracy. Union with pm_v5 adds 0 TP, +190 FP."
+}

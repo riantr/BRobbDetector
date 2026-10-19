@@ -1,0 +1,38 @@
+{
+  "n_images": 1000,
+  "dist_thr": 5.0,
+  "methods": {
+    "nofjoin": {
+      "tp": 383,
+      "fp": 252,
+      "fn": 617,
+      "f1": 46.85,
+      "recall": 38.3,
+      "precision": 60.31
+    },
+    "strict": {
+      "tp": 383,
+      "fp": 252,
+      "fn": 617,
+      "f1": 46.85,
+      "recall": 38.3,
+      "precision": 60.31
+    },
+    "default": {
+      "tp": 383,
+      "fp": 271,
+      "fn": 617,
+      "f1": 46.31,
+      "recall": 38.3,
+      "precision": 58.56
+    },
+    "loose": {
+      "tp": 383,
+      "fp": 292,
+      "fn": 617,
+      "f1": 45.73,
+      "recall": 38.3,
+      "precision": 56.74
+    }
+  }
+}

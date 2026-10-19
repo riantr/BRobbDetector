@@ -1,0 +1,158 @@
+{
+  "pm5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 302,
+    "true_fp": 161,
+    "real_unlabeled": 141,
+    "recall": 67.3,
+    "corrected_f1": 71.3
+  },
+  "methods": {
+    "clahe": {
+      "tp": 467,
+      "fn": 279,
+      "raw_fp": 333,
+      "true_fp": 184,
+      "real_unlabeled": 149,
+      "recall": 62.6,
+      "corrected_f1": 66.9,
+      "runtime_s": 8.5,
+      "verdict": "DEAD"
+    },
+    "tophat": {
+      "tp": 498,
+      "fn": 248,
+      "raw_fp": 310,
+      "true_fp": 167,
+      "real_unlabeled": 143,
+      "recall": 66.8,
+      "corrected_f1": 70.6,
+      "runtime_s": 10.9,
+      "verdict": "MARGINAL"
+    },
+    "excess_red": {
+      "tp": 348,
+      "fn": 398,
+      "raw_fp": 470,
+      "true_fp": 285,
+      "real_unlabeled": 185,
+      "recall": 46.6,
+      "corrected_f1": 50.5,
+      "runtime_s": 11.5,
+      "verdict": "DEAD"
+    },
+    "crcb": {
+      "tp": 355,
+      "fn": 391,
+      "raw_fp": 463,
+      "true_fp": 276,
+      "real_unlabeled": 187,
+      "recall": 47.6,
+      "corrected_f1": 51.6,
+      "runtime_s": 9.3,
+      "verdict": "DEAD"
+    },
+    "epq": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 302,
+      "true_fp": 161,
+      "real_unlabeled": 141,
+      "recall": 67.3,
+      "corrected_f1": 71.3,
+      "runtime_s": 8.0,
+      "verdict": "TIE",
+      "full_D": {
+        "D3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "recall": 65.7,
+          "corrected_f1": 69.9
+        },
+        "D5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "recall": 67.3,
+          "corrected_f1": 71.3
+        },
+        "D8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "recall": 69.3,
+          "corrected_f1": 73.2
+        },
+        "D12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "recall": 70.2,
+          "corrected_f1": 74.1
+        }
+      }
+    },
+    "paq": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 302,
+      "true_fp": 161,
+      "real_unlabeled": 141,
+      "recall": 67.3,
+      "corrected_f1": 71.3,
+      "runtime_s": 9.1,
+      "verdict": "TIE",
+      "full_D": {
+        "D3": {
+          "tp": 490,
+          "fn": 256,
+          "raw_fp": 314,
+          "true_fp": 166,
+          "real_unlabeled": 148,
+          "recall": 65.7,
+          "corrected_f1": 69.9
+        },
+        "D5": {
+          "tp": 502,
+          "fn": 244,
+          "raw_fp": 302,
+          "true_fp": 161,
+          "real_unlabeled": 141,
+          "recall": 67.3,
+          "corrected_f1": 71.3
+        },
+        "D8": {
+          "tp": 517,
+          "fn": 229,
+          "raw_fp": 287,
+          "true_fp": 150,
+          "real_unlabeled": 137,
+          "recall": 69.3,
+          "corrected_f1": 73.2
+        },
+        "D12": {
+          "tp": 524,
+          "fn": 222,
+          "raw_fp": 280,
+          "true_fp": 145,
+          "real_unlabeled": 135,
+          "recall": 70.2,
+          "corrected_f1": 74.1
+        }
+      }
+    }
+  },
+  "dist_thr": 5.0,
+  "n_images": 500,
+  "verdict_note": "epq/paq produce byte-identical dets to pm_v5 (4th family no-ops, deduped); only meaningful result is tophat MARGINAL. WIN requires strict improvement (>), not >=."
+}

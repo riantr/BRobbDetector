@@ -1,0 +1,48 @@
+{
+  "pm5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 302,
+    "true_fp": 161,
+    "real_unlabeled": 141,
+    "recall": 67.3,
+    "corrected_f1": 71.3
+  },
+  "methods": {
+    "base": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 486,
+      "true_fp": 230,
+      "real_unlabeled": 256,
+      "recall": 67.3,
+      "corrected_f1": 67.9,
+      "runtime_s": 41.8,
+      "verdict": "DEAD"
+    },
+    "strict": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 335,
+      "true_fp": 167,
+      "real_unlabeled": 168,
+      "recall": 67.3,
+      "corrected_f1": 71.0,
+      "runtime_s": 38.5,
+      "verdict": "MARGINAL"
+    },
+    "loose": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 1229,
+      "true_fp": 620,
+      "real_unlabeled": 609,
+      "recall": 67.3,
+      "corrected_f1": 53.7,
+      "runtime_s": 59.5,
+      "verdict": "DEAD"
+    }
+  },
+  "dist_thr": 5.0,
+  "n_images": 500
+}

@@ -1,0 +1,46 @@
+{
+  "pm5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 302,
+    "true_fp": 161,
+    "real_unlabeled": 141,
+    "recall": 67.3,
+    "corrected_f1": 71.3
+  },
+  "optimized": {
+    "tp": 379,
+    "fn": 367,
+    "raw_fp": 395,
+    "true_fp": 235,
+    "real_unlabeled": 160,
+    "recall": 50.8,
+    "corrected_f1": 55.7,
+    "runtime_s": 18.1,
+    "verdict": "DEAD"
+  },
+  "vmin130": {
+    "tp": 486,
+    "fn": 260,
+    "raw_fp": 314,
+    "true_fp": 172,
+    "real_unlabeled": 142,
+    "recall": 65.1,
+    "corrected_f1": 69.2,
+    "runtime_s": 15.7,
+    "verdict": "DEAD"
+  },
+  "minarea1200": {
+    "tp": 501,
+    "fn": 245,
+    "raw_fp": 276,
+    "true_fp": 146,
+    "real_unlabeled": 130,
+    "recall": 67.2,
+    "corrected_f1": 71.9,
+    "runtime_s": 9.7,
+    "verdict": "MARGINAL"
+  },
+  "dist_thr": 5.0,
+  "n_images": 500
+}

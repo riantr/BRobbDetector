@@ -1,0 +1,109 @@
+{
+  "n_images": 500,
+  "dist_thr": 5.0,
+  "total_tp": 502,
+  "total_fp": 293,
+  "total_fn": 244,
+  "recall": 67.29,
+  "f1": 65.15,
+  "doubleml": {
+    "stage1_red_mask": {
+      "treatment_var": "s1_red_ratio",
+      "theta": -1.571387,
+      "ci_lower": -5.11544,
+      "ci_upper": 1.972665,
+      "p_value": 0.384835,
+      "n_samples": 500
+    },
+    "stage2_denoise": {
+      "treatment_var": "s2_kept_area_ratio",
+      "theta": -1.792326,
+      "ci_lower": -3.031455,
+      "ci_upper": -0.553197,
+      "p_value": 0.004583,
+      "n_samples": 500
+    },
+    "stage3_outer_contours": {
+      "treatment_var": "s3_n_contours",
+      "theta": 0.494134,
+      "ci_lower": -0.078108,
+      "ci_upper": 1.066375,
+      "p_value": 0.090562,
+      "n_samples": 500
+    },
+    "stage4_base_quads": {
+      "treatment_var": "s4_n_total_candidates",
+      "theta": 0.282581,
+      "ci_lower": -0.125333,
+      "ci_upper": 0.690495,
+      "p_value": 0.17454,
+      "n_samples": 500
+    },
+    "stage5_admission": {
+      "treatment_var": "s5_pass_rate",
+      "theta": 1.598792,
+      "ci_lower": -0.262965,
+      "ci_upper": 3.46055,
+      "p_value": 0.09235,
+      "n_samples": 500
+    },
+    "stage6_dedup": {
+      "treatment_var": "s6_dedup_rate",
+      "theta": 1.094931,
+      "ci_lower": -1.303764,
+      "ci_upper": 3.493626,
+      "p_value": 0.370967,
+      "n_samples": 500
+    }
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "stage": "stage4_base_quads",
+      "treatment": "s4_n_total_candidates",
+      "theta": 0.282581,
+      "effect_magnitude": 0.6999816030693766,
+      "p_value": 0.17454
+    },
+    {
+      "rank": 2,
+      "stage": "stage5_admission",
+      "treatment": "s5_pass_rate",
+      "theta": 1.598792,
+      "effect_magnitude": 0.42042046243125525,
+      "p_value": 0.09235
+    },
+    {
+      "rank": 3,
+      "stage": "stage3_outer_contours",
+      "treatment": "s3_n_contours",
+      "theta": 0.494134,
+      "effect_magnitude": 0.4179248140131479,
+      "p_value": 0.090562
+    },
+    {
+      "rank": 4,
+      "stage": "stage6_dedup",
+      "treatment": "s6_dedup_rate",
+      "theta": 1.094931,
+      "effect_magnitude": 0.2860969739539762,
+      "p_value": 0.370967
+    },
+    {
+      "rank": 5,
+      "stage": "stage2_denoise",
+      "treatment": "s2_kept_area_ratio",
+      "theta": -1.792326,
+      "effect_magnitude": 0.24967836814688799,
+      "p_value": 0.004583
+    },
+    {
+      "rank": 6,
+      "stage": "stage1_red_mask",
+      "treatment": "s1_red_ratio",
+      "theta": -1.571387,
+      "effect_magnitude": 0.03180016119414719,
+      "p_value": 0.384835
+    }
+  ]
+}

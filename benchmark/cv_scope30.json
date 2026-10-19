@@ -1,0 +1,48 @@
+{
+  "n_images": 500,
+  "total_gt": 746,
+  "min_area": 1000.0,
+  "D_eval": 5.0,
+  "per_method": {
+    "hull": {
+      "det": 459,
+      "tp": 358
+    },
+    "edgefit": {
+      "det": 527,
+      "tp": 288
+    },
+    "mar": {
+      "det": 795,
+      "tp": 344
+    },
+    "hy_full": {
+      "det": 795,
+      "tp": 502
+    },
+    "hy_no_mar": {
+      "det": 544,
+      "tp": 364
+    }
+  },
+  "mar_contribution_to_hybrid_tp": 138,
+  "n_total_contours": 795,
+  "n_mar_unique_contours": 251,
+  "mar_unique_stats": {
+    "circularity": {
+      "min": 0.010972151980787525,
+      "med": 0.2461553636989269,
+      "max": 0.510537929304975
+    },
+    "convex_count": 0,
+    "approx_never_4": 251,
+    "approx_4_but_pass_fail": 0,
+    "non_convex": 251,
+    "min_approx_v_dist": {
+      "1": 20,
+      "2": 231
+    },
+    "n_mar_unique_boxes": 251,
+    "tp_mar_unique": 138
+  }
+}

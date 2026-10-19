@@ -1,0 +1,51 @@
+{
+  "pm5": {
+    "tp": 502,
+    "fn": 244,
+    "raw_fp": 302,
+    "true_fp": 161,
+    "real_unlabeled": 141,
+    "recall": 67.3,
+    "corrected_f1": 71.3
+  },
+  "methods": {
+    "minarea_500": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 460,
+      "true_fp": 264,
+      "real_unlabeled": 196,
+      "recall": 67.3,
+      "corrected_f1": 66.4,
+      "runtime_s": 8.9,
+      "min_area": 500,
+      "verdict": "DEAD"
+    },
+    "minarea_200": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 1198,
+      "true_fp": 689,
+      "real_unlabeled": 509,
+      "recall": 67.3,
+      "corrected_f1": 51.8,
+      "runtime_s": 10.5,
+      "min_area": 200,
+      "verdict": "DEAD"
+    },
+    "minarea_100": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 2341,
+      "true_fp": 1364,
+      "real_unlabeled": 977,
+      "recall": 67.3,
+      "corrected_f1": 38.4,
+      "runtime_s": 13.1,
+      "min_area": 100,
+      "verdict": "DEAD"
+    }
+  },
+  "dist_thr": 5.0,
+  "n_images": 500
+}

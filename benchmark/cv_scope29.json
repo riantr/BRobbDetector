@@ -1,0 +1,314 @@
+{
+  "baseline": {
+    "3": {
+      "tp": 490,
+      "fn": 256,
+      "raw_fp": 305,
+      "true_fp": 162,
+      "real_unlabeled": 143,
+      "n_det": 795,
+      "recall": 65.7,
+      "corrected_f1": 70.1
+    },
+    "5": {
+      "tp": 502,
+      "fn": 244,
+      "raw_fp": 293,
+      "true_fp": 157,
+      "real_unlabeled": 136,
+      "n_det": 795,
+      "recall": 67.3,
+      "corrected_f1": 71.5
+    },
+    "8": {
+      "tp": 517,
+      "fn": 229,
+      "raw_fp": 278,
+      "true_fp": 146,
+      "real_unlabeled": 132,
+      "n_det": 795,
+      "recall": 69.3,
+      "corrected_f1": 73.4
+    },
+    "12": {
+      "tp": 524,
+      "fn": 222,
+      "raw_fp": 271,
+      "true_fp": 141,
+      "real_unlabeled": 130,
+      "n_det": 795,
+      "recall": 70.2,
+      "corrected_f1": 74.3
+    }
+  },
+  "hough_isect": {
+    "label": "A: Hough-line intersection",
+    "algo_only": {
+      "3": {
+        "tp": 1,
+        "fn": 745,
+        "raw_fp": 1747,
+        "true_fp": 1135,
+        "real_unlabeled": 612,
+        "n_det": 1748,
+        "recall": 0.1,
+        "corrected_f1": 0.1
+      },
+      "5": {
+        "tp": 20,
+        "fn": 726,
+        "raw_fp": 1728,
+        "true_fp": 1116,
+        "real_unlabeled": 612,
+        "n_det": 1748,
+        "recall": 2.7,
+        "corrected_f1": 2.1
+      },
+      "8": {
+        "tp": 35,
+        "fn": 711,
+        "raw_fp": 1713,
+        "true_fp": 1101,
+        "real_unlabeled": 612,
+        "n_det": 1748,
+        "recall": 4.7,
+        "corrected_f1": 3.7
+      },
+      "12": {
+        "tp": 51,
+        "fn": 695,
+        "raw_fp": 1697,
+        "true_fp": 1085,
+        "real_unlabeled": 612,
+        "n_det": 1748,
+        "recall": 6.8,
+        "corrected_f1": 5.4
+      }
+    },
+    "union": {
+      "3": {
+        "tp": 490,
+        "fn": 256,
+        "raw_fp": 1711,
+        "true_fp": 1061,
+        "real_unlabeled": 650,
+        "n_det": 2201,
+        "recall": 65.7,
+        "corrected_f1": 42.7
+      },
+      "5": {
+        "tp": 502,
+        "fn": 244,
+        "raw_fp": 1699,
+        "true_fp": 1056,
+        "real_unlabeled": 643,
+        "n_det": 2201,
+        "recall": 67.3,
+        "corrected_f1": 43.6
+      },
+      "8": {
+        "tp": 517,
+        "fn": 229,
+        "raw_fp": 1684,
+        "true_fp": 1045,
+        "real_unlabeled": 639,
+        "n_det": 2201,
+        "recall": 69.3,
+        "corrected_f1": 44.8
+      },
+      "12": {
+        "tp": 524,
+        "fn": 222,
+        "raw_fp": 1677,
+        "true_fp": 1040,
+        "real_unlabeled": 637,
+        "n_det": 2201,
+        "recall": 70.2,
+        "corrected_f1": 45.4
+      }
+    },
+    "n_algo_det": 1748,
+    "n_union_det": 2201,
+    "verdict": "DEAD"
+  },
+  "multi_eps": {
+    "label": "B: Multi-epsilon approxPolyDP",
+    "algo_only": {
+      "3": {
+        "tp": 344,
+        "fn": 402,
+        "raw_fp": 257,
+        "true_fp": 144,
+        "real_unlabeled": 113,
+        "n_det": 601,
+        "recall": 46.1,
+        "corrected_f1": 55.8
+      },
+      "5": {
+        "tp": 352,
+        "fn": 394,
+        "raw_fp": 249,
+        "true_fp": 137,
+        "real_unlabeled": 112,
+        "n_det": 601,
+        "recall": 47.2,
+        "corrected_f1": 57.0
+      },
+      "8": {
+        "tp": 362,
+        "fn": 384,
+        "raw_fp": 239,
+        "true_fp": 129,
+        "real_unlabeled": 110,
+        "n_det": 601,
+        "recall": 48.5,
+        "corrected_f1": 58.5
+      },
+      "12": {
+        "tp": 367,
+        "fn": 379,
+        "raw_fp": 234,
+        "true_fp": 126,
+        "real_unlabeled": 108,
+        "n_det": 601,
+        "recall": 49.2,
+        "corrected_f1": 59.2
+      }
+    },
+    "union": {
+      "3": {
+        "tp": 490,
+        "fn": 256,
+        "raw_fp": 316,
+        "true_fp": 163,
+        "real_unlabeled": 153,
+        "n_det": 806,
+        "recall": 65.7,
+        "corrected_f1": 70.1
+      },
+      "5": {
+        "tp": 502,
+        "fn": 244,
+        "raw_fp": 304,
+        "true_fp": 158,
+        "real_unlabeled": 146,
+        "n_det": 806,
+        "recall": 67.3,
+        "corrected_f1": 71.4
+      },
+      "8": {
+        "tp": 517,
+        "fn": 229,
+        "raw_fp": 289,
+        "true_fp": 147,
+        "real_unlabeled": 142,
+        "n_det": 806,
+        "recall": 69.3,
+        "corrected_f1": 73.3
+      },
+      "12": {
+        "tp": 524,
+        "fn": 222,
+        "raw_fp": 282,
+        "true_fp": 142,
+        "real_unlabeled": 140,
+        "n_det": 806,
+        "recall": 70.2,
+        "corrected_f1": 74.2
+      }
+    },
+    "n_algo_det": 601,
+    "n_union_det": 806,
+    "verdict": "MARGINAL"
+  },
+  "split_curve": {
+    "label": "C: Contour splitting",
+    "algo_only": {
+      "3": {
+        "tp": 356,
+        "fn": 390,
+        "raw_fp": 134,
+        "true_fp": 77,
+        "real_unlabeled": 57,
+        "n_det": 490,
+        "recall": 47.7,
+        "corrected_f1": 60.4
+      },
+      "5": {
+        "tp": 359,
+        "fn": 387,
+        "raw_fp": 131,
+        "true_fp": 76,
+        "real_unlabeled": 55,
+        "n_det": 490,
+        "recall": 48.1,
+        "corrected_f1": 60.8
+      },
+      "8": {
+        "tp": 365,
+        "fn": 381,
+        "raw_fp": 125,
+        "true_fp": 72,
+        "real_unlabeled": 53,
+        "n_det": 490,
+        "recall": 48.9,
+        "corrected_f1": 61.7
+      },
+      "12": {
+        "tp": 367,
+        "fn": 379,
+        "raw_fp": 123,
+        "true_fp": 70,
+        "real_unlabeled": 53,
+        "n_det": 490,
+        "recall": 49.2,
+        "corrected_f1": 62.0
+      }
+    },
+    "union": {
+      "3": {
+        "tp": 490,
+        "fn": 256,
+        "raw_fp": 311,
+        "true_fp": 166,
+        "real_unlabeled": 145,
+        "n_det": 801,
+        "recall": 65.7,
+        "corrected_f1": 69.9
+      },
+      "5": {
+        "tp": 502,
+        "fn": 244,
+        "raw_fp": 299,
+        "true_fp": 161,
+        "real_unlabeled": 138,
+        "n_det": 801,
+        "recall": 67.3,
+        "corrected_f1": 71.3
+      },
+      "8": {
+        "tp": 517,
+        "fn": 229,
+        "raw_fp": 284,
+        "true_fp": 150,
+        "real_unlabeled": 134,
+        "n_det": 801,
+        "recall": 69.3,
+        "corrected_f1": 73.2
+      },
+      "12": {
+        "tp": 524,
+        "fn": 222,
+        "raw_fp": 277,
+        "true_fp": 145,
+        "real_unlabeled": 132,
+        "n_det": 801,
+        "recall": 70.2,
+        "corrected_f1": 74.1
+      }
+    },
+    "n_algo_det": 490,
+    "n_union_det": 801,
+    "verdict": "MARGINAL"
+  }
+}
