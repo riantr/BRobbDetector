@@ -1,0 +1,875 @@
+{
+  "baseline": {
+    "tp": 502,
+    "n_det": 795,
+    "raw_fp": 293,
+    "params": {
+      "smin": 80,
+      "vmin": 110,
+      "denoise_min_area": 40,
+      "min_area": 1000.0,
+      "fit_band": 6.0,
+      "fit_min_pts": 12,
+      "fit_jump": 20.0,
+      "min_side": 15.0,
+      "max_side": 800.0,
+      "max_aspect": 12.0,
+      "ortho_tol": 15.0,
+      "boundary_band": 12.0,
+      "dedup_iou": 0.3
+    }
+  },
+  "stages": [
+    {
+      "name": "Stage 1: red_mask",
+      "params": [
+        "smin",
+        "vmin"
+      ],
+      "sweeps": [
+        {
+          "param": "smin",
+          "rows": [
+            {
+              "value": 40,
+              "tp": 332,
+              "n_det": 798,
+              "raw_fp": 466,
+              "dtp": -170,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 60,
+              "tp": 392,
+              "n_det": 794,
+              "raw_fp": 402,
+              "dtp": -110,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 80,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 100,
+              "tp": 442,
+              "n_det": 791,
+              "raw_fp": 349,
+              "dtp": -60,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 120,
+              "tp": 390,
+              "n_det": 789,
+              "raw_fp": 399,
+              "dtp": -112,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 140,
+              "tp": 368,
+              "n_det": 788,
+              "raw_fp": 420,
+              "dtp": -134,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 160,
+              "tp": 341,
+              "n_det": 790,
+              "raw_fp": 449,
+              "dtp": -161,
+              "verdict": "DEAD"
+            }
+          ],
+          "best_val": 80,
+          "best_tp": 502
+        },
+        {
+          "param": "vmin",
+          "rows": [
+            {
+              "value": 60,
+              "tp": 486,
+              "n_det": 802,
+              "raw_fp": 316,
+              "dtp": -16,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 80,
+              "tp": 495,
+              "n_det": 802,
+              "raw_fp": 307,
+              "dtp": -7,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 100,
+              "tp": 497,
+              "n_det": 798,
+              "raw_fp": 301,
+              "dtp": -5,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 110,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 120,
+              "tp": 489,
+              "n_det": 795,
+              "raw_fp": 306,
+              "dtp": -13,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 140,
+              "tp": 475,
+              "n_det": 790,
+              "raw_fp": 315,
+              "dtp": -27,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 160,
+              "tp": 461,
+              "n_det": 791,
+              "raw_fp": 330,
+              "dtp": -41,
+              "verdict": "DEAD"
+            }
+          ],
+          "best_val": 110,
+          "best_tp": 502
+        }
+      ],
+      "best_tp": 502,
+      "improved": false
+    },
+    {
+      "name": "Stage 2: denoise",
+      "params": [
+        "denoise_min_area"
+      ],
+      "sweeps": [
+        {
+          "param": "denoise_min_area",
+          "rows": [
+            {
+              "value": 0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 40,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 60,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 80,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 100,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 150,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 200,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 300,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 500,
+              "tp": 502,
+              "n_det": 794,
+              "raw_fp": 292,
+              "dtp": 0,
+              "verdict": "TIE"
+            }
+          ],
+          "best_val": 40,
+          "best_tp": 502
+        }
+      ],
+      "best_tp": 502,
+      "improved": false
+    },
+    {
+      "name": "Stage 3: outer_contours",
+      "params": [
+        "min_area"
+      ],
+      "sweeps": [
+        {
+          "param": "min_area",
+          "rows": [
+            {
+              "value": 600,
+              "tp": 502,
+              "n_det": 886,
+              "raw_fp": 384,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 800,
+              "tp": 502,
+              "n_det": 814,
+              "raw_fp": 312,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 900,
+              "tp": 502,
+              "n_det": 804,
+              "raw_fp": 302,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 1000,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 1100,
+              "tp": 501,
+              "n_det": 784,
+              "raw_fp": 283,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 1200,
+              "tp": 501,
+              "n_det": 777,
+              "raw_fp": 276,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 1300,
+              "tp": 501,
+              "n_det": 770,
+              "raw_fp": 269,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 1500,
+              "tp": 500,
+              "n_det": 763,
+              "raw_fp": 263,
+              "dtp": -2,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 2000,
+              "tp": 482,
+              "n_det": 729,
+              "raw_fp": 247,
+              "dtp": -20,
+              "verdict": "DEAD"
+            }
+          ],
+          "best_val": 1000.0,
+          "best_tp": 502
+        }
+      ],
+      "best_tp": 502,
+      "improved": false
+    },
+    {
+      "name": "Stage 4: base_quads",
+      "params": [
+        "fit_band",
+        "fit_min_pts",
+        "fit_jump"
+      ],
+      "sweeps": [
+        {
+          "param": "fit_band",
+          "rows": [
+            {
+              "value": 3.0,
+              "tp": 497,
+              "n_det": 795,
+              "raw_fp": 298,
+              "dtp": -5,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 4.0,
+              "tp": 499,
+              "n_det": 795,
+              "raw_fp": 296,
+              "dtp": -3,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 5.0,
+              "tp": 500,
+              "n_det": 795,
+              "raw_fp": 295,
+              "dtp": -2,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 6.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 8.0,
+              "tp": 496,
+              "n_det": 795,
+              "raw_fp": 299,
+              "dtp": -6,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 10.0,
+              "tp": 495,
+              "n_det": 795,
+              "raw_fp": 300,
+              "dtp": -7,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 12.0,
+              "tp": 497,
+              "n_det": 795,
+              "raw_fp": 298,
+              "dtp": -5,
+              "verdict": "MARGINAL"
+            }
+          ],
+          "best_val": 6.0,
+          "best_tp": 502
+        },
+        {
+          "param": "fit_min_pts",
+          "rows": [
+            {
+              "value": 6,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 8,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 10,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 12,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 16,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            }
+          ],
+          "best_val": 12,
+          "best_tp": 502
+        },
+        {
+          "param": "fit_jump",
+          "rows": [
+            {
+              "value": 10.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 15.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 25.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 30.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            }
+          ],
+          "best_val": 20.0,
+          "best_tp": 502
+        }
+      ],
+      "best_tp": 502,
+      "improved": false
+    },
+    {
+      "name": "Stage 5: _pass",
+      "params": [
+        "min_side",
+        "max_side",
+        "max_aspect",
+        "ortho_tol",
+        "boundary_band"
+      ],
+      "sweeps": [
+        {
+          "param": "min_side",
+          "rows": [
+            {
+              "value": 10.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 15.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20.0,
+              "tp": 502,
+              "n_det": 794,
+              "raw_fp": 292,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 25.0,
+              "tp": 502,
+              "n_det": 781,
+              "raw_fp": 279,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 30.0,
+              "tp": 496,
+              "n_det": 765,
+              "raw_fp": 269,
+              "dtp": -6,
+              "verdict": "DEAD"
+            }
+          ],
+          "best_val": 15.0,
+          "best_tp": 502
+        },
+        {
+          "param": "max_side",
+          "rows": [
+            {
+              "value": 600.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 800.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 1000.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 1200.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            }
+          ],
+          "best_val": 800.0,
+          "best_tp": 502
+        },
+        {
+          "param": "max_aspect",
+          "rows": [
+            {
+              "value": 8.0,
+              "tp": 501,
+              "n_det": 795,
+              "raw_fp": 294,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 10.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 12.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 15.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            }
+          ],
+          "best_val": 12.0,
+          "best_tp": 502
+        },
+        {
+          "param": "ortho_tol",
+          "rows": [
+            {
+              "value": 10.0,
+              "tp": 493,
+              "n_det": 795,
+              "raw_fp": 302,
+              "dtp": -9,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 12.0,
+              "tp": 499,
+              "n_det": 795,
+              "raw_fp": 296,
+              "dtp": -3,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 15.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 18.0,
+              "tp": 501,
+              "n_det": 795,
+              "raw_fp": 294,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 20.0,
+              "tp": 496,
+              "n_det": 795,
+              "raw_fp": 299,
+              "dtp": -6,
+              "verdict": "DEAD"
+            },
+            {
+              "value": 25.0,
+              "tp": 481,
+              "n_det": 795,
+              "raw_fp": 314,
+              "dtp": -21,
+              "verdict": "DEAD"
+            }
+          ],
+          "best_val": 15.0,
+          "best_tp": 502
+        },
+        {
+          "param": "boundary_band",
+          "rows": [
+            {
+              "value": 6.0,
+              "tp": 500,
+              "n_det": 795,
+              "raw_fp": 295,
+              "dtp": -2,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 8.0,
+              "tp": 500,
+              "n_det": 795,
+              "raw_fp": 295,
+              "dtp": -2,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 10.0,
+              "tp": 501,
+              "n_det": 795,
+              "raw_fp": 294,
+              "dtp": -1,
+              "verdict": "MARGINAL"
+            },
+            {
+              "value": 12.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 15.0,
+              "tp": 502,
+              "n_det": 795,
+              "raw_fp": 293,
+              "dtp": 0,
+              "verdict": "TIE"
+            },
+            {
+              "value": 20.0,
+              "tp": 503,
+              "n_det": 795,
+              "raw_fp": 292,
+              "dtp": 1,
+              "verdict": "WIN"
+            }
+          ],
+          "best_val": 20.0,
+          "best_tp": 503
+        }
+      ],
+      "best_tp": 503,
+      "improved": true
+    },
+    {
+      "name": "Stage 6: dedup",
+      "params": [
+        "dedup_iou"
+      ],
+      "sweeps": [
+        {
+          "param": "dedup_iou",
+          "rows": [
+            {
+              "value": 0.15,
+              "tp": 503,
+              "n_det": 795,
+              "raw_fp": 292,
+              "dtp": 1,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.2,
+              "tp": 503,
+              "n_det": 795,
+              "raw_fp": 292,
+              "dtp": 1,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.25,
+              "tp": 503,
+              "n_det": 795,
+              "raw_fp": 292,
+              "dtp": 1,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.3,
+              "tp": 503,
+              "n_det": 795,
+              "raw_fp": 292,
+              "dtp": 1,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.35,
+              "tp": 504,
+              "n_det": 796,
+              "raw_fp": 292,
+              "dtp": 2,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.4,
+              "tp": 505,
+              "n_det": 798,
+              "raw_fp": 293,
+              "dtp": 3,
+              "verdict": "WIN"
+            },
+            {
+              "value": 0.5,
+              "tp": 508,
+              "n_det": 802,
+              "raw_fp": 294,
+              "dtp": 6,
+              "verdict": "WIN"
+            }
+          ],
+          "best_val": 0.5,
+          "best_tp": 508
+        }
+      ],
+      "best_tp": 508,
+      "improved": true
+    }
+  ],
+  "final": {
+    "tp": 508,
+    "n_det": 802,
+    "raw_fp": 294,
+    "dtp": 6,
+    "params": {
+      "smin": 80,
+      "vmin": 110,
+      "denoise_min_area": 40,
+      "min_area": 1000.0,
+      "fit_band": 6.0,
+      "fit_min_pts": 12,
+      "fit_jump": 20.0,
+      "min_side": 15.0,
+      "max_side": 800.0,
+      "max_aspect": 12.0,
+      "ortho_tol": 15.0,
+      "boundary_band": 20.0,
+      "dedup_iou": 0.5
+    }
+  }
+}

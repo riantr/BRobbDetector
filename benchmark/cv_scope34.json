@@ -1,0 +1,53 @@
+{
+  "gt_dir": "E:\\Xray\\CARS\\data\\Compare-V1@CARS_202609_annotated",
+  "results": {
+    "none": {
+      "tp": 609,
+      "raw_fp": 356,
+      "true_fp": 191,
+      "real_unlabeled": 165,
+      "recall": 81.6,
+      "corrected_f1": 78.8
+    },
+    "minarect": {
+      "tp": 461,
+      "raw_fp": 504,
+      "true_fp": 300,
+      "real_unlabeled": 204,
+      "recall": 61.8,
+      "corrected_f1": 61.2
+    },
+    "lsq_center": {
+      "tp": 488,
+      "raw_fp": 477,
+      "true_fp": 277,
+      "real_unlabeled": 200,
+      "recall": 65.4,
+      "corrected_f1": 64.6
+    },
+    "ortho_edge": {
+      "tp": 488,
+      "raw_fp": 477,
+      "true_fp": 278,
+      "real_unlabeled": 199,
+      "recall": 65.4,
+      "corrected_f1": 64.6
+    },
+    "ortho_blend0.5": {
+      "tp": 559,
+      "raw_fp": 406,
+      "true_fp": 221,
+      "real_unlabeled": 185,
+      "recall": 74.9,
+      "corrected_f1": 73.3
+    },
+    "ortho_blend0.3": {
+      "tp": 598,
+      "raw_fp": 367,
+      "true_fp": 198,
+      "real_unlabeled": 169,
+      "recall": 80.2,
+      "corrected_f1": 77.6
+    }
+  }
+}

@@ -1,0 +1,473 @@
+{
+  "start": {
+    "tp": 559,
+    "corr_f1": 75.2,
+    "params": {
+      "smin": 80,
+      "vmin": 110,
+      "denoise_min_area": 40,
+      "min_area": 1000.0,
+      "fit_band": 6.0,
+      "fit_min_pts": 12,
+      "fit_jump": 20.0,
+      "min_side": 15.0,
+      "max_side": 800.0,
+      "max_aspect": 12.0,
+      "ortho_tol": 15.0,
+      "boundary_band": 20.0,
+      "dedup_iou": 0.7
+    }
+  },
+  "sweeps": [
+    {
+      "param": "smin",
+      "rows": [
+        {
+          "value": 60,
+          "tp": 438,
+          "corr_f1": 60.0,
+          "n_det": 896,
+          "true_fp": 276
+        },
+        {
+          "value": 80,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 100,
+          "tp": 483,
+          "corr_f1": 66.0,
+          "n_det": 876,
+          "true_fp": 234
+        },
+        {
+          "value": 120,
+          "tp": 425,
+          "corr_f1": 59.3,
+          "n_det": 868,
+          "true_fp": 262
+        }
+      ],
+      "best_val": 80,
+      "best_f1": 75.2
+    },
+    {
+      "param": "vmin",
+      "rows": [
+        {
+          "value": 100,
+          "tp": 553,
+          "corr_f1": 74.5,
+          "n_det": 884,
+          "true_fp": 185
+        },
+        {
+          "value": 110,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 120,
+          "tp": 543,
+          "corr_f1": 73.4,
+          "n_det": 881,
+          "true_fp": 190
+        }
+      ],
+      "best_val": 110,
+      "best_f1": 75.2
+    },
+    {
+      "param": "denoise_min_area",
+      "rows": [
+        {
+          "value": 8,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 40,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 80,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 200,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        }
+      ],
+      "best_val": 40,
+      "best_f1": 75.2
+    },
+    {
+      "param": "min_area",
+      "rows": [
+        {
+          "value": 800,
+          "tp": 559,
+          "corr_f1": 74.4,
+          "n_det": 905,
+          "true_fp": 198
+        },
+        {
+          "value": 900,
+          "tp": 559,
+          "corr_f1": 75.0,
+          "n_det": 893,
+          "true_fp": 186
+        },
+        {
+          "value": 1000,
+          "tp": 559,
+          "corr_f1": 75.2,
+          "n_det": 883,
+          "true_fp": 181
+        },
+        {
+          "value": 1100,
+          "tp": 558,
+          "corr_f1": 75.5,
+          "n_det": 871,
+          "true_fp": 175
+        },
+        {
+          "value": 1500,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 1500,
+      "best_f1": 76.2
+    },
+    {
+      "param": "fit_band",
+      "rows": [
+        {
+          "value": 4.0,
+          "tp": 555,
+          "corr_f1": 76.0,
+          "n_det": 846,
+          "true_fp": 160
+        },
+        {
+          "value": 5.0,
+          "tp": 556,
+          "corr_f1": 76.1,
+          "n_det": 847,
+          "true_fp": 159
+        },
+        {
+          "value": 6.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 8.0,
+          "tp": 554,
+          "corr_f1": 75.8,
+          "n_det": 851,
+          "true_fp": 162
+        }
+      ],
+      "best_val": 6.0,
+      "best_f1": 76.2
+    },
+    {
+      "param": "fit_min_pts",
+      "rows": [
+        {
+          "value": 8,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 12,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 16,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 12,
+      "best_f1": 76.2
+    },
+    {
+      "param": "fit_jump",
+      "rows": [
+        {
+          "value": 15.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 20.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 25.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 20.0,
+      "best_f1": 76.2
+    },
+    {
+      "param": "min_side",
+      "rows": [
+        {
+          "value": 12.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 846,
+          "true_fp": 158
+        },
+        {
+          "value": 15.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 20.0,
+          "tp": 554,
+          "corr_f1": 76.0,
+          "n_det": 842,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 15.0,
+      "best_f1": 76.2
+    },
+    {
+      "param": "max_side",
+      "rows": [
+        {
+          "value": 600.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 800.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 1200.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 800.0,
+      "best_f1": 76.2
+    },
+    {
+      "param": "max_aspect",
+      "rows": [
+        {
+          "value": 10.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 12.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 15.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        }
+      ],
+      "best_val": 12.0,
+      "best_f1": 76.2
+    },
+    {
+      "param": "ortho_tol",
+      "rows": [
+        {
+          "value": 12.0,
+          "tp": 533,
+          "corr_f1": 73.9,
+          "n_det": 818,
+          "true_fp": 163
+        },
+        {
+          "value": 15.0,
+          "tp": 556,
+          "corr_f1": 76.2,
+          "n_det": 845,
+          "true_fp": 158
+        },
+        {
+          "value": 17.0,
+          "tp": 569,
+          "corr_f1": 77.3,
+          "n_det": 864,
+          "true_fp": 157
+        },
+        {
+          "value": 20.0,
+          "tp": 583,
+          "corr_f1": 78.4,
+          "n_det": 890,
+          "true_fp": 159
+        }
+      ],
+      "best_val": 20.0,
+      "best_f1": 78.4
+    },
+    {
+      "param": "boundary_band",
+      "rows": [
+        {
+          "value": 15.0,
+          "tp": 583,
+          "corr_f1": 78.4,
+          "n_det": 890,
+          "true_fp": 159
+        },
+        {
+          "value": 20.0,
+          "tp": 583,
+          "corr_f1": 78.4,
+          "n_det": 890,
+          "true_fp": 159
+        },
+        {
+          "value": 25.0,
+          "tp": 583,
+          "corr_f1": 78.4,
+          "n_det": 890,
+          "true_fp": 159
+        }
+      ],
+      "best_val": 20.0,
+      "best_f1": 78.4
+    },
+    {
+      "param": "dedup_iou",
+      "rows": [
+        {
+          "value": 0.55,
+          "tp": 510,
+          "corr_f1": 73.2,
+          "n_det": 786,
+          "true_fp": 138
+        },
+        {
+          "value": 0.6,
+          "tp": 529,
+          "corr_f1": 74.8,
+          "n_det": 808,
+          "true_fp": 140
+        },
+        {
+          "value": 0.65,
+          "tp": 552,
+          "corr_f1": 76.6,
+          "n_det": 839,
+          "true_fp": 143
+        },
+        {
+          "value": 0.7,
+          "tp": 583,
+          "corr_f1": 78.4,
+          "n_det": 890,
+          "true_fp": 159
+        },
+        {
+          "value": 0.75,
+          "tp": 609,
+          "corr_f1": 78.8,
+          "n_det": 965,
+          "true_fp": 191
+        },
+        {
+          "value": 0.8,
+          "tp": 624,
+          "corr_f1": 76.6,
+          "n_det": 1073,
+          "true_fp": 259
+        }
+      ],
+      "best_val": 0.75,
+      "best_f1": 78.8
+    }
+  ],
+  "final": {
+    "tp": 609,
+    "corr_f1": 78.8,
+    "n_det": 965,
+    "true_fp": 191,
+    "dtp": 107,
+    "df1": 7.299999999999997,
+    "params": {
+      "smin": 80,
+      "vmin": 110,
+      "denoise_min_area": 40,
+      "min_area": 1500,
+      "fit_band": 6.0,
+      "fit_min_pts": 12,
+      "fit_jump": 20.0,
+      "min_side": 15.0,
+      "max_side": 800.0,
+      "max_aspect": 12.0,
+      "ortho_tol": 20.0,
+      "boundary_band": 20.0,
+      "dedup_iou": 0.75
+    }
+  }
+}

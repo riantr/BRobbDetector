@@ -1,0 +1,216 @@
+{
+  "final": {
+    "dedup_iou": 0.7,
+    "boundary_band": 20.0,
+    "tp": 559,
+    "corrected_f1": 75.2,
+    "n_det": 883,
+    "true_fp": 181,
+    "dtp": 57,
+    "df1": 3.700000000000003
+  },
+  "dedup_sweep": [
+    {
+      "dedup_iou": 0.25,
+      "tp": 502,
+      "n_det": 795,
+      "raw_fp": 293,
+      "true_fp": 157,
+      "real_unlabeled": 136,
+      "recall": 67.3,
+      "corrected_f1": 71.5
+    },
+    {
+      "dedup_iou": 0.3,
+      "tp": 502,
+      "n_det": 795,
+      "raw_fp": 293,
+      "true_fp": 157,
+      "real_unlabeled": 136,
+      "recall": 67.3,
+      "corrected_f1": 71.5
+    },
+    {
+      "dedup_iou": 0.35,
+      "tp": 503,
+      "n_det": 796,
+      "raw_fp": 293,
+      "true_fp": 157,
+      "real_unlabeled": 136,
+      "recall": 67.4,
+      "corrected_f1": 71.6
+    },
+    {
+      "dedup_iou": 0.4,
+      "tp": 504,
+      "n_det": 798,
+      "raw_fp": 294,
+      "true_fp": 158,
+      "real_unlabeled": 136,
+      "recall": 67.6,
+      "corrected_f1": 71.6
+    },
+    {
+      "dedup_iou": 0.45,
+      "tp": 504,
+      "n_det": 798,
+      "raw_fp": 294,
+      "true_fp": 158,
+      "real_unlabeled": 136,
+      "recall": 67.6,
+      "corrected_f1": 71.6
+    },
+    {
+      "dedup_iou": 0.5,
+      "tp": 507,
+      "n_det": 802,
+      "raw_fp": 295,
+      "true_fp": 159,
+      "real_unlabeled": 136,
+      "recall": 68.0,
+      "corrected_f1": 71.8
+    },
+    {
+      "dedup_iou": 0.55,
+      "tp": 512,
+      "n_det": 812,
+      "raw_fp": 300,
+      "true_fp": 162,
+      "real_unlabeled": 138,
+      "recall": 68.6,
+      "corrected_f1": 72.1
+    },
+    {
+      "dedup_iou": 0.6,
+      "tp": 523,
+      "n_det": 823,
+      "raw_fp": 300,
+      "true_fp": 162,
+      "real_unlabeled": 138,
+      "recall": 70.1,
+      "corrected_f1": 73.1
+    },
+    {
+      "dedup_iou": 0.65,
+      "tp": 538,
+      "n_det": 841,
+      "raw_fp": 303,
+      "true_fp": 164,
+      "real_unlabeled": 139,
+      "recall": 72.1,
+      "corrected_f1": 74.3
+    },
+    {
+      "dedup_iou": 0.7,
+      "tp": 557,
+      "n_det": 882,
+      "raw_fp": 325,
+      "true_fp": 182,
+      "real_unlabeled": 143,
+      "recall": 74.7,
+      "corrected_f1": 75.0
+    },
+    {
+      "dedup_iou": 0.8,
+      "tp": 597,
+      "n_det": 1043,
+      "raw_fp": 446,
+      "true_fp": 268,
+      "real_unlabeled": 178,
+      "recall": 80.0,
+      "corrected_f1": 74.1
+    },
+    {
+      "dedup_iou": 0.9,
+      "tp": 608,
+      "n_det": 1307,
+      "raw_fp": 699,
+      "true_fp": 464,
+      "real_unlabeled": 235,
+      "recall": 81.5,
+      "corrected_f1": 66.9
+    },
+    {
+      "dedup_iou": 1.0,
+      "tp": 613,
+      "n_det": 1781,
+      "raw_fp": 1168,
+      "true_fp": 843,
+      "real_unlabeled": 325,
+      "recall": 82.2,
+      "corrected_f1": 55.7
+    }
+  ],
+  "bnd_sweep": [
+    {
+      "boundary_band": 10.0,
+      "tp": 556,
+      "n_det": 882,
+      "raw_fp": 326,
+      "true_fp": 183,
+      "real_unlabeled": 143,
+      "recall": 74.5,
+      "corrected_f1": 74.9
+    },
+    {
+      "boundary_band": 12.0,
+      "tp": 557,
+      "n_det": 882,
+      "raw_fp": 325,
+      "true_fp": 182,
+      "real_unlabeled": 143,
+      "recall": 74.7,
+      "corrected_f1": 75.0
+    },
+    {
+      "boundary_band": 15.0,
+      "tp": 557,
+      "n_det": 882,
+      "raw_fp": 325,
+      "true_fp": 182,
+      "real_unlabeled": 143,
+      "recall": 74.7,
+      "corrected_f1": 75.0
+    },
+    {
+      "boundary_band": 18.0,
+      "tp": 557,
+      "n_det": 883,
+      "raw_fp": 326,
+      "true_fp": 182,
+      "real_unlabeled": 144,
+      "recall": 74.7,
+      "corrected_f1": 75.0
+    },
+    {
+      "boundary_band": 20.0,
+      "tp": 559,
+      "n_det": 883,
+      "raw_fp": 324,
+      "true_fp": 181,
+      "real_unlabeled": 143,
+      "recall": 74.9,
+      "corrected_f1": 75.2
+    },
+    {
+      "boundary_band": 25.0,
+      "tp": 559,
+      "n_det": 885,
+      "raw_fp": 326,
+      "true_fp": 181,
+      "real_unlabeled": 145,
+      "recall": 74.9,
+      "corrected_f1": 75.2
+    },
+    {
+      "boundary_band": 30.0,
+      "tp": 559,
+      "n_det": 889,
+      "raw_fp": 330,
+      "true_fp": 183,
+      "real_unlabeled": 147,
+      "recall": 74.9,
+      "corrected_f1": 75.1
+    }
+  ]
+}

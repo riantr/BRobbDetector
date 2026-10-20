@@ -1,0 +1,42 @@
+{
+  "gt_dir": "E:\\Xray\\CARS\\data\\Compare-V1@CARS_202609_annotated",
+  "output_dev": {
+    "n": 965,
+    "mean": 4.96818509016162,
+    "med": 2.0152824839137935,
+    "p90": 14.939779835917568,
+    "max": 67.67273012857324,
+    "gt_1deg": 582,
+    "gt_5deg": 326
+  },
+  "gt_dev": {
+    "n": 746,
+    "mean": 6.165178461908567,
+    "med": 2.0848058645035437,
+    "p90": 17.912552910624107,
+    "max": 67.67273012857324
+  },
+  "variants": {
+    "none": {
+      "tp": 609,
+      "raw_fp": 356,
+      "true_fp": 191,
+      "recall": 81.6,
+      "corrected_f1": 78.8
+    },
+    "minarect": {
+      "tp": 461,
+      "raw_fp": 504,
+      "true_fp": 300,
+      "recall": 61.8,
+      "corrected_f1": 61.2
+    },
+    "lsq": {
+      "tp": 488,
+      "raw_fp": 477,
+      "true_fp": 277,
+      "recall": 65.4,
+      "corrected_f1": 64.6
+    }
+  }
+}

@@ -20,8 +20,12 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
 ```
 
 ## Tech Stack
-- .NET 10, Avalonia 11.2.8 (MVVM), OpenCvSharp4 4.9
+- .NET 10, Avalonia 11.2.8 (MVVM), OpenCvSharp5 5.0.0.20261018 (OpenCV 5 native)
 - Python RapidOCR sidecar for OCR (`proto/ocr_sidecar.py`)
+
+## Ground Truth
+- Benchmark GT = `E:\Xray\CARS\data\Compare-V1@CARS_202609_annotated` (`proto/common.py::LAB`).
+- `Label@CARS_202609_annotated` holds **detector output**, not GT — never read it as ground truth.
 
 ## Project Structure
 - `BRobbDetector/` — C# project (main)

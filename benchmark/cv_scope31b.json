@@ -1,0 +1,73 @@
+{
+  "final": {
+    "tp": 630,
+    "n_det": 1847,
+    "raw_fp": 1217,
+    "dtp": 128,
+    "params": {
+      "smin": 80,
+      "vmin": 110,
+      "denoise_min_area": 40,
+      "min_area": 1000.0,
+      "fit_band": 5.0,
+      "fit_min_pts": 12,
+      "fit_jump": 20.0,
+      "min_side": 15.0,
+      "max_side": 800.0,
+      "max_aspect": 12.0,
+      "ortho_tol": 17.0,
+      "boundary_band": 25.0,
+      "dedup_iou": 1.0
+    }
+  },
+  "dedup_extension": [
+    {
+      "value": 0.5,
+      "tp": 508,
+      "n_det": 802,
+      "fp": 294
+    },
+    {
+      "value": 0.55,
+      "tp": 514,
+      "n_det": 813,
+      "fp": 299
+    },
+    {
+      "value": 0.6,
+      "tp": 525,
+      "n_det": 824,
+      "fp": 299
+    },
+    {
+      "value": 0.65,
+      "tp": 540,
+      "n_det": 842,
+      "fp": 302
+    },
+    {
+      "value": 0.7,
+      "tp": 559,
+      "n_det": 883,
+      "fp": 324
+    },
+    {
+      "value": 0.8,
+      "tp": 599,
+      "n_det": 1046,
+      "fp": 447
+    },
+    {
+      "value": 0.9,
+      "tp": 610,
+      "n_det": 1310,
+      "fp": 700
+    },
+    {
+      "value": 1.0,
+      "tp": 615,
+      "n_det": 1787,
+      "fp": 1172
+    }
+  ]
+}

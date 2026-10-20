@@ -711,9 +711,11 @@ public partial class MainViewModel : ViewModelBase
                 var hVals = new List<int>();
                 var sVals = new List<int>();
                 var vVals = new List<int>();
-                for (int y = 0; y < hsv.Rows; y++)
+                int hsvRows = hsv.Rows;
+                int hsvCols = hsv.Cols;
+                for (int y = 0; y < hsvRows; y++)
                 {
-                    for (int x = 0; x < hsv.Cols; x++)
+                    for (int x = 0; x < hsvCols; x++)
                     {
                         if (mask.At<byte>(y, x) == 0) continue;
                         var pix = hsv.At<Vec3b>(y, x);

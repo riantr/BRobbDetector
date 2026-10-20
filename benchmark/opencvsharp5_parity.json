@@ -1,0 +1,39 @@
+{
+  "note": "OpenCvSharp4 4.9.0.20240103 -> OpenCvSharp5 5.0.0.20261018 A/B on the 500-image point-match benchmark. C# cvhybrid with pm_v5_2 params; only the nuget package differed between the two runs.",
+  "date": "2026-10-20",
+  "n_images": 500,
+  "gt_dir": "E:\\Xray\\CARS\\data\\Compare-V1@CARS_202609_annotated",
+  "gt_boxes": 746,
+  "runs": {
+    "opencvsharp4_4.9.0.20240103": {
+      "boxes": 960,
+      "D=3": { "tp": 605, "fn": 141, "raw_fp": 355, "true_fp": 190, "real_unlabeled": 165, "recall": 81.1, "corrected_f1": 78.5 },
+      "D=5": { "tp": 611, "fn": 135, "raw_fp": 349, "true_fp": 187, "real_unlabeled": 162, "recall": 81.9, "corrected_f1": 79.1 },
+      "D=8": { "tp": 626, "fn": 120, "raw_fp": 334, "true_fp": 176, "real_unlabeled": 158, "recall": 83.9, "corrected_f1": 80.9 },
+      "D=12": { "tp": 633, "fn": 113, "raw_fp": 327, "true_fp": 171, "real_unlabeled": 156, "recall": 84.9, "corrected_f1": 81.7 }
+    },
+    "opencvsharp5_5.0.0.20261018": {
+      "boxes": 961,
+      "D=3": { "tp": 605, "fn": 141, "raw_fp": 356, "true_fp": 190, "real_unlabeled": 166, "recall": 81.1, "corrected_f1": 78.5 },
+      "D=5": { "tp": 611, "fn": 135, "raw_fp": 350, "true_fp": 187, "real_unlabeled": 163, "recall": 81.9, "corrected_f1": 79.1 },
+      "D=8": { "tp": 626, "fn": 120, "raw_fp": 335, "true_fp": 176, "real_unlabeled": 159, "recall": 83.9, "corrected_f1": 80.9 },
+      "D=12": { "tp": 634, "fn": 112, "raw_fp": 327, "true_fp": 171, "real_unlabeled": 156, "recall": 85.0, "corrected_f1": 81.8 }
+    }
+  },
+  "box_diff_v4_vs_v5": {
+    "images_compared": 500,
+    "pixel_identical": 498,
+    "within_1_5px": 2,
+    "materially_different": 0,
+    "box_count_differs": 1,
+    "per_image_max_corner_delta": { "mean": 0.0, "p50": 0.0, "p90": 0.0, "max": 1.0 }
+  },
+  "csharp_v5_vs_frozen_python_pm_v5_2": {
+    "note": "Pre-existing C#/Python port drift, not upgrade-induced.",
+    "pixel_identical": 209,
+    "within_1_5px": 283,
+    "materially_different": 8,
+    "boxes_python_vs_csharp": [965, 961]
+  },
+  "verdict": "Upgrade is a verified no-op for detection quality. Safe to keep."
+}

@@ -1061,7 +1061,7 @@ public class ColorBoxDetector
             if (fillRatio < 0.3)
             {
                 using var componentMask = new Mat();
-                Cv2.Compare(labels, new Scalar(i), componentMask, CmpType.EQ);
+                Cv2.Compare(labels, new Scalar(i), componentMask, CmpTypes.EQ);
                 Cv2.BitwiseOr(lineMask, componentMask, lineMask);
             }
         }
@@ -1532,7 +1532,7 @@ public class ColorBoxDetector
         foreach (int id in glyphIds)
         {
             using var comp = new Mat();
-            Cv2.Compare(labels, new Scalar(id), comp, CmpType.EQ);
+            Cv2.Compare(labels, new Scalar(id), comp, CmpTypes.EQ);
             Cv2.BitwiseOr(glyphMask, comp, glyphMask);
         }
 
@@ -1551,7 +1551,7 @@ public class ColorBoxDetector
         for (int c = 1; c < nc; c++)
         {
             using var clusterComp = new Mat();
-            Cv2.Compare(clabels, new Scalar(c), clusterComp, CmpType.EQ);
+            Cv2.Compare(clabels, new Scalar(c), clusterComp, CmpTypes.EQ);
             using var both = new Mat();
             Cv2.BitwiseAnd(clusterComp, mask, both);
 
@@ -1578,7 +1578,7 @@ public class ColorBoxDetector
         foreach (int id in remove)
         {
             using var comp = new Mat();
-            Cv2.Compare(labels, new Scalar(id), comp, CmpType.EQ);
+            Cv2.Compare(labels, new Scalar(id), comp, CmpTypes.EQ);
             Cv2.BitwiseNot(comp, comp);
             Cv2.BitwiseAnd(result, comp, result);
         }
@@ -1640,7 +1640,7 @@ public class ColorBoxDetector
         foreach (int id in removeIds)
         {
             using var comp = new Mat();
-            Cv2.Compare(labels, new Scalar(id), comp, CmpType.EQ);
+            Cv2.Compare(labels, new Scalar(id), comp, CmpTypes.EQ);
             Cv2.BitwiseNot(comp, comp);
             Cv2.BitwiseAnd(result, comp, result);
         }

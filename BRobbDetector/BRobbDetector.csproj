@@ -16,8 +16,8 @@
     <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.8" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.9.0.20240103" />
+    <PackageReference Include="OpenCvSharp5" Version="5.0.0.20261018" />
+    <PackageReference Include="OpenCvSharp5.runtime.win" Version="5.0.0.20261018" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.20.1" />
   </ItemGroup>
 

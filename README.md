@@ -2,7 +2,7 @@
 
 Detects hand-drawn red annotation boxes (rotated rectangles / OBB) in X-ray security images using a classical-CV pipeline. Built with .NET 10 + Avalonia MVVM, with a Python prototype/benchmark harness.
 
-## Algorithm (pm_v5_1)
+## Algorithm (pm_v5_2)
 
 A 6-stage classical-CV pipeline operating on the HSV red mask:
 
@@ -14,10 +14,10 @@ red_mask → denoise → outer_contours → base_quads(hull ∪ edgefit ∪ mar)
 |-------|-----------|-----------|
 | 1. `red_mask` | HSV threshold (S≥80, V≥110) → binary mask | smin=80, vmin=110 |
 | 2. `denoise` | Drop connected components < min_area | denoise_min_area=40 |
-| 3. `outer_contours` | findContours RETR_CCOMP + area filter | min_area=1000 |
+| 3. `outer_contours` | findContours RETR_CCOMP + area filter | min_area=1500 |
 | 4. `base_quads` | 3 methods in parallel per contour (see below) | — |
-| 5. `_pass` | Side + orthogonality admission filter | ortho_tol=15, boundary_band=12, max_aspect=12 |
-| 6. `dedup` | IoU-based priority dedup | dedup_iou=0.30 |
+| 5. `_pass` | Side + orthogonality admission filter | ortho_tol=20, boundary_band=20, max_aspect=12 |
+| 6. `dedup` | IoU-based priority dedup | dedup_iou=0.75 |
 
 ### Stage 4 — three complementary quad extractors
 
@@ -33,12 +33,12 @@ Point-match metric: a detection is TP only if all 4 corners, after optimal Hunga
 
 | D | TP | FN | rawFP | trueFP | recall | corrected_f1 |
 |---|----|----|-------|--------|--------|--------------|
-| 3 | 490 | 256 | 305 | 162 | 65.7% | 70.1% |
-| 5 | 502 | 244 | 293 | 157 | 67.3% | 71.5% |
-| 8 | 517 | 229 | 278 | 146 | 69.3% | 73.4% |
-| 12 | 524 | 222 | 271 | 141 | 70.2% | 74.3% |
+| 3 | 601 | 145 | 364 | 194 | 80.6% | 78.0% |
+| 5 | 609 | 137 | 356 | 191 | 81.6% | 78.8% |
+| 8 | 624 | 122 | 341 | 180 | 83.6% | 80.5% |
+| 12 | 632 | 114 | 333 | 175 | 84.7% | 81.4% |
 
-Frozen baseline: `benchmark/pm_v5_1_baseline.json`. C# port parity verified (804 boxes, byte-exact vs Python).
+Frozen baseline: `benchmark/pm_v5_2_baseline.json`. C# port updated and Release build passes.
 
 ## Build & Run
 
@@ -58,7 +58,7 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Release -- --check <i
 
 ## Tech Stack
 
-- .NET 10, Avalonia 11.2.8 (MVVM), OpenCvSharp4 4.9
+- .NET 10, Avalonia 11.2.8 (MVVM), OpenCvSharp5 5.0.0.20261018 (OpenCV 5 native)
 - Python prototype + benchmark harness (`proto/`)
 - RapidOCR sidecar for OCR (`proto/ocr_sidecar.py`)
 
@@ -66,7 +66,7 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Release -- --check <i
 
 ```
 BRobbDetector/          C# project (main app)
-  Services/             CvHybridDetector.cs (pm_v5_1 port), ColorBoxDetector, YoloObbDetector
+  Services/             CvHybridDetector.cs (pm_v5_2 port), ColorBoxDetector, YoloObbDetector
   ViewModels/           MVVM view models
   Views/                Avalonia UI
 proto/                  Python prototype + eval harness
@@ -75,7 +75,8 @@ proto/                  Python prototype + eval harness
   cv_scope7.py          pm5_params (pm_v5_1 config)
   eval_pointmatch.py    Point-match metric + GT-corrected eval
   eval_pm_benchmark.py  500-image real benchmark
-  promote_pm_v5_1.py    Baseline promotion script
+  promote_pm_v5_1.py    Baseline promotion (pm_v5_1)
+  promote_pm_v5_2.py    Baseline promotion (pm_v5_2, LOOP-31 optimized)
 benchmark/             Frozen baselines + per-LOOP results
 data/                  Test images and labels
 ```

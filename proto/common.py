@@ -5,7 +5,9 @@ import cv2
 
 DATA = r"E:\Xray\CARS\data"
 IMG = os.path.join(DATA, "Image@CARS_202609_annotated")
-LAB = os.path.join(DATA, "Label@CARS_202609_annotated")
+# Ground truth. NOTE: "Label@CARS_202609_annotated" was overwritten by a detector
+# run and no longer holds GT; the benchmark GT lives in "Compare-V1@...".
+LAB = os.path.join(DATA, "Compare-V1@CARS_202609_annotated")
 
 
 def load_expected():

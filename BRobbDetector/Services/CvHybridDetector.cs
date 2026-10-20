@@ -23,15 +23,15 @@ public static class CvHybridDetector
     private const int SatMin = 80;
     private const int ValMin = 110;
 
-    // pm_v5 config (proto/cv_scope6.py FILTERS["o15_ba"] over canny_quad.DEFAULT + cv_hybrid.FIT_DEFAULT)
+    // pm_v5_2 config (LOOP-31 optimized: proto/promote_pm_v5_2.py)
     private const double DenoiseMinArea = 40.0;
-    private const double MinArea = 900.0;
+    private const double MinArea = 1500.0;
     private const double MinSide = 15.0;
     private const double MaxSide = 800.0;
-    private const double MaxAspect = 12.0;     // axis F: was 8.0
-    private const double OrthoTol = 15.0;      // axis F: was 20.0
-    private const double BoundaryBand = 12.0;  // axis F: was 6.0
-    private const double DedupIou = 0.30;
+    private const double MaxAspect = 12.0;
+    private const double OrthoTol = 20.0;
+    private const double BoundaryBand = 20.0;
+    private const double DedupIou = 0.75;
     private const double FitBand = 6.0;
     private const int FitMinPts = 12;
     private const double FitJump = 20.0;
@@ -108,7 +108,7 @@ public static class CvHybridDetector
             double area = stats.At<int>(i, (int)ConnectedComponentsTypes.Area);
             if (area >= minArea) continue;
             using var cmp = new Mat();
-            Cv2.Compare(labels, new Scalar(i), cmp, CmpType.EQ);
+            Cv2.Compare(labels, new Scalar(i), cmp, CmpTypes.EQ);
             using var notCmp = new Mat();
             Cv2.BitwiseNot(cmp, notCmp);
             Cv2.BitwiseAnd(denoised, notCmp, denoised);
