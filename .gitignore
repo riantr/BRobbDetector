@@ -29,3 +29,7 @@ result/
 .vscode/
 
 *@evaluation/
+
+# Benchmark run logs / scratch DBs (evidence kept locally, not in the repo)
+benchmark/*.log
+benchmark/*.db
