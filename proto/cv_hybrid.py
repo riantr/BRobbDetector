@@ -31,6 +31,29 @@ HYBRIDS = {
     "hybrid_all": ["contour", "edgefit", "mar", "hull", "sector"],
 }
 FIT_DEFAULT = {"fit_band": 6.0, "fit_min_pts": 12, "fit_jump": 20.0}
+# Red-mask thresholds used for DETECTION (proto/common.py::red_mask).
+# hue_max=5 matches BRobbDetector/Services/CvHybridDetector.cs (HueHigh=5):
+# the hand-drawn annotation is pure red (hue 0-4) while the orange X-ray
+# object texture sits at hue 9-10 - a wide window floods the mask with
+# object pixels.  Validated in proto/scope38_hue_sweep.py.
+MASK_DEFAULT = {"hue_max": 5, "sat_min": 80, "val_min": 110}
+# PRODUCTION configuration - an exact mirror of the constants in
+# BRobbDetector/Services/CvHybridDetector.cs.  Keep the two in sync: this is
+# the config the shipped C# detector runs with.  Re-tuned on 2026-10-21
+# against the TRUE GT (proto/scope40_retune.py, proto/scope42_combo.py).
+# C# point-match on 500 imgs / 1121 GT boxes:
+#   D=3 579/66.2  D=5 602/68.8  D=8 605/69.1  D=12 607/69.4
+PROD_DEFAULT = {
+    # red mask
+    "hue_max": 4, "sat_min": 100, "val_min": 140,
+    # contour admission
+    "denoise_min_area": 40, "min_area": 300.0, "min_side": 12.0,
+    "max_side": 800.0, "max_aspect": 12.0,
+    # orthogonality gate + dedup
+    "ortho_tol": 10.0, "boundary_band": 6.0, "dedup_iou": 0.30,
+    # edgefit refinement
+    "fit_band": 8.0, "fit_min_pts": 12, "fit_jump": 20.0,
+}
 
 
 def outer_contours(mask, p):
@@ -66,7 +89,8 @@ def dedup_keep_order(quads, iou_thr):
 
 
 def _prep(img, p):
-    mask = red_mask(img)
+    mask = red_mask(img, p.get("sat_min", 80), p.get("val_min", 110),
+                    p.get("hue_max", 5))
     if p["denoise_min_area"] > 0:
         mask = denoise(mask, p["denoise_min_area"])
     return mask
@@ -260,6 +284,8 @@ def main():
 
     p = dict(CQ_DEFAULT)
     p.update(FIT_DEFAULT)
+    p.update(MASK_DEFAULT)
+    p.update(PROD_DEFAULT)
 
     if args.viz:
         viz(args.viz, args.method, p)
@@ -300,7 +326,7 @@ def main():
     with open(out, "w", encoding="utf-8") as f:
         json.dump({
             "n_images": len(ids), "total_gt": total_gt,
-            "dist_values": DIST_VALUES, "config": dict(FIT_DEFAULT),
+            "dist_values": DIST_VALUES, "config": dict(PROD_DEFAULT),
             "results": results,
         }, f, ensure_ascii=False, indent=2)
     print(f"\nSaved {out}")

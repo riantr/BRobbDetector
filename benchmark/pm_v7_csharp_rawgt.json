@@ -1,0 +1,47 @@
+{
+  "det_dir": "tmp_cs_v7",
+  "gt": "E:\\Xray\\CARS\\data\\Label@CARS_202609_raw",
+  "det": 633,
+  "per_D": {
+    "3": {
+      "tp": 579,
+      "fn": 542,
+      "raw_fp": 54,
+      "true_fp": 49,
+      "real_unlabeled": 5,
+      "recall": 51.7,
+      "precision": 92.2,
+      "corrected_f1": 66.2
+    },
+    "5": {
+      "tp": 602,
+      "fn": 519,
+      "raw_fp": 31,
+      "true_fp": 27,
+      "real_unlabeled": 4,
+      "recall": 53.7,
+      "precision": 95.7,
+      "corrected_f1": 68.8
+    },
+    "8": {
+      "tp": 605,
+      "fn": 516,
+      "raw_fp": 28,
+      "true_fp": 24,
+      "real_unlabeled": 4,
+      "recall": 54.0,
+      "precision": 96.2,
+      "corrected_f1": 69.1
+    },
+    "12": {
+      "tp": 607,
+      "fn": 514,
+      "raw_fp": 26,
+      "true_fp": 22,
+      "real_unlabeled": 4,
+      "recall": 54.1,
+      "precision": 96.5,
+      "corrected_f1": 69.4
+    }
+  }
+}

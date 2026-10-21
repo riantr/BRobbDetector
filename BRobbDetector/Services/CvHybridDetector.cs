@@ -19,31 +19,39 @@ namespace BRobbDetector.Services;
 /// benchmark/gt_final.json), so they were re-measured:
 ///
 ///   C# cvhybrid, 500 imgs / 1121 GT boxes, point match:
-///     before (hue<=10, hull->edgefit->mar, min_area 1500, dedup 0.75):
+///     before (hue&lt;=10, hull-&gt;edgefit-&gt;mar, min_area 1500, dedup 0.75):
 ///         D=3 171/16.6  D=5 260/25.2  D=8 320/31.1  D=12 365/35.4
-///     after  (hue<=5, edgefit only, min_area 900, dedup 0.30, ortho_tol 10):
-///         D=3 547/62.8  D=5 592/67.9  D=8 598/68.6  D=12 601/69.0
+///     after  (hue&lt;=5, edgefit only, min_area 900, dedup 0.30, ortho_tol 10):
+///         D=3 547/62.8  D=5 592/67.9  D=8 598/68.6  D=12 602/69.0
+///
+/// Re-tuned on 2026-10-21 (proto/scope40_retune.py, proto/scope42_combo.py):
+///   hue 5-&gt;4, sat 80-&gt;100, val 110-&gt;140, min_area 900-&gt;300,
+///   min_side 15-&gt;12, fit_band 6-&gt;8
+///     D=3 564/64.5  D=5 601/68.7  D=8 605/69.1  D=12 607/69.4
 ///
 /// Selected via DetectionMethod == "cvhybrid".
 /// </summary>
 public static class CvHybridDetector
 {
     // red_mask thresholds (proto/common.py::red_mask)
-    private const int SatMin = 80;
-    private const int ValMin = 110;
+    // Re-tuned on 2026-10-21 against the TRUE hand-drawn GT
+    // (proto/scope40_retune.py -> benchmark/scope40_retune.json,
+    //  proto/scope42_combo.py   -> benchmark/scope42_combo.json).
+    private const int SatMin = 100;
+    private const int ValMin = 140;
     // Hue window of the hand-drawn annotation.  The annotation is pure red
     // (hue 0-4 for ~85% of its pixels) while the orange/red X-ray object
     // texture sits at hue 9-10; a wide window floods the mask with object
     // pixels.  Validated in proto/scope38_hue_sweep.py against the TRUE GT
     // (Label@CARS_202609_raw): hue<=5 lifts the point-match score from
     // 336 TP / 39.5 corr_f1 to 593 TP / 66.0 corr_f1 at D=5.
-    private const int HueHigh = 5;
+    private const int HueHigh = 4;
 
-    // Detector config (proto/scope38_hue_sweep.py + proto/scope39_ablation.py,
+    // Detector config (proto/scope40_retune.py + proto/scope42_combo.py,
     // measured against the TRUE GT Label@CARS_202609_raw).
     private const double DenoiseMinArea = 40.0;
-    private const double MinArea = 900.0;
-    private const double MinSide = 15.0;
+    private const double MinArea = 300.0;
+    private const double MinSide = 12.0;
     private const double MaxSide = 800.0;
     private const double MaxAspect = 12.0;
     // Orthogonality gate tolerance.  10 deg keeps the point-match score and
@@ -52,7 +60,7 @@ public static class CvHybridDetector
     private const double OrthoTol = 10.0;
     private const double BoundaryBand = 6.0;
     private const double DedupIou = 0.30;
-    private const double FitBand = 6.0;
+    private const double FitBand = 8.0;
     private const int FitMinPts = 12;
     private const double FitJump = 20.0;
     // The hull / minAreaRect families are kept for reference but are not

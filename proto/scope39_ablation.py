@@ -16,21 +16,12 @@ import cv_hybrid
 from common import DATA, IMG, red_mask, load_expected
 from eval_pointmatch import match_boxes_point, is_real_unlabeled
 from canny_quad import DEFAULT as CQ_DEFAULT, get_ids
-from cv_hybrid import FIT_DEFAULT
+from cv_hybrid import FIT_DEFAULT, MASK_DEFAULT
 from cv_scope34 import load_boxes_any
 
 ROOT = r"D:\src\CodeArts\BRobbDetector"
 RAW = os.path.join(DATA, "Label@CARS_202609_raw")
 DIST_VALUES = [3, 5, 8, 12]
-
-
-def make_mask(hue_max):
-    def m(img, smin=80, vmin=110):
-        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        m1 = cv2.inRange(hsv, (0, smin, vmin), (hue_max, 255, 255))
-        m2 = cv2.inRange(hsv, (170, smin, vmin), (180, 255, 255))
-        return cv2.bitwise_or(m1, m2)
-    return m
 
 
 def evaluate(det_map, ids, gt_dir, dist):
@@ -75,11 +66,11 @@ CONFIGS = [
 
 def main():
     ids = get_ids()
-    cv_hybrid.red_mask = make_mask(5)
     results = {}
     for name, over in CONFIGS:
         p = dict(CQ_DEFAULT)
         p.update(FIT_DEFAULT)
+        p.update(MASK_DEFAULT)
         p.update(over)
         t0 = time.time()
         det = {}

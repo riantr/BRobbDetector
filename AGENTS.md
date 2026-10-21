@@ -35,8 +35,15 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
 - `Compare-V1@CARS_202609_annotated` / `Compare@CARS_202609_annotated` are machine
   artifacts, not GT (the pre-2026-10-20 baselines were measured against them and
   are therefore invalid).
-- Current C# baseline (`cvhybrid`, 500 imgs / 1121 GT boxes): D=3 561 TP / corr_f1 64.4,
-  D=5 591 / 67.8, D=8 597 / 68.5, D=12 602 / 69.0 (`benchmark/pm_v6_csharp_rawgt.json`).
+- Current C# baseline (`cvhybrid`, 500 imgs / 1121 GT boxes): D=3 579 TP / corr_f1 66.2,
+  D=5 602 / 68.8, D=8 605 / 69.1, D=12 607 / 69.4 (`benchmark/pm_v7_csharp_rawgt.json`).
+  Config: hue<=4, sat>=100, val>=140, edgefit-only, min_area 300, min_side 12,
+  ortho_tol 10, boundary_band 6, dedup_iou 0.30, fit_band 8 (`proto/scope40_retune.py`,
+  `proto/scope42_combo.py`).
+- The detector's input has the human annotation burned in as red rectangles, so the
+  red mask must be narrow: the annotation is hue 0-4, the orange X-ray object texture
+  is hue 9-10. A wide hue window floods the mask with object pixels and was the
+  single largest error source.
 
 ## Project Structure
 - `BRobbDetector/` — C# project (main)

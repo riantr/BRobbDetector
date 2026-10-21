@@ -38,9 +38,23 @@ def load_expected():
     return exp
 
 
-def red_mask(img, smin=80, vmin=110):
+def red_mask(img, smin=80, vmin=110, hue_max=10):
+    """Red HSV mask.
+
+    `hue_max` bounds the hue window of the *low* red lobe (the high lobe
+    170-180 is always included).
+
+    Two different windows are used on purpose:
+      * detection (proto/cv_hybrid.py, BRobbDetector/Services/CvHybridDetector.cs)
+        uses hue_max=5 - the hand-drawn annotation is pure red (hue 0-4 for
+        ~85% of its pixels) while the orange X-ray object texture sits at
+        hue 9-10, so a wide window floods the mask with object pixels.
+      * the evaluation heuristic `is_real_unlabeled` (proto/eval_pointmatch.py)
+        keeps the default hue_max=10 so every number recorded in benchmark/
+        stays comparable.
+    """
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    m1 = cv2.inRange(hsv, (0, smin, vmin), (10, 255, 255))
+    m1 = cv2.inRange(hsv, (0, smin, vmin), (hue_max, 255, 255))
     m2 = cv2.inRange(hsv, (170, smin, vmin), (180, 255, 255))
     return cv2.bitwise_or(m1, m2)
 
