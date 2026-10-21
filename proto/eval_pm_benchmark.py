@@ -215,7 +215,7 @@ def main():
 
     if reuse:
         ref_path = os.path.join(BENCH_DIR, args.reuse_from + ".json")
-        with open(ref_path, encoding="utf-8") as f:
+        with open(ref_path, encoding="utf-8-sig") as f:
             ref = json.load(f)
         for m in LEGACY_REUSE:
             if m in methods and m in ref["results"]:
@@ -338,7 +338,7 @@ def main():
         if not os.path.exists(path):
             print(f"\nBaseline {path} not found.")
         else:
-            with open(path, encoding="utf-8") as f:
+            with open(path, encoding="utf-8-sig") as f:
                 base = json.load(f)
             base_results = base["results"]
             print(f"\n--- Comparison vs baseline '{args.compare}' ---")

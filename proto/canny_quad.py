@@ -455,7 +455,7 @@ def viz(iid, params, method="assemble"):
     # draw GT in blue for comparison
     gt_path = os.path.join(LAB, iid + ".json")
     if os.path.exists(gt_path):
-        with open(gt_path, encoding="utf-8") as f:
+        with open(gt_path, encoding="utf-8-sig") as f:
             gt = json.load(f)
         for info in gt.get("infos", []):
             pts = np.array([[int(x), int(y)] for x, y in

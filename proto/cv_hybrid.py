@@ -238,7 +238,7 @@ def viz(iid, method, p):
         cv2.polylines(vis, [q.astype(np.int32)], True, (0, 255, 0), 2)
     gt_path = os.path.join(LAB, iid + ".json")
     if os.path.exists(gt_path):
-        with open(gt_path, encoding="utf-8") as f:
+        with open(gt_path, encoding="utf-8-sig") as f:
             gt = json.load(f)
         for info in gt.get("infos", []):
             pts = np.array([[int(x), int(y)] for x, y in

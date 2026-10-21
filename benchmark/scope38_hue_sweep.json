@@ -1,0 +1,1673 @@
+{
+  "n_images": 500,
+  "gt": "E:\\Xray\\CARS\\data\\Label@CARS_202609_raw",
+  "hues": [
+    10,
+    8,
+    7,
+    6,
+    5,
+    4
+  ],
+  "detectors": [
+    "edgefit",
+    "hybrid_cem",
+    "mar",
+    "hull",
+    "hybrid_all"
+  ],
+  "dist_values": [
+    3,
+    5,
+    8,
+    12
+  ],
+  "results": {
+    "hue10_edgefit": {
+      "det": 590,
+      "per_D": {
+        "3": {
+          "tp": 213,
+          "fn": 908,
+          "raw_fp": 377,
+          "true_fp": 367,
+          "real_unlabeled": 10,
+          "recall": 19.0,
+          "precision": 36.7,
+          "corrected_f1": 25.0
+        },
+        "5": {
+          "tp": 336,
+          "fn": 785,
+          "raw_fp": 254,
+          "true_fp": 244,
+          "real_unlabeled": 10,
+          "recall": 30.0,
+          "precision": 57.9,
+          "corrected_f1": 39.5
+        },
+        "8": {
+          "tp": 397,
+          "fn": 724,
+          "raw_fp": 193,
+          "true_fp": 183,
+          "real_unlabeled": 10,
+          "recall": 35.4,
+          "precision": 68.4,
+          "corrected_f1": 46.7
+        },
+        "12": {
+          "tp": 413,
+          "fn": 708,
+          "raw_fp": 177,
+          "true_fp": 167,
+          "real_unlabeled": 10,
+          "recall": 36.8,
+          "precision": 71.2,
+          "corrected_f1": 48.6
+        }
+      }
+    },
+    "hue10_hybrid_cem": {
+      "det": 804,
+      "per_D": {
+        "3": {
+          "tp": 176,
+          "fn": 945,
+          "raw_fp": 628,
+          "true_fp": 610,
+          "real_unlabeled": 18,
+          "recall": 15.7,
+          "precision": 22.4,
+          "corrected_f1": 18.5
+        },
+        "5": {
+          "tp": 273,
+          "fn": 848,
+          "raw_fp": 531,
+          "true_fp": 513,
+          "real_unlabeled": 18,
+          "recall": 24.4,
+          "precision": 34.7,
+          "corrected_f1": 28.6
+        },
+        "8": {
+          "tp": 328,
+          "fn": 793,
+          "raw_fp": 476,
+          "true_fp": 458,
+          "real_unlabeled": 18,
+          "recall": 29.3,
+          "precision": 41.7,
+          "corrected_f1": 34.4
+        },
+        "12": {
+          "tp": 373,
+          "fn": 748,
+          "raw_fp": 431,
+          "true_fp": 413,
+          "real_unlabeled": 18,
+          "recall": 33.3,
+          "precision": 47.5,
+          "corrected_f1": 39.1
+        }
+      }
+    },
+    "hue10_mar": {
+      "det": 804,
+      "per_D": {
+        "3": {
+          "tp": 42,
+          "fn": 1079,
+          "raw_fp": 762,
+          "true_fp": 745,
+          "real_unlabeled": 17,
+          "recall": 3.7,
+          "precision": 5.3,
+          "corrected_f1": 4.4
+        },
+        "5": {
+          "tp": 115,
+          "fn": 1006,
+          "raw_fp": 689,
+          "true_fp": 672,
+          "real_unlabeled": 17,
+          "recall": 10.3,
+          "precision": 14.6,
+          "corrected_f1": 12.1
+        },
+        "8": {
+          "tp": 202,
+          "fn": 919,
+          "raw_fp": 602,
+          "true_fp": 585,
+          "real_unlabeled": 17,
+          "recall": 18.0,
+          "precision": 25.7,
+          "corrected_f1": 21.2
+        },
+        "12": {
+          "tp": 299,
+          "fn": 822,
+          "raw_fp": 505,
+          "true_fp": 488,
+          "real_unlabeled": 17,
+          "recall": 26.7,
+          "precision": 38.0,
+          "corrected_f1": 31.3
+        }
+      }
+    },
+    "hue10_hull": {
+      "det": 525,
+      "per_D": {
+        "3": {
+          "tp": 169,
+          "fn": 952,
+          "raw_fp": 356,
+          "true_fp": 348,
+          "real_unlabeled": 8,
+          "recall": 15.1,
+          "precision": 32.7,
+          "corrected_f1": 20.6
+        },
+        "5": {
+          "tp": 251,
+          "fn": 870,
+          "raw_fp": 274,
+          "true_fp": 266,
+          "real_unlabeled": 8,
+          "recall": 22.4,
+          "precision": 48.5,
+          "corrected_f1": 30.6
+        },
+        "8": {
+          "tp": 305,
+          "fn": 816,
+          "raw_fp": 220,
+          "true_fp": 212,
+          "real_unlabeled": 8,
+          "recall": 27.2,
+          "precision": 59.0,
+          "corrected_f1": 37.2
+        },
+        "12": {
+          "tp": 347,
+          "fn": 774,
+          "raw_fp": 178,
+          "true_fp": 170,
+          "real_unlabeled": 8,
+          "recall": 31.0,
+          "precision": 67.1,
+          "corrected_f1": 42.4
+        }
+      }
+    },
+    "hue10_hybrid_all": {
+      "det": 804,
+      "per_D": {
+        "3": {
+          "tp": 176,
+          "fn": 945,
+          "raw_fp": 628,
+          "true_fp": 610,
+          "real_unlabeled": 18,
+          "recall": 15.7,
+          "precision": 22.4,
+          "corrected_f1": 18.5
+        },
+        "5": {
+          "tp": 273,
+          "fn": 848,
+          "raw_fp": 531,
+          "true_fp": 513,
+          "real_unlabeled": 18,
+          "recall": 24.4,
+          "precision": 34.7,
+          "corrected_f1": 28.6
+        },
+        "8": {
+          "tp": 328,
+          "fn": 793,
+          "raw_fp": 476,
+          "true_fp": 458,
+          "real_unlabeled": 18,
+          "recall": 29.3,
+          "precision": 41.7,
+          "corrected_f1": 34.4
+        },
+        "12": {
+          "tp": 373,
+          "fn": 748,
+          "raw_fp": 431,
+          "true_fp": 413,
+          "real_unlabeled": 18,
+          "recall": 33.3,
+          "precision": 47.5,
+          "corrected_f1": 39.1
+        }
+      }
+    },
+    "hue8_edgefit": {
+      "det": 653,
+      "per_D": {
+        "3": {
+          "tp": 424,
+          "fn": 697,
+          "raw_fp": 229,
+          "true_fp": 218,
+          "real_unlabeled": 11,
+          "recall": 37.8,
+          "precision": 66.0,
+          "corrected_f1": 48.1
+        },
+        "5": {
+          "tp": 549,
+          "fn": 572,
+          "raw_fp": 104,
+          "true_fp": 95,
+          "real_unlabeled": 9,
+          "recall": 49.0,
+          "precision": 85.2,
+          "corrected_f1": 62.2
+        },
+        "8": {
+          "tp": 560,
+          "fn": 561,
+          "raw_fp": 93,
+          "true_fp": 84,
+          "real_unlabeled": 9,
+          "recall": 50.0,
+          "precision": 87.0,
+          "corrected_f1": 63.5
+        },
+        "12": {
+          "tp": 562,
+          "fn": 559,
+          "raw_fp": 91,
+          "true_fp": 82,
+          "real_unlabeled": 9,
+          "recall": 50.1,
+          "precision": 87.3,
+          "corrected_f1": 63.7
+        }
+      }
+    },
+    "hue8_hybrid_cem": {
+      "det": 783,
+      "per_D": {
+        "3": {
+          "tp": 236,
+          "fn": 885,
+          "raw_fp": 547,
+          "true_fp": 528,
+          "real_unlabeled": 19,
+          "recall": 21.1,
+          "precision": 30.9,
+          "corrected_f1": 25.0
+        },
+        "5": {
+          "tp": 369,
+          "fn": 752,
+          "raw_fp": 414,
+          "true_fp": 396,
+          "real_unlabeled": 18,
+          "recall": 32.9,
+          "precision": 48.2,
+          "corrected_f1": 39.1
+        },
+        "8": {
+          "tp": 423,
+          "fn": 698,
+          "raw_fp": 360,
+          "true_fp": 342,
+          "real_unlabeled": 18,
+          "recall": 37.7,
+          "precision": 55.3,
+          "corrected_f1": 44.9
+        },
+        "12": {
+          "tp": 466,
+          "fn": 655,
+          "raw_fp": 317,
+          "true_fp": 299,
+          "real_unlabeled": 18,
+          "recall": 41.6,
+          "precision": 60.9,
+          "corrected_f1": 49.4
+        }
+      }
+    },
+    "hue8_mar": {
+      "det": 781,
+      "per_D": {
+        "3": {
+          "tp": 71,
+          "fn": 1050,
+          "raw_fp": 710,
+          "true_fp": 690,
+          "real_unlabeled": 20,
+          "recall": 6.3,
+          "precision": 9.3,
+          "corrected_f1": 7.5
+        },
+        "5": {
+          "tp": 342,
+          "fn": 779,
+          "raw_fp": 439,
+          "true_fp": 420,
+          "real_unlabeled": 19,
+          "recall": 30.5,
+          "precision": 44.9,
+          "corrected_f1": 36.3
+        },
+        "8": {
+          "tp": 524,
+          "fn": 597,
+          "raw_fp": 257,
+          "true_fp": 239,
+          "real_unlabeled": 18,
+          "recall": 46.7,
+          "precision": 68.7,
+          "corrected_f1": 55.6
+        },
+        "12": {
+          "tp": 551,
+          "fn": 570,
+          "raw_fp": 230,
+          "true_fp": 213,
+          "real_unlabeled": 17,
+          "recall": 49.2,
+          "precision": 72.1,
+          "corrected_f1": 58.5
+        }
+      }
+    },
+    "hue8_hull": {
+      "det": 629,
+      "per_D": {
+        "3": {
+          "tp": 358,
+          "fn": 763,
+          "raw_fp": 271,
+          "true_fp": 262,
+          "real_unlabeled": 9,
+          "recall": 31.9,
+          "precision": 57.7,
+          "corrected_f1": 41.1
+        },
+        "5": {
+          "tp": 506,
+          "fn": 615,
+          "raw_fp": 123,
+          "true_fp": 114,
+          "real_unlabeled": 9,
+          "recall": 45.1,
+          "precision": 81.6,
+          "corrected_f1": 58.1
+        },
+        "8": {
+          "tp": 540,
+          "fn": 581,
+          "raw_fp": 89,
+          "true_fp": 81,
+          "real_unlabeled": 8,
+          "recall": 48.2,
+          "precision": 87.0,
+          "corrected_f1": 62.0
+        },
+        "12": {
+          "tp": 547,
+          "fn": 574,
+          "raw_fp": 82,
+          "true_fp": 74,
+          "real_unlabeled": 8,
+          "recall": 48.8,
+          "precision": 88.1,
+          "corrected_f1": 62.8
+        }
+      }
+    },
+    "hue8_hybrid_all": {
+      "det": 784,
+      "per_D": {
+        "3": {
+          "tp": 237,
+          "fn": 884,
+          "raw_fp": 547,
+          "true_fp": 528,
+          "real_unlabeled": 19,
+          "recall": 21.1,
+          "precision": 31.0,
+          "corrected_f1": 25.1
+        },
+        "5": {
+          "tp": 370,
+          "fn": 751,
+          "raw_fp": 414,
+          "true_fp": 396,
+          "real_unlabeled": 18,
+          "recall": 33.0,
+          "precision": 48.3,
+          "corrected_f1": 39.2
+        },
+        "8": {
+          "tp": 424,
+          "fn": 697,
+          "raw_fp": 360,
+          "true_fp": 342,
+          "real_unlabeled": 18,
+          "recall": 37.8,
+          "precision": 55.4,
+          "corrected_f1": 44.9
+        },
+        "12": {
+          "tp": 467,
+          "fn": 654,
+          "raw_fp": 317,
+          "true_fp": 299,
+          "real_unlabeled": 18,
+          "recall": 41.7,
+          "precision": 61.0,
+          "corrected_f1": 49.5
+        }
+      }
+    },
+    "hue7_edgefit": {
+      "det": 671,
+      "per_D": {
+        "3": {
+          "tp": 487,
+          "fn": 634,
+          "raw_fp": 184,
+          "true_fp": 174,
+          "real_unlabeled": 10,
+          "recall": 43.4,
+          "precision": 73.7,
+          "corrected_f1": 54.7
+        },
+        "5": {
+          "tp": 578,
+          "fn": 543,
+          "raw_fp": 93,
+          "true_fp": 84,
+          "real_unlabeled": 9,
+          "recall": 51.6,
+          "precision": 87.3,
+          "corrected_f1": 64.8
+        },
+        "8": {
+          "tp": 585,
+          "fn": 536,
+          "raw_fp": 86,
+          "true_fp": 77,
+          "real_unlabeled": 9,
+          "recall": 52.2,
+          "precision": 88.4,
+          "corrected_f1": 65.6
+        },
+        "12": {
+          "tp": 586,
+          "fn": 535,
+          "raw_fp": 85,
+          "true_fp": 76,
+          "real_unlabeled": 9,
+          "recall": 52.3,
+          "precision": 88.5,
+          "corrected_f1": 65.7
+        }
+      }
+    },
+    "hue7_hybrid_cem": {
+      "det": 787,
+      "per_D": {
+        "3": {
+          "tp": 263,
+          "fn": 858,
+          "raw_fp": 524,
+          "true_fp": 505,
+          "real_unlabeled": 19,
+          "recall": 23.5,
+          "precision": 34.2,
+          "corrected_f1": 27.8
+        },
+        "5": {
+          "tp": 390,
+          "fn": 731,
+          "raw_fp": 397,
+          "true_fp": 379,
+          "real_unlabeled": 18,
+          "recall": 34.8,
+          "precision": 50.7,
+          "corrected_f1": 41.3
+        },
+        "8": {
+          "tp": 440,
+          "fn": 681,
+          "raw_fp": 347,
+          "true_fp": 329,
+          "real_unlabeled": 18,
+          "recall": 39.3,
+          "precision": 57.2,
+          "corrected_f1": 46.6
+        },
+        "12": {
+          "tp": 483,
+          "fn": 638,
+          "raw_fp": 304,
+          "true_fp": 286,
+          "real_unlabeled": 18,
+          "recall": 43.1,
+          "precision": 62.8,
+          "corrected_f1": 51.1
+        }
+      }
+    },
+    "hue7_mar": {
+      "det": 785,
+      "per_D": {
+        "3": {
+          "tp": 98,
+          "fn": 1023,
+          "raw_fp": 687,
+          "true_fp": 666,
+          "real_unlabeled": 21,
+          "recall": 8.7,
+          "precision": 12.8,
+          "corrected_f1": 10.4
+        },
+        "5": {
+          "tp": 455,
+          "fn": 666,
+          "raw_fp": 330,
+          "true_fp": 313,
+          "real_unlabeled": 17,
+          "recall": 40.6,
+          "precision": 59.2,
+          "corrected_f1": 48.2
+        },
+        "8": {
+          "tp": 565,
+          "fn": 556,
+          "raw_fp": 220,
+          "true_fp": 203,
+          "real_unlabeled": 17,
+          "recall": 50.4,
+          "precision": 73.6,
+          "corrected_f1": 59.8
+        },
+        "12": {
+          "tp": 576,
+          "fn": 545,
+          "raw_fp": 209,
+          "true_fp": 192,
+          "real_unlabeled": 17,
+          "recall": 51.4,
+          "precision": 75.0,
+          "corrected_f1": 61.0
+        }
+      }
+    },
+    "hue7_hull": {
+      "det": 646,
+      "per_D": {
+        "3": {
+          "tp": 418,
+          "fn": 703,
+          "raw_fp": 228,
+          "true_fp": 220,
+          "real_unlabeled": 8,
+          "recall": 37.3,
+          "precision": 65.5,
+          "corrected_f1": 47.5
+        },
+        "5": {
+          "tp": 544,
+          "fn": 577,
+          "raw_fp": 102,
+          "true_fp": 94,
+          "real_unlabeled": 8,
+          "recall": 48.5,
+          "precision": 85.3,
+          "corrected_f1": 61.9
+        },
+        "8": {
+          "tp": 573,
+          "fn": 548,
+          "raw_fp": 73,
+          "true_fp": 65,
+          "real_unlabeled": 8,
+          "recall": 51.1,
+          "precision": 89.8,
+          "corrected_f1": 65.2
+        },
+        "12": {
+          "tp": 575,
+          "fn": 546,
+          "raw_fp": 71,
+          "true_fp": 63,
+          "real_unlabeled": 8,
+          "recall": 51.3,
+          "precision": 90.1,
+          "corrected_f1": 65.4
+        }
+      }
+    },
+    "hue7_hybrid_all": {
+      "det": 789,
+      "per_D": {
+        "3": {
+          "tp": 265,
+          "fn": 856,
+          "raw_fp": 524,
+          "true_fp": 505,
+          "real_unlabeled": 19,
+          "recall": 23.6,
+          "precision": 34.4,
+          "corrected_f1": 28.0
+        },
+        "5": {
+          "tp": 392,
+          "fn": 729,
+          "raw_fp": 397,
+          "true_fp": 379,
+          "real_unlabeled": 18,
+          "recall": 35.0,
+          "precision": 50.8,
+          "corrected_f1": 41.4
+        },
+        "8": {
+          "tp": 442,
+          "fn": 679,
+          "raw_fp": 347,
+          "true_fp": 329,
+          "real_unlabeled": 18,
+          "recall": 39.4,
+          "precision": 57.3,
+          "corrected_f1": 46.7
+        },
+        "12": {
+          "tp": 485,
+          "fn": 636,
+          "raw_fp": 304,
+          "true_fp": 286,
+          "real_unlabeled": 18,
+          "recall": 43.3,
+          "precision": 62.9,
+          "corrected_f1": 51.3
+        }
+      }
+    },
+    "hue6_edgefit": {
+      "det": 683,
+      "per_D": {
+        "3": {
+          "tp": 524,
+          "fn": 597,
+          "raw_fp": 159,
+          "true_fp": 148,
+          "real_unlabeled": 11,
+          "recall": 46.7,
+          "precision": 78.0,
+          "corrected_f1": 58.4
+        },
+        "5": {
+          "tp": 590,
+          "fn": 531,
+          "raw_fp": 93,
+          "true_fp": 83,
+          "real_unlabeled": 10,
+          "recall": 52.6,
+          "precision": 87.7,
+          "corrected_f1": 65.8
+        },
+        "8": {
+          "tp": 598,
+          "fn": 523,
+          "raw_fp": 85,
+          "true_fp": 75,
+          "real_unlabeled": 10,
+          "recall": 53.3,
+          "precision": 88.9,
+          "corrected_f1": 66.7
+        },
+        "12": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 89.0,
+          "corrected_f1": 66.8
+        }
+      }
+    },
+    "hue6_hybrid_cem": {
+      "det": 788,
+      "per_D": {
+        "3": {
+          "tp": 280,
+          "fn": 841,
+          "raw_fp": 508,
+          "true_fp": 489,
+          "real_unlabeled": 19,
+          "recall": 25.0,
+          "precision": 36.4,
+          "corrected_f1": 29.6
+        },
+        "5": {
+          "tp": 396,
+          "fn": 725,
+          "raw_fp": 392,
+          "true_fp": 374,
+          "real_unlabeled": 18,
+          "recall": 35.3,
+          "precision": 51.4,
+          "corrected_f1": 41.9
+        },
+        "8": {
+          "tp": 448,
+          "fn": 673,
+          "raw_fp": 340,
+          "true_fp": 322,
+          "real_unlabeled": 18,
+          "recall": 40.0,
+          "precision": 58.2,
+          "corrected_f1": 47.4
+        },
+        "12": {
+          "tp": 491,
+          "fn": 630,
+          "raw_fp": 297,
+          "true_fp": 279,
+          "real_unlabeled": 18,
+          "recall": 43.8,
+          "precision": 63.8,
+          "corrected_f1": 51.9
+        }
+      }
+    },
+    "hue6_mar": {
+      "det": 787,
+      "per_D": {
+        "3": {
+          "tp": 132,
+          "fn": 989,
+          "raw_fp": 655,
+          "true_fp": 633,
+          "real_unlabeled": 22,
+          "recall": 11.8,
+          "precision": 17.3,
+          "corrected_f1": 14.0
+        },
+        "5": {
+          "tp": 514,
+          "fn": 607,
+          "raw_fp": 273,
+          "true_fp": 256,
+          "real_unlabeled": 17,
+          "recall": 45.9,
+          "precision": 66.8,
+          "corrected_f1": 54.4
+        },
+        "8": {
+          "tp": 579,
+          "fn": 542,
+          "raw_fp": 208,
+          "true_fp": 191,
+          "real_unlabeled": 17,
+          "recall": 51.7,
+          "precision": 75.2,
+          "corrected_f1": 61.2
+        },
+        "12": {
+          "tp": 589,
+          "fn": 532,
+          "raw_fp": 198,
+          "true_fp": 181,
+          "real_unlabeled": 17,
+          "recall": 52.5,
+          "precision": 76.5,
+          "corrected_f1": 62.3
+        }
+      }
+    },
+    "hue6_hull": {
+      "det": 650,
+      "per_D": {
+        "3": {
+          "tp": 448,
+          "fn": 673,
+          "raw_fp": 202,
+          "true_fp": 193,
+          "real_unlabeled": 9,
+          "recall": 40.0,
+          "precision": 69.9,
+          "corrected_f1": 50.9
+        },
+        "5": {
+          "tp": 565,
+          "fn": 556,
+          "raw_fp": 85,
+          "true_fp": 77,
+          "real_unlabeled": 8,
+          "recall": 50.4,
+          "precision": 88.0,
+          "corrected_f1": 64.1
+        },
+        "8": {
+          "tp": 584,
+          "fn": 537,
+          "raw_fp": 66,
+          "true_fp": 58,
+          "real_unlabeled": 8,
+          "recall": 52.1,
+          "precision": 91.0,
+          "corrected_f1": 66.3
+        },
+        "12": {
+          "tp": 586,
+          "fn": 535,
+          "raw_fp": 64,
+          "true_fp": 56,
+          "real_unlabeled": 8,
+          "recall": 52.3,
+          "precision": 91.3,
+          "corrected_f1": 66.5
+        }
+      }
+    },
+    "hue6_hybrid_all": {
+      "det": 790,
+      "per_D": {
+        "3": {
+          "tp": 282,
+          "fn": 839,
+          "raw_fp": 508,
+          "true_fp": 489,
+          "real_unlabeled": 19,
+          "recall": 25.2,
+          "precision": 36.6,
+          "corrected_f1": 29.8
+        },
+        "5": {
+          "tp": 398,
+          "fn": 723,
+          "raw_fp": 392,
+          "true_fp": 374,
+          "real_unlabeled": 18,
+          "recall": 35.5,
+          "precision": 51.6,
+          "corrected_f1": 42.0
+        },
+        "8": {
+          "tp": 450,
+          "fn": 671,
+          "raw_fp": 340,
+          "true_fp": 322,
+          "real_unlabeled": 18,
+          "recall": 40.1,
+          "precision": 58.3,
+          "corrected_f1": 47.5
+        },
+        "12": {
+          "tp": 493,
+          "fn": 628,
+          "raw_fp": 297,
+          "true_fp": 279,
+          "real_unlabeled": 18,
+          "recall": 44.0,
+          "precision": 63.9,
+          "corrected_f1": 52.1
+        }
+      }
+    },
+    "hue5_edgefit": {
+      "det": 687,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 139,
+          "true_fp": 128,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.1,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 94,
+          "true_fp": 84,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.6,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 89.1,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "hue5_hybrid_cem": {
+      "det": 787,
+      "per_D": {
+        "3": {
+          "tp": 292,
+          "fn": 829,
+          "raw_fp": 495,
+          "true_fp": 476,
+          "real_unlabeled": 19,
+          "recall": 26.0,
+          "precision": 38.0,
+          "corrected_f1": 30.9
+        },
+        "5": {
+          "tp": 399,
+          "fn": 722,
+          "raw_fp": 388,
+          "true_fp": 370,
+          "real_unlabeled": 18,
+          "recall": 35.6,
+          "precision": 51.9,
+          "corrected_f1": 42.2
+        },
+        "8": {
+          "tp": 450,
+          "fn": 671,
+          "raw_fp": 337,
+          "true_fp": 319,
+          "real_unlabeled": 18,
+          "recall": 40.1,
+          "precision": 58.5,
+          "corrected_f1": 47.6
+        },
+        "12": {
+          "tp": 495,
+          "fn": 626,
+          "raw_fp": 292,
+          "true_fp": 274,
+          "real_unlabeled": 18,
+          "recall": 44.2,
+          "precision": 64.4,
+          "corrected_f1": 52.4
+        }
+      }
+    },
+    "hue5_mar": {
+      "det": 786,
+      "per_D": {
+        "3": {
+          "tp": 196,
+          "fn": 925,
+          "raw_fp": 590,
+          "true_fp": 568,
+          "real_unlabeled": 22,
+          "recall": 17.5,
+          "precision": 25.7,
+          "corrected_f1": 20.8
+        },
+        "5": {
+          "tp": 542,
+          "fn": 579,
+          "raw_fp": 244,
+          "true_fp": 227,
+          "real_unlabeled": 17,
+          "recall": 48.3,
+          "precision": 70.5,
+          "corrected_f1": 57.4
+        },
+        "8": {
+          "tp": 583,
+          "fn": 538,
+          "raw_fp": 203,
+          "true_fp": 186,
+          "real_unlabeled": 17,
+          "recall": 52.0,
+          "precision": 75.8,
+          "corrected_f1": 61.7
+        },
+        "12": {
+          "tp": 595,
+          "fn": 526,
+          "raw_fp": 191,
+          "true_fp": 174,
+          "real_unlabeled": 17,
+          "recall": 53.1,
+          "precision": 77.4,
+          "corrected_f1": 63.0
+        }
+      }
+    },
+    "hue5_hull": {
+      "det": 660,
+      "per_D": {
+        "3": {
+          "tp": 454,
+          "fn": 667,
+          "raw_fp": 206,
+          "true_fp": 198,
+          "real_unlabeled": 8,
+          "recall": 40.5,
+          "precision": 69.6,
+          "corrected_f1": 51.2
+        },
+        "5": {
+          "tp": 570,
+          "fn": 551,
+          "raw_fp": 90,
+          "true_fp": 83,
+          "real_unlabeled": 7,
+          "recall": 50.8,
+          "precision": 87.3,
+          "corrected_f1": 64.3
+        },
+        "8": {
+          "tp": 591,
+          "fn": 530,
+          "raw_fp": 69,
+          "true_fp": 62,
+          "real_unlabeled": 7,
+          "recall": 52.7,
+          "precision": 90.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 595,
+          "fn": 526,
+          "raw_fp": 65,
+          "true_fp": 58,
+          "real_unlabeled": 7,
+          "recall": 53.1,
+          "precision": 91.1,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "hue5_hybrid_all": {
+      "det": 789,
+      "per_D": {
+        "3": {
+          "tp": 294,
+          "fn": 827,
+          "raw_fp": 495,
+          "true_fp": 476,
+          "real_unlabeled": 19,
+          "recall": 26.2,
+          "precision": 38.2,
+          "corrected_f1": 31.1
+        },
+        "5": {
+          "tp": 401,
+          "fn": 720,
+          "raw_fp": 388,
+          "true_fp": 370,
+          "real_unlabeled": 18,
+          "recall": 35.8,
+          "precision": 52.0,
+          "corrected_f1": 42.4
+        },
+        "8": {
+          "tp": 452,
+          "fn": 669,
+          "raw_fp": 337,
+          "true_fp": 319,
+          "real_unlabeled": 18,
+          "recall": 40.3,
+          "precision": 58.6,
+          "corrected_f1": 47.8
+        },
+        "12": {
+          "tp": 497,
+          "fn": 624,
+          "raw_fp": 292,
+          "true_fp": 274,
+          "real_unlabeled": 18,
+          "recall": 44.3,
+          "precision": 64.5,
+          "corrected_f1": 52.5
+        }
+      }
+    },
+    "hue4_edgefit": {
+      "det": 681,
+      "per_D": {
+        "3": {
+          "tp": 555,
+          "fn": 566,
+          "raw_fp": 126,
+          "true_fp": 116,
+          "real_unlabeled": 10,
+          "recall": 49.5,
+          "precision": 82.7,
+          "corrected_f1": 61.9
+        },
+        "5": {
+          "tp": 592,
+          "fn": 529,
+          "raw_fp": 89,
+          "true_fp": 80,
+          "real_unlabeled": 9,
+          "recall": 52.8,
+          "precision": 88.1,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 600,
+          "fn": 521,
+          "raw_fp": 81,
+          "true_fp": 72,
+          "real_unlabeled": 9,
+          "recall": 53.5,
+          "precision": 89.3,
+          "corrected_f1": 66.9
+        },
+        "12": {
+          "tp": 602,
+          "fn": 519,
+          "raw_fp": 79,
+          "true_fp": 70,
+          "real_unlabeled": 9,
+          "recall": 53.7,
+          "precision": 89.6,
+          "corrected_f1": 67.2
+        }
+      }
+    },
+    "hue4_hybrid_cem": {
+      "det": 788,
+      "per_D": {
+        "3": {
+          "tp": 301,
+          "fn": 820,
+          "raw_fp": 487,
+          "true_fp": 468,
+          "real_unlabeled": 19,
+          "recall": 26.9,
+          "precision": 39.1,
+          "corrected_f1": 31.9
+        },
+        "5": {
+          "tp": 402,
+          "fn": 719,
+          "raw_fp": 386,
+          "true_fp": 368,
+          "real_unlabeled": 18,
+          "recall": 35.9,
+          "precision": 52.2,
+          "corrected_f1": 42.5
+        },
+        "8": {
+          "tp": 454,
+          "fn": 667,
+          "raw_fp": 334,
+          "true_fp": 316,
+          "real_unlabeled": 18,
+          "recall": 40.5,
+          "precision": 59.0,
+          "corrected_f1": 48.0
+        },
+        "12": {
+          "tp": 498,
+          "fn": 623,
+          "raw_fp": 290,
+          "true_fp": 272,
+          "real_unlabeled": 18,
+          "recall": 44.4,
+          "precision": 64.7,
+          "corrected_f1": 52.7
+        }
+      }
+    },
+    "hue4_mar": {
+      "det": 783,
+      "per_D": {
+        "3": {
+          "tp": 246,
+          "fn": 875,
+          "raw_fp": 537,
+          "true_fp": 517,
+          "real_unlabeled": 20,
+          "recall": 21.9,
+          "precision": 32.2,
+          "corrected_f1": 26.1
+        },
+        "5": {
+          "tp": 555,
+          "fn": 566,
+          "raw_fp": 228,
+          "true_fp": 211,
+          "real_unlabeled": 17,
+          "recall": 49.5,
+          "precision": 72.5,
+          "corrected_f1": 58.8
+        },
+        "8": {
+          "tp": 584,
+          "fn": 537,
+          "raw_fp": 199,
+          "true_fp": 182,
+          "real_unlabeled": 17,
+          "recall": 52.1,
+          "precision": 76.2,
+          "corrected_f1": 61.9
+        },
+        "12": {
+          "tp": 595,
+          "fn": 526,
+          "raw_fp": 188,
+          "true_fp": 171,
+          "real_unlabeled": 17,
+          "recall": 53.1,
+          "precision": 77.7,
+          "corrected_f1": 63.1
+        }
+      }
+    },
+    "hue4_hull": {
+      "det": 659,
+      "per_D": {
+        "3": {
+          "tp": 467,
+          "fn": 654,
+          "raw_fp": 192,
+          "true_fp": 184,
+          "real_unlabeled": 8,
+          "recall": 41.7,
+          "precision": 71.7,
+          "corrected_f1": 52.7
+        },
+        "5": {
+          "tp": 576,
+          "fn": 545,
+          "raw_fp": 83,
+          "true_fp": 76,
+          "real_unlabeled": 7,
+          "recall": 51.4,
+          "precision": 88.3,
+          "corrected_f1": 65.0
+        },
+        "8": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 66,
+          "true_fp": 59,
+          "real_unlabeled": 7,
+          "recall": 52.9,
+          "precision": 91.0,
+          "corrected_f1": 66.9
+        },
+        "12": {
+          "tp": 596,
+          "fn": 525,
+          "raw_fp": 63,
+          "true_fp": 56,
+          "real_unlabeled": 7,
+          "recall": 53.2,
+          "precision": 91.4,
+          "corrected_f1": 67.2
+        }
+      }
+    },
+    "hue4_hybrid_all": {
+      "det": 791,
+      "per_D": {
+        "3": {
+          "tp": 304,
+          "fn": 817,
+          "raw_fp": 487,
+          "true_fp": 468,
+          "real_unlabeled": 19,
+          "recall": 27.1,
+          "precision": 39.4,
+          "corrected_f1": 32.1
+        },
+        "5": {
+          "tp": 405,
+          "fn": 716,
+          "raw_fp": 386,
+          "true_fp": 368,
+          "real_unlabeled": 18,
+          "recall": 36.1,
+          "precision": 52.4,
+          "corrected_f1": 42.8
+        },
+        "8": {
+          "tp": 457,
+          "fn": 664,
+          "raw_fp": 334,
+          "true_fp": 316,
+          "real_unlabeled": 18,
+          "recall": 40.8,
+          "precision": 59.1,
+          "corrected_f1": 48.3
+        },
+        "12": {
+          "tp": 501,
+          "fn": 620,
+          "raw_fp": 290,
+          "true_fp": 272,
+          "real_unlabeled": 18,
+          "recall": 44.7,
+          "precision": 64.8,
+          "corrected_f1": 52.9
+        }
+      }
+    }
+  },
+  "enforcement_on_best": {
+    "none": {
+      "3": {
+        "tp": 548,
+        "fn": 573,
+        "raw_fp": 139,
+        "true_fp": 128,
+        "real_unlabeled": 11,
+        "recall": 48.9,
+        "precision": 81.1,
+        "corrected_f1": 61.0
+      },
+      "5": {
+        "tp": 593,
+        "fn": 528,
+        "raw_fp": 94,
+        "true_fp": 84,
+        "real_unlabeled": 10,
+        "recall": 52.9,
+        "precision": 87.6,
+        "corrected_f1": 66.0
+      },
+      "8": {
+        "tp": 599,
+        "fn": 522,
+        "raw_fp": 88,
+        "true_fp": 78,
+        "real_unlabeled": 10,
+        "recall": 53.4,
+        "precision": 88.5,
+        "corrected_f1": 66.6
+      },
+      "12": {
+        "tp": 603,
+        "fn": 518,
+        "raw_fp": 84,
+        "true_fp": 74,
+        "real_unlabeled": 10,
+        "recall": 53.8,
+        "precision": 89.1,
+        "corrected_f1": 67.1
+      }
+    },
+    "minarect": {
+      "3": {
+        "tp": 512,
+        "fn": 609,
+        "raw_fp": 175,
+        "true_fp": 164,
+        "real_unlabeled": 11,
+        "recall": 45.7,
+        "precision": 75.7,
+        "corrected_f1": 57.0
+      },
+      "5": {
+        "tp": 576,
+        "fn": 545,
+        "raw_fp": 111,
+        "true_fp": 101,
+        "real_unlabeled": 10,
+        "recall": 51.4,
+        "precision": 85.1,
+        "corrected_f1": 64.1
+      },
+      "8": {
+        "tp": 589,
+        "fn": 532,
+        "raw_fp": 98,
+        "true_fp": 88,
+        "real_unlabeled": 10,
+        "recall": 52.5,
+        "precision": 87.0,
+        "corrected_f1": 65.5
+      },
+      "12": {
+        "tp": 600,
+        "fn": 521,
+        "raw_fp": 87,
+        "true_fp": 77,
+        "real_unlabeled": 10,
+        "recall": 53.5,
+        "precision": 88.6,
+        "corrected_f1": 66.7
+      }
+    },
+    "ortho_edge": {
+      "3": {
+        "tp": 504,
+        "fn": 617,
+        "raw_fp": 183,
+        "true_fp": 172,
+        "real_unlabeled": 11,
+        "recall": 45.0,
+        "precision": 74.6,
+        "corrected_f1": 56.1
+      },
+      "5": {
+        "tp": 582,
+        "fn": 539,
+        "raw_fp": 105,
+        "true_fp": 95,
+        "real_unlabeled": 10,
+        "recall": 51.9,
+        "precision": 86.0,
+        "corrected_f1": 64.7
+      },
+      "8": {
+        "tp": 595,
+        "fn": 526,
+        "raw_fp": 92,
+        "true_fp": 82,
+        "real_unlabeled": 10,
+        "recall": 53.1,
+        "precision": 87.9,
+        "corrected_f1": 66.2
+      },
+      "12": {
+        "tp": 600,
+        "fn": 521,
+        "raw_fp": 87,
+        "true_fp": 77,
+        "real_unlabeled": 10,
+        "recall": 53.5,
+        "precision": 88.6,
+        "corrected_f1": 66.7
+      }
+    },
+    "blend0.5": {
+      "3": {
+        "tp": 525,
+        "fn": 596,
+        "raw_fp": 162,
+        "true_fp": 151,
+        "real_unlabeled": 11,
+        "recall": 46.8,
+        "precision": 77.7,
+        "corrected_f1": 58.4
+      },
+      "5": {
+        "tp": 590,
+        "fn": 531,
+        "raw_fp": 97,
+        "true_fp": 87,
+        "real_unlabeled": 10,
+        "recall": 52.6,
+        "precision": 87.1,
+        "corrected_f1": 65.6
+      },
+      "8": {
+        "tp": 598,
+        "fn": 523,
+        "raw_fp": 89,
+        "true_fp": 79,
+        "real_unlabeled": 10,
+        "recall": 53.3,
+        "precision": 88.3,
+        "corrected_f1": 66.5
+      },
+      "12": {
+        "tp": 602,
+        "fn": 519,
+        "raw_fp": 85,
+        "true_fp": 75,
+        "real_unlabeled": 10,
+        "recall": 53.7,
+        "precision": 88.9,
+        "corrected_f1": 67.0
+      }
+    },
+    "blend0.3": {
+      "3": {
+        "tp": 539,
+        "fn": 582,
+        "raw_fp": 148,
+        "true_fp": 137,
+        "real_unlabeled": 11,
+        "recall": 48.1,
+        "precision": 79.7,
+        "corrected_f1": 60.0
+      },
+      "5": {
+        "tp": 593,
+        "fn": 528,
+        "raw_fp": 94,
+        "true_fp": 84,
+        "real_unlabeled": 10,
+        "recall": 52.9,
+        "precision": 87.6,
+        "corrected_f1": 66.0
+      },
+      "8": {
+        "tp": 598,
+        "fn": 523,
+        "raw_fp": 89,
+        "true_fp": 79,
+        "real_unlabeled": 10,
+        "recall": 53.3,
+        "precision": 88.3,
+        "corrected_f1": 66.5
+      },
+      "12": {
+        "tp": 603,
+        "fn": 518,
+        "raw_fp": 84,
+        "true_fp": 74,
+        "real_unlabeled": 10,
+        "recall": 53.8,
+        "precision": 89.1,
+        "corrected_f1": 67.1
+      }
+    },
+    "thr5_strict": {
+      "3": {
+        "tp": 541,
+        "fn": 580,
+        "raw_fp": 146,
+        "true_fp": 135,
+        "real_unlabeled": 11,
+        "recall": 48.3,
+        "precision": 80.0,
+        "corrected_f1": 60.2
+      },
+      "5": {
+        "tp": 584,
+        "fn": 537,
+        "raw_fp": 103,
+        "true_fp": 93,
+        "real_unlabeled": 10,
+        "recall": 52.1,
+        "precision": 86.3,
+        "corrected_f1": 65.0
+      },
+      "8": {
+        "tp": 595,
+        "fn": 526,
+        "raw_fp": 92,
+        "true_fp": 82,
+        "real_unlabeled": 10,
+        "recall": 53.1,
+        "precision": 87.9,
+        "corrected_f1": 66.2
+      },
+      "12": {
+        "tp": 600,
+        "fn": 521,
+        "raw_fp": 87,
+        "true_fp": 77,
+        "real_unlabeled": 10,
+        "recall": 53.5,
+        "precision": 88.6,
+        "corrected_f1": 66.7
+      }
+    },
+    "thr10_blend": {
+      "3": {
+        "tp": 548,
+        "fn": 573,
+        "raw_fp": 139,
+        "true_fp": 128,
+        "real_unlabeled": 11,
+        "recall": 48.9,
+        "precision": 81.1,
+        "corrected_f1": 61.0
+      },
+      "5": {
+        "tp": 592,
+        "fn": 529,
+        "raw_fp": 95,
+        "true_fp": 85,
+        "real_unlabeled": 10,
+        "recall": 52.8,
+        "precision": 87.4,
+        "corrected_f1": 65.9
+      },
+      "8": {
+        "tp": 598,
+        "fn": 523,
+        "raw_fp": 89,
+        "true_fp": 79,
+        "real_unlabeled": 10,
+        "recall": 53.3,
+        "precision": 88.3,
+        "corrected_f1": 66.5
+      },
+      "12": {
+        "tp": 603,
+        "fn": 518,
+        "raw_fp": 84,
+        "true_fp": 74,
+        "real_unlabeled": 10,
+        "recall": 53.8,
+        "precision": 89.1,
+        "corrected_f1": 67.1
+      }
+    }
+  }
+}

@@ -1,0 +1,492 @@
+{
+  "n_images": 500,
+  "gt": "E:\\Xray\\CARS\\data\\Label@CARS_202609_raw",
+  "detector": "edgefit",
+  "hue": 5,
+  "dist_values": [
+    3,
+    5,
+    8,
+    12
+  ],
+  "results": {
+    "final(h5,ma900,bb6,di.30)": {
+      "params": {},
+      "det": 687,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 139,
+          "true_fp": 128,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.1,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 94,
+          "true_fp": 84,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.6,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 89.1,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "min_area=1500": {
+      "params": {
+        "min_area": 1500.0
+      },
+      "det": 665,
+      "per_D": {
+        "3": {
+          "tp": 528,
+          "fn": 593,
+          "raw_fp": 137,
+          "true_fp": 126,
+          "real_unlabeled": 11,
+          "recall": 47.1,
+          "precision": 80.7,
+          "corrected_f1": 59.5
+        },
+        "5": {
+          "tp": 572,
+          "fn": 549,
+          "raw_fp": 93,
+          "true_fp": 83,
+          "real_unlabeled": 10,
+          "recall": 51.0,
+          "precision": 87.3,
+          "corrected_f1": 64.4
+        },
+        "8": {
+          "tp": 577,
+          "fn": 544,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 51.5,
+          "precision": 88.1,
+          "corrected_f1": 65.0
+        },
+        "12": {
+          "tp": 581,
+          "fn": 540,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 51.8,
+          "precision": 88.7,
+          "corrected_f1": 65.4
+        }
+      }
+    },
+    "min_area=500": {
+      "params": {
+        "min_area": 500.0
+      },
+      "det": 689,
+      "per_D": {
+        "3": {
+          "tp": 549,
+          "fn": 572,
+          "raw_fp": 140,
+          "true_fp": 129,
+          "real_unlabeled": 11,
+          "recall": 49.0,
+          "precision": 81.0,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 594,
+          "fn": 527,
+          "raw_fp": 95,
+          "true_fp": 85,
+          "real_unlabeled": 10,
+          "recall": 53.0,
+          "precision": 87.5,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 600,
+          "fn": 521,
+          "raw_fp": 89,
+          "true_fp": 79,
+          "real_unlabeled": 10,
+          "recall": 53.5,
+          "precision": 88.4,
+          "corrected_f1": 66.7
+        },
+        "12": {
+          "tp": 604,
+          "fn": 517,
+          "raw_fp": 85,
+          "true_fp": 75,
+          "real_unlabeled": 10,
+          "recall": 53.9,
+          "precision": 89.0,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "boundary_band=20": {
+      "params": {
+        "boundary_band": 20.0
+      },
+      "det": 689,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 141,
+          "true_fp": 130,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 80.8,
+          "corrected_f1": 60.9
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 96,
+          "true_fp": 86,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.3,
+          "corrected_f1": 65.9
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 90,
+          "true_fp": 80,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.2,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 86,
+          "true_fp": 76,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 88.8,
+          "corrected_f1": 67.0
+        }
+      }
+    },
+    "boundary_band=0": {
+      "params": {
+        "boundary_band": 0.0
+      },
+      "det": 684,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 136,
+          "true_fp": 125,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.4,
+          "corrected_f1": 61.1
+        },
+        "5": {
+          "tp": 592,
+          "fn": 529,
+          "raw_fp": 92,
+          "true_fp": 82,
+          "real_unlabeled": 10,
+          "recall": 52.8,
+          "precision": 87.8,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 597,
+          "fn": 524,
+          "raw_fp": 87,
+          "true_fp": 77,
+          "real_unlabeled": 10,
+          "recall": 53.3,
+          "precision": 88.6,
+          "corrected_f1": 66.5
+        },
+        "12": {
+          "tp": 601,
+          "fn": 520,
+          "raw_fp": 83,
+          "true_fp": 73,
+          "real_unlabeled": 10,
+          "recall": 53.6,
+          "precision": 89.2,
+          "corrected_f1": 67.0
+        }
+      }
+    },
+    "dedup_iou=0.75": {
+      "params": {
+        "dedup_iou": 0.75
+      },
+      "det": 687,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 139,
+          "true_fp": 128,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.1,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 94,
+          "true_fp": 84,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.6,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 89.1,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "dedup_iou=0.15": {
+      "params": {
+        "dedup_iou": 0.15
+      },
+      "det": 687,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 139,
+          "true_fp": 128,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.1,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 94,
+          "true_fp": 84,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.6,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 89.1,
+          "corrected_f1": 67.1
+        }
+      }
+    },
+    "ortho_tol=10": {
+      "params": {
+        "ortho_tol": 10.0
+      },
+      "det": 625,
+      "per_D": {
+        "3": {
+          "tp": 547,
+          "fn": 574,
+          "raw_fp": 78,
+          "true_fp": 74,
+          "real_unlabeled": 4,
+          "recall": 48.8,
+          "precision": 88.1,
+          "corrected_f1": 62.8
+        },
+        "5": {
+          "tp": 592,
+          "fn": 529,
+          "raw_fp": 33,
+          "true_fp": 30,
+          "real_unlabeled": 3,
+          "recall": 52.8,
+          "precision": 95.2,
+          "corrected_f1": 67.9
+        },
+        "8": {
+          "tp": 598,
+          "fn": 523,
+          "raw_fp": 27,
+          "true_fp": 24,
+          "real_unlabeled": 3,
+          "recall": 53.3,
+          "precision": 96.1,
+          "corrected_f1": 68.6
+        },
+        "12": {
+          "tp": 601,
+          "fn": 520,
+          "raw_fp": 24,
+          "true_fp": 21,
+          "real_unlabeled": 3,
+          "recall": 53.6,
+          "precision": 96.6,
+          "corrected_f1": 69.0
+        }
+      }
+    },
+    "ortho_tol=30": {
+      "params": {
+        "ortho_tol": 30.0
+      },
+      "det": 728,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 180,
+          "true_fp": 167,
+          "real_unlabeled": 13,
+          "recall": 48.9,
+          "precision": 76.6,
+          "corrected_f1": 59.7
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 135,
+          "true_fp": 123,
+          "real_unlabeled": 12,
+          "recall": 52.9,
+          "precision": 82.8,
+          "corrected_f1": 64.6
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 129,
+          "true_fp": 117,
+          "real_unlabeled": 12,
+          "recall": 53.4,
+          "precision": 83.7,
+          "corrected_f1": 65.2
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 125,
+          "true_fp": 113,
+          "real_unlabeled": 12,
+          "recall": 53.8,
+          "precision": 84.2,
+          "corrected_f1": 65.7
+        }
+      }
+    },
+    "denoise_min_area=0": {
+      "params": {
+        "denoise_min_area": 0
+      },
+      "det": 687,
+      "per_D": {
+        "3": {
+          "tp": 548,
+          "fn": 573,
+          "raw_fp": 139,
+          "true_fp": 128,
+          "real_unlabeled": 11,
+          "recall": 48.9,
+          "precision": 81.1,
+          "corrected_f1": 61.0
+        },
+        "5": {
+          "tp": 593,
+          "fn": 528,
+          "raw_fp": 94,
+          "true_fp": 84,
+          "real_unlabeled": 10,
+          "recall": 52.9,
+          "precision": 87.6,
+          "corrected_f1": 66.0
+        },
+        "8": {
+          "tp": 599,
+          "fn": 522,
+          "raw_fp": 88,
+          "true_fp": 78,
+          "real_unlabeled": 10,
+          "recall": 53.4,
+          "precision": 88.5,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 603,
+          "fn": 518,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.8,
+          "precision": 89.1,
+          "corrected_f1": 67.1
+        }
+      }
+    }
+  }
+}

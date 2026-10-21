@@ -1,0 +1,231 @@
+{
+  "n_images": 500,
+  "gt": "E:\\Xray\\CARS\\data\\Label@CARS_202609_raw",
+  "detector": "edgefit",
+  "params": {
+    "approx_adaptive": 1,
+    "approx_eps": 0.03,
+    "approx_eps_list": [
+      0.01,
+      0.02,
+      0.03,
+      0.05,
+      0.08,
+      0.12,
+      0.18
+    ],
+    "boundary_band": 6.0,
+    "canny_hi": 150,
+    "canny_lo": 50,
+    "close_len": 9,
+    "dedup_iou": 0.3,
+    "denoise_min_area": 40,
+    "dilate_mask": 1,
+    "fit_band": 6.0,
+    "fit_jump": 20.0,
+    "fit_min_pts": 12,
+    "hough_max_gap": 15,
+    "hough_min_len": 15,
+    "hough_thr": 20,
+    "line_thick": 3,
+    "link_dist": 18,
+    "max_aspect": 8.0,
+    "max_side": 800.0,
+    "merge_ang_tol": 4.0,
+    "merge_collinear": 1,
+    "merge_gap_tol": 20.0,
+    "merge_line_tol": 3.0,
+    "min_area": 900.0,
+    "min_side": 15.0,
+    "ortho_tol": 20.0,
+    "use_centerline": 1
+  },
+  "dist_values": [
+    3,
+    5,
+    8,
+    12
+  ],
+  "results": {
+    "baseline(hue<=10)": {
+      "det": 590,
+      "per_D": {
+        "3": {
+          "tp": 213,
+          "fn": 908,
+          "raw_fp": 377,
+          "true_fp": 367,
+          "real_unlabeled": 10,
+          "recall": 19.0,
+          "precision": 36.7,
+          "corrected_f1": 25.0
+        },
+        "5": {
+          "tp": 336,
+          "fn": 785,
+          "raw_fp": 254,
+          "true_fp": 244,
+          "real_unlabeled": 10,
+          "recall": 30.0,
+          "precision": 57.9,
+          "corrected_f1": 39.5
+        },
+        "8": {
+          "tp": 397,
+          "fn": 724,
+          "raw_fp": 193,
+          "true_fp": 183,
+          "real_unlabeled": 10,
+          "recall": 35.4,
+          "precision": 68.4,
+          "corrected_f1": 46.7
+        },
+        "12": {
+          "tp": 413,
+          "fn": 708,
+          "raw_fp": 177,
+          "true_fp": 167,
+          "real_unlabeled": 10,
+          "recall": 36.8,
+          "precision": 71.2,
+          "corrected_f1": 48.6
+        }
+      }
+    },
+    "hue<=8": {
+      "det": 653,
+      "per_D": {
+        "3": {
+          "tp": 424,
+          "fn": 697,
+          "raw_fp": 229,
+          "true_fp": 218,
+          "real_unlabeled": 11,
+          "recall": 37.8,
+          "precision": 66.0,
+          "corrected_f1": 48.1
+        },
+        "5": {
+          "tp": 549,
+          "fn": 572,
+          "raw_fp": 104,
+          "true_fp": 95,
+          "real_unlabeled": 9,
+          "recall": 49.0,
+          "precision": 85.2,
+          "corrected_f1": 62.2
+        },
+        "8": {
+          "tp": 560,
+          "fn": 561,
+          "raw_fp": 93,
+          "true_fp": 84,
+          "real_unlabeled": 9,
+          "recall": 50.0,
+          "precision": 87.0,
+          "corrected_f1": 63.5
+        },
+        "12": {
+          "tp": 562,
+          "fn": 559,
+          "raw_fp": 91,
+          "true_fp": 82,
+          "real_unlabeled": 9,
+          "recall": 50.1,
+          "precision": 87.3,
+          "corrected_f1": 63.7
+        }
+      }
+    },
+    "hue<=6": {
+      "det": 682,
+      "per_D": {
+        "3": {
+          "tp": 523,
+          "fn": 598,
+          "raw_fp": 159,
+          "true_fp": 148,
+          "real_unlabeled": 11,
+          "recall": 46.7,
+          "precision": 77.9,
+          "corrected_f1": 58.4
+        },
+        "5": {
+          "tp": 589,
+          "fn": 532,
+          "raw_fp": 93,
+          "true_fp": 83,
+          "real_unlabeled": 10,
+          "recall": 52.5,
+          "precision": 87.6,
+          "corrected_f1": 65.7
+        },
+        "8": {
+          "tp": 597,
+          "fn": 524,
+          "raw_fp": 85,
+          "true_fp": 75,
+          "real_unlabeled": 10,
+          "recall": 53.3,
+          "precision": 88.8,
+          "corrected_f1": 66.6
+        },
+        "12": {
+          "tp": 598,
+          "fn": 523,
+          "raw_fp": 84,
+          "true_fp": 74,
+          "real_unlabeled": 10,
+          "recall": 53.3,
+          "precision": 89.0,
+          "corrected_f1": 66.7
+        }
+      }
+    },
+    "hue<=4": {
+      "det": 669,
+      "per_D": {
+        "3": {
+          "tp": 544,
+          "fn": 577,
+          "raw_fp": 125,
+          "true_fp": 115,
+          "real_unlabeled": 10,
+          "recall": 48.5,
+          "precision": 82.5,
+          "corrected_f1": 61.1
+        },
+        "5": {
+          "tp": 580,
+          "fn": 541,
+          "raw_fp": 89,
+          "true_fp": 80,
+          "real_unlabeled": 9,
+          "recall": 51.7,
+          "precision": 87.9,
+          "corrected_f1": 65.1
+        },
+        "8": {
+          "tp": 588,
+          "fn": 533,
+          "raw_fp": 81,
+          "true_fp": 72,
+          "real_unlabeled": 9,
+          "recall": 52.5,
+          "precision": 89.1,
+          "corrected_f1": 66.0
+        },
+        "12": {
+          "tp": 590,
+          "fn": 531,
+          "raw_fp": 79,
+          "true_fp": 70,
+          "real_unlabeled": 9,
+          "recall": 52.6,
+          "precision": 89.4,
+          "corrected_f1": 66.3
+        }
+      }
+    }
+  }
+}

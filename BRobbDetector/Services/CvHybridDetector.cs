@@ -6,35 +6,59 @@ using OpenCvSharp;
 namespace BRobbDetector.Services;
 
 /// <summary>
-/// Classical-CV hybrid quad detector — C# port of proto/cv_hybrid.py with the
-/// pm_v5 admission filter (proto/cv_scope6.py variant o15_ba).
+/// Classical-CV quad detector — C# port of proto/cv_hybrid.py (edgefit family).
 ///
-/// Pipeline: red HSV mask -> min-area denoise -> outer contours -> for each
-/// contour extract 3 quad candidates (hull+adaptive-approx, edgefit
-/// sector+TLS-line-intersection, mar minAreaRect) -> side+orthogonality
-/// admission filter -> keep-order IoU dedup -> priority union hull->edgefit->mar.
+/// Pipeline: red HSV mask -> min-area denoise -> outer contours -> per contour
+/// extract an edgefit quad (sector corners + adjacent-side TLS line
+/// intersection) -> side+orthogonality admission filter -> keep-order IoU dedup.
 ///
-/// Frozen pm_v5 point-match result (500 imgs / 746 GT): D=3 490, D=5 502,
-/// D=8 517, D=12 524, corr_f1@D=5 71.3. Selected via DetectionMethod == "cvhybrid".
+/// Re-based on 2026-10-20 against the TRUE hand-drawn GT
+/// (E:\Xray\CARS\data\Label@CARS_202609_raw, the red annotation burned into
+/// Image@CARS_202609_annotated).  The previous pm_v5_2 numbers were measured
+/// against Compare-V1@CARS_202609_annotated, a machine artifact (see
+/// benchmark/gt_final.json), so they were re-measured:
+///
+///   C# cvhybrid, 500 imgs / 1121 GT boxes, point match:
+///     before (hue<=10, hull->edgefit->mar, min_area 1500, dedup 0.75):
+///         D=3 171/16.6  D=5 260/25.2  D=8 320/31.1  D=12 365/35.4
+///     after  (hue<=5, edgefit only, min_area 900, dedup 0.30, ortho_tol 10):
+///         D=3 547/62.8  D=5 592/67.9  D=8 598/68.6  D=12 601/69.0
+///
+/// Selected via DetectionMethod == "cvhybrid".
 /// </summary>
 public static class CvHybridDetector
 {
     // red_mask thresholds (proto/common.py::red_mask)
     private const int SatMin = 80;
     private const int ValMin = 110;
+    // Hue window of the hand-drawn annotation.  The annotation is pure red
+    // (hue 0-4 for ~85% of its pixels) while the orange/red X-ray object
+    // texture sits at hue 9-10; a wide window floods the mask with object
+    // pixels.  Validated in proto/scope38_hue_sweep.py against the TRUE GT
+    // (Label@CARS_202609_raw): hue<=5 lifts the point-match score from
+    // 336 TP / 39.5 corr_f1 to 593 TP / 66.0 corr_f1 at D=5.
+    private const int HueHigh = 5;
 
-    // pm_v5_2 config (LOOP-31 optimized: proto/promote_pm_v5_2.py)
+    // Detector config (proto/scope38_hue_sweep.py + proto/scope39_ablation.py,
+    // measured against the TRUE GT Label@CARS_202609_raw).
     private const double DenoiseMinArea = 40.0;
-    private const double MinArea = 1500.0;
+    private const double MinArea = 900.0;
     private const double MinSide = 15.0;
     private const double MaxSide = 800.0;
     private const double MaxAspect = 12.0;
-    private const double OrthoTol = 20.0;
-    private const double BoundaryBand = 20.0;
-    private const double DedupIou = 0.75;
+    // Orthogonality gate tolerance.  10 deg keeps the point-match score and
+    // raises precision (625 vs 687 detections, corr_f1 67.9 vs 66.0) while
+    // tightening the "adjacent edges are orthogonal" rule.
+    private const double OrthoTol = 10.0;
+    private const double BoundaryBand = 6.0;
+    private const double DedupIou = 0.30;
     private const double FitBand = 6.0;
     private const int FitMinPts = 12;
     private const double FitJump = 20.0;
+    // The hull / minAreaRect families are kept for reference but are not
+    // emitted: the keep-order IoU dedup let their cruder quads displace the
+    // accurate edgefit ones (union 553 TP / 57.4 vs edgefit only 593 / 66.0).
+    private static readonly bool IncludeFallbackFamilies = false;
     private static readonly double[] ApproxEpsList = { 0.01, 0.02, 0.03, 0.05, 0.08, 0.12, 0.18 };
 
     public static List<DetectedBox> Detect(Mat image)
@@ -53,19 +77,21 @@ public static class CvHybridDetector
         var marQuads = new List<Point[]>();
         foreach (var c in contours)
         {
-            AddPassed(hullQuads, AdaptiveApprox(ConvexHull(c)), W, H);
             AddPassed(edgeQuads, EdgefitCorners(c), W, H);
+            if (!IncludeFallbackFamilies) continue;
+            AddPassed(hullQuads, AdaptiveApprox(ConvexHull(c)), W, H);
             AddPassed(marQuads, MarQuad(c), W, H);
         }
 
-        var hullDedup = DedupKeepOrder(hullQuads, DedupIou);
         var edgeDedup = DedupKeepOrder(edgeQuads, DedupIou);
-        var marDedup = DedupKeepOrder(marQuads, DedupIou);
-
-        var union = new List<Point[]>(hullDedup);
-        union.AddRange(edgeDedup);
-        union.AddRange(marDedup);
-        var hy = DedupKeepOrder(union, DedupIou);
+        List<Point[]> hy = edgeDedup;
+        if (IncludeFallbackFamilies)
+        {
+            var union = new List<Point[]>(edgeDedup);
+            union.AddRange(DedupKeepOrder(hullQuads, DedupIou));
+            union.AddRange(DedupKeepOrder(marQuads, DedupIou));
+            hy = DedupKeepOrder(union, DedupIou);
+        }
 
         foreach (var q in hy)
         {
@@ -88,7 +114,7 @@ public static class CvHybridDetector
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
         using var m1 = new Mat();
         using var m2 = new Mat();
-        Cv2.InRange(hsv, new Scalar(0, SatMin, ValMin), new Scalar(10, 255, 255), m1);
+        Cv2.InRange(hsv, new Scalar(0, SatMin, ValMin), new Scalar(HueHigh, 255, 255), m1);
         Cv2.InRange(hsv, new Scalar(170, SatMin, ValMin), new Scalar(180, 255, 255), m2);
         var mask = new Mat();
         Cv2.BitwiseOr(m1, m2, mask);

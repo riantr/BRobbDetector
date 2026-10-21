@@ -5,9 +5,16 @@ import cv2
 
 DATA = r"E:\Xray\CARS\data"
 IMG = os.path.join(DATA, "Image@CARS_202609_annotated")
-# Ground truth. NOTE: "Label@CARS_202609_annotated" was overwritten by a detector
-# run and no longer holds GT; the benchmark GT lives in "Compare-V1@...".
-LAB = os.path.join(DATA, "Compare-V1@CARS_202609_annotated")
+# Ground truth = the hand-drawn annotations.
+#   "Label@CARS_202609_raw"        -> TRUE hand-drawn GT (UTF-8 BOM, read with utf-8-sig)
+#   "Label@CARS_202609_annotated"  -> detector output, never GT
+#   "Compare-V1@CARS_202609_annotated" / "Compare@..." -> machine artifacts, never GT
+# Proof (proto/gt_arbitration.py, benchmark/gt_arbitration.json): the raw label
+# geometry is literally the red rectangle burned into Image@CARS_202609_annotated
+# (97.4% of raw boxes have >=0.8 red-line support in the input image, vs 49% for
+# Compare-V1 / Compare / detector output).  Its box counts also match the
+# annotation CSV (mean error +0.13 vs -0.62 for Compare-V1).
+LAB = os.path.join(DATA, "Label@CARS_202609_raw")
 
 
 def load_expected():

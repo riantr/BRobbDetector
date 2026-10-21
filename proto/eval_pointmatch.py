@@ -202,7 +202,7 @@ def load_boxes(d, iid):
     path = os.path.join(d, iid + ".json")
     if not os.path.exists(path):
         return []
-    with open(path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8-sig") as f:
         return [parse_points(i["points"]) for i in json.load(f).get("infos", [])]
 
 

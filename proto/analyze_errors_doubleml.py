@@ -34,7 +34,7 @@ def load_gt_boxes(image_id):
     path = os.path.join(LAB, image_id + ".json")
     if not os.path.exists(path):
         return []
-    with open(path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8-sig") as f:
         data = json.load(f)
     return [parse_points(info["points"]) for info in data.get("infos", [])]
 
@@ -43,7 +43,7 @@ def load_det_boxes(image_id):
     path = os.path.join(OUT_DIR, image_id + ".json")
     if not os.path.exists(path):
         return []
-    with open(path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8-sig") as f:
         data = json.load(f)
     return [parse_points(info["points"]) for info in data.get("infos", [])]
 
