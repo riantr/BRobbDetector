@@ -1,0 +1,54 @@
+[
+ {
+  "name": "base",
+  "cfg": ""
+ },
+ {
+  "name": "ms14",
+  "cfg": "hole_min_side=14"
+ },
+ {
+  "name": "fit2",
+  "cfg": "hole_fit_pass=2"
+ },
+ {
+  "name": "refine3",
+  "cfg": "hole_refine=1,hole_refine_band=3.0"
+ },
+ {
+  "name": "refine3_tol30",
+  "cfg": "hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0"
+ },
+ {
+  "name": "ms14_fit2",
+  "cfg": "hole_min_side=14,hole_fit_pass=2"
+ },
+ {
+  "name": "ms14_fit2_refine3",
+  "cfg": "hole_min_side=14,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0"
+ },
+ {
+  "name": "WINNER",
+  "cfg": "hole_min_side=14,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0"
+ },
+ {
+  "name": "WINNER_sup60",
+  "cfg": "hole_min_side=14,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0,min_red_support=0.6"
+ },
+ {
+  "name": "WINNER_ms13",
+  "cfg": "hole_min_side=13,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0"
+ },
+ {
+  "name": "WINNER_band2",
+  "cfg": "hole_min_side=14,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0,hole_band=2.0"
+ },
+ {
+  "name": "sup60_ref",
+  "cfg": "min_red_support=0.6"
+ },
+ {
+  "name": "sup70_ref",
+  "cfg": "min_red_support=0.7"
+ }
+]

@@ -61,20 +61,34 @@ def main():
     check("mild quad accepted at tol=15 (by design)", ok15, True)
     check("mild quad rejected at tol=5", ok5, False)
 
-    print("\nD) image-boundary waiver")
+    print("\nD) a vertex on the image edge invalidates the rectangle")
     # rect whose left corners sit exactly on x=0
     border = np.array([[0, 100], [120, 100], [120, 200], [0, 200]], float)
-    check("rect with 2 corners on left edge", is_orthogonal_quad(border, W, H), True)
-    # clipped box: 3 corners on boundary, 1 interior orthogonal
+    check("rect with 2 corners on left edge -> invalid",
+          is_orthogonal_quad(border, W, H), False)
+    # clipped box: 2 corners at the image corner
     clip3 = np.array([[0, 0], [100, 0], [100, 80], [0, 80]], float)
-    check("rect with 2 corners at image corner", is_orthogonal_quad(clip3, W, H), True)
+    check("rect with 2 corners at image corner -> invalid",
+          is_orthogonal_quad(clip3, W, H), False)
+    # a single vertex on the edge is enough
+    one = np.array([[0, 100], [120, 100], [120, 200], [1, 200]], float)
+    check("rect with 1 corner on the edge -> invalid",
+          is_orthogonal_quad(one, W, H), False)
+    # 1 px inside the edge is still valid
+    inside = np.array([[1, 100], [120, 100], [120, 200], [1, 200]], float)
+    check("rect 1px inside the edge -> valid",
+          is_orthogonal_quad(inside, W, H), True)
+    # the outermost pixel ring on the right / bottom counts as well
+    right = np.array([[W - 1, 100], [W - 1, 200], [W - 1, 200], [600, 100]], float)
+    check("rect on the right edge -> invalid",
+          is_orthogonal_quad(right, W, H), False)
     # non-orthogonal interior corner + boundary corners -> reject
     bad_clip = np.array([[0, 0], [100, 0], [140, 80], [0, 80]], float)  # corner(2) not 90
     check("clipped but interior corner not 90 -> reject",
           is_orthogonal_quad(bad_clip, W, H), False)
-    # all four corners on boundary -> waived (accept)
+    # all four corners on boundary -> invalid
     allb = np.array([[0, 0], [W, 0], [W, H], [0, H]], float)
-    check("all corners on boundary -> waived", is_orthogonal_quad(allb, W, H), True)
+    check("all corners on boundary -> invalid", is_orthogonal_quad(allb, W, H), False)
 
     print("\nE) degenerate input")
     check("duplicate corner rejected",

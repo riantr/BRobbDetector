@@ -410,9 +410,11 @@ public static class CliRunner
         Check("strong trapezoid", isOrth(new[] { new Point2f(100, 100), new Point2f(220, 100), new Point2f(180, 180), new Point2f(140, 180) }, W, H), false);
         Check("rhombus (60deg)", isOrth(new[] { new Point2f(100, 100), new Point2f(180, 100), new Point2f(220, 170), new Point2f(140, 170) }, W, H), false);
         Check("moved corner", isOrth(new[] { new Point2f(0, 0), new Point2f(100, 40), new Point2f(100, 60), new Point2f(0, 60) }, W, H), false);
-        Check("2 corners on left edge (waived)", isOrth(new[] { new Point2f(0, 100), new Point2f(120, 100), new Point2f(120, 200), new Point2f(0, 200) }, W, H), true);
+        Check("2 corners on left edge -> invalid", isOrth(new[] { new Point2f(0, 100), new Point2f(120, 100), new Point2f(120, 200), new Point2f(0, 200) }, W, H), false);
+        Check("1 vertex on left edge -> invalid", isOrth(new[] { new Point2f(0, 100), new Point2f(120, 100), new Point2f(120, 200), new Point2f(1, 200) }, W, H), false);
+        Check("vertex 1px inside the edge -> valid", isOrth(new[] { new Point2f(1, 100), new Point2f(120, 100), new Point2f(120, 200), new Point2f(1, 200) }, W, H), true);
         Check("clipped + interior not 90 -> reject", isOrth(new[] { new Point2f(0, 0), new Point2f(100, 0), new Point2f(140, 80), new Point2f(0, 80) }, W, H), false);
-        Check("all corners on boundary (waived)", isOrth(new[] { new Point2f(0, 0), new Point2f(W, 0), new Point2f(W, H), new Point2f(0, H) }, W, H), true);
+        Check("all corners on boundary -> invalid", isOrth(new[] { new Point2f(0, 0), new Point2f(W, 0), new Point2f(W, H), new Point2f(0, H) }, W, H), false);
         Check("duplicate corner", isOrth(new[] { new Point2f(10, 10), new Point2f(10, 10), new Point2f(50, 10), new Point2f(50, 50) }, W, H), false);
         Check("mild quad tol15 (accepted)", isOrth(new[] { new Point2f(100, 100), new Point2f(200, 100), new Point2f(180, 180), new Point2f(120, 180) }, W, H, 15), true);
         Check("mild quad tol5 (rejected)", isOrth(new[] { new Point2f(100, 100), new Point2f(200, 100), new Point2f(180, 180), new Point2f(120, 180) }, W, H, 5), false);

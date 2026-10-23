@@ -1,0 +1,40 @@
+{
+  "generated": "2026-10-22 16:15:31",
+  "source_dir": "E:\\Xray\\CARailwaySciences\\Image@Xray.CARS.202505",
+  "n_source_images": 2549,
+  "n_images": 400,
+  "n_boxes": 812,
+  "boxes_per_image": {
+    "1": 144,
+    "2": 139,
+    "3": 78,
+    "4": 39
+  },
+  "boxes_per_color": {
+    "绿": 289,
+    "蓝": 238,
+    "红": 285
+  },
+  "side_min": 26.0,
+  "side_max": 292.8,
+  "side_mean": 117.5,
+  "boxes_at_size_floor": 802,
+  "size_range_requested": [
+    100.0,
+    400.0
+  ],
+  "size_pool": "benchmark/real_gt_size_pool.json",
+  "support_pool": "",
+  "stroke_model": "wobbly",
+  "recipe_pool": "benchmark/real_gt_recipe.json",
+  "overshoot": 3.0,
+  "label_prob": 0.7,
+  "arrow_prob": 0.4,
+  "min_coverage": 0.5,
+  "min_gap": 8.0,
+  "jpeg_quality": 95,
+  "seed": 20261030,
+  "elapsed_sec": 9.4,
+  "out_img": "D:\\src\\CodeArts\\BRobbDetector\\data\\Image@calib_furn_a40",
+  "out_lab": "D:\\src\\CodeArts\\BRobbDetector\\data\\Label@calib_furn_a40"
+}

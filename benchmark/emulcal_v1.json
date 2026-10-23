@@ -1,0 +1,131 @@
+{
+  "n_images": 800,
+  "n_gt": 1603,
+  "colors": [
+    "red"
+  ],
+  "img_dir": "data/Image@emulcal",
+  "params": {
+    "hue_max": 4,
+    "sat_min": 100,
+    "val_min": 140,
+    "denoise_min_area": 40,
+    "min_area": 300.0,
+    "min_side": 12.0,
+    "max_side": 800.0,
+    "max_aspect": 12.0,
+    "ortho_tol": 10.0,
+    "edge_band": 0.0,
+    "dedup_iou": 0.3,
+    "fit_band": 8.0,
+    "fit_min_pts": 12,
+    "fit_jump": 20.0
+  },
+  "hole_cfg": {
+    "hole_scan": 16.0,
+    "hole_fill": 0.55,
+    "hole_min_side": 8.0,
+    "hole_min_comp_area": 60.0,
+    "hole_expand": 2.7,
+    "band_frac": 0.5,
+    "hole_band": 3.0,
+    "hole_pts": 12,
+    "hole_fit_pass": 0,
+    "hole_fit_tol": 1.5,
+    "hole_overshoot": 0.06,
+    "min_red_support": 0.5,
+    "hole_group_fill": 0.6,
+    "hole_group_mode": "off",
+    "hole_quad_mode": "v1",
+    "hole_off": 2.0,
+    "hole_contour_frac": 0.08,
+    "hole_contour_pts": 8,
+    "hole_refine": 0,
+    "hole_refine_band": 4.0
+  },
+  "pipe": {
+    "strategy": "both",
+    "ortho": "ortho_edge",
+    "gate_first": 1,
+    "dedup_iou": 0.4
+  },
+  "views": {
+    "red": {
+      "ndet": 520,
+      "ngt": 537,
+      "per_D": {
+        "3": {
+          "tp": 206,
+          "fp": 314,
+          "fn": 331,
+          "recall": 38.36,
+          "precision": 39.62,
+          "f1": 38.98
+        },
+        "5": {
+          "tp": 453,
+          "fp": 67,
+          "fn": 84,
+          "recall": 84.36,
+          "precision": 87.12,
+          "f1": 85.71
+        },
+        "8": {
+          "tp": 517,
+          "fp": 3,
+          "fn": 20,
+          "recall": 96.28,
+          "precision": 99.42,
+          "f1": 97.82
+        },
+        "12": {
+          "tp": 520,
+          "fp": 0,
+          "fn": 17,
+          "recall": 96.83,
+          "precision": 100.0,
+          "f1": 98.39
+        }
+      }
+    },
+    "UNION": {
+      "ndet": 520,
+      "ngt": 1603,
+      "per_D": {
+        "3": {
+          "tp": 206,
+          "fp": 314,
+          "fn": 1397,
+          "recall": 12.85,
+          "precision": 39.62,
+          "f1": 19.41
+        },
+        "5": {
+          "tp": 453,
+          "fp": 67,
+          "fn": 1150,
+          "recall": 28.26,
+          "precision": 87.12,
+          "f1": 42.68
+        },
+        "8": {
+          "tp": 517,
+          "fp": 3,
+          "fn": 1086,
+          "recall": 32.25,
+          "precision": 99.42,
+          "f1": 48.7
+        },
+        "12": {
+          "tp": 520,
+          "fp": 0,
+          "fn": 1083,
+          "recall": 32.44,
+          "precision": 100.0,
+          "f1": 48.99
+        }
+      }
+    }
+  },
+  "elapsed_sec": 2.6
+}

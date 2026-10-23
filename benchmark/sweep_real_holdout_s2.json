@@ -1,0 +1,186 @@
+[
+ {
+  "name": "pm_v10_base",
+  "cfg": "",
+  "pipe": "",
+  "sec": 18.0,
+  "ndet": 1097,
+  "ngt": 1150,
+  "per_D": {
+   "3": {
+    "tp": 865,
+    "raw_fp": 232,
+    "true_fp": 200,
+    "real_unl": 32,
+    "recall": 75.2,
+    "precision": 81.2,
+    "corrected_f1": 78.1
+   },
+   "5": {
+    "tp": 911,
+    "raw_fp": 186,
+    "true_fp": 161,
+    "real_unl": 25,
+    "recall": 79.2,
+    "precision": 85.0,
+    "corrected_f1": 82.0
+   },
+   "8": {
+    "tp": 937,
+    "raw_fp": 160,
+    "true_fp": 140,
+    "real_unl": 20,
+    "recall": 81.5,
+    "precision": 87.0,
+    "corrected_f1": 84.1
+   },
+   "12": {
+    "tp": 959,
+    "raw_fp": 138,
+    "true_fp": 120,
+    "real_unl": 18,
+    "recall": 83.4,
+    "precision": 88.9,
+    "corrected_f1": 86.0
+   }
+  }
+ },
+ {
+  "name": "pm_v10_sup60",
+  "cfg": "min_red_support=0.6",
+  "pipe": "",
+  "sec": 17.1,
+  "ndet": 1089,
+  "ngt": 1150,
+  "per_D": {
+   "3": {
+    "tp": 866,
+    "raw_fp": 223,
+    "true_fp": 192,
+    "real_unl": 31,
+    "recall": 75.3,
+    "precision": 81.9,
+    "corrected_f1": 78.4
+   },
+   "5": {
+    "tp": 910,
+    "raw_fp": 179,
+    "true_fp": 154,
+    "real_unl": 25,
+    "recall": 79.1,
+    "precision": 85.5,
+    "corrected_f1": 82.2
+   },
+   "8": {
+    "tp": 936,
+    "raw_fp": 153,
+    "true_fp": 133,
+    "real_unl": 20,
+    "recall": 81.4,
+    "precision": 87.6,
+    "corrected_f1": 84.4
+   },
+   "12": {
+    "tp": 957,
+    "raw_fp": 132,
+    "true_fp": 114,
+    "real_unl": 18,
+    "recall": 83.2,
+    "precision": 89.4,
+    "corrected_f1": 86.2
+   }
+  }
+ },
+ {
+  "name": "pm_v9_base",
+  "cfg": "hole_min_side=8,hole_fit_pass=0,hole_refine=0,hole_refine_band=4.0,hole_refine_tol=2.0",
+  "pipe": "",
+  "sec": 17.0,
+  "ndet": 1127,
+  "ngt": 1150,
+  "per_D": {
+   "3": {
+    "tp": 864,
+    "raw_fp": 263,
+    "true_fp": 222,
+    "real_unl": 41,
+    "recall": 75.1,
+    "precision": 79.6,
+    "corrected_f1": 77.3
+   },
+   "5": {
+    "tp": 914,
+    "raw_fp": 213,
+    "true_fp": 178,
+    "real_unl": 35,
+    "recall": 79.5,
+    "precision": 83.7,
+    "corrected_f1": 81.5
+   },
+   "8": {
+    "tp": 939,
+    "raw_fp": 188,
+    "true_fp": 158,
+    "real_unl": 30,
+    "recall": 81.7,
+    "precision": 85.6,
+    "corrected_f1": 83.6
+   },
+   "12": {
+    "tp": 960,
+    "raw_fp": 167,
+    "true_fp": 139,
+    "real_unl": 28,
+    "recall": 83.5,
+    "precision": 87.4,
+    "corrected_f1": 85.4
+   }
+  }
+ },
+ {
+  "name": "pm_v9_sup60",
+  "cfg": "hole_min_side=8,hole_fit_pass=0,hole_refine=0,hole_refine_band=4.0,hole_refine_tol=2.0,min_red_support=0.6",
+  "pipe": "",
+  "sec": 17.5,
+  "ndet": 1113,
+  "ngt": 1150,
+  "per_D": {
+   "3": {
+    "tp": 863,
+    "raw_fp": 250,
+    "true_fp": 212,
+    "real_unl": 38,
+    "recall": 75.0,
+    "precision": 80.3,
+    "corrected_f1": 77.6
+   },
+   "5": {
+    "tp": 912,
+    "raw_fp": 201,
+    "true_fp": 169,
+    "real_unl": 32,
+    "recall": 79.3,
+    "precision": 84.4,
+    "corrected_f1": 81.8
+   },
+   "8": {
+    "tp": 936,
+    "raw_fp": 177,
+    "true_fp": 149,
+    "real_unl": 28,
+    "recall": 81.4,
+    "precision": 86.3,
+    "corrected_f1": 83.8
+   },
+   "12": {
+    "tp": 957,
+    "raw_fp": 156,
+    "true_fp": 130,
+    "real_unl": 26,
+    "recall": 83.2,
+    "precision": 88.0,
+    "corrected_f1": 85.6
+   }
+  }
+ }
+]

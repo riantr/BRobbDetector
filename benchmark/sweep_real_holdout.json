@@ -1,0 +1,18 @@
+[
+ {
+  "name": "pm_v10_base",
+  "cfg": ""
+ },
+ {
+  "name": "pm_v10_sup60",
+  "cfg": "min_red_support=0.6"
+ },
+ {
+  "name": "pm_v9_base",
+  "cfg": "hole_min_side=8,hole_fit_pass=0,hole_refine=0,hole_refine_band=4.0,hole_refine_tol=2.0"
+ },
+ {
+  "name": "pm_v9_sup60",
+  "cfg": "hole_min_side=8,hole_fit_pass=0,hole_refine=0,hole_refine_band=4.0,hole_refine_tol=2.0,min_red_support=0.6"
+ }
+]

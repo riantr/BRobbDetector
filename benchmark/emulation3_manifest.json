@@ -1,0 +1,36 @@
+{
+  "generated": "2026-10-22 14:02:40",
+  "source_dir": "E:\\Xray\\CARailwaySciences\\Image@Xray.CARS.202505",
+  "n_source_images": 2549,
+  "n_images": 5000,
+  "n_boxes": 9881,
+  "boxes_per_image": {
+    "1": 1881,
+    "2": 1772,
+    "3": 932,
+    "4": 415
+  },
+  "boxes_per_color": {
+    "蓝": 3339,
+    "红": 3326,
+    "绿": 3216
+  },
+  "side_min": 23.8,
+  "side_max": 550.0,
+  "side_mean": 119.9,
+  "boxes_at_size_floor": 9815,
+  "size_range_requested": [
+    100.0,
+    400.0
+  ],
+  "size_pool": "benchmark/real_gt_size_pool.json",
+  "support_pool": "benchmark/real_gt_support_pool.json",
+  "overshoot": 3.0,
+  "min_coverage": 0.5,
+  "min_gap": 8.0,
+  "jpeg_quality": 95,
+  "seed": 20261024,
+  "elapsed_sec": 126.7,
+  "out_img": "data/Image@emulation3",
+  "out_lab": "data/Label@emulation3"
+}

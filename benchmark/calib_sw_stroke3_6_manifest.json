@@ -1,0 +1,38 @@
+{
+  "generated": "2026-10-22 15:00:30",
+  "source_dir": "E:\\Xray\\CARailwaySciences\\Image@Xray.CARS.202505",
+  "n_source_images": 2549,
+  "n_images": 300,
+  "n_boxes": 606,
+  "boxes_per_image": {
+    "1": 111,
+    "2": 101,
+    "3": 59,
+    "4": 29
+  },
+  "boxes_per_color": {
+    "绿": 225,
+    "蓝": 182,
+    "红": 199
+  },
+  "side_min": 26.0,
+  "side_max": 268.5,
+  "side_mean": 116.5,
+  "boxes_at_size_floor": 596,
+  "size_range_requested": [
+    100.0,
+    400.0
+  ],
+  "size_pool": "benchmark/real_gt_size_pool.json",
+  "support_pool": "",
+  "stroke_model": "wobbly",
+  "recipe_pool": "benchmark/real_gt_recipe.json",
+  "overshoot": 3.0,
+  "min_coverage": 0.5,
+  "min_gap": 8.0,
+  "jpeg_quality": 95,
+  "seed": 20261030,
+  "elapsed_sec": 11.7,
+  "out_img": "D:\\src\\CodeArts\\BRobbDetector\\data\\Image@calib_sw_stroke3_6",
+  "out_lab": "D:\\src\\CodeArts\\BRobbDetector\\data\\Label@calib_sw_stroke3_6"
+}

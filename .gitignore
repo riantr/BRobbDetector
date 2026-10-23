@@ -33,3 +33,17 @@ result/
 # Benchmark run logs / scratch DBs (evidence kept locally, not in the repo)
 benchmark/*.log
 benchmark/*.db
+# Scratch files at the repo root (run logs, debug images, one-off probes)
+tmp_*.log
+tmp_*.png
+tmp_*.py
+
+# Large regenerable analysis artifacts (rebuild with proto/dml_panel.py)
+benchmark/dml_panel_*.json
+benchmark/dml_boxlevel_panel.json
+benchmark/scope52_scores.json
+benchmark/scope67_cache.pkl
+benchmark/_tmp_*.json
+benchmark/real_gt_size_pool.json
+benchmark/emul4_qc.json
+

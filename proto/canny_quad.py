@@ -57,11 +57,11 @@ DEFAULT = {
 def denoise(mask, min_area):
     """Keep only red connected components with area >= min_area."""
     n, lab, stats, _ = cv2.connectedComponentsWithStats(mask, 8)
-    keep = np.zeros_like(mask)
-    for i in range(1, n):
-        if stats[i, 4] >= min_area:
-            keep[lab == i] = 255
-    return keep
+    if n <= 1:
+        return np.zeros_like(mask)
+    keep = np.zeros(n, np.uint8)
+    keep[1:] = np.where(stats[1:, 4] >= min_area, 255, 0)
+    return keep[lab]
 
 
 # ---------------- step 1: Canny line search ----------------

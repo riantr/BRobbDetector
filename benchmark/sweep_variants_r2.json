@@ -1,0 +1,150 @@
+[
+ {
+  "name": "base"
+ },
+ {
+  "name": "sup=0.55",
+  "cfg": "min_red_support=0.55",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.6",
+  "cfg": "min_red_support=0.6",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.65",
+  "cfg": "min_red_support=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.7",
+  "cfg": "min_red_support=0.7",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.75",
+  "cfg": "min_red_support=0.75",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.8",
+  "cfg": "min_red_support=0.8",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.85",
+  "cfg": "min_red_support=0.85",
+  "pipe": ""
+ },
+ {
+  "name": "v2",
+  "cfg": "hole_quad_mode=v2",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.55",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.55",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.6",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.6",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.65",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.7",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.7",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.75",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.75",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.6+band4",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.6,hole_band=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.6+fill65",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.6,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.6+b4+f65",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.6,hole_band=4.0,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.6+band4",
+  "cfg": "min_red_support=0.6,hole_band=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.6+fill65",
+  "cfg": "min_red_support=0.6,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.6+b4+f65",
+  "cfg": "min_red_support=0.6,hole_band=4.0,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.6+refine3",
+  "cfg": "min_red_support=0.6,hole_refine=1,hole_refine_band=3.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.6+fit1",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.6,hole_fit_pass=1",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.7+band4",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.7,hole_band=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.7+fill65",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.7,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.7+b4+f65",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.7,hole_band=4.0,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.7+band4",
+  "cfg": "min_red_support=0.7,hole_band=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.7+fill65",
+  "cfg": "min_red_support=0.7,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.7+b4+f65",
+  "cfg": "min_red_support=0.7,hole_band=4.0,hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "sup=0.7+refine3",
+  "cfg": "min_red_support=0.7,hole_refine=1,hole_refine_band=3.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2+sup=0.7+fit1",
+  "cfg": "hole_quad_mode=v2,min_red_support=0.7,hole_fit_pass=1",
+  "pipe": ""
+ }
+]

@@ -1,0 +1,61 @@
+{
+  "mode": "sup",
+  "lr_cfg": {
+    "lr_angle_step": 1.0,
+    "lr_keep_angles": 4,
+    "lr_min_pixels": 6,
+    "lr_band": 2.5,
+    "lr_collinear_tol": 3.2,
+    "lr_ang_tol": 6.0,
+    "lr_max_lines": 14,
+    "lr_dup_ang": 3.0,
+    "lr_dup_dist": 3.0,
+    "lr_fam_tol": 4.0,
+    "lr_min_side": 12.0,
+    "lr_max_side": 800.0,
+    "lr_max_aspect": 12.0,
+    "lr_perim": 0.95,
+    "lr_interior": 0.4,
+    "lr_samples": 48.0
+  },
+  "det": 1459,
+  "total_gt": 1121,
+  "per_D": {
+    "3": {
+      "tp": 804,
+      "raw_fp": 655,
+      "true_fp": 576,
+      "real_unl": 79,
+      "recall": 71.7,
+      "precision": 58.3,
+      "corrected_f1": 64.3
+    },
+    "5": {
+      "tp": 891,
+      "raw_fp": 568,
+      "true_fp": 490,
+      "real_unl": 78,
+      "recall": 79.5,
+      "precision": 64.5,
+      "corrected_f1": 71.2
+    },
+    "8": {
+      "tp": 933,
+      "raw_fp": 526,
+      "true_fp": 453,
+      "real_unl": 73,
+      "recall": 83.2,
+      "precision": 67.3,
+      "corrected_f1": 74.4
+    },
+    "12": {
+      "tp": 955,
+      "raw_fp": 504,
+      "true_fp": 434,
+      "real_unl": 70,
+      "recall": 85.2,
+      "precision": 68.8,
+      "corrected_f1": 76.1
+    }
+  }
+}

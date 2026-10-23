@@ -1,0 +1,340 @@
+[
+ {
+  "name": "base"
+ },
+ {
+  "name": "expand=1.5",
+  "cfg": "hole_expand=1.5",
+  "pipe": ""
+ },
+ {
+  "name": "expand=2.0",
+  "cfg": "hole_expand=2.0",
+  "pipe": ""
+ },
+ {
+  "name": "expand=2.7",
+  "cfg": "hole_expand=2.7",
+  "pipe": ""
+ },
+ {
+  "name": "expand=3.5",
+  "cfg": "hole_expand=3.5",
+  "pipe": ""
+ },
+ {
+  "name": "expand=4.5",
+  "cfg": "hole_expand=4.5",
+  "pipe": ""
+ },
+ {
+  "name": "pts=8",
+  "cfg": "hole_pts=8",
+  "pipe": ""
+ },
+ {
+  "name": "pts=12",
+  "cfg": "hole_pts=12",
+  "pipe": ""
+ },
+ {
+  "name": "pts=16",
+  "cfg": "hole_pts=16",
+  "pipe": ""
+ },
+ {
+  "name": "pts=20",
+  "cfg": "hole_pts=20",
+  "pipe": ""
+ },
+ {
+  "name": "band=2.0",
+  "cfg": "hole_band=2.0",
+  "pipe": ""
+ },
+ {
+  "name": "band=3.0",
+  "cfg": "hole_band=3.0",
+  "pipe": ""
+ },
+ {
+  "name": "band=4.0",
+  "cfg": "hole_band=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "band=6.0",
+  "cfg": "hole_band=6.0",
+  "pipe": ""
+ },
+ {
+  "name": "scan=10",
+  "cfg": "hole_scan=10",
+  "pipe": ""
+ },
+ {
+  "name": "scan=16",
+  "cfg": "hole_scan=16",
+  "pipe": ""
+ },
+ {
+  "name": "scan=24",
+  "cfg": "hole_scan=24",
+  "pipe": ""
+ },
+ {
+  "name": "tol=1.0",
+  "cfg": "hole_fit_tol=1.0",
+  "pipe": ""
+ },
+ {
+  "name": "tol=1.5",
+  "cfg": "hole_fit_tol=1.5",
+  "pipe": ""
+ },
+ {
+  "name": "tol=2.5",
+  "cfg": "hole_fit_tol=2.5",
+  "pipe": ""
+ },
+ {
+  "name": "tol=4.0",
+  "cfg": "hole_fit_tol=4.0",
+  "pipe": ""
+ },
+ {
+  "name": "fitpass=1",
+  "cfg": "hole_fit_pass=1",
+  "pipe": ""
+ },
+ {
+  "name": "fitpass=2",
+  "cfg": "hole_fit_pass=2",
+  "pipe": ""
+ },
+ {
+  "name": "fitpass=3",
+  "cfg": "hole_fit_pass=3",
+  "pipe": ""
+ },
+ {
+  "name": "overshoot=0.02",
+  "cfg": "hole_overshoot=0.02",
+  "pipe": ""
+ },
+ {
+  "name": "overshoot=0.06",
+  "cfg": "hole_overshoot=0.06",
+  "pipe": ""
+ },
+ {
+  "name": "overshoot=0.12",
+  "cfg": "hole_overshoot=0.12",
+  "pipe": ""
+ },
+ {
+  "name": "fill=0.40",
+  "cfg": "hole_fill=0.40",
+  "pipe": ""
+ },
+ {
+  "name": "fill=0.45",
+  "cfg": "hole_fill=0.45",
+  "pipe": ""
+ },
+ {
+  "name": "fill=0.55",
+  "cfg": "hole_fill=0.55",
+  "pipe": ""
+ },
+ {
+  "name": "fill=0.65",
+  "cfg": "hole_fill=0.65",
+  "pipe": ""
+ },
+ {
+  "name": "fill=0.75",
+  "cfg": "hole_fill=0.75",
+  "pipe": ""
+ },
+ {
+  "name": "minside=6",
+  "cfg": "hole_min_side=6",
+  "pipe": ""
+ },
+ {
+  "name": "minside=8",
+  "cfg": "hole_min_side=8",
+  "pipe": ""
+ },
+ {
+  "name": "minside=12",
+  "cfg": "hole_min_side=12",
+  "pipe": ""
+ },
+ {
+  "name": "minside=16",
+  "cfg": "hole_min_side=16",
+  "pipe": ""
+ },
+ {
+  "name": "comparea=30",
+  "cfg": "hole_min_comp_area=30",
+  "pipe": ""
+ },
+ {
+  "name": "comparea=60",
+  "cfg": "hole_min_comp_area=60",
+  "pipe": ""
+ },
+ {
+  "name": "comparea=120",
+  "cfg": "hole_min_comp_area=120",
+  "pipe": ""
+ },
+ {
+  "name": "comparea=300",
+  "cfg": "hole_min_comp_area=300",
+  "pipe": ""
+ },
+ {
+  "name": "support=0.3",
+  "cfg": "min_red_support=0.3",
+  "pipe": ""
+ },
+ {
+  "name": "support=0.4",
+  "cfg": "min_red_support=0.4",
+  "pipe": ""
+ },
+ {
+  "name": "support=0.5",
+  "cfg": "min_red_support=0.5",
+  "pipe": ""
+ },
+ {
+  "name": "support=0.6",
+  "cfg": "min_red_support=0.6",
+  "pipe": ""
+ },
+ {
+  "name": "support=0.7",
+  "cfg": "min_red_support=0.7",
+  "pipe": ""
+ },
+ {
+  "name": "frac=0.3",
+  "cfg": "band_frac=0.3",
+  "pipe": ""
+ },
+ {
+  "name": "frac=0.5",
+  "cfg": "band_frac=0.5",
+  "pipe": ""
+ },
+ {
+  "name": "frac=0.8",
+  "cfg": "band_frac=0.8",
+  "pipe": ""
+ },
+ {
+  "name": "v2off=1.0",
+  "cfg": "hole_quad_mode=v2,hole_off=1.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2off=1.5",
+  "cfg": "hole_quad_mode=v2,hole_off=1.5",
+  "pipe": ""
+ },
+ {
+  "name": "v2off=2.0",
+  "cfg": "hole_quad_mode=v2,hole_off=2.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2off=2.5",
+  "cfg": "hole_quad_mode=v2,hole_off=2.5",
+  "pipe": ""
+ },
+ {
+  "name": "v2off=3.0",
+  "cfg": "hole_quad_mode=v2,hole_off=3.0",
+  "pipe": ""
+ },
+ {
+  "name": "v2",
+  "cfg": "hole_quad_mode=v2",
+  "pipe": ""
+ },
+ {
+  "name": "refine=3",
+  "cfg": "hole_refine=1,hole_refine_band=3",
+  "pipe": ""
+ },
+ {
+  "name": "refine=4",
+  "cfg": "hole_refine=1,hole_refine_band=4",
+  "pipe": ""
+ },
+ {
+  "name": "refine=6",
+  "cfg": "hole_refine=1,hole_refine_band=6",
+  "pipe": ""
+ },
+ {
+  "name": "grp_replace_0.5",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.5",
+  "pipe": ""
+ },
+ {
+  "name": "grp_replace_0.6",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.6",
+  "pipe": ""
+ },
+ {
+  "name": "grp_replace_0.75",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.75",
+  "pipe": ""
+ },
+ {
+  "name": "grp_extra_0.5",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.5",
+  "pipe": ""
+ },
+ {
+  "name": "grp_extra_0.6",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.6",
+  "pipe": ""
+ },
+ {
+  "name": "grp_extra_0.75",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.75",
+  "pipe": ""
+ },
+ {
+  "name": "dedup=0.30",
+  "cfg": "",
+  "pipe": "dedup_iou=0.30"
+ },
+ {
+  "name": "dedup=0.40",
+  "cfg": "",
+  "pipe": "dedup_iou=0.40"
+ },
+ {
+  "name": "dedup=0.50",
+  "cfg": "",
+  "pipe": "dedup_iou=0.50"
+ },
+ {
+  "name": "ortho=none",
+  "cfg": "",
+  "pipe": "ortho=none"
+ },
+ {
+  "name": "ortho=ortho_blend",
+  "cfg": "",
+  "pipe": "ortho=ortho_blend"
+ }
+]

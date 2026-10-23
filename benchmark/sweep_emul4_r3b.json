@@ -1,0 +1,170 @@
+[
+ {
+  "name": "WINNER_ms13",
+  "cfg": "hole_min_side=13,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0",
+  "pipe": "",
+  "sec": 43.1,
+  "ndet": 3167,
+  "ngt": 3295,
+  "per_D": {
+   "3": {
+    "tp": 2545,
+    "fp": 622,
+    "fn": 750,
+    "recall": 77.24,
+    "precision": 80.36,
+    "f1": 78.77
+   },
+   "5": {
+    "tp": 2806,
+    "fp": 361,
+    "fn": 489,
+    "recall": 85.16,
+    "precision": 88.6,
+    "f1": 86.85
+   },
+   "8": {
+    "tp": 3010,
+    "fp": 157,
+    "fn": 285,
+    "recall": 91.35,
+    "precision": 95.04,
+    "f1": 93.16
+   },
+   "12": {
+    "tp": 3075,
+    "fp": 92,
+    "fn": 220,
+    "recall": 93.32,
+    "precision": 97.1,
+    "f1": 95.17
+   }
+  }
+ },
+ {
+  "name": "WINNER_band2",
+  "cfg": "hole_min_side=14,hole_fit_pass=2,hole_refine=1,hole_refine_band=3.0,hole_refine_tol=3.0,hole_band=2.0",
+  "pipe": "",
+  "sec": 43.5,
+  "ndet": 3188,
+  "ngt": 3295,
+  "per_D": {
+   "3": {
+    "tp": 2541,
+    "fp": 647,
+    "fn": 754,
+    "recall": 77.12,
+    "precision": 79.71,
+    "f1": 78.39
+   },
+   "5": {
+    "tp": 2808,
+    "fp": 380,
+    "fn": 487,
+    "recall": 85.22,
+    "precision": 88.08,
+    "f1": 86.63
+   },
+   "8": {
+    "tp": 3009,
+    "fp": 179,
+    "fn": 286,
+    "recall": 91.32,
+    "precision": 94.39,
+    "f1": 92.83
+   },
+   "12": {
+    "tp": 3079,
+    "fp": 109,
+    "fn": 216,
+    "recall": 93.44,
+    "precision": 96.58,
+    "f1": 94.99
+   }
+  }
+ },
+ {
+  "name": "sup60_ref",
+  "cfg": "min_red_support=0.6",
+  "pipe": "",
+  "sec": 44.7,
+  "ndet": 3102,
+  "ngt": 3295,
+  "per_D": {
+   "3": {
+    "tp": 2209,
+    "fp": 893,
+    "fn": 1086,
+    "recall": 67.04,
+    "precision": 71.21,
+    "f1": 69.06
+   },
+   "5": {
+    "tp": 2828,
+    "fp": 274,
+    "fn": 467,
+    "recall": 85.83,
+    "precision": 91.17,
+    "f1": 88.42
+   },
+   "8": {
+    "tp": 2993,
+    "fp": 109,
+    "fn": 302,
+    "recall": 90.83,
+    "precision": 96.49,
+    "f1": 93.58
+   },
+   "12": {
+    "tp": 3054,
+    "fp": 48,
+    "fn": 241,
+    "recall": 92.69,
+    "precision": 98.45,
+    "f1": 95.48
+   }
+  }
+ },
+ {
+  "name": "sup70_ref",
+  "cfg": "min_red_support=0.7",
+  "pipe": "",
+  "sec": 38.0,
+  "ndet": 3032,
+  "ngt": 3295,
+  "per_D": {
+   "3": {
+    "tp": 2357,
+    "fp": 675,
+    "fn": 938,
+    "recall": 71.53,
+    "precision": 77.74,
+    "f1": 74.51
+   },
+   "5": {
+    "tp": 2888,
+    "fp": 144,
+    "fn": 407,
+    "recall": 87.65,
+    "precision": 95.25,
+    "f1": 91.29
+   },
+   "8": {
+    "tp": 2993,
+    "fp": 39,
+    "fn": 302,
+    "recall": 90.83,
+    "precision": 98.71,
+    "f1": 94.61
+   },
+   "12": {
+    "tp": 3016,
+    "fp": 16,
+    "fn": 279,
+    "recall": 91.53,
+    "precision": 99.47,
+    "f1": 95.34
+   }
+  }
+ }
+]

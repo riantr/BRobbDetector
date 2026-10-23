@@ -6,11 +6,17 @@ using OpenCvSharp;
 namespace BRobbDetector.Services;
 
 /// <summary>
-/// Classical-CV quad detector — C# port of proto/cv_hybrid.py (edgefit family).
+/// Classical-CV quad detector — C# port of proto/scope45_holes.py.
 ///
-/// Pipeline: red HSV mask -> min-area denoise -> outer contours -> per contour
-/// extract an edgefit quad (sector corners + adjacent-side TLS line
-/// intersection) -> side+orthogonality admission filter -> keep-order IoU dedup.
+/// Pipeline: red HSV mask -> min-area denoise -> TWO families:
+///   1. HOLE quads (the accurate family, see HoleDetector): one quad per
+///      enclosed interior of the red stroke, every side refitted by a
+///      total-least-squares fit over the red band just outside the hole edge.
+///   2. EDGEFIT quads (the pm_v7 family): one quad per outer contour
+///      (sector corners + adjacent-side TLS line intersection).
+/// Both families are gated (side length + orthogonality), then the
+/// orthogonality is ENFORCED (ortho_edge), and finally a single keep-order
+/// IoU dedup runs over holes-then-edgefit so the hole family wins ties.
 ///
 /// Re-based on 2026-10-20 against the TRUE hand-drawn GT
 /// (E:\Xray\CARS\data\Label@CARS_202609_raw, the red annotation burned into
@@ -28,6 +34,22 @@ namespace BRobbDetector.Services;
 ///   hue 5-&gt;4, sat 80-&gt;100, val 110-&gt;140, min_area 900-&gt;300,
 ///   min_side 15-&gt;12, fit_band 6-&gt;8
 ///     D=3 564/64.5  D=5 601/68.7  D=8 605/69.1  D=12 607/69.4
+///
+/// Hole family added on 2026-10-21 (proto/scope45_holes.py, ported to
+/// BRobbDetector/Services/HoleDetector.cs).  The C# output is BIT-EXACT with
+/// the Python prototype: all 1148 boxes of the 500-image benchmark have
+/// identical coordinates and order (verified 2026-10-21).
+///     D=3 859/77.5  D=5 926/83.5  D=8 960/86.4  D=12 978/88.0
+///   (TP/corr_f1; baseline was 601/68.7 at D=5 -> +325 TP, +14.8 corr_f1)
+///
+/// pm_v10 (2026-10-23) - the hole quad is refined twice: the per-side TLS fit
+/// gets HoleFitPass robust passes, and the 4 sides are re-fitted on the red
+/// stroke in a symmetric band (HoleDetector.RefineSides).  Both attack the
+/// "leader arrow pulls a box corner" failure mode, together with a higher
+/// minimum hole side.  Strict win at every D against pm_v9
+/// (benchmark/pm_v10_refine.json, 1070 boxes, bit-exact with the prototype):
+///     D=3 857/81.2  D=5 901/85.4  D=8 926/87.6  D=12 938/88.6
+///   (pm_v9 was D=3 842/79.4, D=5 899/84.7, D=8 922/86.7, D=12 937/87.9)
 ///
 /// Selected via DetectionMethod == "cvhybrid".
 /// </summary>
@@ -58,11 +80,17 @@ public static class CvHybridDetector
     // raises precision (625 vs 687 detections, corr_f1 67.9 vs 66.0) while
     // tightening the "adjacent edges are orthogonal" rule.
     private const double OrthoTol = 10.0;
-    private const double BoundaryBand = 6.0;
-    private const double DedupIou = 0.30;
+    // A rectangle with a vertex on the image edge is invalid (2026-10-21 rule).
+    // 0 = the outermost pixel ring.
+    private const double EdgeBand = 0.0;
+
+    // Pipeline dedup threshold of the "holes + edgefit" strategy
+    // (proto/scope45_holes.py::PIPE_DEFAULT["dedup_iou"]).
+    private const double PipeDedupIou = 0.40;
     private const double FitBand = 8.0;
     private const int FitMinPts = 12;
     private const double FitJump = 20.0;
+
     // The hull / minAreaRect families are kept for reference but are not
     // emitted: the keep-order IoU dedup let their cruder quads displace the
     // accurate edgefit ones (union 553 TP / 57.4 vs edgefit only 593 / 66.0).
@@ -78,29 +106,61 @@ public static class CvHybridDetector
         int W = image.Width, H = image.Height;
         using var mask = RedMask(image);
         using var denoised = Denoise(mask, DenoiseMinArea);
-        var contours = OuterContours(denoised, MinArea);
 
+        // Family 1: HOLE quads - one quad per enclosed interior of the red
+        // mask.  This is the family that carries the accuracy (see the class
+        // summary of HoleDetector).
+        var raw = new List<Point[]>();
+        foreach (var hole in HoleDetector.HolesOf(denoised))
+        {
+            var q = HoleDetector.HoleQuad(hole, denoised);
+            if (q == null) continue;
+            // Re-fit the 4 sides on the red stroke: the hole quad inherits the
+            // orientation and offset error of the minAreaRect fit.
+            if (HoleDetector.HoleRefine != 0)
+            {
+                var refined = HoleDetector.RefineSides(denoised, q,
+                    HoleDetector.HoleRefineBand, HoleDetector.HoleRefinePts,
+                    HoleDetector.HoleRefineTol);
+                if (refined != null) q = refined;
+            }
+            // gate on the FLOAT quad, then enforce orthogonality (which rounds)
+            if (!PassQuad(q, W, H)) continue;
+            var enforced = EnforceOrthoEdge(q);
+            // the rule applies to the emitted (rounded) rectangle
+            if (GeometryValidation.QuadTouchesEdge(enforced, W, H, EdgeBand)) continue;
+            if (HoleDetector.RedSupport(denoised, enforced) < HoleDetector.MinRedSupport) continue;
+            raw.Add(enforced);
+        }
+
+        // Family 2: EDGEFIT quads - one per outer contour (the pm_v7 family).
+        var contours = OuterContours(denoised, MinArea);
         var hullQuads = new List<Point[]>();
         var edgeQuads = new List<Point[]>();
         var marQuads = new List<Point[]>();
         foreach (var c in contours)
         {
-            AddPassed(edgeQuads, EdgefitCorners(c), W, H);
+            var eq = EdgefitCorners(c);
+            if (eq != null && PassQuad(eq, W, H))
+            {
+                var enforcedEq = EnforceOrthoEdge(eq);
+                if (!GeometryValidation.QuadTouchesEdge(enforcedEq, W, H, EdgeBand))
+                    edgeQuads.Add(enforcedEq);
+            }
             if (!IncludeFallbackFamilies) continue;
             AddPassed(hullQuads, AdaptiveApprox(ConvexHull(c)), W, H);
             AddPassed(marQuads, MarQuad(c), W, H);
         }
 
-        var edgeDedup = DedupKeepOrder(edgeQuads, DedupIou);
-        List<Point[]> hy = edgeDedup;
+        raw.AddRange(edgeQuads);
         if (IncludeFallbackFamilies)
         {
-            var union = new List<Point[]>(edgeDedup);
-            union.AddRange(DedupKeepOrder(hullQuads, DedupIou));
-            union.AddRange(DedupKeepOrder(marQuads, DedupIou));
-            hy = DedupKeepOrder(union, DedupIou);
+            raw.AddRange(DedupKeepOrder(hullQuads, PipeDedupIou));
+            raw.AddRange(DedupKeepOrder(marQuads, PipeDedupIou));
         }
 
+        // The hole family has priority: it comes first in the keep-order dedup.
+        var hy = DedupKeepOrder(raw, PipeDedupIou);
         foreach (var q in hy)
         {
             results.Add(new DetectedBox { Corners = q.ToList() });
@@ -108,10 +168,55 @@ public static class CvHybridDetector
         return results;
     }
 
+    /// <summary>
+    /// Orthogonality enforcement "ortho_edge" (proto/cv_scope34.py):
+    /// keep the edge midpoints, average the edge directions, make the two
+    /// direction families exactly perpendicular and re-intersect the lines.
+    /// The corners move as little as possible.
+    /// </summary>
+    /// <remarks>
+    /// The input MUST stay float: the Python reference enforces on the float
+    /// quad and rounds only afterwards (proto/scope45_holes.py::_enforce).
+    /// </remarks>
+    private static Point[] EnforceOrthoEdge(Point2d[] q)
+    {
+        var mids = new Point2d[4];
+        for (int i = 0; i < 4; i++)
+        {
+            mids[i] = new Point2d((q[i].X + q[(i + 1) % 4].X) / 2.0,
+                                  (q[i].Y + q[(i + 1) % 4].Y) / 2.0);
+        }
+        var e = new Point2d[4];
+        for (int i = 0; i < 4; i++)
+            e[i] = new Point2d(q[(i + 1) % 4].X - q[i].X, q[(i + 1) % 4].Y - q[i].Y);
+        var uA = Unit(new Point2d(e[0].X - e[2].X, e[0].Y - e[2].Y));
+        var uB = Unit(new Point2d(e[1].X - e[3].X, e[1].Y - e[3].Y));
+        var perpA = new Point2d(-uA.Y, uA.X);
+        if (perpA.X * uB.X + perpA.Y * uB.Y < 0) perpA = new Point2d(-perpA.X, -perpA.Y);
+        var dirs = new[] { uA, perpA, uA, perpA };
+        var res = new Point[4];
+        for (int i = 0; i < 4; i++)
+        {
+            var prev = (i - 1 + 4) % 4;
+            var x = LineIsect(mids[i], dirs[i], mids[prev], dirs[prev]);
+            if (x == null) return ToPoints(q);
+            res[i] = new Point((int)Math.Round(x.Value.X), (int)Math.Round(x.Value.Y));
+        }
+        return res;
+    }
+
+    private static Point2d Unit(Point2d v)
+    {
+        double n = Math.Sqrt(v.X * v.X + v.Y * v.Y);
+        return n > 1e-6 ? new Point2d(v.X / n, v.Y / n) : v;
+    }
+
     private static void AddPassed(List<Point[]> sink, Point2d[]? q, int W, int H)
     {
-        var p = Pass(q, W, H);
-        if (p != null) sink.Add(p);
+        if (!PassQuad(q, W, H)) return;
+        var enforced = EnforceOrthoEdge(q!);
+        if (GeometryValidation.QuadTouchesEdge(enforced, W, H, EdgeBand)) return;
+        sink.Add(enforced);
     }
 
     // ---------------- mask + contours ----------------
@@ -311,14 +416,22 @@ public static class CvHybridDetector
         return true;
     }
 
-    private static Point[]? Pass(Point2d[]? q, int W, int H)
+    /// <summary>
+    /// Admission filter of proto/scope45_holes.py::_gate: the quad must have
+    /// plausible sides, orthogonal corners and no vertex on the image edge.
+    /// The check runs on the FLOAT quad - the reference gates before the
+    /// orthogonality enforcement rounds the corners.
+    /// </summary>
+    private static bool PassQuad(Point2d[]? q, int W, int H)
     {
-        if (q == null || q.Length != 4) return null;
-        if (!SideOk(q)) return null;
+        if (q == null || q.Length != 4) return false;
+        if (!SideOk(q)) return false;
         var p2f = q.Select(p => new Point2f((float)p.X, (float)p.Y)).ToArray();
-        if (!GeometryValidation.IsOrthogonalQuad(p2f, W, H, OrthoTol, BoundaryBand)) return null;
-        return q.Select(p => new Point((int)Math.Round(p.X), (int)Math.Round(p.Y))).ToArray();
+        return GeometryValidation.IsOrthogonalQuad(p2f, W, H, OrthoTol, EdgeBand);
     }
+
+    private static Point[] ToPoints(Point2d[] q)
+        => q.Select(p => new Point((int)Math.Round(p.X), (int)Math.Round(p.Y))).ToArray();
 
     private static double IouObb(Point[] a, Point[] b)
     {

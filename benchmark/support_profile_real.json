@@ -1,0 +1,172 @@
+{
+ "dataset": "real",
+ "n_tp": 901,
+ "n_fp": 169,
+ "tp_support": {
+  "p1": 0.742,
+  "p5": 0.86,
+  "p10": 0.939,
+  "p25": 0.986,
+  "p50": 0.996,
+  "p75": 1.0,
+  "p90": 1.0
+ },
+ "fp_support": {
+  "p1": 0.32,
+  "p5": 0.548,
+  "p10": 0.646,
+  "p25": 0.75,
+  "p50": 0.9,
+  "p75": 0.995,
+  "p90": 1.0
+ },
+ "curve": [
+  {
+   "thr": 0.0,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 169,
+   "fp_killed": 0
+  },
+  {
+   "thr": 0.05,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 169,
+   "fp_killed": 0
+  },
+  {
+   "thr": 0.1,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 169,
+   "fp_killed": 0
+  },
+  {
+   "thr": 0.15,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 169,
+   "fp_killed": 0
+  },
+  {
+   "thr": 0.2,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 168,
+   "fp_killed": 1
+  },
+  {
+   "thr": 0.25,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 168,
+   "fp_killed": 1
+  },
+  {
+   "thr": 0.3,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 167,
+   "fp_killed": 2
+  },
+  {
+   "thr": 0.35,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 165,
+   "fp_killed": 4
+  },
+  {
+   "thr": 0.4,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 165,
+   "fp_killed": 4
+  },
+  {
+   "thr": 0.45,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 164,
+   "fp_killed": 5
+  },
+  {
+   "thr": 0.5,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 164,
+   "fp_killed": 5
+  },
+  {
+   "thr": 0.55,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 160,
+   "fp_killed": 9
+  },
+  {
+   "thr": 0.6,
+   "tp_kept": 901,
+   "tp_lost": 0,
+   "fp_kept": 157,
+   "fp_killed": 12
+  },
+  {
+   "thr": 0.65,
+   "tp_kept": 899,
+   "tp_lost": 2,
+   "fp_kept": 151,
+   "fp_killed": 18
+  },
+  {
+   "thr": 0.7,
+   "tp_kept": 894,
+   "tp_lost": 7,
+   "fp_kept": 142,
+   "fp_killed": 27
+  },
+  {
+   "thr": 0.75,
+   "tp_kept": 891,
+   "tp_lost": 10,
+   "fp_kept": 127,
+   "fp_killed": 42
+  },
+  {
+   "thr": 0.8,
+   "tp_kept": 877,
+   "tp_lost": 24,
+   "fp_kept": 113,
+   "fp_killed": 56
+  },
+  {
+   "thr": 0.85,
+   "tp_kept": 864,
+   "tp_lost": 37,
+   "fp_kept": 99,
+   "fp_killed": 70
+  },
+  {
+   "thr": 0.9,
+   "tp_kept": 839,
+   "tp_lost": 62,
+   "fp_kept": 85,
+   "fp_killed": 84
+  },
+  {
+   "thr": 0.95,
+   "tp_kept": 800,
+   "tp_lost": 101,
+   "fp_kept": 69,
+   "fp_killed": 100
+  },
+  {
+   "thr": 1.0,
+   "tp_kept": 440,
+   "tp_lost": 461,
+   "fp_kept": 37,
+   "fp_killed": 132
+  }
+ ]
+}

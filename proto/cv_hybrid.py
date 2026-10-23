@@ -51,6 +51,9 @@ PROD_DEFAULT = {
     "max_side": 800.0, "max_aspect": 12.0,
     # orthogonality gate + dedup
     "ortho_tol": 10.0, "boundary_band": 6.0, "dedup_iou": 0.30,
+    # a rectangle with a vertex on the image edge is invalid (2026-10-21 rule);
+    # 0 = the outermost pixel ring
+    "edge_band": 0.0,
     # edgefit refinement
     "fit_band": 8.0, "fit_min_pts": 12, "fit_jump": 20.0,
 }

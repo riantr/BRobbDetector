@@ -1,0 +1,267 @@
+[
+ {
+  "name": "base",
+  "cfg": ""
+ },
+ {
+  "name": "sup0.58",
+  "cfg": "min_red_support=0.58"
+ },
+ {
+  "name": "sup0.62",
+  "cfg": "min_red_support=0.62"
+ },
+ {
+  "name": "sup0.68",
+  "cfg": "min_red_support=0.68"
+ },
+ {
+  "name": "sup0.72",
+  "cfg": "min_red_support=0.72"
+ },
+ {
+  "name": "fitpass1",
+  "cfg": "hole_fit_pass=1"
+ },
+ {
+  "name": "fitpass2",
+  "cfg": "hole_fit_pass=2"
+ },
+ {
+  "name": "fitpass3",
+  "cfg": "hole_fit_pass=3"
+ },
+ {
+  "name": "fittol0.8",
+  "cfg": "hole_fit_tol=0.8"
+ },
+ {
+  "name": "fittol1",
+  "cfg": "hole_fit_tol=1"
+ },
+ {
+  "name": "fittol2",
+  "cfg": "hole_fit_tol=2"
+ },
+ {
+  "name": "fittol2.5",
+  "cfg": "hole_fit_tol=2.5"
+ },
+ {
+  "name": "fitpass2_tol1",
+  "cfg": "hole_fit_pass=2,hole_fit_tol=1.0"
+ },
+ {
+  "name": "fitpass3_tol1",
+  "cfg": "hole_fit_pass=3,hole_fit_tol=1.0"
+ },
+ {
+  "name": "grp_replace_0.45",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.45"
+ },
+ {
+  "name": "grp_replace_0.55",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.55"
+ },
+ {
+  "name": "grp_replace_0.6",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.6"
+ },
+ {
+  "name": "grp_replace_0.7",
+  "cfg": "hole_group_mode=replace,hole_group_fill=0.7"
+ },
+ {
+  "name": "grp_extra_0.45",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.45"
+ },
+ {
+  "name": "grp_extra_0.55",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.55"
+ },
+ {
+  "name": "grp_extra_0.6",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.6"
+ },
+ {
+  "name": "grp_extra_0.7",
+  "cfg": "hole_group_mode=extra,hole_group_fill=0.7"
+ },
+ {
+  "name": "refine3",
+  "cfg": "hole_refine=1,hole_refine_band=3"
+ },
+ {
+  "name": "refine4",
+  "cfg": "hole_refine=1,hole_refine_band=4"
+ },
+ {
+  "name": "refine5",
+  "cfg": "hole_refine=1,hole_refine_band=5"
+ },
+ {
+  "name": "minside10",
+  "cfg": "hole_min_side=10"
+ },
+ {
+  "name": "minside12",
+  "cfg": "hole_min_side=12"
+ },
+ {
+  "name": "minside14",
+  "cfg": "hole_min_side=14"
+ },
+ {
+  "name": "minside16",
+  "cfg": "hole_min_side=16"
+ },
+ {
+  "name": "mincomp80",
+  "cfg": "hole_min_comp_area=80"
+ },
+ {
+  "name": "mincomp100",
+  "cfg": "hole_min_comp_area=100"
+ },
+ {
+  "name": "mincomp150",
+  "cfg": "hole_min_comp_area=150"
+ },
+ {
+  "name": "mincomp250",
+  "cfg": "hole_min_comp_area=250"
+ },
+ {
+  "name": "fill0.6",
+  "cfg": "hole_fill=0.6"
+ },
+ {
+  "name": "fill0.62",
+  "cfg": "hole_fill=0.62"
+ },
+ {
+  "name": "fill0.65",
+  "cfg": "hole_fill=0.65"
+ },
+ {
+  "name": "fill0.7",
+  "cfg": "hole_fill=0.7"
+ },
+ {
+  "name": "band2",
+  "cfg": "hole_band=2"
+ },
+ {
+  "name": "band4",
+  "cfg": "hole_band=4"
+ },
+ {
+  "name": "band5",
+  "cfg": "hole_band=5"
+ },
+ {
+  "name": "expand1.5",
+  "cfg": "hole_expand=1.5"
+ },
+ {
+  "name": "expand2",
+  "cfg": "hole_expand=2"
+ },
+ {
+  "name": "expand3.5",
+  "cfg": "hole_expand=3.5"
+ },
+ {
+  "name": "expand4.5",
+  "cfg": "hole_expand=4.5"
+ },
+ {
+  "name": "overshoot0",
+  "cfg": "hole_overshoot=0"
+ },
+ {
+  "name": "overshoot0.1",
+  "cfg": "hole_overshoot=0.1"
+ },
+ {
+  "name": "overshoot0.12",
+  "cfg": "hole_overshoot=0.12"
+ },
+ {
+  "name": "pts8",
+  "cfg": "hole_pts=8"
+ },
+ {
+  "name": "pts16",
+  "cfg": "hole_pts=16"
+ },
+ {
+  "name": "pts20",
+  "cfg": "hole_pts=20"
+ },
+ {
+  "name": "pts30",
+  "cfg": "hole_pts=30"
+ },
+ {
+  "name": "dedup0.25",
+  "cfg": "dedup_iou=0.25"
+ },
+ {
+  "name": "dedup0.3",
+  "cfg": "dedup_iou=0.3"
+ },
+ {
+  "name": "dedup0.5",
+  "cfg": "dedup_iou=0.5"
+ },
+ {
+  "name": "ortho_none",
+  "cfg": "",
+  "pipe": "ortho=none"
+ },
+ {
+  "name": "ortho_blend",
+  "cfg": "",
+  "pipe": "ortho_blend"
+ },
+ {
+  "name": "holes_only",
+  "cfg": "",
+  "pipe": "strategy=holes"
+ },
+ {
+  "name": "edgefit_only",
+  "cfg": "",
+  "pipe": "strategy=edgefit"
+ },
+ {
+  "name": "gate0",
+  "cfg": "",
+  "pipe": "gate_first=0"
+ },
+ {
+  "name": "sup55_fill60",
+  "cfg": "min_red_support=0.55,hole_fill=0.60"
+ },
+ {
+  "name": "sup60_fill62",
+  "cfg": "min_red_support=0.60,hole_fill=0.62"
+ },
+ {
+  "name": "fill65_minside12",
+  "cfg": "hole_fill=0.65,hole_min_side=12"
+ },
+ {
+  "name": "fill65_refine4",
+  "cfg": "hole_fill=0.65,hole_refine=1,hole_refine_band=4.0"
+ },
+ {
+  "name": "fitpass2_fill65",
+  "cfg": "hole_fit_pass=2,hole_fill=0.65"
+ },
+ {
+  "name": "fitpass2_mincomp100",
+  "cfg": "hole_fit_pass=2,hole_min_comp_area=100"
+ }
+]

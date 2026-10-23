@@ -1,0 +1,72 @@
+{
+  "gt_pair_shared_hist": {
+    "0": 1494,
+    "1": 87,
+    "2": 41,
+    "3": 6
+  },
+  "gt_pairs_with_wall": 134,
+  "merge_stats": {
+    "merge_wrong_piece_was_ok": 116,
+    "merge_wrong_nothing_ok": 46,
+    "merge_ok_one_piece_lost": 5,
+    "merge_ok_both_pieces_ok": 3,
+    "merge_ok_no_piece_was": 1
+  },
+  "rows": [
+    {
+      "id": "20260907_160550_437",
+      "sh": 2,
+      "dm": 5.0,
+      "dA": 3.6,
+      "dB": 42.4,
+      "gt": 0,
+      "kind": "one_piece_lost"
+    },
+    {
+      "id": "20260905_072428_117",
+      "sh": 2,
+      "dm": 3.2,
+      "dA": 25.5,
+      "dB": 2.2,
+      "gt": 5,
+      "kind": "one_piece_lost"
+    },
+    {
+      "id": "20260910_084328_023",
+      "sh": 2,
+      "dm": 3.0,
+      "dA": 112.5,
+      "dB": 2.2,
+      "gt": 2,
+      "kind": "one_piece_lost"
+    },
+    {
+      "id": "20260907_095355_500",
+      "sh": 2,
+      "dm": 4.2,
+      "dA": 49.6,
+      "dB": 4.1,
+      "gt": 7,
+      "kind": "one_piece_lost"
+    },
+    {
+      "id": "20260905_145138_238",
+      "sh": 2,
+      "dm": 2.2,
+      "dA": 53.8,
+      "dB": 1.4,
+      "gt": 3,
+      "kind": "one_piece_lost"
+    },
+    {
+      "id": "20260912_104853_600",
+      "sh": 2,
+      "dm": 4.5,
+      "dA": 43.9,
+      "dB": 6.7,
+      "gt": 4,
+      "kind": "recovered"
+    }
+  ]
+}

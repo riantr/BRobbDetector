@@ -1,0 +1,57 @@
+{
+  "args": {
+    "perim": 0.97,
+    "cov": 0.8,
+    "inter": 0.05,
+    "single": 0.9,
+    "nholes": 2,
+    "cont": 0.2,
+    "ortho": 0.0,
+    "tag": "strict40",
+    "n": 40
+  },
+  "det": 110,
+  "total_gt": 108,
+  "per_D": {
+    "3": {
+      "tp": 70,
+      "raw_fp": 40,
+      "true_fp": 40,
+      "real_unl": 0,
+      "recall": 64.8,
+      "precision": 63.6,
+      "corrected_f1": 64.2
+    },
+    "5": {
+      "tp": 83,
+      "raw_fp": 27,
+      "true_fp": 27,
+      "real_unl": 0,
+      "recall": 76.9,
+      "precision": 75.5,
+      "corrected_f1": 76.1
+    },
+    "8": {
+      "tp": 86,
+      "raw_fp": 24,
+      "true_fp": 24,
+      "real_unl": 0,
+      "recall": 79.6,
+      "precision": 78.2,
+      "corrected_f1": 78.9
+    },
+    "12": {
+      "tp": 88,
+      "raw_fp": 22,
+      "true_fp": 22,
+      "real_unl": 0,
+      "recall": 81.5,
+      "precision": 80.0,
+      "corrected_f1": 80.7
+    }
+  },
+  "stats": {
+    "cand": 748797,
+    "keep": 134
+  }
+}

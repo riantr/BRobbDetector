@@ -1,0 +1,87 @@
+{
+  "strategy": "both",
+  "pipe": {
+    "strategy": "both",
+    "ortho": "ortho_edge",
+    "gate_first": 1,
+    "dedup_iou": 0.4
+  },
+  "hole_cfg": {
+    "hole_scan": 16.0,
+    "hole_fill": 0.55,
+    "hole_min_side": 8.0,
+    "hole_min_comp_area": 60.0,
+    "hole_expand": 2.7,
+    "band_frac": 0.5,
+    "hole_band": 3.0,
+    "hole_pts": 12,
+    "hole_fit_pass": 0,
+    "hole_fit_tol": 1.5,
+    "hole_overshoot": 0.06,
+    "min_red_support": 0.5,
+    "hole_group_fill": 0.6,
+    "hole_group_mode": "off",
+    "hole_quad_mode": "v1",
+    "hole_off": 2.0,
+    "hole_contour_frac": 0.08,
+    "hole_contour_pts": 8,
+    "hole_refine": 0,
+    "hole_refine_band": 4.0
+  },
+  "params": {
+    "hue_max": 4,
+    "sat_min": 100,
+    "val_min": 140,
+    "denoise_min_area": 40,
+    "min_area": 300.0,
+    "min_side": 12.0,
+    "max_side": 800.0,
+    "max_aspect": 12.0,
+    "ortho_tol": 10.0,
+    "boundary_band": 6.0,
+    "dedup_iou": 0.3,
+    "fit_band": 8.0,
+    "fit_min_pts": 12,
+    "fit_jump": 20.0
+  },
+  "det": 1148,
+  "total_gt": 1121,
+  "per_D": {
+    "3": {
+      "tp": 859,
+      "raw_fp": 289,
+      "true_fp": 237,
+      "real_unl": 52,
+      "recall": 76.6,
+      "precision": 78.4,
+      "corrected_f1": 77.5
+    },
+    "5": {
+      "tp": 926,
+      "raw_fp": 222,
+      "true_fp": 172,
+      "real_unl": 50,
+      "recall": 82.6,
+      "precision": 84.3,
+      "corrected_f1": 83.5
+    },
+    "8": {
+      "tp": 960,
+      "raw_fp": 188,
+      "true_fp": 140,
+      "real_unl": 48,
+      "recall": 85.6,
+      "precision": 87.3,
+      "corrected_f1": 86.4
+    },
+    "12": {
+      "tp": 978,
+      "raw_fp": 170,
+      "true_fp": 124,
+      "real_unl": 46,
+      "recall": 87.2,
+      "precision": 88.7,
+      "corrected_f1": 88.0
+    }
+  }
+}

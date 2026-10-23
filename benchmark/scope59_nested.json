@@ -1,0 +1,53 @@
+{
+  "args": {
+    "perim": 0.9,
+    "cov": 0.6,
+    "inter": 0.35,
+    "single": 0.3,
+    "n": 120
+  },
+  "det": 466,
+  "total_gt": 278,
+  "per_D": {
+    "3": {
+      "tp": 205,
+      "raw_fp": 261,
+      "true_fp": 256,
+      "real_unl": 5,
+      "recall": 73.7,
+      "precision": 44.5,
+      "corrected_f1": 55.5
+    },
+    "5": {
+      "tp": 224,
+      "raw_fp": 242,
+      "true_fp": 237,
+      "real_unl": 5,
+      "recall": 80.6,
+      "precision": 48.6,
+      "corrected_f1": 60.6
+    },
+    "8": {
+      "tp": 235,
+      "raw_fp": 231,
+      "true_fp": 226,
+      "real_unl": 5,
+      "recall": 84.5,
+      "precision": 51.0,
+      "corrected_f1": 63.6
+    },
+    "12": {
+      "tp": 242,
+      "raw_fp": 224,
+      "true_fp": 219,
+      "real_unl": 5,
+      "recall": 87.1,
+      "precision": 52.5,
+      "corrected_f1": 65.5
+    }
+  },
+  "stats": {
+    "cand": 2075659,
+    "keep": 4691
+  }
+}
