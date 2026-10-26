@@ -1,0 +1,150 @@
+{
+ "base": {
+  "3": {
+   "tp": 857,
+   "true_fp": 213,
+   "recall": 79.6,
+   "precision": 80.1,
+   "f1": 79.9
+  },
+  "5": {
+   "tp": 901,
+   "true_fp": 169,
+   "recall": 83.7,
+   "precision": 84.2,
+   "f1": 84.0
+  },
+  "8": {
+   "tp": 926,
+   "true_fp": 144,
+   "recall": 86.1,
+   "precision": 86.5,
+   "f1": 86.3
+  },
+  "12": {
+   "tp": 938,
+   "true_fp": 132,
+   "recall": 87.2,
+   "precision": 87.7,
+   "f1": 87.4
+  },
+  "n_det": 1070,
+  "ngt": 1076,
+  "mask_stats": {
+   "px_removed_mean": 0.0,
+   "components_before_mean": 10.73,
+   "components_after_mean": 10.73
+  }
+ },
+ "4conn": {
+  "3": {
+   "tp": 845,
+   "true_fp": 214,
+   "recall": 78.5,
+   "precision": 79.8,
+   "f1": 79.2
+  },
+  "5": {
+   "tp": 891,
+   "true_fp": 168,
+   "recall": 82.8,
+   "precision": 84.1,
+   "f1": 83.5
+  },
+  "8": {
+   "tp": 917,
+   "true_fp": 142,
+   "recall": 85.2,
+   "precision": 86.6,
+   "f1": 85.9
+  },
+  "12": {
+   "tp": 929,
+   "true_fp": 130,
+   "recall": 86.3,
+   "precision": 87.7,
+   "f1": 87.0
+  },
+  "n_det": 1059,
+  "ngt": 1076,
+  "mask_stats": {
+   "px_removed_mean": 2.7,
+   "components_before_mean": 10.73,
+   "components_after_mean": 11.83
+  }
+ },
+ "edgecorr": {
+  "3": {
+   "tp": 856,
+   "true_fp": 216,
+   "recall": 79.6,
+   "precision": 79.9,
+   "f1": 79.7
+  },
+  "5": {
+   "tp": 900,
+   "true_fp": 172,
+   "recall": 83.6,
+   "precision": 84.0,
+   "f1": 83.8
+  },
+  "8": {
+   "tp": 925,
+   "true_fp": 147,
+   "recall": 86.0,
+   "precision": 86.3,
+   "f1": 86.1
+  },
+  "12": {
+   "tp": 937,
+   "true_fp": 135,
+   "recall": 87.1,
+   "precision": 87.4,
+   "f1": 87.2
+  },
+  "n_det": 1072,
+  "ngt": 1076,
+  "mask_stats": {
+   "px_removed_mean": 2.5,
+   "components_before_mean": 10.73,
+   "components_after_mean": 10.74
+  }
+ },
+ "4conn_edgecorr": {
+  "3": {
+   "tp": 845,
+   "true_fp": 217,
+   "recall": 78.5,
+   "precision": 79.6,
+   "f1": 79.0
+  },
+  "5": {
+   "tp": 891,
+   "true_fp": 171,
+   "recall": 82.8,
+   "precision": 83.9,
+   "f1": 83.3
+  },
+  "8": {
+   "tp": 917,
+   "true_fp": 145,
+   "recall": 85.2,
+   "precision": 86.3,
+   "f1": 85.8
+  },
+  "12": {
+   "tp": 929,
+   "true_fp": 133,
+   "recall": 86.3,
+   "precision": 87.5,
+   "f1": 86.9
+  },
+  "n_det": 1062,
+  "ngt": 1076,
+  "mask_stats": {
+   "px_removed_mean": 5.2,
+   "components_before_mean": 10.73,
+   "components_after_mean": 11.84
+  }
+ }
+}

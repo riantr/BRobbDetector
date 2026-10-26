@@ -347,6 +347,62 @@ Misses also concentrate in small boxes: short side 20-30 → 47% miss rate, 30-5
 > and are shipped in pm_v10 (see Stage 4b above). The earlier sweep had them
 > mis-parameterised (one-sided refine band, `fit_pass` without a tuned `fit_tol`).
 
+### Legacy segmentation algorithm collections (2026-10-23 / 2026-10-26)
+
+Two external algorithm collections were ported and measured end-to-end on the
+real 500-image set — the whole ImageJ `Segmentation` plugin collection
+(`D:\src\java\algo\Segmentation`) and the two OptiNav plugins. **Every transfer
+is a dead end.**
+
+Mask quality (mean/image; the shipped mask is the reference):
+
+| mask | px | gt_cover | in-band | holes |
+|---|---|---|---|---|
+| **prod_hsv (shipped)** | **3,383** | 0.871 | **0.591** | **19.9** |
+| dens_tol (Densitometry colour ball) | 48,719 | 0.939 | 0.120 | 824.5 |
+| siox (flood + colour ball) | 47,647 | 0.923 | 0.122 | 801.3 |
+| otsu / multi_otsu3 / mix_model | 248k / 227k / 324k | 0.013 / 0.005 / 0.954 | 0.008 / 0.005 / 0.022 | 524 / 345 / 1,287 |
+| ridge_r / ridge_gray (Find Ridges) | 132,490 / 133,715 | 0.623 / 0.353 | 0.031 / 0.025 | 1,228 / 1,163 |
+
+End-to-end (D=5 TP / unmatched-FP, 1076 GT boxes):
+
+| variant | D=5 |
+|---|---|
+| **pm_v10 (shipped)** | **901 / 169** |
+| dens_tol | 451 / 1298 |
+| siox | 446 / 1268 |
+| otsu / multi_otsu3 / mix_model | 1 / 1768 · 0 / 1103 · 33 / 1613 |
+| ridge support gate (prod ∪ ridge) | 895 / 165 |
+| ridge-only support gate | 711 / 147 |
+| redness-centroid / ridge-argmax side refit | 890 / 157 · 892 / 153 |
+
+Gate scores (AUC of the emitted 901 TP vs 169 FP): `_red_support` **0.721**,
+Densitometry 0.562, gCNR (ring vs interior, greyscale) 0.751 — gCNR's higher
+AUC does not convert into a better operating point on the GT-corrected metric
+(at 890 TP: gCNR keeps 106 trueFP, the `sup` gate keeps 101).
+
+Micro-results: SIOX-as-quad-source yields 5 quads in 500 images and its union
+with pm_v10 is **byte-identical** to pm_v10; Blob_Labeler 4-connected labelling
+costs **10 TP** (it opens hand-drawn boxes whose stroke has a diagonal-only link,
+and the "leader arrow pulls a corner" hypothesis does not exist in this data);
+its "edge correction" is a no-op (2.5 red px/image, and the edge rule already
+rejects edge-touching quads).
+
+The one measurement worth keeping: on the **redness channel `R - max(G,B)`** the
+Find Ridges argmax is a genuine stroke-centre locator — within 1 px of the GT
+side line in 81.6% of cross-sections, bias +0.039 px (unbiased) — and the
+redness-weighted centroid beats the shipped binary-mask centroid per
+cross-section (|offset| median 0.434 vs 0.750 px, sigma 0.636 vs 0.948). It
+still loses end-to-end: refitting the sides on that score costs 9-11 TP at D=5
+because the unweighted TLS fit over the red mask plus the ortho gate is already
+better as a whole-side estimator.
+
+Root cause of the whole collection: separating the red annotation from the orange
+X-ray texture is a **colour** problem, already solved by the narrow hue window
+(hue<=4); a grey-level or single-channel shape filter cannot do it. Harnesses:
+`proto/seg_transfer_eval.py`, `proto/optinav_transfer_eval.py`; results
+`benchmark/seg_transfer_*.json`, `benchmark/optinav_*.json`.
+
 ### Prototype / production parity
 
 `proto/scope45_holes.py` (`P`, `HOLE_DEFAULT`, `PIPE_DEFAULT`) mirrors

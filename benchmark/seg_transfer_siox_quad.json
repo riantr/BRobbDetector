@@ -1,0 +1,66 @@
+{
+ "siox_quad": {
+  "3": {
+   "tp": 3,
+   "true_fp": 2,
+   "recall": 0.3,
+   "precision": 60.0,
+   "f1": 0.6
+  },
+  "5": {
+   "tp": 5,
+   "true_fp": 0,
+   "recall": 0.5,
+   "precision": 100.0,
+   "f1": 0.9
+  },
+  "8": {
+   "tp": 5,
+   "true_fp": 0,
+   "recall": 0.5,
+   "precision": 100.0,
+   "f1": 0.9
+  },
+  "12": {
+   "tp": 5,
+   "true_fp": 0,
+   "recall": 0.5,
+   "precision": 100.0,
+   "f1": 0.9
+  },
+  "n_det": 5,
+  "ngt": 1076
+ },
+ "union": {
+  "3": {
+   "tp": 857,
+   "true_fp": 213,
+   "recall": 79.6,
+   "precision": 80.1,
+   "f1": 79.9
+  },
+  "5": {
+   "tp": 901,
+   "true_fp": 169,
+   "recall": 83.7,
+   "precision": 84.2,
+   "f1": 84.0
+  },
+  "8": {
+   "tp": 926,
+   "true_fp": 144,
+   "recall": 86.1,
+   "precision": 86.5,
+   "f1": 86.3
+  },
+  "12": {
+   "tp": 938,
+   "true_fp": 132,
+   "recall": 87.2,
+   "precision": 87.7,
+   "f1": 87.4
+  },
+  "n_det": 1070,
+  "ngt": 1076
+ }
+}

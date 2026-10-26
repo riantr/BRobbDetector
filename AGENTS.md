@@ -159,6 +159,31 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
   red mask must be narrow: the annotation is hue 0-4, the orange X-ray object texture
   is hue 9-10. A wide hue window floods the mask with object pixels and was the
   single largest error source.
+- **Legacy / external algorithm collections: all dead (LOOP-43 2026-10-23,
+  LOOP-44 2026-10-26).** Every algorithm from `D:\src\java\algo\Segmentation`
+  (Multi-Otsu, Otsu, Mixture-model, SIOX, RATS, Watershed, Blob_Labeler,
+  Densitometry, RetFM-J) and both OptiNav plugins (`Find_Ridges.java` = a
+  Steger-style ridge detector; `GCNR_.java` = the generalized contrast-to-noise
+  ratio, Rodriguez-Molares et al., IEEE TUFFC 67(4):745-759, 2020) was ported
+  and measured on the real 500-image set.  Every mask-level transfer is
+  catastrophic (D=5 TP 901 -> 0..451 with FP 169 -> 1103..1768; the ridge map
+  floods: 132,490 px / in-band precision 0.031 / 1228 holes vs 3,383 / 0.591 /
+  19.9 for the shipped hue mask), and the graded gate scores are no better than
+  the binary red support (Densitometry AUC 0.56, gCNR 0.751 vs **0.721** for
+  `_red_support`, but with no better operating point on the corrected metric).
+  Structural conclusions: Find Ridges is dead as a mask, as a support-gate
+  source (-6 TP) and as a side refit (-9..-11 TP); SIOX-as-quad-source adds
+  nothing (union byte-identical to pm_v10); Blob_Labeler 4-connected labelling
+  is dead (-10 TP) and its "edge correction" is a no-op; gCNR is dead as a gate.
+  The one non-obvious measurement worth keeping: on the **redness channel
+  `R - max(G,B)`** the ridge argmax IS a stroke-centre locator (within 1 px of
+  the GT line in 81.6% of cross-sections, bias +0.04 px), yet refining the side
+  lines on it still loses TP because the shipped unweighted TLS fit plus the
+  ortho gate is already better.  Root cause for all of it: separating the red
+  annotation from the orange X-ray texture is a COLOUR problem, already solved
+  by the hue<=4 window; a grey-level or single-channel shape filter cannot do it.
+  Harnesses: `proto/seg_transfer_eval.py`, `proto/optinav_transfer_eval.py`;
+  results `benchmark/seg_transfer_*.json`, `benchmark/optinav_*.json`.
 - **OpenCV hierarchy gotcha:** hole siblings are chained through `hier[i][0]`
   (next), not `hier[i][2]` (first child). Walking first-child only yields the first
   hole of a component and cost 264 TP in the prototype. OpenCvSharp's
