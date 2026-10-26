@@ -347,6 +347,33 @@ Misses also concentrate in small boxes: short side 20-30 → 47% miss rate, 30-5
 > and are shipped in pm_v10 (see Stage 4b above). The earlier sweep had them
 > mis-parameterised (one-sided refine band, `fit_pass` without a tuned `fit_tol`).
 
+### Four-corner recall levers (2026-10-26 — all four built, all dead)
+
+The FN census says the loss is **not** missing strokes: of 198 FN, only 7 have a
+faint or absent perimeter, and 169 of 177 have red on **all four** sides. The
+loss is the **crossed interior** — a neighbouring side, a leader arrow or red
+text cuts a box interior, so the hole fragments and no single quad equals the box
+(`hole_split 118` / `hole_mismatch 51` / `hole_partial 17` = 186/198). That
+bucket was already measured dead five ways (see the dead-ends table above, plus
+hole grouping 2-correct-of-941, pairwise fragment merge 162/171 wrong with 116
+destroying an existing correct detection, support-ordered merge, hole-nested line
+candidates). Its four follow-up levers were then **built and measured**:
+
+| lever | result |
+|---|---|
+| **P3** GT precision (`proto/p3_gt_precision.py`) | The hand-drawn GT is *precise*: the best strictly-orthogonal rectangle fitted to its corners is within **p50 0.50 px, p90 0.80, max 1.32 px** (interior-angle deviation p50 0.52°, max 3.75°), and the GT side line sits +0.33 px (σ 0.66) off the red-ink centre. **100% of the 1076 GT is reachable at D=2.** So the orthogonality constraint costs nothing and the whole D=3 gap (+219 boxes) and D=5 gap (+175) is **detector** error, not GT noise. |
+| **P1** per-image config selection / ensemble (`proto/p1_per_image.py`) | **DEAD, oracle included.** Four configs (shipped / `denoise_min_area` 0 / 120 / `min_red_support` 0.35) give **identical TP at every D**; `union_all`, `vote2`, `vote3`, `select_sup`, `select_mass` all gain **0 TP** (±1 trueFP), and the per-image **oracle** (best config per image, GT used) also gains **+0 TP**. LOOP-24's per-image denoise significance survives as no TP difference. |
+| **P2** jointly-orthogonal rectangle fit (`proto/p2_joint_ortho.py`) | **DEAD (a wash).** Replacing fit-then-project with a joint right-angle-constrained least-squares fit moves ±1–2 boxes (mode A: +1@D=3, 0@D=5; mode B: +1@D=5, −2@D=3). The shipped fit-then-project is **already the least-squares optimum on this evidence**, so the residual corner error lives in *which pixels the band selects* (neighbouring strokes, arrow spurs), not in the estimator. |
+| **P4** partial-hole outward side completion (`proto/p4_outward_complete.py`) | **DEAD (harmful).** scope58's proposal, finally built (flag a side "cut" when red continues ≥5 px past both corners, slide it outward to the first shift with coverage ≥0.60, re-intersect): D=3 836 (−21), D=5 886 (−15), corr_f1 84.5 (−0.9). The gain/loss split (`proto/p4_gain_loss.py`) is **gains 0 TP / losses 15** — not even an oracle could win. |
+
+Every harness's `base` arm reproduces the frozen baseline exactly (D=3 857/177,
+D=5 901/134, D=8 926/113, D=12 938/103, 1070 dets), so the comparisons above are
+direct. Results: `benchmark/p3_gt_precision.json`, `p1_per_image.json`,
+`p2_joint.json`, `p4_outward.json`. **The pm_v10 detection core is at its
+practical ceiling for this approach**; the remaining routes are the
+non-algorithmic ones (`Remaining failure modes` above) — GT completion, and a DL
+retrain with an explicit corner-distance loss.
+
 ### Legacy segmentation algorithm collections (2026-10-23 / 2026-10-26)
 
 Two external algorithm collections were ported and measured end-to-end on the
@@ -403,12 +430,70 @@ X-ray texture is a **colour** problem, already solved by the narrow hue window
 `proto/seg_transfer_eval.py`, `proto/optinav_transfer_eval.py`; results
 `benchmark/seg_transfer_*.json`, `benchmark/optinav_*.json`.
 
+Four further external sources were assessed in the same sweep and offer no
+lever:
+
+- **TuiML** (`tuiml.ai/docs/algorithms`) — a *tabular*-ML hub over
+  sklearn/XGBoost/CapyMOA/Weka. No image, CV, geometry or segmentation algorithm
+  at all, and its `causal/` family is uplift-only (weaker than the DoubleML this
+  repo already runs). The only conceivable hook — a supervised gate over the
+  per-box feature table — is already measured dead (LOOP-5 CNN overfits; graded
+  gates score below the binary red support).
+- **dlib** — a genuine CV toolkit, but every relevant family maps onto an
+  already-dead verdict (Hough → LOOP-7/11/29; `find_bright_lines` / `find_dark_lines`
+  = the OptiNav ridge class; `partition_pixels` → the Otsu family;
+  `equalize_histogram` → CLAHE), and its whole detector stack (`scan_fhog_pyramid`,
+  `object_detector`, `dnn_mmod`, `loss_yolo`) is **axis-aligned** while the task
+  needs OBB. `is_convex_quadrilateral` is weaker than the shipped rule.
+- **Emgu CV** — a **GPLv3** .NET wrapper for the *same* native OpenCV already used
+  via OpenCvSharp5: zero algorithmic gain, a licence question against the current
+  all-permissive stack, and a **298-call-site** rewrite that would break the
+  bit-exact C#/Python parity.
+- **an arXiv keyword search for "CV"** — 55 of the top 100 hits are *cataclysmic
+  variable* and 18 are *continuous-variable*; 4 are cs.CV and **0/100 are
+  relevant**. A keyword search is not an algorithm catalogue; a literature sweep
+  must name a method plus problem class and ship reference code.
+
 ### Prototype / production parity
 
 `proto/scope45_holes.py` (`P`, `HOLE_DEFAULT`, `PIPE_DEFAULT`) mirrors
 `BRobbDetector/Services/HoleDetector.cs` and
 `BRobbDetector/Services/CvHybridDetector.cs` one-for-one. Change one, change the
 other — the C# port currently reproduces the Python output bit-exactly.
+
+## Baseline (frozen — pm_v10)
+
+**`benchmark/pm_v10_refine.json` is the frozen baseline.** Every detection change
+is judged against it, and nothing counts as a WIN until it beats this table on the
+real 500 images *and* survives the held-out re-check.
+
+| D | TP | trueFP | real_unl | recall | corr_f1 |
+|---|----|--------|----------|--------|---------|
+| **3** | **857** | 177 | 36 | 79.6% | **81.2** |
+| **5** | **901** | 134 | 35 | 83.7% | **85.4** |
+| **8** | **926** | 113 | 31 | 86.1% | **87.6** |
+| **12** | **938** | 103 | 29 | 87.2% | **88.6** |
+
+1076 rule-consistent GT boxes, 1070 detections. Algorithm: `cvhybrid` =
+holes + edgefit + side refine. Config `proto/scope45_holes.py::HOLE_DEFAULT` /
+`PIPE_DEFAULT` — hue<=4, sat>=100, val>=140, denoise_min_area 40, min_area 300,
+min_side 12, ortho_tol 10, edge_band 0, dedup_iou 0.40, min_red_support 0.5;
+hole family hole_min_side 14, hole_fill 0.55, hole_band 3, hole_pts 12,
+hole_expand 2.7, hole_fit_pass 2 / hole_fit_tol 1.5, hole_refine 1 /
+hole_refine_band 3.0 / hole_refine_tol 3.0 / hole_refine_pts 8; edgefit
+min_area 300, min_side 12, fit_band 8.
+
+Reproduce and verify the C# side and the prototype in one command:
+
+```bash
+dotnet build BRobbDetector/BRobbDetector.csproj -c Debug
+python proto/scope78_parity.py --run-csharp --out benchmark/_tmp_parity.json
+```
+
+It must print `py=1070 cs=1070 mismatched images=0` and reproduce the table
+above. Held-out re-check for any candidate: `python proto/sweep_real.py --seed 1`
+and `--seed 2` (seed 0 is the tuning set); the baseline's own held-out scores are
+in *Held-out validation* above.
 
 ### Historical baseline (invalid GT — Compare-V1, 746 boxes)
 

@@ -184,6 +184,29 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
   by the hue<=4 window; a grey-level or single-channel shape filter cannot do it.
   Harnesses: `proto/seg_transfer_eval.py`, `proto/optinav_transfer_eval.py`;
   results `benchmark/seg_transfer_*.json`, `benchmark/optinav_*.json`.
+- **Four-corner recall levers: all dead (2026-10-26).** The FN census says the loss is
+  NOT missing strokes (only 7 of 198 FN are weak/no-red; 169 of 177 have red on all
+  four sides) but the **crossed interior** (`hole_split 118`, `hole_mismatch 51`,
+  `hole_partial 17`). That bucket is dead five ways (hole grouping 2-correct-of-941;
+  pairwise fragment merge 162/171 wrong with 116 destroying an existing correct
+  detection; support-ordered merge corr_f1 71.2; hole-nested line candidates precision
+  48.6; global line rects), and its four follow-up levers were built and measured and
+  are **all dead**: **P3** the GT is precise (best strictly-orthogonal rectangle to the
+  GT corners within p50 0.50 / max 1.32 px, angle deviation p50 0.52°; 100% of 1076 GT
+  reachable at D=2, so orthogonality costs nothing and the whole D=3 gap is detector
+  error); **P1** per-image config selection / ensemble gains 0 TP **even for the
+  per-image oracle** (4 configs give identical TP at every D); **P2** a joint
+  exactly-orthogonal LS fit is a wash (±1-2 boxes) proving the shipped fit-then-project
+  is already the least-squares optimum on this evidence; **P4** outward cut-side
+  completion is HARMFUL (D=5 886, **gains 0 TP / losses 15** — no oracle can win).
+  Never re-propose fragment/hole merging, joint re-fitting of the same evidence,
+  per-image config selection, or cut-side outward sliding.
+  Results `benchmark/p{1,2,3,4}_*.json`, harnesses `proto/p{1,2,3,4}_*.py`.
+- **Frozen baseline: `benchmark/pm_v10_refine.json`** — D=3 857 / 81.2, D=5 901 / 85.4,
+  D=8 926 / 87.6, D=12 938 / 88.6; 1070 detections, bit-exact C#/Python. Verify with
+  `proto/scope78_parity.py --run-csharp` (must print `py=1070 cs=1070 mismatched
+  images=0`) and re-validate any candidate with `proto/sweep_real.py --seed 1/2`.
+  See README "Baseline (frozen — pm_v10)".
 - **OpenCV hierarchy gotcha:** hole siblings are chained through `hier[i][0]`
   (next), not `hier[i][2]` (first child). Walking first-child only yields the first
   hole of a component and cost 264 TP in the prototype. OpenCvSharp's
