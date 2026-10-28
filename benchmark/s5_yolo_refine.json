@@ -1,0 +1,134 @@
+{
+ "results": {
+  "base": {
+   "metrics": {
+    "3": {
+     "tp": 857,
+     "true_fp": 177,
+     "real_unl": 36,
+     "n_det": 1070,
+     "recall": 79.6,
+     "precision": 82.9,
+     "corr_f1": 81.2
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 134,
+     "real_unl": 35,
+     "n_det": 1070,
+     "recall": 83.7,
+     "precision": 87.1,
+     "corr_f1": 85.4
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 113,
+     "real_unl": 31,
+     "n_det": 1070,
+     "recall": 86.1,
+     "precision": 89.1,
+     "corr_f1": 87.6
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 103,
+     "real_unl": 29,
+     "n_det": 1070,
+     "recall": 87.2,
+     "precision": 90.1,
+     "corr_f1": 88.6
+    }
+   }
+  },
+  "yref": {
+   "metrics": {
+    "3": {
+     "tp": 241,
+     "true_fp": 64,
+     "real_unl": 6,
+     "n_det": 311,
+     "recall": 22.4,
+     "precision": 79.0,
+     "corr_f1": 34.9
+    },
+    "5": {
+     "tp": 263,
+     "true_fp": 43,
+     "real_unl": 5,
+     "n_det": 311,
+     "recall": 24.4,
+     "precision": 85.9,
+     "corr_f1": 38.1
+    },
+    "8": {
+     "tp": 273,
+     "true_fp": 35,
+     "real_unl": 3,
+     "n_det": 311,
+     "recall": 25.4,
+     "precision": 88.6,
+     "corr_f1": 39.5
+    },
+    "12": {
+     "tp": 288,
+     "true_fp": 20,
+     "real_unl": 3,
+     "n_det": 311,
+     "recall": 26.8,
+     "precision": 93.5,
+     "corr_f1": 41.6
+    }
+   },
+   "tp_set": {
+    "gains": 3,
+    "losses": 641
+   }
+  },
+  "yunion": {
+   "metrics": {
+    "3": {
+     "tp": 857,
+     "true_fp": 177,
+     "real_unl": 37,
+     "n_det": 1071,
+     "recall": 79.6,
+     "precision": 82.9,
+     "corr_f1": 81.2
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 134,
+     "real_unl": 36,
+     "n_det": 1071,
+     "recall": 83.7,
+     "precision": 87.1,
+     "corr_f1": 85.4
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 113,
+     "real_unl": 32,
+     "n_det": 1071,
+     "recall": 86.1,
+     "precision": 89.1,
+     "corr_f1": 87.6
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 103,
+     "real_unl": 30,
+     "n_det": 1071,
+     "recall": 87.2,
+     "precision": 90.1,
+     "corr_f1": 88.6
+    }
+   },
+   "tp_set": {
+    "gains": 0,
+    "losses": 0
+   }
+  }
+ },
+ "n_proposals": 936,
+ "conf": 0.55
+}

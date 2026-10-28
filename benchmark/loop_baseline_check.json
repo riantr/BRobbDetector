@@ -1,0 +1,107 @@
+{
+ "stage": "S0 baseline check",
+ "dets": 1070,
+ "n_det": 1070,
+ "n_gt": 1076,
+ "dets_match_frozen": true,
+ "n_gt_match_frozen": true,
+ "all_four_D_match": true,
+ "parity_line": "parity: py=1070 cs=1070 mismatched images=0",
+ "parity": {
+  "py": 1070,
+  "cs": 1070,
+  "mismatched_images": 0
+ },
+ "consistent_gt_d5_row": "C# (consistent GT) ngt=1076 D=5 TP=901 rec=83.7 prec=87.1 trueFP=134 unl=35 corr_f1=85.4",
+ "per_d": {
+  "3": {
+   "live": {
+    "tp": 857,
+    "true_fp": 177,
+    "real_unl": 36,
+    "recall": 79.6,
+    "precision": 82.9,
+    "corrected_f1": 81.2
+   },
+   "frozen": {
+    "tp": 857,
+    "true_fp": 177,
+    "real_unl": 36,
+    "recall": 79.6,
+    "precision": 82.9,
+    "corrected_f1": 81.2
+   },
+   "match": true
+  },
+  "5": {
+   "live": {
+    "tp": 901,
+    "true_fp": 134,
+    "real_unl": 35,
+    "recall": 83.7,
+    "precision": 87.1,
+    "corrected_f1": 85.4
+   },
+   "frozen": {
+    "tp": 901,
+    "true_fp": 134,
+    "real_unl": 35,
+    "recall": 83.7,
+    "precision": 87.1,
+    "corrected_f1": 85.4
+   },
+   "match": true
+  },
+  "8": {
+   "live": {
+    "tp": 926,
+    "true_fp": 113,
+    "real_unl": 31,
+    "recall": 86.1,
+    "precision": 89.1,
+    "corrected_f1": 87.6
+   },
+   "frozen": {
+    "tp": 926,
+    "true_fp": 113,
+    "real_unl": 31,
+    "recall": 86.1,
+    "precision": 89.1,
+    "corrected_f1": 87.6
+   },
+   "match": true
+  },
+  "12": {
+   "live": {
+    "tp": 938,
+    "true_fp": 103,
+    "real_unl": 29,
+    "recall": 87.2,
+    "precision": 90.1,
+    "corrected_f1": 88.6
+   },
+   "frozen": {
+    "tp": 938,
+    "true_fp": 103,
+    "real_unl": 29,
+    "recall": 87.2,
+    "precision": 90.1,
+    "corrected_f1": 88.6
+   },
+   "match": true
+  }
+ },
+ "checks": {
+  "parity_py_equals_cs": true,
+  "parity_no_mismatched_images": true,
+  "n_gt_1076": true,
+  "n_det_1070": true,
+  "D3_match": true,
+  "D5_match": true,
+  "D8_match": true,
+  "D12_match": true
+ },
+ "frozen_baseline": "benchmark/pm_v10_refine.json",
+ "ok": true,
+ "note": "Attribution anchor: every S1-S6 harness must reproduce the per_d.frozen column exactly in its base arm. dets must be 1070 and n_gt 1076."
+}

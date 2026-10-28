@@ -1,0 +1,136 @@
+{
+ "results": {
+  "base": {
+   "metrics": {
+    "3": {
+     "tp": 857,
+     "true_fp": 177,
+     "real_unl": 36,
+     "n_det": 1070,
+     "recall": 79.6,
+     "precision": 82.9,
+     "corr_f1": 81.2
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 134,
+     "real_unl": 35,
+     "n_det": 1070,
+     "recall": 83.7,
+     "precision": 87.1,
+     "corr_f1": 85.4
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 113,
+     "real_unl": 31,
+     "n_det": 1070,
+     "recall": 86.1,
+     "precision": 89.1,
+     "corr_f1": 87.6
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 103,
+     "real_unl": 29,
+     "n_det": 1070,
+     "recall": 87.2,
+     "precision": 90.1,
+     "corr_f1": 88.6
+    }
+   }
+  },
+  "spec": {
+   "metrics": {
+    "3": {
+     "tp": 850,
+     "true_fp": 730,
+     "real_unl": 52,
+     "n_det": 1632,
+     "recall": 79.0,
+     "precision": 53.8,
+     "corr_f1": 64.0
+    },
+    "5": {
+     "tp": 899,
+     "true_fp": 682,
+     "real_unl": 51,
+     "n_det": 1632,
+     "recall": 83.6,
+     "precision": 56.9,
+     "corr_f1": 67.7
+    },
+    "8": {
+     "tp": 922,
+     "true_fp": 662,
+     "real_unl": 48,
+     "n_det": 1632,
+     "recall": 85.7,
+     "precision": 58.2,
+     "corr_f1": 69.3
+    },
+    "12": {
+     "tp": 936,
+     "true_fp": 651,
+     "real_unl": 45,
+     "n_det": 1632,
+     "recall": 87.0,
+     "precision": 59.0,
+     "corr_f1": 70.3
+    }
+   },
+   "tp_set": {
+    "gains": 4,
+    "losses": 6,
+    "base_tp": 901,
+    "cand_tp": 899
+   }
+  },
+  "union_40": {
+   "metrics": {
+    "3": {
+     "tp": 857,
+     "true_fp": 728,
+     "real_unl": 55,
+     "n_det": 1640,
+     "recall": 79.6,
+     "precision": 54.1,
+     "corr_f1": 64.4
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 685,
+     "real_unl": 54,
+     "n_det": 1640,
+     "recall": 83.7,
+     "precision": 56.8,
+     "corr_f1": 67.7
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 664,
+     "real_unl": 50,
+     "n_det": 1640,
+     "recall": 86.1,
+     "precision": 58.2,
+     "corr_f1": 69.5
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 654,
+     "real_unl": 48,
+     "n_det": 1640,
+     "recall": 87.2,
+     "precision": 58.9,
+     "corr_f1": 70.3
+    }
+   },
+   "tp_set": {
+    "gains": 0,
+    "losses": 0,
+    "base_tp": 901,
+    "cand_tp": 901
+   }
+  }
+ }
+}

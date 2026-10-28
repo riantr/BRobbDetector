@@ -1,0 +1,53 @@
+{
+ "baseline": {
+  "parity_line": "parity: py=1070 cs=1070 mismatched images=0",
+  "dets": 1070,
+  "n_gt": 1076,
+  "per_d": {
+   "3": {
+    "tp": 857,
+    "true_fp": 177,
+    "real_unl": 36,
+    "recall": 79.6,
+    "corr_f1": 81.2,
+    "match": true
+   },
+   "5": {
+    "tp": 901,
+    "true_fp": 134,
+    "real_unl": 35,
+    "recall": 83.7,
+    "corr_f1": 85.4,
+    "match": true
+   },
+   "8": {
+    "tp": 926,
+    "true_fp": 113,
+    "real_unl": 31,
+    "recall": 86.1,
+    "corr_f1": 87.6,
+    "match": true
+   },
+   "12": {
+    "tp": 938,
+    "true_fp": 103,
+    "real_unl": 29,
+    "recall": 87.2,
+    "corr_f1": 88.6,
+    "match": true
+   }
+  },
+  "all_four_D_match": true,
+  "frozen_file": "benchmark/pm_v10_refine.json",
+  "ok": true
+ },
+ "premise": {
+  "onnx_path": "BRobbDetector/Assets/yolov8s_obb.onnx",
+  "onnx_mtime": "2026-10-12 17:14:12",
+  "lab_repoint_commit": "d3b6896 2026-10-21 fix(detect): re-base detector on the TRUE GT + narrow the red-mask hue window",
+  "lab_now": "os.path.join(DATA, \"Label@CARS_202609_raw\")",
+  "gt_repointing_date": "2026-10-21",
+  "premise_verified": true
+ },
+ "note": "Done-when #1: the frozen pm_v10 table is reproduced exactly by a live C#+Python run, and the shipped YOLO checkpoint is shown to predate the 2026-10-21 GT re-pointing, which is what licenses STEP 1."
+}

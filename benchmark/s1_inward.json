@@ -1,0 +1,150 @@
+{
+ "results": {
+  "base": {
+   "metrics": {
+    "3": {
+     "tp": 857,
+     "true_fp": 177,
+     "real_unl": 36,
+     "n_det": 1070,
+     "recall": 79.6,
+     "precision": 82.9,
+     "corr_f1": 81.2
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 134,
+     "real_unl": 35,
+     "n_det": 1070,
+     "recall": 83.7,
+     "precision": 87.1,
+     "corr_f1": 85.4
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 113,
+     "real_unl": 31,
+     "n_det": 1070,
+     "recall": 86.1,
+     "precision": 89.1,
+     "corr_f1": 87.6
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 103,
+     "real_unl": 29,
+     "n_det": 1070,
+     "recall": 87.2,
+     "precision": 90.1,
+     "corr_f1": 88.6
+    }
+   },
+   "mechanism": {}
+  },
+  "in060": {
+   "metrics": {
+    "3": {
+     "tp": 840,
+     "true_fp": 179,
+     "real_unl": 36,
+     "n_det": 1055,
+     "recall": 78.1,
+     "precision": 82.4,
+     "corr_f1": 80.2
+    },
+    "5": {
+     "tp": 893,
+     "true_fp": 130,
+     "real_unl": 32,
+     "n_det": 1055,
+     "recall": 83.0,
+     "precision": 87.3,
+     "corr_f1": 85.1
+    },
+    "8": {
+     "tp": 918,
+     "true_fp": 109,
+     "real_unl": 28,
+     "n_det": 1055,
+     "recall": 85.3,
+     "precision": 89.4,
+     "corr_f1": 87.3
+    },
+    "12": {
+     "tp": 931,
+     "true_fp": 99,
+     "real_unl": 25,
+     "n_det": 1055,
+     "recall": 86.5,
+     "precision": 90.4,
+     "corr_f1": 88.4
+    }
+   },
+   "mechanism": {
+    "quads": 9828,
+    "cut_sides": 185,
+    "replaced": 181,
+    "quads_changed": 125
+   },
+   "tp_set": {
+    "gains": 0,
+    "losses": 8,
+    "base_tp": 901,
+    "cand_tp": 893
+   }
+  },
+  "in075": {
+   "metrics": {
+    "3": {
+     "tp": 840,
+     "true_fp": 178,
+     "real_unl": 36,
+     "n_det": 1054,
+     "recall": 78.1,
+     "precision": 82.5,
+     "corr_f1": 80.2
+    },
+    "5": {
+     "tp": 892,
+     "true_fp": 130,
+     "real_unl": 32,
+     "n_det": 1054,
+     "recall": 82.9,
+     "precision": 87.3,
+     "corr_f1": 85.0
+    },
+    "8": {
+     "tp": 917,
+     "true_fp": 109,
+     "real_unl": 28,
+     "n_det": 1054,
+     "recall": 85.2,
+     "precision": 89.4,
+     "corr_f1": 87.3
+    },
+    "12": {
+     "tp": 930,
+     "true_fp": 99,
+     "real_unl": 25,
+     "n_det": 1054,
+     "recall": 86.4,
+     "precision": 90.4,
+     "corr_f1": 88.4
+    }
+   },
+   "mechanism": {
+    "quads": 9828,
+    "cut_sides": 185,
+    "replaced": 170,
+    "quads_changed": 121
+   },
+   "tp_set": {
+    "gains": 0,
+    "losses": 9,
+    "base_tp": 901,
+    "cand_tp": 892
+   }
+  }
+ },
+ "ngt": 1076
+}

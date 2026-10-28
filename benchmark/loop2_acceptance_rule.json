@@ -1,0 +1,22 @@
+{
+ "step": "STEP 4 - redesign the ACCEPTANCE RULE for proposals",
+ "status": "NOT ATTEMPTED",
+ "verdict": "DEAD-BY-EVIDENCE",
+ "decision_rule": "If the retrained model's recall@D=5 is below pm_v10's 83.7% (TP@D=5 < 901), then steps 4 and 5 are recorded DEAD-BY-EVIDENCE and are NOT attempted.",
+ "step1_numbers": {
+  "retrained_tp_d5": 234,
+  "retrained_true_fp_d5": 638,
+  "retrained_corr_f1_d5": 24.0,
+  "pm_v10_tp_d5": 901,
+  "pm_v10_corr_f1_d5": 85.4,
+  "gap_tp": 667
+ },
+ "reason": "A redesigned admission rule only pays off when a high-recall proposal source exists whose proposals are worth admitting. The re-baselined OBB detector produces TP@D=5 234 vs pm_v10's 901, i.e. it finds 667 FEWER true boxes than the shipped pipeline - so there is no proposal surplus to rescue. S5 had already shown the gate was binding at 311-of-936 admitted proposals, but that was with the pre-GT checkpoint whose '97.7% recall' was measured against Compare-V1; on the true GT the proposer itself is the limiting factor, not the gate.",
+ "reference": {
+  "step1_artifact": "benchmark/loop2_dl_truegt.json",
+  "shipped_onnx_true_gt": {"3": [32, 825, 3.3], "5": [140, 722, 14.4], "8": [302, 567, 31.1], "12": [463, 414, 47.4]},
+  "retrained_true_gt": {"3": [53, 808, 5.5], "5": [234, 638, 24.0], "8": [441, 447, 44.9], "12": [628, 274, 63.5]}
+ },
+ "caveat": "The retrain was compute-capped (300 images / 8 epochs / 384 px / yolov8n-obb) because a 20-epoch 640 px yolov8s run projected at ~8 h on CPU and was killed at the goal's 90-minute cap. ~56k labelled real images exist (Label@CARS_202609_raw, 62218 json files, ~141k boxes), so this verdict is 'dead at this compute budget', not a refutation of the DL path. See benchmark/loop2_pseudo_labels.json :: corpus_inventory.",
+ "note": "Recorded per Done-when #5 (unattempted steps must carry a measured reason, never an unexplained skip)."
+}

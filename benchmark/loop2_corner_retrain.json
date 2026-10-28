@@ -1,0 +1,19 @@
+{
+ "step": "STEP 5 - corner-aware retrain (re-opened because LOOP-9 was measured on the invalid GT)",
+ "status": "NOT ATTEMPTED",
+ "verdict": "DEAD-BY-EVIDENCE",
+ "decision_rule": "If the retrained model's recall@D=5 is below pm_v10's 83.7% (TP@D=5 < 901), then steps 4 and 5 are recorded DEAD-BY-EVIDENCE and are NOT attempted.",
+ "step1_numbers": {
+  "retrained_tp_d5": 234,
+  "pm_v10_tp_d5": 901,
+  "gap_tp": 667
+ },
+ "reason": "The premise for re-opening was that LOOP-9's corner-regression verdict (per-corner D=5 recall 59% -> quad 15%) was measured on 2026-10-14 against Compare-V1, i.e. on a less precise target than the true GT (P3: best orthogonal rectangle to the GT corners within p50 0.50 / max 1.32 px). That premise stands. But a corner-aware objective is a REFINEMENT of a detector that must first find the box, and the re-baselined OBB detector on the true GT finds only 234 TP at D=5 versus pm_v10's 901. Refining the corners of 234 detections cannot reach 901; the detection stage has to work first.",
+ "reference": {
+  "step1_artifact": "benchmark/loop2_dl_truegt.json",
+  "p3_gt_precision": "best strictly-orthogonal rectangle to the GT corners: minimax residual p50 0.50 / p90 0.80 / max 1.32 px",
+  "loop9_original": "D=5 TP 151 vs pm_v5's 502, per-corner D=5 recall 59% -> quad 15% (measured 2026-10-14, pre-GT-repointing)"
+ },
+ "caveat": "Not attempted under the mechanical rule; this is NOT evidence that a corner-aware loss cannot work. It is evidence that it cannot be the next lever while the underlying detector recall is 234/901. The blocker is compute: ~56k labelled real images exist, but no GPU is available and one 90-minute CPU run buys ~300-2000 training images.",
+ "note": "Recorded per Done-when #5."
+}

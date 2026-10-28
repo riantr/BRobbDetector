@@ -374,6 +374,59 @@ practical ceiling for this approach**; the remaining routes are the
 non-algorithmic ones (`Remaining failure modes` above) — GT completion, and a DL
 retrain with an explicit corner-distance loss.
 
+### Automatic-only attempts: the S1–S6 loop and the DL re-baseline (2026-10-26 / 2026-10-28)
+
+Two further loops ran with **no human in the loop** (no annotation, no review, no
+manual GT confirmation). Both are fully recorded; neither changed the detector.
+
+**S1–S6 (`benchmark/loop_s1_s6_verdicts.md`)** — five more candidate mechanisms on
+the crossed-interior bucket, all DEAD, each with the frozen table reproduced
+exactly in its base arm:
+
+| item | mechanism | ΔTP@D5 / ΔtrueFP / Δcorr_f1 | verdict |
+|---|---|---|---|
+| S1 | inward cut-side completion (mirror of P4) | −8 / −4 / −0.3 | DEAD — gains 0 / losses 8 |
+| S2 | small/thin specialist second pass, union | +0 / +551 / −17.7 | DEAD |
+| S3 | support-priority dedup | +0 / +0 / ±0.0 | DEAD — ordering never changes survivors |
+| S4 | nearest-run in-band pixel selection | +0 / −5 / +0.2 | DEAD — TP-neutral precision only |
+| S5 | YOLO-OBB proposer + geometric side refit | +0 / +0 / ±0.0 | DEAD |
+| S6 | GT completion | 35 tiered candidates; extended-GT f1 84.0→85.8 | data only, needs human confirmation |
+
+Two structural lessons: **cut-side sliding is dead in BOTH directions** (outward
+gains 0 / losses 15; inward gains 0 / losses 8) — the "cut" signal detects *that*
+a stroke crosses, not *which* parallel stroke is the box's own. And **the validity
+gate, not the proposal source, is the binding constraint**: 936 YOLO proposals →
+only 311 pass the shipped gates, and the refined union adds 0 TP.
+
+**DL re-baseline (`benchmark/loop2_path_verdicts.md`)** — the five-step automatic
+path. Its most important result is a correction of the record:
+
+> **Every YOLO number in this repo was circular.** The shipped
+> `Assets/yolov8s_obb.onnx` is dated 2026-10-12 17:14, while `common.py::LAB` was
+> re-pointed to `Label@CARS_202609_raw` on 2026-10-21. Scored on the true GT the
+> shipped checkpoint gets **D=5 TP 140 / corr_f1 14.4**, not the published 97.5;
+> a retrained model gets **234 / 24.0**, versus pm_v10's **901 / 85.4**. The old
+> scores were the detector being measured against its own output (Compare-V1).
+
+| step | outcome |
+|---|---|
+| 1 re-baseline + retrain on the true GT | DEAD — 234 TP vs 901 |
+| 2 cardinality prior from the CSVs | DEAD — prior sound (80.8% exact) but costs −25 TP for −37 trueFP |
+| 3 labels at scale from the ink | premise refuted — the unlabelled pool is 239 images, because **the labels already exist** |
+| 4 acceptance-rule redesign | DEAD-BY-EVIDENCE (234 < 901) |
+| 5 corner-aware retrain | DEAD-BY-EVIDENCE (234 < 901) |
+
+**Second correction: labels were never the bottleneck.**
+`Label@CARS_202609_raw` holds **62,218 `.json` label files** (99.6% non-empty,
+~2.27 boxes/image, **~141,392 boxes**) — the 500-image benchmark is only a sample
+of it, and the DL retrain used 300 of those. So "collect more real data" is the
+wrong next step; the work is to *use* the corpus already on disk.
+
+Caveat recorded in the artifacts: the retrain was **compute-capped** (no GPU; a
+20-epoch 640 px run projected at ~8 h and was killed at a 90-minute cap, leaving
+300 images / 8 epochs / 384 px / yolov8n-obb). Steps 4–5's verdict is therefore
+*budget-conditional*, not a refutation of a trained detector.
+
 ### Legacy segmentation algorithm collections (2026-10-23 / 2026-10-26)
 
 Two external algorithm collections were ported and measured end-to-end on the

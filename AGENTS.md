@@ -202,6 +202,29 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
   Never re-propose fragment/hole merging, joint re-fitting of the same evidence,
   per-image config selection, or cut-side outward sliding.
   Results `benchmark/p{1,2,3,4}_*.json`, harnesses `proto/p{1,2,3,4}_*.py`.
+- **S1–S6 and the DL re-baseline: all dead, and two record corrections (2026-10-26/28).**
+  *S1–S6 (no human in the loop)*: inward cut-side completion −8 TP (gains 0/losses 8,
+  so **cut-side sliding is dead in BOTH directions**), small/thin specialist union
+  +0 TP/+551 trueFP, support-priority dedup +0/+0, nearest-run in-band selection
+  +0 TP/−5 trueFP (TP-neutral precision only), YOLO proposer+refit +0 TP, GT
+  completion a data-only artifact (35 candidates, unconfirmed). Lesson: **the
+  validity gate, not the proposal source, is the binding constraint** (936 YOLO
+  proposals → 311 pass the gates; the refined union adds 0 TP).
+  *DL re-baseline*: **every YOLO number in this repo was circular** — the shipped
+  `Assets/yolov8s_obb.onnx` is dated 2026-10-12 while `common.py::LAB` was
+  re-pointed on 2026-10-21, so it was trained *and scored* on Compare-V1 (the
+  detector's own output). On the true GT it scores **D=5 TP 140 / corr_f1 14.4**
+  (not the published 97.5); a retrain reaches **234 / 24.0** vs pm_v10 **901 / 85.4**.
+  Never cite LOOP-6 or LOOP-9 as evidence a DL approach works. **And labels were
+  never the bottleneck**: `Label@CARS_202609_raw` holds **62,218 `.json` label
+  files, 99.6% non-empty, ~141k boxes** — the 500-image benchmark is only a sample,
+  so do not propose "collect/label more real data"; use the corpus that exists.
+  The retrain was compute-capped (no GPU; 20-epoch 640 px projected ~8 h against a
+  90-min cap → 300 imgs / 8 epochs / 384 px / yolov8n-obb), so steps 4–5's
+  DEAD-BY-EVIDENCE is **budget-conditional**, not a refutation.
+  Results `benchmark/loop*.json`, `benchmark/loop*_verdicts.md`,
+  `benchmark/{s1..s6}_*.json`, `benchmark/s_heldout.json`; harnesses `proto/s*.py`,
+  `proto/dl2_*.py`, `proto/cp2_cardinality.py`, `proto/pl2_pseudo_labels.py`.
 - **Frozen baseline: `benchmark/pm_v10_refine.json`** — D=3 857 / 81.2, D=5 901 / 85.4,
   D=8 926 / 87.6, D=12 938 / 88.6; 1070 detections, bit-exact C#/Python. Verify with
   `proto/scope78_parity.py --run-csharp` (must print `py=1070 cs=1070 mismatched

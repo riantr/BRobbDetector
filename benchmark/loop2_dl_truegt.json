@@ -1,0 +1,157 @@
+{
+ "premise": {
+  "onnx_mtime": "2026-10-12 17:14",
+  "lab_repointed_commit": "d3b6896 (2026-10-21)",
+  "lab_now": "E:\\Xray\\CARS\\data\\Label@CARS_202609_raw"
+ },
+ "decision_rule": "If the retrained model's recall@D=5 is below pm_v10's 83.7%% (TP@D=5 < 901), then steps 4 and 5 are recorded DEAD-BY-EVIDENCE and are NOT attempted.",
+ "conf": 0.55,
+ "n_gt": 1076,
+ "pm_v10": {
+  "corr_f1": {
+   "3": 81.2,
+   "5": 85.4,
+   "8": 87.6,
+   "12": 88.6
+  },
+  "tp5": 901
+ },
+ "models": {
+  "shipped_onnx": {
+   "metrics": {
+    "3": {
+     "tp": 32,
+     "true_fp": 825,
+     "real_unl": 79,
+     "n_det": 936,
+     "recall": 3.0,
+     "precision": 3.7,
+     "corr_f1": 3.3
+    },
+    "5": {
+     "tp": 140,
+     "true_fp": 722,
+     "real_unl": 74,
+     "n_det": 936,
+     "recall": 13.0,
+     "precision": 16.2,
+     "corr_f1": 14.4
+    },
+    "8": {
+     "tp": 302,
+     "true_fp": 567,
+     "real_unl": 67,
+     "n_det": 936,
+     "recall": 28.1,
+     "precision": 34.8,
+     "corr_f1": 31.1
+    },
+    "12": {
+     "tp": 463,
+     "true_fp": 414,
+     "real_unl": 59,
+     "n_det": 936,
+     "recall": 43.0,
+     "precision": 52.8,
+     "corr_f1": 47.4
+    }
+   }
+  },
+  "retrained": {
+   "metrics": {
+    "3": {
+     "tp": 53,
+     "true_fp": 808,
+     "real_unl": 102,
+     "n_det": 963,
+     "recall": 4.9,
+     "precision": 6.2,
+     "corr_f1": 5.5
+    },
+    "5": {
+     "tp": 234,
+     "true_fp": 638,
+     "real_unl": 91,
+     "n_det": 963,
+     "recall": 21.7,
+     "precision": 26.8,
+     "corr_f1": 24.0
+    },
+    "8": {
+     "tp": 441,
+     "true_fp": 447,
+     "real_unl": 75,
+     "n_det": 963,
+     "recall": 41.0,
+     "precision": 49.7,
+     "corr_f1": 44.9
+    },
+    "12": {
+     "tp": 628,
+     "true_fp": 274,
+     "real_unl": 61,
+     "n_det": 963,
+     "recall": 58.4,
+     "precision": 69.6,
+     "corr_f1": 63.5
+    }
+   },
+   "val_split": {
+    "3": {
+     "tp": 10,
+     "true_fp": 156,
+     "real_unl": 29,
+     "n_det": 195,
+     "recall": 4.6,
+     "precision": 6.0,
+     "corr_f1": 5.2
+    },
+    "5": {
+     "tp": 49,
+     "true_fp": 119,
+     "real_unl": 27,
+     "n_det": 195,
+     "recall": 22.7,
+     "precision": 29.2,
+     "corr_f1": 25.5
+    },
+    "8": {
+     "tp": 94,
+     "true_fp": 81,
+     "real_unl": 20,
+     "n_det": 195,
+     "recall": 43.5,
+     "precision": 53.7,
+     "corr_f1": 48.1
+    },
+    "12": {
+     "tp": 132,
+     "true_fp": 49,
+     "real_unl": 14,
+     "n_det": 195,
+     "recall": 61.1,
+     "precision": 72.9,
+     "corr_f1": 66.5
+    }
+   }
+  }
+ },
+ "training": {
+  "train_imgs": 300,
+  "val_imgs": 100,
+  "labels": 889,
+  "epochs": 8,
+  "imgsz": 384,
+  "base_model": "yolov8n-obb.pt",
+  "batch": 8,
+  "weights": "D:\\src\\CodeArts\\BRobbDetector\\tmp_loop2_yolo\\train\\weights\\best.pt",
+  "trained_on": "Label@CARS_202609_raw only (no detector-derived additions)",
+  "cap_note": "CPU-only: the 20-epoch 640px run was projected at ~8 h and was killed at the goal 90-min cap; parameters shrunk."
+ },
+ "decision": {
+  "rule_applied": "If the retrained model's recall@D=5 is below pm_v10's 83.7%% (TP@D=5 < 901), then steps 4 and 5 are recorded DEAD-BY-EVIDENCE and are NOT attempted.",
+  "retrained_tp5": 234,
+  "pm_v10_tp5": 901,
+  "steps_4_5": "DEAD-BY-EVIDENCE"
+ }
+}
