@@ -222,9 +222,20 @@ dotnet run --project BRobbDetector/BRobbDetector.csproj -c Debug -- --check <ima
   The retrain was compute-capped (no GPU; 20-epoch 640 px projected ~8 h against a
   90-min cap → 300 imgs / 8 epochs / 384 px / yolov8n-obb), so steps 4–5's
   DEAD-BY-EVIDENCE is **budget-conditional**, not a refutation.
+  **The corpus-scaling probe (2026-10-29) resolves it: GPU-WARRANTED.** Same model,
+  epochs, resolution, batch, conf and `RandomState(7)` split; arm A's 300 images are
+  a strict subset of arm B's 2,000 and the 100 val images are identical: D=5
+  **234 TP / 24.0** (300 imgs, 6.0 min) → **502 TP / 49.9** (2,000 imgs, 61.8 min),
+  val-split 49 → 108 TP, D=12 63.5 → 80.2. Slope **+157.6 TP@D=5 per 1,000 training
+  images** (2.145× TP for 6.7× data, roughly linear over 300–2,000, and it shows
+  held-out so it is not memorisation). The pre-stated rule (≥1.4×) therefore returns
+  GPU-WARRANTED. Corollary: at D=12 the trained detector is already 80.2 vs pm_v10's
+  88.6, so the residual gap is corner precision, not detection. The slope covers
+  300–2,000 only — re-run as a 2,000 → 8,000 check before a large run.
   Results `benchmark/loop*.json`, `benchmark/loop*_verdicts.md`,
   `benchmark/{s1..s6}_*.json`, `benchmark/s_heldout.json`; harnesses `proto/s*.py`,
-  `proto/dl2_*.py`, `proto/cp2_cardinality.py`, `proto/pl2_pseudo_labels.py`.
+  `proto/dl2_*.py`, `proto/cp2_cardinality.py`, `proto/pl2_pseudo_labels.py`,
+  `proto/cs2_scaling_probe.py`.
 - **Frozen baseline: `benchmark/pm_v10_refine.json`** — D=3 857 / 81.2, D=5 901 / 85.4,
   D=8 926 / 87.6, D=12 938 / 88.6; 1070 detections, bit-exact C#/Python. Verify with
   `proto/scope78_parity.py --run-csharp` (must print `py=1070 cs=1070 mismatched

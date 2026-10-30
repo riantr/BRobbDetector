@@ -427,6 +427,24 @@ Caveat recorded in the artifacts: the retrain was **compute-capped** (no GPU; a
 300 images / 8 epochs / 384 px / yolov8n-obb). Steps 4–5's verdict is therefore
 *budget-conditional*, not a refutation of a trained detector.
 
+**Corpus-scaling probe (2026-10-29) — the DL path is data-limited, not dead.**
+Holding everything but the training-corpus size constant (same model, epochs,
+resolution, batch, conf, and the same `RandomState(7)` split; arm A's 300 images
+are a strict subset of arm B's 2,000, with identical validation images):
+
+| arm | train imgs | D=3 | D=5 | D=8 | D=12 | val-split D=5 | train |
+|---|---|---|---|---|---|---|---|
+| A | 300 | 53/808/5.5 | **234 / 638 / 24.0** | 44.9 | 63.5 | 49 TP / 25.5 | 6.0 min |
+| B | 2,000 | 212/711/21.2 | **502 / 436 / 49.9** | 68.0 | **80.2** | **108 TP / 53.7** | 61.8 min |
+
+**+157.6 TP@D=5 per 1,000 training images** (2.145× TP for 6.7× data), roughly
+linear over 300–2,000; the gain also appears on the held-out split, so it is data
+scaling rather than memorisation. A pre-stated rule (TP@D=5 must grow ≥1.4×)
+therefore returns **GPU-WARRANTED**. Note D=12 already reaches 80.2 vs pm_v10's
+88.6 — at coarse tolerance the trained detector is nearly competitive and the
+residual gap is corner precision. Caveat: the slope covers 300–2,000 images only;
+re-run the same probe as a 2,000 → 8,000 check before commissioning a large run.
+
 ### Legacy segmentation algorithm collections (2026-10-23 / 2026-10-26)
 
 Two external algorithm collections were ported and measured end-to-end on the
