@@ -24,6 +24,7 @@ Usage:
 import argparse
 import json
 import os
+import shutil
 import sys
 import time
 
@@ -83,6 +84,13 @@ def main():
     ap.add_argument('--weights', default='')
     ap.add_argument('--work', default='tmp_loop2_scale')
     ap.add_argument('--out', default=OUT)
+    ap.add_argument('--ref-json', default='benchmark/loop2_scaling_probe.json',
+                    help='earlier arm used as the reference for the scaling decision '
+                         '(default: the 2,000-image arm)')
+    ap.add_argument('--build-only', action='store_true',
+                    help='build the dataset and exit (verifies corpus size/disk first)')
+    ap.add_argument('--skip-build', action='store_true',
+                    help='reuse an existing dataset under --work (restart after a crash)')
     args = ap.parse_args()
 
     ids = get_ids()
@@ -147,13 +155,38 @@ def main():
           flush=True)
 
     D2.WORK = args.work
-    yml, n_lab = D2.build_dataset(train_ids, val_ids)
-    res['arm_B_probe'] = {'train_imgs': len(train_ids), 'val_imgs': len(val_ids),
+    yml = os.path.join(os.path.abspath(D2.WORK), 'data.yaml')
+    if args.skip_build:
+        if not os.path.exists(yml):
+            print('missing built dataset at %s' % yml)
+            return
+        bm = json.load(open(os.path.join(D2.WORK, 'build_meta.json'), encoding='utf-8'))
+        n_lab = bm['labels']
+        n_train = bm['train_imgs']
+        print('reusing built dataset: %d train imgs, %d labels' % (n_train, n_lab), flush=True)
+    else:
+        free_before = shutil.disk_usage(os.path.abspath(D2.WORK) if os.path.isdir(D2.WORK)
+                                       else os.path.abspath('.')).free
+        yml, n_lab = D2.build_dataset(train_ids, val_ids)
+        n_train = len(train_ids)
+        json.dump({'train_imgs': n_train, 'val_imgs': len(val_ids), 'labels': n_lab,
+                   'free_disk_before': free_before},
+                  open(os.path.join(D2.WORK, 'build_meta.json'), 'w', encoding='utf-8'),
+                  indent=1)
+        res['free_disk_before_gb'] = round(free_before / 1e9, 2)
+        print('built dataset: %d train imgs, %d labels, free disk before %.1f GB'
+              % (n_train, n_lab, free_before / 1e9), flush=True)
+    res['arm_B_probe'] = {'train_imgs': n_train, 'val_imgs': len(val_ids),
                           'labels': n_lab, 'epochs': args.epochs,
                           'imgsz': args.imgsz, 'model': args.model,
                           'corpus': os.path.abspath(D2.WORK)}
     print('split check: %d train imgs -> %d labels (anchor 300 imgs -> %d labels)'
-          % (len(train_ids), n_lab, a_tr['labels']), flush=True)
+          % (n_train, n_lab, a_tr['labels']), flush=True)
+    if args.build_only:
+        res['stage'] = 'build-only (no training)'
+        json.dump(res, open(args.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        print('build-only complete; saved %s' % args.out, flush=True)
+        return
     res['split_consistency'] = {
         'anchor_labels_for_300_train_plus_100_val': a_tr['labels'],
         'recomputed': lab_a,
@@ -213,6 +246,36 @@ def main():
     print('arm B val-split D=5 %d TP f%.1f' % (s_b_val['5']['tp'],
                                                s_b_val['5']['corr_f1']), flush=True)
 
+    # ---- pre-registered reference decision (default: 2,000 -> N images) ----
+    ref = None
+    if args.ref_json and os.path.exists(args.ref_json):
+        rd = json.load(open(args.ref_json, encoding='utf-8'))
+        ra = rd.get('arm_B_probe', {})
+        if ra.get('metrics') and ra.get('train_imgs') != n_train:
+            ref = {'train_imgs': ra['train_imgs'], 'tp_d5': ra['metrics']['5']['tp'],
+                   'val_tp_d5': (ra.get('val_split', {}).get('5', {}).get('tp')),
+                   'source': args.ref_json}
+    if ref:
+        thresh_tp = int(round(ref['tp_d5'] * RATIO_THRESHOLD))
+        ratio_ref = tp_b / max(ref['tp_d5'], 1)
+        if abs(tp_b - thresh_tp) <= 1:
+            outcome_ref = 'INCONCLUSIVE'
+        else:
+            outcome_ref = ('GPU-WARRANTED' if ratio_ref >= RATIO_THRESHOLD
+                           else 'DL-DEAD')
+        res['decision_rule_vs_ref'] = (
+            'TP@D=5 must grow >= %.1fx from the %d-image arm (>= %d TP) else the '
+            'DL path is DL-DEAD at this budget.' % (RATIO_THRESHOLD,
+                                                   ref['train_imgs'], thresh_tp))
+        res['decision_vs_ref'] = {
+            'ref': ref, 'this_train_imgs': n_train, 'this_tp_d5': tp_b,
+            'threshold_ratio': RATIO_THRESHOLD, 'threshold_tp': thresh_tp,
+            'ratio': round(ratio_ref, 3), 'outcome': outcome_ref,
+            'val_split_this_tp_d5': s_b_val['5']['tp']}
+        print('vs %d-image ref (%d TP, val %s): %d TP -> %.3fx (threshold %d TP) -> %s'
+              % (ref['train_imgs'], ref['tp_d5'], ref.get('val_tp_d5'), tp_b,
+                 ratio_ref, thresh_tp, outcome_ref), flush=True)
+
     # ---- slope + decision ----
     n_a, n_b = a_tr['train_imgs'], len(train_ids)
     ratio = tp_b / max(tp_a, 1)
@@ -240,6 +303,8 @@ def main():
           % (slope if slope is not None else 0.0, ratio, reading))
     print('DECISION: %s' % decision, flush=True)
 
+    res['free_disk_after_gb'] = round(
+        shutil.disk_usage(os.path.abspath(D2.WORK)).free / 1e9, 2)
     json.dump(res, open(args.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('saved %s' % args.out)
 

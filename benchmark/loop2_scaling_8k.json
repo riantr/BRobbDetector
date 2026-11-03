@@ -1,0 +1,248 @@
+{
+ "step": "loop2 corpus-scaling probe",
+ "variable": "training images ONLY",
+ "fixed": {
+  "model": "yolov8n-obb.pt",
+  "epochs": 8,
+  "imgsz": 384,
+  "batch": 8,
+  "workers": 2,
+  "conf": 0.55,
+  "split": "RandomState(7), val=first 100",
+  "labels": "Label@CARS_202609_raw only"
+ },
+ "decision_rule": "TP@D=5 must grow >= 1.4x from arm A to arm B (>= 328 TP) else the DL path is closed (DL-DEAD).",
+ "n_gt": 1076,
+ "arm_A_anchor": {
+  "source": "CITED from benchmark/loop2_dl_truegt.json (not re-measured)",
+  "train_imgs": 300,
+  "labels": 889,
+  "epochs": 8,
+  "imgsz": 384,
+  "model": "yolov8n-obb.pt",
+  "metrics": {
+   "3": {
+    "tp": 53,
+    "true_fp": 808,
+    "real_unl": 102,
+    "n_det": 963,
+    "recall": 4.9,
+    "precision": 6.2,
+    "corr_f1": 5.5
+   },
+   "5": {
+    "tp": 234,
+    "true_fp": 638,
+    "real_unl": 91,
+    "n_det": 963,
+    "recall": 21.7,
+    "precision": 26.8,
+    "corr_f1": 24.0
+   },
+   "8": {
+    "tp": 441,
+    "true_fp": 447,
+    "real_unl": 75,
+    "n_det": 963,
+    "recall": 41.0,
+    "precision": 49.7,
+    "corr_f1": 44.9
+   },
+   "12": {
+    "tp": 628,
+    "true_fp": 274,
+    "real_unl": 61,
+    "n_det": 963,
+    "recall": 58.4,
+    "precision": 69.6,
+    "corr_f1": 63.5
+   }
+  },
+  "val_split": {
+   "3": {
+    "tp": 10,
+    "true_fp": 156,
+    "real_unl": 29,
+    "n_det": 195,
+    "recall": 4.6,
+    "precision": 6.0,
+    "corr_f1": 5.2
+   },
+   "5": {
+    "tp": 49,
+    "true_fp": 119,
+    "real_unl": 27,
+    "n_det": 195,
+    "recall": 22.7,
+    "precision": 29.2,
+    "corr_f1": 25.5
+   },
+   "8": {
+    "tp": 94,
+    "true_fp": 81,
+    "real_unl": 20,
+    "n_det": 195,
+    "recall": 43.5,
+    "precision": 53.7,
+    "corr_f1": 48.1
+   },
+   "12": {
+    "tp": 132,
+    "true_fp": 49,
+    "real_unl": 14,
+    "n_det": 195,
+    "recall": 61.1,
+    "precision": 72.9,
+    "corr_f1": 66.5
+   }
+  }
+ },
+ "arm_B_probe": {
+  "train_imgs": 8000,
+  "val_imgs": 100,
+  "labels": 18313,
+  "epochs": 8,
+  "imgsz": 384,
+  "model": "yolov8n-obb.pt",
+  "corpus": "D:\\src\\CodeArts\\BRobbDetector\\tmp_loop2_scale_8k",
+  "weights": "D:\\src\\CodeArts\\BRobbDetector\\tmp_loop2_scale_8k\\train\\weights\\best.pt",
+  "train_min": 257.5,
+  "metrics": {
+   "3": {
+    "tp": 415,
+    "true_fp": 552,
+    "real_unl": 95,
+    "n_det": 1062,
+    "recall": 38.6,
+    "precision": 42.9,
+    "corr_f1": 40.6
+   },
+   "5": {
+    "tp": 692,
+    "true_fp": 298,
+    "real_unl": 72,
+    "n_det": 1062,
+    "recall": 64.3,
+    "precision": 69.9,
+    "corr_f1": 67.0
+   },
+   "8": {
+    "tp": 824,
+    "true_fp": 179,
+    "real_unl": 59,
+    "n_det": 1062,
+    "recall": 76.6,
+    "precision": 82.2,
+    "corr_f1": 79.3
+   },
+   "12": {
+    "tp": 895,
+    "true_fp": 111,
+    "real_unl": 56,
+    "n_det": 1062,
+    "recall": 83.2,
+    "precision": 89.0,
+    "corr_f1": 86.0
+   }
+  },
+  "val_split": {
+   "3": {
+    "tp": 86,
+    "true_fp": 103,
+    "real_unl": 27,
+    "n_det": 216,
+    "recall": 39.8,
+    "precision": 45.5,
+    "corr_f1": 42.5
+   },
+   "5": {
+    "tp": 152,
+    "true_fp": 47,
+    "real_unl": 17,
+    "n_det": 216,
+    "recall": 70.4,
+    "precision": 76.4,
+    "corr_f1": 73.3
+   },
+   "8": {
+    "tp": 181,
+    "true_fp": 24,
+    "real_unl": 11,
+    "n_det": 216,
+    "recall": 83.8,
+    "precision": 88.3,
+    "corr_f1": 86.0
+   },
+   "12": {
+    "tp": 189,
+    "true_fp": 17,
+    "real_unl": 10,
+    "n_det": 216,
+    "recall": 87.5,
+    "precision": 91.7,
+    "corr_f1": 89.6
+   }
+  }
+ },
+ "split_consistency": {
+  "anchor_labels_for_300_train_plus_100_val": 889,
+  "recomputed": 889,
+  "match": true,
+  "note": "The 300-image arm is CITED from the anchor artifact. This script re-derives the same RandomState(7) split and reproduces the anchor label count over its 300 training + 100 validation images, which proves both arms share one pipeline and one split."
+ },
+ "arm_B_composition": {
+  "anchor_300_benchmark_images": 300,
+  "extra_corpus_images": 7700,
+  "extra_pool_rule": "labelled images (>=1 valid quad) from Label@CARS_202609_raw excluding all 500 benchmark ids, RandomState(11) shuffle; arm B = anchor 300 + extras",
+  "note": "The benchmark sample is only 500 images, so growing the corpus requires drawing outside it. Arm A is a SUBSET of arm B and the 100 validation images are identical in both arms, so the only thing that varies is the number of training images."
+ },
+ "decision_rule_vs_ref": "TP@D=5 must grow >= 1.4x from the 2000-image arm (>= 703 TP) else the DL path is DL-DEAD at this budget.",
+ "decision_vs_ref": {
+  "ref": {
+   "train_imgs": 2000,
+   "tp_d5": 502,
+   "val_tp_d5": 108,
+   "source": "benchmark/loop2_scaling_probe.json"
+  },
+  "this_train_imgs": 8000,
+  "this_tp_d5": 692,
+  "threshold_ratio": 1.4,
+  "threshold_tp": 703,
+  "ratio": 1.378,
+  "outcome": "DL-DEAD",
+  "val_split_this_tp_d5": 152
+ },
+ "scaling": {
+  "arm_A": {
+   "train_imgs": 300,
+   "tp_d5": 234,
+   "tp_per_1000": 780.0
+  },
+  "arm_B": {
+   "train_imgs": 8000,
+   "tp_d5": 692,
+   "tp_per_1000": 86.5
+  },
+  "ratio": 2.957,
+  "delta_tp_per_1000_images": 59.5,
+  "reading": "sub-linear: 2.96x TP for 26.7x data; marginal slope collapsed from 157.6 TP/1,000 (300->2,000) to 31.7 TP/1,000 (2,000->8,000)",
+  "reading_original": "roughly linear: 2.96x TP for 26.7x data",
+  "marginal_slope_2k_8k_per_1000": 31.7,
+  "tp_per_1000_absolute": {
+   "300": 780.0,
+   "2000": 251.0,
+   "8000": 86.5
+  }
+ },
+ "decision": {
+  "rule": "TP@D=5 must grow >= 1.4x from arm A to arm B (>= 328 TP) else the DL path is closed (DL-DEAD).",
+  "ratio": 2.957,
+  "threshold_ratio": 1.4,
+  "outcome": "GPU-WARRANTED"
+ },
+ "free_disk_after_gb": 10.45,
+ "free_disk_before_gb": 13.6,
+ "free_disk_before_note": "from the build-only run stdout (dataset 874 MB)",
+ "decision_note": "The operative pre-registered decision is decision_vs_ref (2,000->8,000). The 300->8,000 decision field is retained for continuity only; it inherits the steep 300->2,000 segment and is not the stage decision.",
+ "val_caveat": "val D5 152 vs 108 = 1.407x, just above 1.4; the benchmark unit (pre-registered) is 692 vs threshold 703 (1.378x). Not rounded across the threshold."
+}
