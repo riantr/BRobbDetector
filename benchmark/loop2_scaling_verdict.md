@@ -1,4 +1,11 @@
-# loop2 scaling verdict — GPU-WARRANTED
+# loop2 scaling verdict — 300 -> 2,000: GPU-WARRANTED (SUPERSEDED 2026-11-03 by the 2,000 -> 8,000 probe)
+
+> **SUPERSEDED 2026-11-03.** The pre-registered follow-up
+> (`benchmark/loop2_scaling_8k_verdict.md`, `benchmark/loop2_scaling_8k.json`) trained the
+> 8,000-image arm: **692 TP@D=5 = 1.378× over the 2,000 arm's 502**, below the 703-TP
+> (1.4×) threshold → **DL-DEAD**. The marginal slope collapsed from +157.6 to
+> +31.7 TP/1,000 (−80%). The 2.145× result below is valid for its 300→2,000 range but
+> must not be used, on its own, to commission a large run.
 - Both arms measured by the same script (`proto/cs2_scaling_probe.py`), same model/epochs/imgsz/batch/workers/conf and the same RandomState(7) split; arm A's 300 images are a strict subset of arm B's 2,000 and the 100 validation images are identical.
 - **Arm A (300 images):** D=5 **234 TP / 638 trueFP / corr_f1 24.0** (D=3 53/808/5.5, D=8 44.9, D=12 63.5); val-split 49 TP / f25.5; training **6.0 min** at `tmp_loop2_scale_a`.
 - **Arm B (2,000 images = the 300 + 1,700 drawn from `Label@CARS_202609_raw`):** D=5 **502 TP / 436 trueFP / corr_f1 49.9** (D=3 212/711/21.2, D=8 68.0, D=12 80.2); val-split 108 TP / f53.7; training **61.8 min** at `tmp_loop2_scale`.
