@@ -1,0 +1,160 @@
+{
+ "panel": "p2c_scale",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "t_scale": "float64",
+  "y_tp5": "float64",
+  "y_tp12": "float64",
+  "y_fp5": "float64",
+  "x_n_gt": "int64",
+  "x_img_w": "int64",
+  "x_img_h": "int64",
+  "x_red_ratio": "float64"
+ },
+ "n_rows": 1000,
+ "unit": "image",
+ "n_blocks": 500,
+ "treatments": [
+  "t_scale"
+ ],
+ "outcomes": [
+  "y_tp5",
+  "y_tp12",
+  "y_fp5"
+ ],
+ "covariates": [
+  "x_n_gt",
+  "x_img_w",
+  "x_img_h",
+  "x_red_ratio"
+ ],
+ "causal_spec": {
+  "unit": "image",
+  "outcome": "y_tp5",
+  "treatment": "t_scale",
+  "common_causes": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio"
+  ],
+  "assumption": "Training-corpus size is assigned by the experimenter; the two checkpoints share model/epochs/imgsz/conf and the same split, so the per-image TP difference identifies the scaling effect. This panel is the per-image view of benchmark/loop2_scaling_probe.json.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_scale', outcome='y_tp5', common_causes=['x_n_gt','x_img_w','x_img_h','x_red_ratio'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "arm0_train_imgs": 300,
+  "arm1_train_imgs": 2000,
+  "arm0_tp5": 234,
+  "arm1_tp5": 502,
+  "arm0_tp12": 628,
+  "arm1_tp12": 818,
+  "n_gt": 1076,
+  "det_cache": "tmp_loop2_pseudo/dl_dets.json (gitignored via tmp_*/)",
+  "wall_clock_s": 38.16,
+  "inference_mode": "cache",
+  "arms_inferred_this_run": [],
+  "arm_checkpoints": {
+   "0": {
+    "path": "tmp_loop2_scale_a/train/weights/best.pt",
+    "mtime": "2026-10-30 12:35:46"
+   },
+   "1": {
+    "path": "tmp_loop2_scale/train/weights/best.pt",
+    "mtime": "2026-10-29 12:03:22"
+   }
+  },
+  "base_arm_pm_v10": {
+   "tp5": 901,
+   "tp12": 938,
+   "reproduces_frozen": true,
+   "note": "pm_v10 computed by this harness on the same 500 images, verified against the frozen table and deliberately kept OUT of t_scale so the 300->2000 estimand stays clean"
+  }
+ },
+ "csv": "benchmark/or2_panels/p2c_scale.csv",
+ "dml_estimates": {
+  "t_scale": {
+   "treatment": "t_scale",
+   "outcome": "y_tp5",
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": 0.53479,
+   "se": 0.03482,
+   "ci95_low": 0.46654,
+   "ci95_high": 0.60304,
+   "p_value": 3.163847202623281e-53,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  },
+  "t_scale::y_tp12": {
+   "treatment": "t_scale",
+   "outcome": "y_tp12",
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": 0.37781,
+   "se": 0.03278,
+   "ci95_low": 0.31356,
+   "ci95_high": 0.44205,
+   "p_value": 9.757814485536912e-31,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_scale",
+  "outcome": "y_tp5",
+  "covariates": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 1000,
+  "n_blocks": 500,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": 0.53479,
+  "se": 0.03482,
+  "ci95_low": 0.46654,
+  "ci95_high": 0.60304,
+  "p_value": 3.163847202623281e-53,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ }
+}

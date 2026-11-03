@@ -1,0 +1,169 @@
+{
+ "panel": "p1_c",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "t_band": "float64",
+  "y_tp3": "float64",
+  "y_tp5": "float64",
+  "y_tp8": "float64",
+  "y_tp12": "float64",
+  "y_fp5": "float64",
+  "x_n_gt": "float64",
+  "x_img_w": "float64",
+  "x_img_h": "float64",
+  "x_red_ratio": "float64",
+  "x_n_holes": "float64",
+  "x_gt_min_side_mean": "float64"
+ },
+ "n_rows": 2000,
+ "unit": "image",
+ "n_blocks": 500,
+ "treatments": [
+  "t_band"
+ ],
+ "outcomes": [
+  "y_tp3",
+  "y_tp5",
+  "y_tp8",
+  "y_tp12",
+  "y_fp5"
+ ],
+ "covariates": [
+  "x_n_gt",
+  "x_img_w",
+  "x_img_h",
+  "x_red_ratio",
+  "x_n_holes",
+  "x_gt_min_side_mean"
+ ],
+ "causal_spec": {
+  "unit": "image",
+  "outcome": "y_tp5",
+  "treatment": "t_band",
+  "common_causes": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio",
+   "x_n_holes",
+   "x_gt_min_side_mean"
+  ],
+  "assumption": "The edge band is assigned by the experimenter with the shipped mode/tolerance/joint held fixed. NOTE the GT is filtered at band 0, so band>0 is a GT/detection rule mismatch by construction.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_band', outcome='y_tp5', common_causes=['x_n_gt', 'x_img_w', 'x_img_h', 'x_red_ratio', 'x_n_holes', 'x_gt_min_side_mean'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "derived_from": "p1_ortho (row subset, no re-run)",
+  "title": "P1-c edge band",
+  "base_cell": "ortho_edge-tol10-b0-j0",
+  "base_cell_totals": {
+   "tp3": 857,
+   "tp5": 901,
+   "tp8": 926,
+   "tp12": 938,
+   "fp5": 169,
+   "dets": 1070
+  },
+  "base_cell_corrected": {
+   "3": {
+    "tp": 857,
+    "true_fp": 177,
+    "corr_f1": 81.2
+   },
+   "5": {
+    "tp": 901,
+    "true_fp": 134,
+    "corr_f1": 85.4
+   },
+   "8": {
+    "tp": 926,
+    "true_fp": 113,
+    "corr_f1": 87.6
+   },
+   "12": {
+    "tp": 938,
+    "true_fp": 103,
+    "corr_f1": 88.6
+   }
+  },
+  "base_cell_reproduces_frozen": {
+   "3": true,
+   "5": true,
+   "8": true,
+   "12": true
+  },
+  "base_cell_full_match": true,
+  "base_cell_match": true,
+  "outcomes": [
+   "y_tp3",
+   "y_tp5",
+   "y_tp8",
+   "y_tp12",
+   "y_fp5"
+  ]
+ },
+ "csv": "benchmark/or2_panels/p1_c.csv",
+ "dml_estimates": {
+  "t_band": {
+   "treatment": "t_band",
+   "outcome": "y_tp5",
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 2000,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": -0.00801,
+   "se": 0.00232,
+   "ci95_low": -0.01255,
+   "ci95_high": -0.00347,
+   "p_value": 0.0005408271626500773,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_band",
+  "outcome": "y_tp5",
+  "covariates": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio",
+   "x_n_holes",
+   "x_gt_min_side_mean"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 2000,
+  "n_blocks": 500,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": -0.00801,
+  "se": 0.00232,
+  "ci95_low": -0.01255,
+  "ci95_high": -0.00347,
+  "p_value": 0.0005408271626500773,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ }
+}

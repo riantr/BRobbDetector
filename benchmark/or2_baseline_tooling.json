@@ -1,0 +1,79 @@
+{
+ "stage": "or2 first action",
+ "parity_line": "parity: py=1070 cs=1070 mismatched images=0",
+ "dets": 1070,
+ "n_gt": 1076,
+ "per_d": {
+  "3": {
+   "tp": 857,
+   "true_fp": 177,
+   "corr_f1": 81.2,
+   "match": true
+  },
+  "5": {
+   "tp": 901,
+   "true_fp": 134,
+   "corr_f1": 85.4,
+   "match": true
+  },
+  "8": {
+   "tp": 926,
+   "true_fp": 113,
+   "corr_f1": 87.6,
+   "match": true
+  },
+  "12": {
+   "tp": 938,
+   "true_fp": 103,
+   "corr_f1": 88.6,
+   "match": true
+  }
+ },
+ "all_four_D_match": true,
+ "tooling": {
+  "doubleml": "0.11.4",
+  "dowhy": "MISSING",
+  "sklearn": "1.9.0",
+  "pandas": "3.0.5"
+ },
+ "dowhy_absent": "emit DoWhy-consumable data + causal spec; do NOT install dowhy",
+ "ok": true,
+ "first_action": {
+  "parity_command": "python proto/scope78_parity.py --run-csharp --out tmp_or2_parity_check.json",
+  "parity_stdout": "running C# detector ...\n[Progress] 500/500 boxes=1070 errors=0\n[Done] 500 images, 1070 boxes, 0 errors -> tmp_csharp_cvhybrid\npython detection done\nparity: py=1070 cs=1070 mismatched images=0\nC#  (consistent GT) ngt=1076 D=5 TP= 901 rec= 83.7 prec= 87.1 trueFP= 134 unl= 35 corr_f1= 85.4\npy  (consistent GT) ngt=1076 D=5 TP= 901 rec= 83.7 prec= 87.1 trueFP= 134 unl= 35 corr_f1= 85.4\nsaved tmp_or2_parity_check.json",
+  "doubleml_probe": "python -c \"import doubleml; print('doubleml import OK version', doubleml.__version__)\" -> doubleml import OK version 0.11.4",
+  "dowhy_probe": "python -c \"import dowhy\" -> ModuleNotFoundError: No module named 'dowhy'",
+  "parity_result": {
+   "parity": {
+    "py": 1070,
+    "cs": 1070,
+    "mismatched_images": 0
+   },
+   "per_d": {
+    "3": {
+     "tp": 857,
+     "true_fp": 177,
+     "corrected_f1": 81.2
+    },
+    "5": {
+     "tp": 901,
+     "true_fp": 134,
+     "corrected_f1": 85.4
+    },
+    "8": {
+     "tp": 926,
+     "true_fp": 113,
+     "corrected_f1": 87.6
+    },
+    "12": {
+     "tp": 938,
+     "true_fp": 103,
+     "corrected_f1": 88.6
+    }
+   },
+   "n_gt": 1076
+  },
+  "verdict": "anchor MATCHES the frozen pm_v10 table exactly for C# and Python on all four D",
+  "parity_output_note": "the root-level run artifact tmp_or2_parity_check.json was embedded into first_action.parity_result and then REMOVED, because a root-level tmp_*.json file is not matched by the .gitignore rule tmp_*/ (directories only); re-run with --out tmp_loop2_pseudo/or2_parity_check.json for a gitignored copy."
+ }
+}

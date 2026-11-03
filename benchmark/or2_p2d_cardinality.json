@@ -1,0 +1,148 @@
+{
+ "panel": "p2d_cardinality",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "t_cap": "float64",
+  "ex_soft": "float64",
+  "y_tp5": "float64",
+  "y_fp5": "float64",
+  "x_n_gt": "int64",
+  "x_csv_n": "int64",
+  "x_red_ratio": "float64",
+  "n_det": "int64"
+ },
+ "n_rows": 1500,
+ "unit": "image",
+ "n_blocks": 500,
+ "treatments": [
+  "t_cap"
+ ],
+ "outcomes": [
+  "y_tp5",
+  "y_fp5"
+ ],
+ "covariates": [
+  "x_n_gt",
+  "x_csv_n",
+  "x_red_ratio"
+ ],
+ "causal_spec": {
+  "unit": "image",
+  "outcome": "y_tp5",
+  "treatment": "t_cap",
+  "common_causes": [
+   "x_n_gt",
+   "x_csv_n",
+   "x_red_ratio",
+   "ex_soft"
+  ],
+  "assumption": "The prior mode is assigned by the experimenter; the effect on TP is identified conditionally on image density and redness. ex_soft is a no-deletion reorder arm and a LITERAL NO-OP (same detection sets), so it is retained only as a control and is NOT estimated: its effect is UNIDENTIFIABLE.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_cap', outcome='y_tp5', common_causes=['x_n_gt','x_csv_n','x_red_ratio','ex_soft'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "kinds": [
+   "none",
+   "cap",
+   "soft"
+  ],
+  "ex_soft_degenerate": true,
+  "ex_soft_evidence": {
+   "none": {
+    "tp5": 901,
+    "fp5": 169,
+    "dets": 1070
+   },
+   "soft": {
+    "tp5": 901,
+    "fp5": 169,
+    "dets": 1070
+   },
+   "byte_identical_detection_sets": true,
+   "note": "soft reorders the detections by red support and deletes nothing, so both levels of ex_soft have the same outcome on every image"
+  }
+ },
+ "csv": "benchmark/or2_panels/p2d_cardinality.csv",
+ "dml_estimates": {
+  "t_cap": {
+   "treatment": "t_cap",
+   "outcome": "y_tp5",
+   "covariates": [
+    "x_n_gt",
+    "x_csv_n",
+    "x_red_ratio",
+    "ex_soft"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": -0.05353,
+   "se": 0.01505,
+   "ci95_low": -0.08302,
+   "ci95_high": -0.02403,
+   "p_value": 0.0003754135996183554,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_cap",
+  "outcome": "y_tp5",
+  "covariates": [
+   "x_n_gt",
+   "x_csv_n",
+   "x_red_ratio",
+   "ex_soft"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 1500,
+  "n_blocks": 500,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": -0.05353,
+  "se": 0.01505,
+  "ci95_low": -0.08302,
+  "ci95_high": -0.02403,
+  "p_value": 0.0003754135996183554,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ },
+ "not_attempted": [
+  {
+   "arm": "ex_soft",
+   "outcome": "y_tp5",
+   "status": "UNIDENTIFIABLE",
+   "interpretation": "NOT-ATTEMPTED",
+   "reason": "NOT ATTEMPTED: ex_soft only reorders detections, never deletes, so both levels emit the same detection set on every image; the outcome has no variation with the treatment",
+   "evidence": {
+    "none": {
+     "tp5": 901,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "soft": {
+     "tp5": 901,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "byte_identical_detection_sets": true,
+    "note": "soft reorders the detections by red support and deletes nothing, so both levels of ex_soft have the same outcome on every image"
+   }
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "panel": "p2e_agreement",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "t_agree": "float64",
+  "y_is_tp5": "float64",
+  "x_sup": "float64",
+  "x_n_det_image": "int64",
+  "x_det_min_side": "float64",
+  "x_det_area": "float64"
+ },
+ "n_rows": 1070,
+ "unit": "box",
+ "n_blocks": 480,
+ "treatments": [
+  "t_agree"
+ ],
+ "outcomes": [
+  "y_is_tp5"
+ ],
+ "covariates": [
+  "x_sup",
+  "x_n_det_image",
+  "x_det_min_side",
+  "x_det_area"
+ ],
+ "causal_spec": {
+  "unit": "box",
+  "outcome": "y_is_tp5",
+  "treatment": "t_agree",
+  "common_causes": [
+   "x_sup",
+   "x_n_det_image",
+   "x_det_min_side",
+   "x_det_area"
+  ],
+  "assumption": "Agreement with a second, independently-trained detector is a label-free signal; conditional on the detection's own support and geometry it identifies the probability that the detection is a true positive.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_agree', outcome='y_is_tp5', common_causes=['x_sup','x_n_det_image','x_det_min_side','x_det_area'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "n_dets": 1070,
+  "frac_agree": 0.1925,
+  "tp_rate_agree": 0.9612,
+  "tp_rate_alone": 0.8137,
+  "base_arm_pm_v10": {
+   "n_dets": 1070,
+   "tp5": 901,
+   "n_gt": 1076,
+   "reproduces_frozen": true,
+   "note": "shipped pm_v10 detections/TP over the same 500-image arm; the panel unit is the detection, so the base arm is the detection count and TP that the frozen table scores"
+  },
+  "tau": 3.0,
+  "dl_cache": "tmp_loop2_pseudo/dl_dets.json (gitignored via tmp_*/)",
+  "arm1_checkpoint": {
+   "path": "tmp_loop2_scale/train/weights/best.pt",
+   "mtime": "2026-10-29 12:03:22"
+  },
+  "cache_mtime": "2026-11-02 18:03:00"
+ },
+ "csv": "benchmark/or2_panels/p2e_agreement.csv",
+ "dml_estimates": {
+  "t_agree": {
+   "treatment": "t_agree",
+   "outcome": "y_is_tp5",
+   "covariates": [
+    "x_sup",
+    "x_n_det_image",
+    "x_det_min_side",
+    "x_det_area"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1070,
+   "n_blocks": 480,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": 0.05166,
+   "se": 0.0186,
+   "ci95_low": 0.01521,
+   "ci95_high": 0.08811,
+   "p_value": 0.0054766515355403255,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_agree",
+  "outcome": "y_is_tp5",
+  "covariates": [
+   "x_sup",
+   "x_n_det_image",
+   "x_det_min_side",
+   "x_det_area"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 1070,
+  "n_blocks": 480,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": 0.05166,
+  "se": 0.0186,
+  "ci95_low": 0.01521,
+  "ci95_high": 0.08811,
+  "p_value": 0.0054766515355403255,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ }
+}

@@ -1,0 +1,149 @@
+{
+ "panel": "p2b_mask",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "t_mask_wide": "float64",
+  "t_mask_oracle": "float64",
+  "y_tp3": "float64",
+  "y_tp5": "float64",
+  "x_n_gt": "int64",
+  "x_img_w": "int64",
+  "x_img_h": "int64",
+  "x_red_ratio": "float64"
+ },
+ "n_rows": 1500,
+ "unit": "image",
+ "n_blocks": 500,
+ "treatments": [
+  "t_mask_wide",
+  "t_mask_oracle"
+ ],
+ "outcomes": [
+  "y_tp3",
+  "y_tp5"
+ ],
+ "covariates": [
+  "x_n_gt",
+  "x_img_w",
+  "x_img_h",
+  "x_red_ratio"
+ ],
+ "causal_spec": {
+  "unit": "image",
+  "outcome": "y_tp5",
+  "treatment": "t_mask_oracle",
+  "common_causes": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio",
+   "t_mask_wide"
+  ],
+  "assumption": "The mask source is assigned by the experimenter in a 3-arm within-image design; each arm is identified ONLY against the shipped reference, conditioning on the other arm (estimating an arm against a pooled control is not a well-defined contrast). The ORACLE arm uses the GT and is an UPPER BOUND, never a deployable configuration.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_mask_oracle', outcome='y_tp5', common_causes=['x_n_gt','x_img_w','x_img_h','x_red_ratio','t_mask_wide'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "kinds": [
+   "shipped",
+   "wide",
+   "oracle"
+  ],
+  "contrast_definition": "3-arm within-image design with shipped as the reference; each arm is estimated with the OTHER arm as a co-factor, so t_mask_wide = wide - shipped and t_mask_oracle = oracle - shipped (never vs a pooled control)",
+  "raw_arm_totals": {
+   "shipped": 901,
+   "wide": 910,
+   "oracle": 1010
+  },
+  "note": "oracle = GT-rendered stroke mask: an upper bound on what a learned stroke mask could achieve; not a deployable arm"
+ },
+ "csv": "benchmark/or2_panels/p2b_mask.csv",
+ "dml_estimates": {
+  "t_mask_oracle": {
+   "treatment": "t_mask_oracle",
+   "outcome": "y_tp5",
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "t_mask_wide"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": 0.22439,
+   "se": 0.03827,
+   "ci95_low": 0.14937,
+   "ci95_high": 0.2994,
+   "p_value": 4.553447940760469e-09,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  },
+  "t_mask_wide": {
+   "treatment": "t_mask_wide",
+   "outcome": "y_tp5",
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "t_mask_oracle"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": 0.00774,
+   "se": 0.00979,
+   "ci95_low": -0.01145,
+   "ci95_high": 0.02693,
+   "p_value": 0.42938501969742937,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_mask_oracle",
+  "outcome": "y_tp5",
+  "covariates": [
+   "x_n_gt",
+   "x_img_w",
+   "x_img_h",
+   "x_red_ratio",
+   "t_mask_wide"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 1500,
+  "n_blocks": 500,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": 0.22439,
+  "se": 0.03827,
+  "ci95_low": 0.14937,
+  "ci95_high": 0.2994,
+  "p_value": 4.553447940760469e-09,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ }
+}

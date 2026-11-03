@@ -1,0 +1,1303 @@
+{
+ "routes": [
+  {
+   "route": "P1-a",
+   "verdict": "CONFIRMED",
+   "harness": "proto/or2_p1_a.py",
+   "panel": "p1_a",
+   "base_arm_delta": 0,
+   "in_factorial": "p1_ortho"
+  },
+  {
+   "route": "P1-b",
+   "verdict": "CONFIRMED",
+   "harness": "proto/or2_p1_b.py",
+   "panel": "p1_b",
+   "base_arm_delta": 0,
+   "in_factorial": "p1_ortho"
+  },
+  {
+   "route": "P1-c",
+   "verdict": "DEAD",
+   "harness": "proto/or2_p1_c.py",
+   "panel": "p1_c",
+   "base_arm_delta": 0,
+   "in_factorial": "p1_ortho"
+  },
+  {
+   "route": "P1-d",
+   "verdict": "CONFIRMED",
+   "harness": "proto/or2_p1_d.py",
+   "panel": "p1_d",
+   "base_arm_delta": 0,
+   "in_factorial": "p1_ortho"
+  },
+  {
+   "route": "P2-a",
+   "verdict": "CONFIRMED",
+   "harness": "proto/or2_p2_a_overlap.py",
+   "panel": "p2a_overlap",
+   "base_arm_delta": 0,
+   "in_factorial": null
+  },
+  {
+   "route": "P2-b",
+   "verdict": "WIN",
+   "harness": "proto/or2_p2_b_mask.py",
+   "panel": "p2b_mask",
+   "base_arm_delta": 0,
+   "in_factorial": null
+  },
+  {
+   "route": "P2-c",
+   "verdict": "WIN",
+   "harness": "proto/or2_p2_c_scale.py",
+   "panel": "p2c_scale",
+   "base_arm_delta": 0,
+   "in_factorial": null
+  },
+  {
+   "route": "P2-d",
+   "verdict": "DEAD",
+   "harness": "proto/or2_p2_d_cardinality.py",
+   "panel": "p2d_cardinality",
+   "base_arm_delta": 0,
+   "in_factorial": null
+  },
+  {
+   "route": "P2-e",
+   "verdict": "WIN",
+   "harness": "proto/or2_p2_e_agreement.py",
+   "panel": "p2e_agreement",
+   "base_arm_delta": 0,
+   "in_factorial": null
+  }
+ ],
+ "panels": [
+  {
+   "panel": "p1_a",
+   "csv": "benchmark/or2_panels/p1_a.csv",
+   "unit": "image",
+   "n_rows": 1500,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_edge",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "x_n_holes",
+     "x_gt_min_side_mean",
+     "t_blend"
+    ],
+    "assumption": "The enforcement MODE is assigned by the experimenter with tolerance/band/joint held fixed, so its effect on TP is identified conditionally on pre-treatment image properties.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_edge', outcome='y_tp5', common_causes=['x_n_gt', 'x_img_w', 'x_img_h', 'x_red_ratio', 'x_n_holes', 'x_gt_min_side_mean', 't_blend'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_edge": {
+     "treatment": "t_edge",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_blend"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1500,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.00198,
+     "se": 0.00548,
+     "ci95_low": -0.00876,
+     "ci95_high": 0.01272,
+     "p_value": 0.7179716235475664,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_blend": {
+     "treatment": "t_blend",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_edge"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1500,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.00047,
+     "se": 0.00379,
+     "ci95_low": -0.0079,
+     "ci95_high": 0.00695,
+     "p_value": 0.9009060070912914,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "derived_from": "p1_ortho (row subset, no re-run)",
+    "title": "P1-a ortho mode",
+    "base_cell": "ortho_edge-tol10-b0-j0",
+    "base_cell_totals": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "base_cell_corrected": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "base_cell_reproduces_frozen": {
+     "3": true,
+     "5": true,
+     "8": true,
+     "12": true
+    },
+    "base_cell_full_match": true,
+    "base_cell_match": true,
+    "outcomes": [
+     "y_tp3",
+     "y_tp5",
+     "y_tp8",
+     "y_tp12",
+     "y_fp5"
+    ]
+   }
+  },
+  {
+   "panel": "p1_b",
+   "csv": "benchmark/or2_panels/p1_b.csv",
+   "unit": "image",
+   "n_rows": 2000,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_tol",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "x_n_holes",
+     "x_gt_min_side_mean"
+    ],
+    "assumption": "The tolerance is assigned by the experimenter with the shipped mode/band/joint held fixed.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_tol', outcome='y_tp5', common_causes=['x_n_gt', 'x_img_w', 'x_img_h', 'x_red_ratio', 'x_n_holes', 'x_gt_min_side_mean'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_tol": {
+     "treatment": "t_tol",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 2000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.00126,
+     "se": 0.00065,
+     "ci95_low": -1e-05,
+     "ci95_high": 0.00254,
+     "p_value": 0.05144810727901778,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "derived_from": "p1_ortho (row subset, no re-run)",
+    "title": "P1-b ortho tolerance",
+    "base_cell": "ortho_edge-tol10-b0-j0",
+    "base_cell_totals": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "base_cell_corrected": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "base_cell_reproduces_frozen": {
+     "3": true,
+     "5": true,
+     "8": true,
+     "12": true
+    },
+    "base_cell_full_match": true,
+    "base_cell_match": true,
+    "outcomes": [
+     "y_tp3",
+     "y_tp5",
+     "y_tp8",
+     "y_tp12",
+     "y_fp5"
+    ]
+   }
+  },
+  {
+   "panel": "p1_c",
+   "csv": "benchmark/or2_panels/p1_c.csv",
+   "unit": "image",
+   "n_rows": 2000,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_band",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "x_n_holes",
+     "x_gt_min_side_mean"
+    ],
+    "assumption": "The edge band is assigned by the experimenter with the shipped mode/tolerance/joint held fixed. NOTE the GT is filtered at band 0, so band>0 is a GT/detection rule mismatch by construction.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_band', outcome='y_tp5', common_causes=['x_n_gt', 'x_img_w', 'x_img_h', 'x_red_ratio', 'x_n_holes', 'x_gt_min_side_mean'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_band": {
+     "treatment": "t_band",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 2000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.00801,
+     "se": 0.00232,
+     "ci95_low": -0.01255,
+     "ci95_high": -0.00347,
+     "p_value": 0.0005408271626500773,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "derived_from": "p1_ortho (row subset, no re-run)",
+    "title": "P1-c edge band",
+    "base_cell": "ortho_edge-tol10-b0-j0",
+    "base_cell_totals": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "base_cell_corrected": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "base_cell_reproduces_frozen": {
+     "3": true,
+     "5": true,
+     "8": true,
+     "12": true
+    },
+    "base_cell_full_match": true,
+    "base_cell_match": true,
+    "outcomes": [
+     "y_tp3",
+     "y_tp5",
+     "y_tp8",
+     "y_tp12",
+     "y_fp5"
+    ]
+   }
+  },
+  {
+   "panel": "p1_d",
+   "csv": "benchmark/or2_panels/p1_d.csv",
+   "unit": "image",
+   "n_rows": 1000,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_joint",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "x_n_holes",
+     "x_gt_min_side_mean"
+    ],
+    "assumption": "Joint-fit on/off is assigned by the experimenter with the shipped mode/tolerance/band held fixed.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_joint', outcome='y_tp5', common_causes=['x_n_gt', 'x_img_w', 'x_img_h', 'x_red_ratio', 'x_n_holes', 'x_gt_min_side_mean'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_joint": {
+     "treatment": "t_joint",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.00551,
+     "se": 0.00359,
+     "ci95_low": -0.01255,
+     "ci95_high": 0.00153,
+     "p_value": 0.12493426276541553,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "derived_from": "p1_ortho (row subset, no re-run)",
+    "title": "P1-d joint exactly-orthogonal fit",
+    "base_cell": "ortho_edge-tol10-b0-j0",
+    "base_cell_totals": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "base_cell_corrected": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "base_cell_reproduces_frozen": {
+     "3": true,
+     "5": true,
+     "8": true,
+     "12": true
+    },
+    "base_cell_full_match": true,
+    "base_cell_match": true,
+    "outcomes": [
+     "y_tp3",
+     "y_tp5",
+     "y_tp8",
+     "y_tp12",
+     "y_fp5"
+    ]
+   }
+  },
+  {
+   "panel": "p1_ortho",
+   "csv": "benchmark/or2_panels/p1_ortho.csv",
+   "unit": "image",
+   "n_rows": 48000,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_tol",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "x_n_holes",
+     "x_gt_min_side_mean",
+     "t_edge",
+     "t_blend",
+     "t_band",
+     "t_joint"
+    ],
+    "assumption": "Orthogonality knobs are assigned by the experimenter (randomised-in-design complete block over 500 images); conditioning on the other three factors identifies each factor effect under no-interaction-with-unobserved assignment.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_tol', outcome='y_tp5', common_causes=['x_n_gt','x_img_w','x_img_h','x_red_ratio','x_n_holes','x_gt_min_side_mean','t_edge','t_blend','t_band','t_joint'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_tol": {
+     "treatment": "t_tol",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_edge",
+      "t_blend",
+      "t_band",
+      "t_joint"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 48000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.00101,
+     "se": 0.00055,
+     "ci95_low": -6e-05,
+     "ci95_high": 0.00208,
+     "p_value": 0.06398407142762728,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_band": {
+     "treatment": "t_band",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_edge",
+      "t_blend",
+      "t_joint"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 48000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.00924,
+     "se": 0.00219,
+     "ci95_low": -0.01352,
+     "ci95_high": -0.00495,
+     "p_value": 2.403510237637065e-05,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_joint": {
+     "treatment": "t_joint",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_edge",
+      "t_blend",
+      "t_band"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 48000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.0026,
+     "se": 0.00136,
+     "ci95_low": -7e-05,
+     "ci95_high": 0.00527,
+     "p_value": 0.0564255916328217,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_edge": {
+     "treatment": "t_edge",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_blend",
+      "t_band",
+      "t_joint"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 48000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.00057,
+     "se": 0.00406,
+     "ci95_low": -0.00853,
+     "ci95_high": 0.00739,
+     "p_value": 0.8882053755747045,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_blend": {
+     "treatment": "t_blend",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "x_n_holes",
+      "x_gt_min_side_mean",
+      "t_edge",
+      "t_band",
+      "t_joint"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 48000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.00041,
+     "se": 0.00319,
+     "ci95_low": -0.00584,
+     "ci95_high": 0.00666,
+     "p_value": 0.897281964119187,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "cells": 96,
+    "images": 500,
+    "base_cell": "ortho_edge-tol10-b0-j0",
+    "base_cell_totals": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 169,
+     "dets": 1070
+    },
+    "base_cell_corrected": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "frozen_reference": {
+     "tp3": 857,
+     "tp5": 901,
+     "tp8": 926,
+     "tp12": 938,
+     "fp5": 177,
+     "dets": 1070,
+     "true_fp": {
+      "3": 177,
+      "5": 134,
+      "8": 113,
+      "12": 103
+     }
+    },
+    "frozen_full_reference": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "base_cell_match": true,
+    "base_cell_match_note": "the panel stores y_tp3/y_tp5/y_tp8/y_tp12, so the base cell reproduces all four frozen TP counts structurally (not by a pasted table)",
+    "four_d_anchor": "benchmark/or2_baseline_tooling.json",
+    "factors": {
+     "mode": [
+      "none",
+      "ortho_edge",
+      "ortho_blend"
+     ],
+     "tol": [
+      6,
+      10,
+      15,
+      20
+     ],
+     "band": [
+      0,
+      1,
+      2,
+      4
+     ],
+     "joint": [
+      0,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "panel": "p2a_overlap",
+   "csv": "benchmark/or2_panels/p2a_overlap.csv",
+   "unit": "box",
+   "n_rows": 1076,
+   "n_blocks": 480,
+   "causal_spec": {
+    "unit": "box",
+    "outcome": "y_det5",
+    "treatment": "t_overlap_bin",
+    "common_causes": [
+     "x_min_side",
+     "x_area",
+     "x_aspect",
+     "x_edge_dist",
+     "x_n_gt_image"
+    ],
+    "assumption": "Whether a GT box overlaps another GT box is a property of the hand annotation, not of the detector; conditional on box geometry and density, the overlap-outcome relation identifies the definitional-limit component.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_overlap_bin', outcome='y_det5', common_causes=['x_min_side','x_area','x_aspect','x_edge_dist','x_n_gt_image'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_overlap_bin": {
+     "treatment": "t_overlap_bin",
+     "outcome": "y_det5",
+     "covariates": [
+      "x_min_side",
+      "x_area",
+      "x_aspect",
+      "x_edge_dist",
+      "x_n_gt_image"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1076,
+     "n_blocks": 480,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.08069,
+     "se": 0.01458,
+     "ci95_low": -0.10926,
+     "ci95_high": -0.05212,
+     "p_value": 3.10893293606071e-08,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_overlap_any": {
+     "treatment": "t_overlap_any",
+     "outcome": "y_det5",
+     "covariates": [
+      "x_min_side",
+      "x_area",
+      "x_aspect",
+      "x_edge_dist",
+      "x_n_gt_image"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1076,
+     "n_blocks": 480,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.18181,
+     "se": 0.03071,
+     "ci95_low": -0.24201,
+     "ci95_high": -0.12161,
+     "p_value": 3.229714587474085e-09,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "n_boxes": 1076,
+    "n_overlapping": 423,
+    "continuous_exposure": "ex_overlap_deg (kept for DoWhy; 400+ near-unique levels, not a binned treatment)",
+    "det_rate_overlapping": 0.6596,
+    "det_rate_non_overlapping": 0.9525,
+    "base_arm_pm_v10": {
+     "tp5": 901,
+     "dets": 1070,
+     "n_gt": 1076,
+     "reproduces_frozen": true,
+     "note": "shipped pm_v10 detector summed over the same 500-image arm; these are the per-GT-box totals of the frozen D5 table"
+    },
+    "dist": 5
+   }
+  },
+  {
+   "panel": "p2b_mask",
+   "csv": "benchmark/or2_panels/p2b_mask.csv",
+   "unit": "image",
+   "n_rows": 1500,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_mask_oracle",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio",
+     "t_mask_wide"
+    ],
+    "assumption": "The mask source is assigned by the experimenter in a 3-arm within-image design; each arm is identified ONLY against the shipped reference, conditioning on the other arm (estimating an arm against a pooled control is not a well-defined contrast). The ORACLE arm uses the GT and is an UPPER BOUND, never a deployable configuration.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_mask_oracle', outcome='y_tp5', common_causes=['x_n_gt','x_img_w','x_img_h','x_red_ratio','t_mask_wide'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_mask_oracle": {
+     "treatment": "t_mask_oracle",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "t_mask_wide"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1500,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.22439,
+     "se": 0.03827,
+     "ci95_low": 0.14937,
+     "ci95_high": 0.2994,
+     "p_value": 4.553447940760469e-09,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_mask_wide": {
+     "treatment": "t_mask_wide",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio",
+      "t_mask_oracle"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1500,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.00774,
+     "se": 0.00979,
+     "ci95_low": -0.01145,
+     "ci95_high": 0.02693,
+     "p_value": 0.42938501969742937,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "kinds": [
+     "shipped",
+     "wide",
+     "oracle"
+    ],
+    "contrast_definition": "3-arm within-image design with shipped as the reference; each arm is estimated with the OTHER arm as a co-factor, so t_mask_wide = wide - shipped and t_mask_oracle = oracle - shipped (never vs a pooled control)",
+    "raw_arm_totals": {
+     "shipped": 901,
+     "wide": 910,
+     "oracle": 1010
+    },
+    "note": "oracle = GT-rendered stroke mask: an upper bound on what a learned stroke mask could achieve; not a deployable arm"
+   }
+  },
+  {
+   "panel": "p2c_scale",
+   "csv": "benchmark/or2_panels/p2c_scale.csv",
+   "unit": "image",
+   "n_rows": 1000,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_scale",
+    "common_causes": [
+     "x_n_gt",
+     "x_img_w",
+     "x_img_h",
+     "x_red_ratio"
+    ],
+    "assumption": "Training-corpus size is assigned by the experimenter; the two checkpoints share model/epochs/imgsz/conf and the same split, so the per-image TP difference identifies the scaling effect. This panel is the per-image view of benchmark/loop2_scaling_probe.json.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_scale', outcome='y_tp5', common_causes=['x_n_gt','x_img_w','x_img_h','x_red_ratio'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_scale": {
+     "treatment": "t_scale",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.53479,
+     "se": 0.03482,
+     "ci95_low": 0.46654,
+     "ci95_high": 0.60304,
+     "p_value": 3.163847202623281e-53,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    },
+    "t_scale::y_tp12": {
+     "treatment": "t_scale",
+     "outcome": "y_tp12",
+     "covariates": [
+      "x_n_gt",
+      "x_img_w",
+      "x_img_h",
+      "x_red_ratio"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1000,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.37781,
+     "se": 0.03278,
+     "ci95_low": 0.31356,
+     "ci95_high": 0.44205,
+     "p_value": 9.757814485536912e-31,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "arm0_train_imgs": 300,
+    "arm1_train_imgs": 2000,
+    "arm0_tp5": 234,
+    "arm1_tp5": 502,
+    "arm0_tp12": 628,
+    "arm1_tp12": 818,
+    "n_gt": 1076,
+    "det_cache": "tmp_loop2_pseudo/dl_dets.json (gitignored via tmp_*/)",
+    "wall_clock_s": 38.16,
+    "inference_mode": "cache",
+    "arms_inferred_this_run": [],
+    "arm_checkpoints": {
+     "0": {
+      "path": "tmp_loop2_scale_a/train/weights/best.pt",
+      "mtime": "2026-10-30 12:35:46"
+     },
+     "1": {
+      "path": "tmp_loop2_scale/train/weights/best.pt",
+      "mtime": "2026-10-29 12:03:22"
+     }
+    },
+    "base_arm_pm_v10": {
+     "tp5": 901,
+     "tp12": 938,
+     "reproduces_frozen": true,
+     "note": "pm_v10 computed by this harness on the same 500 images, verified against the frozen table and deliberately kept OUT of t_scale so the 300->2000 estimand stays clean"
+    }
+   }
+  },
+  {
+   "panel": "p2d_cardinality",
+   "csv": "benchmark/or2_panels/p2d_cardinality.csv",
+   "unit": "image",
+   "n_rows": 1500,
+   "n_blocks": 500,
+   "causal_spec": {
+    "unit": "image",
+    "outcome": "y_tp5",
+    "treatment": "t_cap",
+    "common_causes": [
+     "x_n_gt",
+     "x_csv_n",
+     "x_red_ratio",
+     "ex_soft"
+    ],
+    "assumption": "The prior mode is assigned by the experimenter; the effect on TP is identified conditionally on image density and redness. ex_soft is a no-deletion reorder arm and a LITERAL NO-OP (same detection sets), so it is retained only as a control and is NOT estimated: its effect is UNIDENTIFIABLE.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_cap', outcome='y_tp5', common_causes=['x_n_gt','x_csv_n','x_red_ratio','ex_soft'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_cap": {
+     "treatment": "t_cap",
+     "outcome": "y_tp5",
+     "covariates": [
+      "x_n_gt",
+      "x_csv_n",
+      "x_red_ratio",
+      "ex_soft"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1500,
+     "n_blocks": 500,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": -0.05353,
+     "se": 0.01505,
+     "ci95_low": -0.08302,
+     "ci95_high": -0.02403,
+     "p_value": 0.0003754135996183554,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [
+    {
+     "arm": "ex_soft",
+     "outcome": "y_tp5",
+     "status": "UNIDENTIFIABLE",
+     "interpretation": "NOT-ATTEMPTED",
+     "reason": "NOT ATTEMPTED: ex_soft only reorders detections, never deletes, so both levels emit the same detection set on every image; the outcome has no variation with the treatment",
+     "evidence": {
+      "none": {
+       "tp5": 901,
+       "fp5": 169,
+       "dets": 1070
+      },
+      "soft": {
+       "tp5": 901,
+       "fp5": 169,
+       "dets": 1070
+      },
+      "byte_identical_detection_sets": true,
+      "note": "soft reorders the detections by red support and deletes nothing, so both levels of ex_soft have the same outcome on every image"
+     }
+    }
+   ],
+   "meta": {
+    "kinds": [
+     "none",
+     "cap",
+     "soft"
+    ],
+    "ex_soft_degenerate": true,
+    "ex_soft_evidence": {
+     "none": {
+      "tp5": 901,
+      "fp5": 169,
+      "dets": 1070
+     },
+     "soft": {
+      "tp5": 901,
+      "fp5": 169,
+      "dets": 1070
+     },
+     "byte_identical_detection_sets": true,
+     "note": "soft reorders the detections by red support and deletes nothing, so both levels of ex_soft have the same outcome on every image"
+    }
+   }
+  },
+  {
+   "panel": "p2e_agreement",
+   "csv": "benchmark/or2_panels/p2e_agreement.csv",
+   "unit": "box",
+   "n_rows": 1070,
+   "n_blocks": 480,
+   "causal_spec": {
+    "unit": "box",
+    "outcome": "y_is_tp5",
+    "treatment": "t_agree",
+    "common_causes": [
+     "x_sup",
+     "x_n_det_image",
+     "x_det_min_side",
+     "x_det_area"
+    ],
+    "assumption": "Agreement with a second, independently-trained detector is a label-free signal; conditional on the detection's own support and geometry it identifies the probability that the detection is a true positive.",
+    "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_agree', outcome='y_is_tp5', common_causes=['x_sup','x_n_det_image','x_det_min_side','x_det_area'])",
+    "instruments": [],
+    "mediators": [],
+    "covariates_pre_treatment": true,
+    "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+   },
+   "estimates": {
+    "t_agree": {
+     "treatment": "t_agree",
+     "outcome": "y_is_tp5",
+     "covariates": [
+      "x_sup",
+      "x_n_det_image",
+      "x_det_min_side",
+      "x_det_area"
+     ],
+     "n_folds": 3,
+     "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+     "library": "doubleml",
+     "n_units": 1070,
+     "n_blocks": 480,
+     "fold_seed": 42,
+     "row_order": "sorted by (block, cell), stable",
+     "status": "ok",
+     "theta": 0.05166,
+     "se": 0.0186,
+     "ci95_low": 0.01521,
+     "ci95_high": 0.08811,
+     "p_value": 0.0054766515355403255,
+     "cluster_robust_se": true,
+     "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+     "se_note": "cluster-robust on block"
+    }
+   },
+   "not_attempted": [],
+   "meta": {
+    "n_dets": 1070,
+    "frac_agree": 0.1925,
+    "tp_rate_agree": 0.9612,
+    "tp_rate_alone": 0.8137,
+    "base_arm_pm_v10": {
+     "n_dets": 1070,
+     "tp5": 901,
+     "n_gt": 1076,
+     "reproduces_frozen": true,
+     "note": "shipped pm_v10 detections/TP over the same 500-image arm; the panel unit is the detection, so the base arm is the detection count and TP that the frozen table scores"
+    },
+    "tau": 3.0,
+    "dl_cache": "tmp_loop2_pseudo/dl_dets.json (gitignored via tmp_*/)",
+    "arm1_checkpoint": {
+     "path": "tmp_loop2_scale/train/weights/best.pt",
+     "mtime": "2026-10-29 12:03:22"
+    },
+    "cache_mtime": "2026-11-02 18:03:00"
+   }
+  }
+ ],
+ "validator": "10 panels / 10 PASS / 0 FAIL",
+ "doubleml": "0.11.4",
+ "dowhy": "ABSENT (DoWhy-ready data emitted, not run)",
+ "reproducibility": {
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "note": "estimates are reproducible; see benchmark/or2_route_verdicts.md"
+ },
+ "note": "Each of the 9 routes has its own harness file; P1-a..d are slices of the p1_ortho factorial. P2-d ex_soft is a non-treatment no-op arm recorded NOT-ATTEMPTED. P2-b arms are each contrasted against the shipped reference. Base-arm and checkpoint/wall-clock provenance are in each panel meta."
+}

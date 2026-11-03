@@ -1,0 +1,151 @@
+{
+ "panel": "p2a_overlap",
+ "schema": {
+  "unit": "str",
+  "block": "str",
+  "cell": "str",
+  "ex_overlap_deg": "float64",
+  "t_overlap_bin": "int64",
+  "t_overlap_any": "float64",
+  "y_det5": "float64",
+  "x_min_side": "float64",
+  "x_area": "float64",
+  "x_aspect": "float64",
+  "x_edge_dist": "float64",
+  "x_n_gt_image": "int64"
+ },
+ "n_rows": 1076,
+ "unit": "box",
+ "n_blocks": 480,
+ "treatments": [
+  "t_overlap_bin",
+  "t_overlap_any"
+ ],
+ "outcomes": [
+  "y_det5"
+ ],
+ "covariates": [
+  "x_min_side",
+  "x_area",
+  "x_aspect",
+  "x_edge_dist",
+  "x_n_gt_image"
+ ],
+ "causal_spec": {
+  "unit": "box",
+  "outcome": "y_det5",
+  "treatment": "t_overlap_bin",
+  "common_causes": [
+   "x_min_side",
+   "x_area",
+   "x_aspect",
+   "x_edge_dist",
+   "x_n_gt_image"
+  ],
+  "assumption": "Whether a GT box overlaps another GT box is a property of the hand annotation, not of the detector; conditional on box geometry and density, the overlap-outcome relation identifies the definitional-limit component.",
+  "dowhy_usage": "dowhy.CausalModel(data=df, treatment='t_overlap_bin', outcome='y_det5', common_causes=['x_min_side','x_area','x_aspect','x_edge_dist','x_n_gt_image'])",
+  "instruments": [],
+  "mediators": [],
+  "covariates_pre_treatment": true,
+  "covariate_note": "all x_* are pre-treatment image/box properties measured before the arm assignment; none is derived from a y_*"
+ },
+ "meta": {
+  "n_boxes": 1076,
+  "n_overlapping": 423,
+  "continuous_exposure": "ex_overlap_deg (kept for DoWhy; 400+ near-unique levels, not a binned treatment)",
+  "det_rate_overlapping": 0.6596,
+  "det_rate_non_overlapping": 0.9525,
+  "base_arm_pm_v10": {
+   "tp5": 901,
+   "dets": 1070,
+   "n_gt": 1076,
+   "reproduces_frozen": true,
+   "note": "shipped pm_v10 detector summed over the same 500-image arm; these are the per-GT-box totals of the frozen D5 table"
+  },
+  "dist": 5
+ },
+ "csv": "benchmark/or2_panels/p2a_overlap.csv",
+ "dml_estimates": {
+  "t_overlap_bin": {
+   "treatment": "t_overlap_bin",
+   "outcome": "y_det5",
+   "covariates": [
+    "x_min_side",
+    "x_area",
+    "x_aspect",
+    "x_edge_dist",
+    "x_n_gt_image"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1076,
+   "n_blocks": 480,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": -0.08069,
+   "se": 0.01458,
+   "ci95_low": -0.10926,
+   "ci95_high": -0.05212,
+   "p_value": 3.10893293606071e-08,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  },
+  "t_overlap_any": {
+   "treatment": "t_overlap_any",
+   "outcome": "y_det5",
+   "covariates": [
+    "x_min_side",
+    "x_area",
+    "x_aspect",
+    "x_edge_dist",
+    "x_n_gt_image"
+   ],
+   "n_folds": 3,
+   "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+   "library": "doubleml",
+   "n_units": 1076,
+   "n_blocks": 480,
+   "fold_seed": 42,
+   "row_order": "sorted by (block, cell), stable",
+   "status": "ok",
+   "theta": -0.18181,
+   "se": 0.03071,
+   "ci95_low": -0.24201,
+   "ci95_high": -0.12161,
+   "p_value": 3.229714587474085e-09,
+   "cluster_robust_se": true,
+   "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+   "se_note": "cluster-robust on block"
+  }
+ },
+ "dml": {
+  "treatment": "t_overlap_bin",
+  "outcome": "y_det5",
+  "covariates": [
+   "x_min_side",
+   "x_area",
+   "x_aspect",
+   "x_edge_dist",
+   "x_n_gt_image"
+  ],
+  "n_folds": 3,
+  "nuisance": "RandomForestRegressor(60 trees, min_samples_leaf=10, max_features=0.5, seed=42)",
+  "library": "doubleml",
+  "n_units": 1076,
+  "n_blocks": 480,
+  "fold_seed": 42,
+  "row_order": "sorted by (block, cell), stable",
+  "status": "ok",
+  "theta": -0.08069,
+  "se": 0.01458,
+  "ci95_low": -0.10926,
+  "ci95_high": -0.05212,
+  "p_value": 3.10893293606071e-08,
+  "cluster_robust_se": true,
+  "sample_splitting": "DoubleML folds redrawn after np.random.seed(42); rows sorted by (block, cell), stable",
+  "se_note": "cluster-robust on block"
+ }
+}
