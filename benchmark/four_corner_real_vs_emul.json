@@ -1,0 +1,101 @@
+{
+ "algorithm": "pm_v10 shipped (holes + edgefit + side refine), no overrides",
+ "real": {
+  "source": "benchmark/four_corner_real.json",
+  "dataset": "500 real CARS images",
+  "n_gt": 1076,
+  "n_det": 1070,
+  "sec": 5.1,
+  "metric": "GT-corrected: fp = trueFP (is_real_unlabeled applied)",
+  "per_D": {
+   "3": {
+    "tp": 857,
+    "fp": 177,
+    "recall": 79.6,
+    "precision": 82.9,
+    "f1": 81.2
+   },
+   "5": {
+    "tp": 901,
+    "fp": 134,
+    "recall": 83.7,
+    "precision": 87.1,
+    "f1": 85.4
+   },
+   "8": {
+    "tp": 926,
+    "fp": 113,
+    "recall": 86.1,
+    "precision": 89.1,
+    "f1": 87.6
+   },
+   "12": {
+    "tp": 938,
+    "fp": 103,
+    "recall": 87.2,
+    "precision": 90.1,
+    "f1": 88.6
+   }
+  }
+ },
+ "emulation": {
+  "source": "benchmark/four_corner_emul.json",
+  "dataset": "data/Image@emul4 (5000 imgs)",
+  "n_gt": 3295,
+  "n_det": 3166,
+  "sec": 63.0,
+  "metric": "plain (complete GT); RED-class GT only",
+  "per_D": {
+   "3": {
+    "tp": 2544,
+    "fp": 622,
+    "recall": 77.21,
+    "precision": 80.35,
+    "f1": 78.7
+   },
+   "5": {
+    "tp": 2807,
+    "fp": 359,
+    "recall": 85.19,
+    "precision": 88.66,
+    "f1": 86.9
+   },
+   "8": {
+    "tp": 3010,
+    "fp": 156,
+    "recall": 91.35,
+    "precision": 95.07,
+    "f1": 93.2
+   },
+   "12": {
+    "tp": 3074,
+    "fp": 92,
+    "recall": 93.29,
+    "precision": 97.09,
+    "f1": 95.2
+   }
+  }
+ },
+ "delta_emul_minus_real": {
+  "3": {
+   "recall": -2.4,
+   "precision": -2.6,
+   "f1": -2.5
+  },
+  "5": {
+   "recall": 1.5,
+   "precision": 1.6,
+   "f1": 1.5
+  },
+  "8": {
+   "recall": 5.2,
+   "precision": 6.0,
+   "f1": 5.6
+  },
+  "12": {
+   "recall": 6.1,
+   "precision": 7.0,
+   "f1": 6.6
+  }
+ }
+}
