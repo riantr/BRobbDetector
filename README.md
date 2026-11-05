@@ -598,6 +598,32 @@ pm_v10 remains the current best.
   identity check against the frozen baseline, the pm_v9 / pm_v8 / pm_v7 lineage,
   and the LOOP-46 candidate rows.
 
+### Scope closure (2026-11-05) — pm_v10 unchanged
+
+The classical / non-GPU / non-DL accuracy scope is **closed** at pm_v10.
+
+- **D=5:** 901/1076 = 83.7%. The 175 FN split into **124 overlapping-GT**
+  (definitional: 0/124 second boxes proposed at D=5), **48 weak-red**, and
+  **3 eligible** at min-side >= 0.6. The remaining levers are measured dead:
+  hysteresis mask NOT-REPLICATED (LOOP-46), overlap second-box split **0 TP on
+  seeds 0/1/2** (LOOP-49), hole-first/edgefit-fallback **−5/−4/−2 TP** (LOOP-50).
+- **D=3:** 857/1076 = 79.6%. The validity-constrained corner snap lost
+  **99/107/100 TP** on seeds 0/1/2 (LOOP-51); GT is precise (100% reachable at
+  D=2), so the D=3 gap is *which pixels the band selects*, not the estimator.
+- **Causal map (LOOP-47/48):** overlap (`Ovl` −14.5 pp/SD) and GT count
+  (`Ngt` −8.3 upstream) dominate; orthogonality `S8` is inert (p=0.93);
+  candidate clutter is conditional, not causal for deleting edgefit.
+- **Reopen only with:** a GPU/DL corner-precision model, a GT-scope review
+  (overlap + weak-red), or a cross-resolution holdout showing a scale gap.
+  Do not re-run fragment/hole merging, cut-side sliding, joint re-fitting,
+  per-image config selection, global hue, ridge-based corner/side refinement,
+  or image-level family removal.
+
+Artifacts: `benchmark/causal_graph.{md,dot,svg,json}`,
+`benchmark/all_cause_analysis.{md,json}`,
+`benchmark/loop49_*`, `benchmark/loop50_*`, `benchmark/loop51_*`,
+`benchmark/current_vs_baseline.md`.
+
 ### Historical baseline (invalid GT — Compare-V1, 746 boxes)
 
 | D | TP | FN | rawFP | trueFP | recall | corrected_f1 |

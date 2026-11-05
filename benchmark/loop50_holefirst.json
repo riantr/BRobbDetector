@@ -1,0 +1,467 @@
+{
+ "loop": "LOOP-50",
+ "lever": "hole-first / edgefit-fallback",
+ "target": "candidate clutter (S4_quads -10.2 pp/SD, S5_edgefit_share -9.0)",
+ "acceptance": "theta>0 and p<0.05 on seed 0, same on seeds 1/2; trueFP <= 0.5 per TP",
+ "seeds": {
+  "0": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 901,
+   "base_d5_rawFP": 169,
+   "base_d5_dets": 1070,
+   "lever_d5_tp": 896,
+   "lever_d5_rawFP": 163,
+   "delta_tp": -5,
+   "delta_trueFP": -5,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_holefirst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.010004,
+    "se": 0.004451,
+    "ci95": [
+     -0.018727,
+     -0.001281
+    ],
+    "p": 0.02458906762235391,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 853,
+      "fp": 206
+     },
+     "5": {
+      "tp": 896,
+      "fp": 163
+     },
+     "8": {
+      "tp": 921,
+      "fp": 138
+     },
+     "12": {
+      "tp": 933,
+      "fp": 126
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 853,
+      "true_fp": 171,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 896,
+      "true_fp": 129,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 921,
+      "true_fp": 108,
+      "corr_f1": 87.5
+     },
+     "12": {
+      "tp": 933,
+      "true_fp": 98,
+      "corr_f1": 88.6
+     }
+    }
+   },
+   "wall_clock_s": 78.9,
+   "seed0_pass": false
+  },
+  "1": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 950,
+   "base_d5_rawFP": 184,
+   "base_d5_dets": 1134,
+   "lever_d5_tp": 946,
+   "lever_d5_rawFP": 177,
+   "delta_tp": -4,
+   "delta_trueFP": -5,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_holefirst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.007996,
+    "se": 0.003983,
+    "ci95": [
+     -0.015803,
+     -0.00019
+    ],
+    "p": 0.04469106764790998,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "fp": 244
+     },
+     "5": {
+      "tp": 950,
+      "fp": 184
+     },
+     "8": {
+      "tp": 973,
+      "fp": 161
+     },
+     "12": {
+      "tp": 1001,
+      "fp": 133
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 887,
+      "fp": 236
+     },
+     "5": {
+      "tp": 946,
+      "fp": 177
+     },
+     "8": {
+      "tp": 969,
+      "fp": 154
+     },
+     "12": {
+      "tp": 997,
+      "fp": 126
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "true_fp": 213,
+      "corr_f1": 77.8
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 156,
+      "corr_f1": 83.0
+     },
+     "8": {
+      "tp": 973,
+      "true_fp": 134,
+      "corr_f1": 84.9
+     },
+     "12": {
+      "tp": 1001,
+      "true_fp": 108,
+      "corr_f1": 87.3
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 887,
+      "true_fp": 207,
+      "corr_f1": 77.9
+     },
+     "5": {
+      "tp": 946,
+      "true_fp": 151,
+      "corr_f1": 82.9
+     },
+     "8": {
+      "tp": 969,
+      "true_fp": 129,
+      "corr_f1": 84.9
+     },
+     "12": {
+      "tp": 997,
+      "true_fp": 103,
+      "corr_f1": 87.3
+     }
+    }
+   },
+   "wall_clock_s": 88.7
+  },
+  "2": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 911,
+   "base_d5_rawFP": 186,
+   "base_d5_dets": 1097,
+   "lever_d5_tp": 909,
+   "lever_d5_rawFP": 175,
+   "delta_tp": -2,
+   "delta_trueFP": -10,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_holefirst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.004004,
+    "se": 0.002824,
+    "ci95": [
+     -0.009539,
+     0.001531
+    ],
+    "p": 0.156258364192015,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "fp": 232
+     },
+     "5": {
+      "tp": 911,
+      "fp": 186
+     },
+     "8": {
+      "tp": 937,
+      "fp": 160
+     },
+     "12": {
+      "tp": 959,
+      "fp": 138
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 863,
+      "fp": 221
+     },
+     "5": {
+      "tp": 909,
+      "fp": 175
+     },
+     "8": {
+      "tp": 935,
+      "fp": 149
+     },
+     "12": {
+      "tp": 957,
+      "fp": 127
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "true_fp": 200,
+      "corr_f1": 78.1
+     },
+     "5": {
+      "tp": 911,
+      "true_fp": 161,
+      "corr_f1": 82.0
+     },
+     "8": {
+      "tp": 937,
+      "true_fp": 140,
+      "corr_f1": 84.1
+     },
+     "12": {
+      "tp": 959,
+      "true_fp": 120,
+      "corr_f1": 86.0
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 863,
+      "true_fp": 190,
+      "corr_f1": 78.3
+     },
+     "5": {
+      "tp": 909,
+      "true_fp": 151,
+      "corr_f1": 82.3
+     },
+     "8": {
+      "tp": 935,
+      "true_fp": 130,
+      "corr_f1": 84.4
+     },
+     "12": {
+      "tp": 957,
+      "true_fp": 110,
+      "corr_f1": 86.3
+     }
+    }
+   },
+   "wall_clock_s": 82.1
+  }
+ },
+ "verdict": "DEAD",
+ "base_arm": {
+  "seed": 0,
+  "D5_tp": 901,
+  "D5_rawFP": 169,
+  "D5_dets": 1070,
+  "frozen_anchor": true
+ },
+ "verdict_reason": "seed 0: 901 -> 896 TP (-5), trueFP 134 -> 129, theta -0.0100, p=0.0246; seed 1: 950 -> 946 TP (-4), trueFP 156 -> 151, theta -0.0080, p=0.0447; seed 2: 911 -> 909 TP (-2), trueFP 161 -> 155, theta -0.0040, p=0.156. The lever trades recall for precision; the seed-0 acceptance fails (theta<0) -> DEAD.",
+ "levers": [
+  {
+   "lever": "hole-first / edgefit-fallback",
+   "name": "holes if any, else edgefit",
+   "target": "candidate clutter (S4_quads, S5_edgefit_share)",
+   "status": "DEAD",
+   "panel": "benchmark/loop50_panels/seed0_holefirst.csv",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "estimate": {
+    "treatment": "t_holefirst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.010004,
+    "se": 0.004451,
+    "ci95": [
+     -0.018727,
+     -0.001281
+    ],
+    "p": 0.02458906762235391,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 853,
+      "fp": 206
+     },
+     "5": {
+      "tp": 896,
+      "fp": 163
+     },
+     "8": {
+      "tp": 921,
+      "fp": 138
+     },
+     "12": {
+      "tp": 933,
+      "fp": 126
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "holefirst": {
+     "3": {
+      "tp": 853,
+      "true_fp": 171,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 896,
+      "true_fp": 129,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 921,
+      "true_fp": 108,
+      "corr_f1": 87.5
+     },
+     "12": {
+      "tp": 933,
+      "true_fp": 98,
+      "corr_f1": 88.6
+     }
+    }
+   },
+   "delta_tp_seed0": -5,
+   "delta_trueFP_seed0": -5,
+   "reason": "seed 0: 901 -> 896 TP (-5), trueFP 134 -> 129, theta -0.0100, p=0.0246; seed 1: 950 -> 946 TP (-4), trueFP 156 -> 151, theta -0.0080, p=0.0447; seed 2: 911 -> 909 TP (-2), trueFP 161 -> 155, theta -0.0040, p=0.156. The lever trades recall for precision; the seed-0 acceptance fails (theta<0) -> DEAD."
+  }
+ ]
+}

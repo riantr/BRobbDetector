@@ -1,0 +1,250 @@
+{
+ "graph": "detector stages -> four-corner recall @ D=5",
+ "tool": "riantr/moonbit_dowhy@0.0.33 (MoonBit DoWhy 0.14 port)",
+ "requested": "riantr/dowhy@latest (not a registry module)",
+ "nodes": [
+  "Ngt",
+  "Ovl",
+  "Red",
+  "S1",
+  "S10",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7",
+  "S8",
+  "S9",
+  "U",
+  "W",
+  "Y"
+ ],
+ "edges": [
+  [
+   "W",
+   "S4"
+  ],
+  [
+   "W",
+   "S5"
+  ],
+  [
+   "W",
+   "S8"
+  ],
+  [
+   "Ngt",
+   "Ovl"
+  ],
+  [
+   "Ngt",
+   "S3"
+  ],
+  [
+   "Ngt",
+   "Y"
+  ],
+  [
+   "Red",
+   "S1"
+  ],
+  [
+   "Red",
+   "S9"
+  ],
+  [
+   "Ovl",
+   "S3"
+  ],
+  [
+   "Ovl",
+   "S4"
+  ],
+  [
+   "Ovl",
+   "Y"
+  ],
+  [
+   "S1",
+   "S2"
+  ],
+  [
+   "S1",
+   "S9"
+  ],
+  [
+   "S2",
+   "S3"
+  ],
+  [
+   "S2",
+   "S9"
+  ],
+  [
+   "S3",
+   "S4"
+  ],
+  [
+   "S3",
+   "S5"
+  ],
+  [
+   "S4",
+   "S6"
+  ],
+  [
+   "S5",
+   "S7"
+  ],
+  [
+   "S6",
+   "S7"
+  ],
+  [
+   "S7",
+   "S8"
+  ],
+  [
+   "S8",
+   "S9"
+  ],
+  [
+   "S9",
+   "S10"
+  ],
+  [
+   "S10",
+   "Y"
+  ],
+  [
+   "U",
+   "S1"
+  ],
+  [
+   "U",
+   "S2"
+  ],
+  [
+   "U",
+   "S3"
+  ],
+  [
+   "U",
+   "S4"
+  ],
+  [
+   "U",
+   "S5"
+  ],
+  [
+   "U",
+   "S6"
+  ],
+  [
+   "U",
+   "S7"
+  ],
+  [
+   "U",
+   "S8"
+  ],
+  [
+   "U",
+   "S9"
+  ],
+  [
+   "U",
+   "S10"
+  ],
+  [
+   "U",
+   "Y"
+  ]
+ ],
+ "latent": "U (image difficulty) is in the DOT but removed for identification",
+ "identification_observed_projection": [
+  {
+   "treatment": "S1",
+   "key": "backdoor2",
+   "adjustment": [
+    "Red"
+   ]
+  },
+  {
+   "treatment": "S2",
+   "key": "backdoor2",
+   "adjustment": [
+    "S1"
+   ]
+  },
+  {
+   "treatment": "S3",
+   "key": "backdoor2",
+   "adjustment": [
+    "S2",
+    "Ngt",
+    "Ovl"
+   ]
+  },
+  {
+   "treatment": "S4",
+   "key": "backdoor2",
+   "adjustment": [
+    "W",
+    "S3",
+    "Ovl"
+   ]
+  },
+  {
+   "treatment": "S5",
+   "key": "backdoor2",
+   "adjustment": [
+    "W",
+    "S3"
+   ]
+  },
+  {
+   "treatment": "S6",
+   "key": "backdoor2",
+   "adjustment": [
+    "S4"
+   ]
+  },
+  {
+   "treatment": "S7",
+   "key": "backdoor2",
+   "adjustment": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "treatment": "S8",
+   "key": "backdoor3",
+   "adjustment": [
+    "S3",
+    "Ovl"
+   ]
+  },
+  {
+   "treatment": "S9",
+   "key": "backdoor3",
+   "adjustment": [
+    "Ngt",
+    "Ovl"
+   ]
+  },
+  {
+   "treatment": "S10",
+   "key": "backdoor2",
+   "adjustment": [
+    "S9"
+   ]
+  }
+ ],
+ "renders": {
+  "svg": true,
+  "png": true
+ }
+}

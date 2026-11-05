@@ -1,0 +1,62 @@
+flowchart LR
+  classDef ctx fill:#eef2ff,stroke:#4455aa;
+  classDef stage fill:#eef7ee,stroke:#337755;
+  classDef out fill:#feecec,stroke:#aa3333;
+  classDef latent fill:#f6f6f6,stroke:#888888,stroke-dasharray: 4 3;
+  subgraph CTX[Image / GT context]
+    W["W: image geometry"]:::ctx
+    Ngt["Ngt: GT box count"]:::ctx
+    Ovl["Ovl: GT overlap density"]:::ctx
+    Red["Red: red annotation coverage"]:::ctx
+    U["U: latent image difficulty"]:::latent
+  end
+  subgraph PIPE[Algorithm stages]
+    S4["S4 hole quad fit"]:::stage
+    S5["S5 edgefit"]:::stage
+    S8["S8 orthogonality + edge rule"]:::stage
+    S3["S3 holes / outer contours"]:::stage
+    S1["S1 red mask (hue/sat/val)"]:::stage
+    S9["S9 red-support gate"]:::stage
+    S2["S2 denoise"]:::stage
+    S6["S6 side refine"]:::stage
+    S7["S7 side-validity gate"]:::stage
+    S10["S10 dedup"]:::stage
+  end
+  Y["Y: four-corner recall @ D=5"]:::out
+  W --> S4
+  W --> S5
+  W --> S8
+  Ngt --> Ovl
+  Ngt --> S3
+  Ngt --> Y
+  Red --> S1
+  Red --> S9
+  Ovl --> S3
+  Ovl --> S4
+  Ovl --> Y
+  S1 --> S2
+  S1 --> S9
+  S2 --> S3
+  S2 --> S9
+  S3 --> S4
+  S3 --> S5
+  S4 --> S6
+  S5 --> S7
+  S6 --> S7
+  S7 --> S8
+  S8 --> S9
+  S9 --> S10
+  S10 --> Y
+  U -.-> S1
+  U -.-> S2
+  U -.-> S3
+  U -.-> S4
+  U -.-> S5
+  U -.-> S6
+  U -.-> S7
+  U -.-> S8
+  U -.-> S9
+  U -.-> S10
+  U -.-> Y
+  Ovl -->|verified: -0.18 TP/img| Y
+  S9 -->|admission is binding| S10

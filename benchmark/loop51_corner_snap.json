@@ -1,0 +1,534 @@
+{
+ "loop": "LOOP-51",
+ "lever": "validity-constrained corner snap",
+ "target": "D=3 corner precision (base 857 TP), D=5 non-inferiority (901)",
+ "acceptance": "theta>0 and p<0.05 on y_tp3 seed 0, same on seeds 1/2; D5 TP not lower; D3 trueFP <= 0.5 per gained TP",
+ "seeds": {
+  "0": {
+   "status": "DONE",
+   "n_images": 500,
+   "snapped_quads": 1064,
+   "base_d3_tp": 857,
+   "lever_d3_tp": 758,
+   "delta_d3_tp": -99,
+   "delta_d3_trueFP": 90,
+   "base_d5_tp": 901,
+   "lever_d5_tp": 901,
+   "delta_d5_tp": 0,
+   "base_d5_rawFP": 169,
+   "lever_d5_rawFP": 169,
+   "estimate_d3": {
+    "treatment": "t_snap",
+    "outcome": "y_tp3",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.198098,
+    "se": 0.019539,
+    "ci95": [
+     -0.236394,
+     -0.159802
+    ],
+    "p": 0.0,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "estimate_d5": {
+    "treatment": "t_snap",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 1.2e-05,
+    "se": 0.006332,
+    "ci95": [
+     -0.012398,
+     0.012422
+    ],
+    "p": 0.9984847401041264,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 758,
+      "fp": 312
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 927,
+      "fp": 143
+     },
+     "12": {
+      "tp": 939,
+      "fp": 131
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 758,
+      "true_fp": 267,
+      "corr_f1": 72.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 136,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 927,
+      "true_fp": 112,
+      "corr_f1": 87.7
+     },
+     "12": {
+      "tp": 939,
+      "true_fp": 102,
+      "corr_f1": 88.7
+     }
+    }
+   },
+   "wall_clock_s": 82.8,
+   "seed0_pass": false
+  },
+  "1": {
+   "status": "DONE",
+   "n_images": 500,
+   "snapped_quads": 1128,
+   "base_d3_tp": 890,
+   "lever_d3_tp": 783,
+   "delta_d3_tp": -107,
+   "delta_d3_trueFP": 105,
+   "base_d5_tp": 950,
+   "lever_d5_tp": 947,
+   "delta_d5_tp": -3,
+   "base_d5_rawFP": 184,
+   "lever_d5_rawFP": 187,
+   "estimate_d3": {
+    "treatment": "t_snap",
+    "outcome": "y_tp3",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.214042,
+    "se": 0.022465,
+    "ci95": [
+     -0.258073,
+     -0.17001
+    ],
+    "p": 0.0,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "estimate_d5": {
+    "treatment": "t_snap",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.006012,
+    "se": 0.005284,
+    "ci95": [
+     -0.016368,
+     0.004344
+    ],
+    "p": 0.2552028042428722,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "fp": 244
+     },
+     "5": {
+      "tp": 950,
+      "fp": 184
+     },
+     "8": {
+      "tp": 973,
+      "fp": 161
+     },
+     "12": {
+      "tp": 1001,
+      "fp": 133
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 783,
+      "fp": 351
+     },
+     "5": {
+      "tp": 947,
+      "fp": 187
+     },
+     "8": {
+      "tp": 974,
+      "fp": 160
+     },
+     "12": {
+      "tp": 1002,
+      "fp": 132
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "true_fp": 213,
+      "corr_f1": 77.8
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 156,
+      "corr_f1": 83.0
+     },
+     "8": {
+      "tp": 973,
+      "true_fp": 134,
+      "corr_f1": 84.9
+     },
+     "12": {
+      "tp": 1001,
+      "true_fp": 108,
+      "corr_f1": 87.3
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 783,
+      "true_fp": 318,
+      "corr_f1": 68.5
+     },
+     "5": {
+      "tp": 947,
+      "true_fp": 159,
+      "corr_f1": 82.7
+     },
+     "8": {
+      "tp": 974,
+      "true_fp": 134,
+      "corr_f1": 85.0
+     },
+     "12": {
+      "tp": 1002,
+      "true_fp": 107,
+      "corr_f1": 87.4
+     }
+    }
+   },
+   "wall_clock_s": 84.2
+  },
+  "2": {
+   "status": "DONE",
+   "n_images": 500,
+   "snapped_quads": 1096,
+   "base_d3_tp": 865,
+   "lever_d3_tp": 765,
+   "delta_d3_tp": -100,
+   "delta_d3_trueFP": 92,
+   "base_d5_tp": 911,
+   "lever_d5_tp": 913,
+   "delta_d5_tp": 2,
+   "base_d5_rawFP": 186,
+   "lever_d5_rawFP": 184,
+   "estimate_d3": {
+    "treatment": "t_snap",
+    "outcome": "y_tp3",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.200022,
+    "se": 0.019797,
+    "ci95": [
+     -0.238823,
+     -0.16122
+    ],
+    "p": 0.0,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "estimate_d5": {
+    "treatment": "t_snap",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.004004,
+    "se": 0.003995,
+    "ci95": [
+     -0.003826,
+     0.011834
+    ],
+    "p": 0.316217010669104,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "fp": 232
+     },
+     "5": {
+      "tp": 911,
+      "fp": 186
+     },
+     "8": {
+      "tp": 937,
+      "fp": 160
+     },
+     "12": {
+      "tp": 959,
+      "fp": 138
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 765,
+      "fp": 332
+     },
+     "5": {
+      "tp": 913,
+      "fp": 184
+     },
+     "8": {
+      "tp": 935,
+      "fp": 162
+     },
+     "12": {
+      "tp": 960,
+      "fp": 137
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "true_fp": 200,
+      "corr_f1": 78.1
+     },
+     "5": {
+      "tp": 911,
+      "true_fp": 161,
+      "corr_f1": 82.0
+     },
+     "8": {
+      "tp": 937,
+      "true_fp": 140,
+      "corr_f1": 84.1
+     },
+     "12": {
+      "tp": 959,
+      "true_fp": 120,
+      "corr_f1": 86.0
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 765,
+      "true_fp": 292,
+      "corr_f1": 69.3
+     },
+     "5": {
+      "tp": 913,
+      "true_fp": 159,
+      "corr_f1": 82.2
+     },
+     "8": {
+      "tp": 935,
+      "true_fp": 142,
+      "corr_f1": 84.0
+     },
+     "12": {
+      "tp": 960,
+      "true_fp": 119,
+      "corr_f1": 86.1
+     }
+    }
+   },
+   "wall_clock_s": 79.4
+  }
+ },
+ "verdict": "DEAD",
+ "base_arm": {
+  "seed": 0,
+  "D3_tp": 857,
+  "D5_tp": 901,
+  "D5_rawFP": 169,
+  "D5_dets": 1070,
+  "frozen_anchor": true
+ },
+ "verdict_reason": "seed 0: D3 857 -> 758 (-99), trueFP 177 -> 267, D5 901 -> 901; seed 1: D3 890 -> 783 (-107), trueFP 213 -> 318, D5 950 -> 947 (-3); seed 2: D3 865 -> 765 (-100), trueFP 200 -> 292, D5 911 -> 913 (+2). The ridge snap moves corners off the annotated corner on 1064/1128/1096 quads; D=3 collapses while D=5 is flat. DEAD.",
+ "levers": [
+  {
+   "lever": "validity-constrained corner snap",
+   "name": "snap each corner to the R-max(G,B) ridge peak within +-2 px",
+   "target": "D=3 corner precision",
+   "status": "DEAD",
+   "panel": "benchmark/loop51_panels/seed0_snap.csv",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "estimate_d3": {
+    "treatment": "t_snap",
+    "outcome": "y_tp3",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.198098,
+    "se": 0.019539,
+    "ci95": [
+     -0.236394,
+     -0.159802
+    ],
+    "p": 0.0,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "estimate_d5": {
+    "treatment": "t_snap",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 1.2e-05,
+    "se": 0.006332,
+    "ci95": [
+     -0.012398,
+     0.012422
+    ],
+    "p": 0.9984847401041264,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 758,
+      "fp": 312
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 927,
+      "fp": 143
+     },
+     "12": {
+      "tp": 939,
+      "fp": 131
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "snap": {
+     "3": {
+      "tp": 758,
+      "true_fp": 267,
+      "corr_f1": 72.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 136,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 927,
+      "true_fp": 112,
+      "corr_f1": 87.7
+     },
+     "12": {
+      "tp": 939,
+      "true_fp": 102,
+      "corr_f1": 88.7
+     }
+    }
+   },
+   "delta_d3_tp_seed0": -99,
+   "delta_d3_trueFP_seed0": 90,
+   "reason": "seed 0: D3 857 -> 758 (-99), trueFP 177 -> 267, D5 901 -> 901; seed 1: D3 890 -> 783 (-107), trueFP 213 -> 318, D5 950 -> 947 (-3); seed 2: D3 865 -> 765 (-100), trueFP 200 -> 292, D5 911 -> 913 (+2). The ridge snap moves corners off the annotated corner on 1064/1128/1096 quads; D=3 collapses while D=5 is flat. DEAD."
+  }
+ ]
+}

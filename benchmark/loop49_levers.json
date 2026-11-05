@@ -1,0 +1,565 @@
+{
+ "loop": "LOOP-49",
+ "lever": "dense-cluster second-box proposal",
+ "name": "concave-corner split of the outer red component",
+ "target_bucket": "no_proposal",
+ "census": "benchmark/loop49_overlap_census.json",
+ "census_buckets": {
+  "no_proposal": 98,
+  "gate_side": 0,
+  "gate_ortho": 0,
+  "gate_support": 0,
+  "dedup": 0,
+  "corner_gt5": 26
+ },
+ "acceptance": "theta>0 and p<0.05 on seed 0; trueFP <= 0.5 per TP; seeds 1/2 same sign/significance",
+ "seeds": {
+  "0": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 901,
+   "base_d5_rawFP": 169,
+   "base_d5_dets": 1070,
+   "lever_d5_tp": 901,
+   "lever_d5_rawFP": 175,
+   "delta_tp": 0,
+   "delta_trueFP": 1,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_split",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.0,
+    "se": 0.0,
+    "ci95": [
+     -0.0,
+     0.0
+    ],
+    "p": 0.7235009750695092,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "added_quads": 10,
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 857,
+      "fp": 219
+     },
+     "5": {
+      "tp": 901,
+      "fp": 175
+     },
+     "8": {
+      "tp": 926,
+      "fp": 150
+     },
+     "12": {
+      "tp": 938,
+      "fp": 138
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 857,
+      "true_fp": 178,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 135,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 114,
+      "corr_f1": 87.5
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 104,
+      "corr_f1": 88.6
+     }
+    }
+   },
+   "wall_clock_s": 33.4,
+   "seed0_pass": false
+  },
+  "1": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 950,
+   "base_d5_rawFP": 184,
+   "base_d5_dets": 1134,
+   "lever_d5_tp": 950,
+   "lever_d5_rawFP": 189,
+   "delta_tp": 0,
+   "delta_trueFP": 4,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_split",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -0.0,
+    "se": 0.0,
+    "ci95": [
+     -0.0,
+     0.0
+    ],
+    "p": 0.6418841970492217,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "added_quads": 7,
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "fp": 244
+     },
+     "5": {
+      "tp": 950,
+      "fp": 184
+     },
+     "8": {
+      "tp": 973,
+      "fp": 161
+     },
+     "12": {
+      "tp": 1001,
+      "fp": 133
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 890,
+      "fp": 249
+     },
+     "5": {
+      "tp": 950,
+      "fp": 189
+     },
+     "8": {
+      "tp": 973,
+      "fp": 166
+     },
+     "12": {
+      "tp": 1001,
+      "fp": 138
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "true_fp": 213,
+      "corr_f1": 77.8
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 156,
+      "corr_f1": 83.0
+     },
+     "8": {
+      "tp": 973,
+      "true_fp": 134,
+      "corr_f1": 84.9
+     },
+     "12": {
+      "tp": 1001,
+      "true_fp": 108,
+      "corr_f1": 87.3
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 890,
+      "true_fp": 217,
+      "corr_f1": 77.7
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 160,
+      "corr_f1": 82.8
+     },
+     "8": {
+      "tp": 973,
+      "true_fp": 138,
+      "corr_f1": 84.8
+     },
+     "12": {
+      "tp": 1001,
+      "true_fp": 112,
+      "corr_f1": 87.2
+     }
+    }
+   },
+   "wall_clock_s": 36.0
+  },
+  "2": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 911,
+   "base_d5_rawFP": 186,
+   "base_d5_dets": 1097,
+   "lever_d5_tp": 911,
+   "lever_d5_rawFP": 200,
+   "delta_tp": 0,
+   "delta_trueFP": 9,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_split",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.0,
+    "se": 0.0,
+    "ci95": [
+     -0.0,
+     0.0
+    ],
+    "p": 0.6784455635330608,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "added_quads": 20,
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "fp": 232
+     },
+     "5": {
+      "tp": 911,
+      "fp": 186
+     },
+     "8": {
+      "tp": 937,
+      "fp": 160
+     },
+     "12": {
+      "tp": 959,
+      "fp": 138
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 865,
+      "fp": 246
+     },
+     "5": {
+      "tp": 911,
+      "fp": 200
+     },
+     "8": {
+      "tp": 937,
+      "fp": 174
+     },
+     "12": {
+      "tp": 959,
+      "fp": 152
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "true_fp": 200,
+      "corr_f1": 78.1
+     },
+     "5": {
+      "tp": 911,
+      "true_fp": 161,
+      "corr_f1": 82.0
+     },
+     "8": {
+      "tp": 937,
+      "true_fp": 140,
+      "corr_f1": 84.1
+     },
+     "12": {
+      "tp": 959,
+      "true_fp": 120,
+      "corr_f1": 86.0
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 865,
+      "true_fp": 209,
+      "corr_f1": 77.8
+     },
+     "5": {
+      "tp": 911,
+      "true_fp": 170,
+      "corr_f1": 81.7
+     },
+     "8": {
+      "tp": 937,
+      "true_fp": 149,
+      "corr_f1": 83.8
+     },
+     "12": {
+      "tp": 959,
+      "true_fp": 129,
+      "corr_f1": 85.7
+     }
+    }
+   },
+   "wall_clock_s": 36.5
+  }
+ },
+ "verdict": "DEAD",
+ "base_arm": {
+  "seed": 0,
+  "D5_tp": 901,
+  "D5_rawFP": 169,
+  "D5_dets": 1070,
+  "frozen_anchor": true,
+  "note": "live parity py=1070 cs=1070 mismatched=0; D3/5/8/12 = 857/901/926/938"
+ },
+ "anchor_live": {
+  "ngt": 1076,
+  "dets": 1070,
+  "tp": {
+   "3": 857,
+   "5": 901,
+   "8": 926,
+   "12": 938
+  },
+  "parity": {
+   "py": 1070,
+   "cs": 1070,
+   "mismatched_images": 0
+  },
+  "source": "tmp_loop49_scratch/parity.json"
+ },
+ "verdict_reason": "seed 0: 901 -> 901 TP (0 gain), trueFP 134 -> 135, added 10 split quads, theta 0.0000, p=0.724; seed 1: 950 -> 950, trueFP 156 -> 160; seed 2: 911 -> 911, trueFP 161 -> 170. The seed-0 Stop-if (TP gain 0 while trueFP rises) is satisfied. DEAD.",
+ "stop": {
+  "triggered": true,
+  "rule": "seed-0 TP gain is 0 while trueFP rises",
+  "seed0_tp_gain": 0,
+  "seed0_trueFP_delta": 1,
+  "action": "STOP; close the overlap second-box line"
+ },
+ "levers": [
+  {
+   "lever": "dense-cluster split",
+   "name": "orientation-aware concave-corner second-box proposal",
+   "target_bucket": "no_proposal",
+   "status": "DEAD",
+   "panel": "benchmark/loop49_panels/seed0_split.csv",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "estimate": {
+    "treatment": "t_split",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.0,
+    "se": 0.0,
+    "ci95": [
+     -0.0,
+     0.0
+    ],
+    "p": 0.7235009750695092,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 857,
+      "fp": 219
+     },
+     "5": {
+      "tp": 901,
+      "fp": 175
+     },
+     "8": {
+      "tp": 926,
+      "fp": 150
+     },
+     "12": {
+      "tp": 938,
+      "fp": 138
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "split": {
+     "3": {
+      "tp": 857,
+      "true_fp": 178,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 135,
+      "corr_f1": 85.3
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 114,
+      "corr_f1": 87.5
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 104,
+      "corr_f1": 88.6
+     }
+    }
+   },
+   "added_quads": 10,
+   "delta_tp_seed0": 0,
+   "delta_trueFP_seed0": 1,
+   "reason": "seed 0: 901 -> 901 TP (0 gain), trueFP 134 -> 135, added 10 split quads, theta 0.0000, p=0.724; seed 1: 950 -> 950, trueFP 156 -> 160; seed 2: 911 -> 911, trueFP 161 -> 170. The seed-0 Stop-if (TP gain 0 while trueFP rises) is satisfied. DEAD."
+  },
+  {
+   "lever": "A",
+   "name": "overlap-aware dedup",
+   "target_bucket": "dedup",
+   "status": "NOT-ATTEMPTED",
+   "panel": null,
+   "n_units": null,
+   "n_blocks": null,
+   "theta": null,
+   "se": null,
+   "ci95": null,
+   "p": null,
+   "metrics": null,
+   "reason": "not the dominant bucket; census dedup = 0"
+  },
+  {
+   "lever": "B",
+   "name": "cross-family agreement rescue",
+   "target_bucket": "gate_side / gate_support",
+   "status": "NOT-ATTEMPTED",
+   "panel": null,
+   "n_units": null,
+   "n_blocks": null,
+   "theta": null,
+   "se": null,
+   "ci95": null,
+   "p": null,
+   "metrics": null,
+   "reason": "not the dominant bucket; census gate_side / gate_support = 0"
+  },
+  {
+   "lever": "D",
+   "name": "ridge-centre rescue of rejects",
+   "target_bucket": "gate_support / gate_side",
+   "status": "NOT-ATTEMPTED",
+   "panel": null,
+   "n_units": null,
+   "n_blocks": null,
+   "theta": null,
+   "se": null,
+   "ci95": null,
+   "p": null,
+   "metrics": null,
+   "reason": "not the dominant bucket; census gate_support / gate_side = 0"
+  },
+  {
+   "lever": "F",
+   "name": "corner snap (5-8 px band)",
+   "target_bucket": "corner_gt5",
+   "status": "NOT-ATTEMPTED",
+   "panel": null,
+   "n_units": null,
+   "n_blocks": null,
+   "theta": null,
+   "se": null,
+   "ci95": null,
+   "p": null,
+   "metrics": null,
+   "reason": "not the dominant bucket; census corner_gt5 = 26"
+  }
+ ]
+}
