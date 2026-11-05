@@ -1,0 +1,441 @@
+{
+ "loop": "LOOP-46",
+ "lever": "C",
+ "name": "hysteresis red mask",
+ "target_bucket": "no_proposal",
+ "census": "benchmark/loop46_fn_census.json",
+ "n_eligible": 33,
+ "census_buckets": {
+  "no_proposal": 21,
+  "gate_side": 0,
+  "gate_ortho": 1,
+  "gate_support": 0,
+  "dedup": 0,
+  "corner_gt5": 11
+ },
+ "acceptance": "theta>0 and p<0.05 on seed 0 + same on seeds 1/2; trueFP increase <= 0.5 per gained TP",
+ "seeds": {
+  "0": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 901,
+   "base_d5_rawFP": 169,
+   "base_d5_dets": 1070,
+   "lever_d5_tp": 910,
+   "lever_d5_rawFP": 154,
+   "delta_tp": 9,
+   "delta_trueFP": -14,
+   "trueFP_per_gain": -1.556,
+   "estimate": {
+    "treatment": "t_hyst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.018024,
+    "se": 0.007707,
+    "ci95": [
+     0.002919,
+     0.03313
+    ],
+    "p": 0.01935305992205194,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "fp": 213
+     },
+     "5": {
+      "tp": 901,
+      "fp": 169
+     },
+     "8": {
+      "tp": 926,
+      "fp": 144
+     },
+     "12": {
+      "tp": 938,
+      "fp": 132
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 870,
+      "fp": 194
+     },
+     "5": {
+      "tp": 910,
+      "fp": 154
+     },
+     "8": {
+      "tp": 931,
+      "fp": 133
+     },
+     "12": {
+      "tp": 944,
+      "fp": 120
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 857,
+      "true_fp": 177,
+      "corr_f1": 81.2
+     },
+     "5": {
+      "tp": 901,
+      "true_fp": 134,
+      "corr_f1": 85.4
+     },
+     "8": {
+      "tp": 926,
+      "true_fp": 113,
+      "corr_f1": 87.6
+     },
+     "12": {
+      "tp": 938,
+      "true_fp": 103,
+      "corr_f1": 88.6
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 870,
+      "true_fp": 157,
+      "corr_f1": 82.7
+     },
+     "5": {
+      "tp": 910,
+      "true_fp": 120,
+      "corr_f1": 86.4
+     },
+     "8": {
+      "tp": 931,
+      "true_fp": 103,
+      "corr_f1": 88.2
+     },
+     "12": {
+      "tp": 944,
+      "true_fp": 93,
+      "corr_f1": 89.4
+     }
+    }
+   },
+   "wall_clock_s": 76.6,
+   "seed0_pass": true
+  },
+  "1": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 950,
+   "base_d5_rawFP": 184,
+   "base_d5_dets": 1134,
+   "lever_d5_tp": 950,
+   "lever_d5_rawFP": 182,
+   "delta_tp": 0,
+   "delta_trueFP": 1,
+   "trueFP_per_gain": null,
+   "estimate": {
+    "treatment": "t_hyst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": -2.4e-05,
+    "se": 0.008482,
+    "ci95": [
+     -0.016649,
+     0.016601
+    ],
+    "p": 0.9977379422873478,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "fp": 244
+     },
+     "5": {
+      "tp": 950,
+      "fp": 184
+     },
+     "8": {
+      "tp": 973,
+      "fp": 161
+     },
+     "12": {
+      "tp": 1001,
+      "fp": 133
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 895,
+      "fp": 237
+     },
+     "5": {
+      "tp": 950,
+      "fp": 182
+     },
+     "8": {
+      "tp": 979,
+      "fp": 153
+     },
+     "12": {
+      "tp": 1005,
+      "fp": 127
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 890,
+      "true_fp": 213,
+      "corr_f1": 77.8
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 156,
+      "corr_f1": 83.0
+     },
+     "8": {
+      "tp": 973,
+      "true_fp": 134,
+      "corr_f1": 84.9
+     },
+     "12": {
+      "tp": 1001,
+      "true_fp": 108,
+      "corr_f1": 87.3
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 895,
+      "true_fp": 209,
+      "corr_f1": 78.2
+     },
+     "5": {
+      "tp": 950,
+      "true_fp": 157,
+      "corr_f1": 82.9
+     },
+     "8": {
+      "tp": 979,
+      "true_fp": 130,
+      "corr_f1": 85.4
+     },
+     "12": {
+      "tp": 1005,
+      "true_fp": 105,
+      "corr_f1": 87.6
+     }
+    }
+   },
+   "wall_clock_s": 86.3
+  },
+  "2": {
+   "status": "DONE",
+   "n_images": 500,
+   "base_d5_tp": 911,
+   "base_d5_rawFP": 186,
+   "base_d5_dets": 1097,
+   "lever_d5_tp": 917,
+   "lever_d5_rawFP": 189,
+   "delta_tp": 6,
+   "delta_trueFP": 2,
+   "trueFP_per_gain": 0.333,
+   "estimate": {
+    "treatment": "t_hyst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.012,
+    "se": 0.006911,
+    "ci95": [
+     -0.001545,
+     0.025545
+    ],
+    "p": 0.08249261135530483,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "metrics": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "fp": 232
+     },
+     "5": {
+      "tp": 911,
+      "fp": 186
+     },
+     "8": {
+      "tp": 937,
+      "fp": 160
+     },
+     "12": {
+      "tp": 959,
+      "fp": 138
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 872,
+      "fp": 234
+     },
+     "5": {
+      "tp": 917,
+      "fp": 189
+     },
+     "8": {
+      "tp": 941,
+      "fp": 165
+     },
+     "12": {
+      "tp": 962,
+      "fp": 144
+     }
+    }
+   },
+   "corrected": {
+    "shipped": {
+     "3": {
+      "tp": 865,
+      "true_fp": 200,
+      "corr_f1": 78.1
+     },
+     "5": {
+      "tp": 911,
+      "true_fp": 161,
+      "corr_f1": 82.0
+     },
+     "8": {
+      "tp": 937,
+      "true_fp": 140,
+      "corr_f1": 84.1
+     },
+     "12": {
+      "tp": 959,
+      "true_fp": 120,
+      "corr_f1": 86.0
+     }
+    },
+    "hyst": {
+     "3": {
+      "tp": 872,
+      "true_fp": 202,
+      "corr_f1": 78.4
+     },
+     "5": {
+      "tp": 917,
+      "true_fp": 163,
+      "corr_f1": 82.2
+     },
+     "8": {
+      "tp": 941,
+      "true_fp": 143,
+      "corr_f1": 84.2
+     },
+     "12": {
+      "tp": 962,
+      "true_fp": 124,
+      "corr_f1": 86.0
+     }
+    }
+   },
+   "wall_clock_s": 59.9
+  }
+ },
+ "verdict": "NOT-REPLICATED",
+ "census_revision": "user chose the mean-side support >= 0.6 definition on 2026-11-05; eligible 33 (no_proposal 21, corner_gt5 11, gate_ortho 1)",
+ "verdict_reason": "seed 0: +9 TP (901->910), trueFP 134->120, theta +0.0180 p=0.0194 (passes); seed 1: 0 TP (950->950), theta -0.0000 p=0.998 (fails); seed 2: +6 TP (911->917), theta +0.0120 p=0.0825 (fails p<0.05). The tuning-set win does not survive the held-out check -> NOT-REPLICATED.",
+ "base_arm": {
+  "seed": 0,
+  "D5_tp": 901,
+  "D5_rawFP": 169,
+  "D5_dets": 1070,
+  "frozen_anchor": true,
+  "note": "live parity py=1070 cs=1070 mismatched=0; D3/5/8/12 = 857/901/926/938"
+ },
+ "levers": [
+  {
+   "lever": "C",
+   "name": "hysteresis red mask",
+   "target_bucket": "no_proposal",
+   "status": "NOT-REPLICATED",
+   "panel": "benchmark/loop46_panels/seed0_hyst.csv",
+   "estimate": {
+    "treatment": "t_hyst",
+    "outcome": "y_tp5",
+    "n_units": 1000,
+    "n_blocks": 500,
+    "theta": 0.018024,
+    "se": 0.007707,
+    "ci95": [
+     0.002919,
+     0.03313
+    ],
+    "p": 0.01935305992205194,
+    "learner": "linear_regression",
+    "fold_seed": 42
+   },
+   "delta_tp_seed0": 9,
+   "delta_trueFP_seed0": -14,
+   "heldout": {
+    "seed1": {
+     "theta": -2.4e-05,
+     "p": 0.9977379422873478,
+     "delta_tp": 0
+    },
+    "seed2": {
+     "theta": 0.012,
+     "p": 0.08249261135530483,
+     "delta_tp": 6
+    }
+   },
+   "reason": "seed 0: +9 TP (901->910), trueFP 134->120, theta +0.0180 p=0.0194 (passes); seed 1: 0 TP (950->950), theta -0.0000 p=0.998 (fails); seed 2: +6 TP (911->917), theta +0.0120 p=0.0825 (fails p<0.05). The tuning-set win does not survive the held-out check -> NOT-REPLICATED."
+  },
+  {
+   "lever": "A",
+   "name": "overlap-aware dedup",
+   "target_bucket": "dedup",
+   "status": "NOT-ATTEMPTED",
+   "reason": "census dedup bucket = 0; not the dominant bucket"
+  },
+  {
+   "lever": "B",
+   "name": "cross-family agreement rescue",
+   "target_bucket": "gate_side / gate_support",
+   "status": "NOT-ATTEMPTED",
+   "reason": "census gate_side=0, gate_support=0; not the dominant bucket"
+  },
+  {
+   "lever": "D",
+   "name": "ridge-centre rescue of rejects",
+   "target_bucket": "gate_support / gate_side",
+   "status": "NOT-ATTEMPTED",
+   "reason": "census gate_support=0, gate_side=0; not the dominant bucket"
+  },
+  {
+   "lever": "E",
+   "name": "cardinality-constrained ranking",
+   "target_bucket": "no_proposal",
+   "status": "NOT-ATTEMPTED",
+   "reason": "same bucket as C; only one lever from the dominant bucket was run (no stacked hybrid)"
+  },
+  {
+   "lever": "F",
+   "name": "corner snap (5-8 px band)",
+   "target_bucket": "corner_gt5",
+   "status": "NOT-ATTEMPTED",
+   "reason": "census corner_gt5=11; not the dominant bucket"
+  }
+ ]
+}

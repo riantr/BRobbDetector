@@ -1,0 +1,963 @@
+{
+ "loop": "LOOP-45",
+ "tool": "riantr/moonbit_doubleML@0.164.62",
+ "moon": "0.1.20261029",
+ "anchor": {
+  "ngt": 1076,
+  "tp": {
+   "3": 857,
+   "5": 901,
+   "8": 926,
+   "12": 938
+  },
+  "detections": 1070,
+  "source": "benchmark/pm_v10_refine.json"
+ },
+ "acceptance": "sign match AND p<0.05 status match",
+ "summary": {
+  "n_claims": 19,
+  "replicated": 13,
+  "sign_match": 15,
+  "significance_match": 16,
+  "wall_clock_s": 26.2
+ },
+ "claims": [
+  {
+   "claim": "P1-a:edge",
+   "panel": "p1_a",
+   "treatment": "t_edge",
+   "outcome": "y_tp5",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "n_covariates": 7,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.001984,
+   "se": 0.004475,
+   "ci95": [
+    -0.006787,
+    0.010755
+   ],
+   "p": 0.6575036521077271,
+   "original_theta": 0.002,
+   "original_p": 0.718,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean",
+    "t_blend"
+   ]
+  },
+  {
+   "claim": "P1-a:blend",
+   "panel": "p1_a",
+   "treatment": "t_blend",
+   "outcome": "y_tp5",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "n_covariates": 7,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.001996,
+   "se": 0.003466,
+   "ci95": [
+    -0.004798,
+    0.00879
+   ],
+   "p": 0.5647435943437769,
+   "original_theta": -0.0005,
+   "original_p": 0.901,
+   "sign_match": false,
+   "significance_match": true,
+   "replicated": false,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean",
+    "t_edge"
+   ]
+  },
+  {
+   "claim": "P1-b:tol",
+   "panel": "p1_b",
+   "treatment": "t_tol",
+   "outcome": "y_tp5",
+   "n_units": 2000,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.001098,
+   "se": 0.000632,
+   "ci95": [
+    -0.000141,
+    0.002336
+   ],
+   "p": 0.08237234176628627,
+   "original_theta": 0.0013,
+   "original_p": 0.051,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean"
+   ]
+  },
+  {
+   "claim": "P1-c:band",
+   "panel": "p1_c",
+   "treatment": "t_band",
+   "outcome": "y_tp5",
+   "n_units": 2000,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.009203,
+   "se": 0.002138,
+   "ci95": [
+    -0.013393,
+    -0.005013
+   ],
+   "p": 1.671385776091938e-05,
+   "original_theta": -0.008,
+   "original_p": 0.000541,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean"
+   ]
+  },
+  {
+   "claim": "P1-d:joint",
+   "panel": "p1_d",
+   "treatment": "t_joint",
+   "outcome": "y_tp5",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.0,
+   "se": 0.0,
+   "ci95": [
+    -0.0,
+    0.0
+   ],
+   "p": 0.6878282618006968,
+   "original_theta": -0.0055,
+   "original_p": 0.125,
+   "sign_match": false,
+   "significance_match": true,
+   "replicated": false,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "x_n_holes",
+    "x_gt_min_side_mean"
+   ]
+  },
+  {
+   "claim": "P2-a:any",
+   "panel": "p2a_overlap",
+   "treatment": "t_overlap_any",
+   "outcome": "y_det5",
+   "n_units": 1076,
+   "n_blocks": 480,
+   "n_covariates": 5,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.207329,
+   "se": 0.032441,
+   "ci95": [
+    -0.270911,
+    -0.143746
+   ],
+   "p": 1.6553403092700592e-10,
+   "original_theta": -0.1818,
+   "original_p": 3.23e-09,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_min_side",
+    "x_area",
+    "x_aspect",
+    "x_edge_dist",
+    "x_n_gt_image"
+   ]
+  },
+  {
+   "claim": "P2-a:bin",
+   "panel": "p2a_overlap",
+   "treatment": "t_overlap_bin",
+   "outcome": "y_det5",
+   "n_units": 1076,
+   "n_blocks": 480,
+   "n_covariates": 5,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.092435,
+   "se": 0.015499,
+   "ci95": [
+    -0.122813,
+    -0.062057
+   ],
+   "p": 2.4726092284765855e-09,
+   "original_theta": -0.0807,
+   "original_p": 3.11e-08,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_min_side",
+    "x_area",
+    "x_aspect",
+    "x_edge_dist",
+    "x_n_gt_image"
+   ]
+  },
+  {
+   "claim": "P2-b:oracle",
+   "panel": "p2b_mask",
+   "treatment": "t_mask_oracle",
+   "outcome": "y_tp5",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "n_covariates": 5,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.218274,
+   "se": 0.03643,
+   "ci95": [
+    0.146873,
+    0.289676
+   ],
+   "p": 2.0851578241831703e-09,
+   "original_theta": 0.2244,
+   "original_p": 4.55e-09,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "t_mask_wide"
+   ]
+  },
+  {
+   "claim": "P2-b:wide",
+   "panel": "p2b_mask",
+   "treatment": "t_mask_wide",
+   "outcome": "y_tp5",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "n_covariates": 5,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.01806,
+   "se": 0.009561,
+   "ci95": [
+    -0.000678,
+    0.036799
+   ],
+   "p": 0.05888682256352862,
+   "original_theta": 0.0077,
+   "original_p": 0.429,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio",
+    "t_mask_oracle"
+   ]
+  },
+  {
+   "claim": "P2-c:y5",
+   "panel": "p2c_scale",
+   "treatment": "t_scale",
+   "outcome": "y_tp5",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "n_covariates": 4,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.536048,
+   "se": 0.034669,
+   "ci95": [
+    0.468098,
+    0.603999
+   ],
+   "p": 0.0,
+   "original_theta": 0.5348,
+   "original_p": 3.16e-53,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio"
+   ]
+  },
+  {
+   "claim": "P2-c:y12",
+   "panel": "p2c_scale",
+   "treatment": "t_scale",
+   "outcome": "y_tp12",
+   "n_units": 1000,
+   "n_blocks": 500,
+   "n_covariates": 4,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.380071,
+   "se": 0.032978,
+   "ci95": [
+    0.315436,
+    0.444707
+   ],
+   "p": 0.0,
+   "original_theta": 0.3778,
+   "original_p": 9.76e-31,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_img_w",
+    "x_img_h",
+    "x_red_ratio"
+   ]
+  },
+  {
+   "claim": "P2-d:cap",
+   "panel": "p2d_cardinality",
+   "treatment": "t_cap",
+   "outcome": "y_tp5",
+   "n_units": 1500,
+   "n_blocks": 500,
+   "n_covariates": 4,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.049972,
+   "se": 0.014108,
+   "ci95": [
+    -0.077623,
+    -0.022321
+   ],
+   "p": 0.0003969354179989004,
+   "original_theta": -0.0535,
+   "original_p": 0.000375,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_n_gt",
+    "x_csv_n",
+    "x_red_ratio",
+    "ex_soft"
+   ]
+  },
+  {
+   "claim": "P2-e:agree",
+   "panel": "p2e_agreement",
+   "treatment": "t_agree",
+   "outcome": "y_is_tp5",
+   "n_units": 1070,
+   "n_blocks": 480,
+   "n_covariates": 4,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.076148,
+   "se": 0.022805,
+   "ci95": [
+    0.031451,
+    0.120844
+   ],
+   "p": 0.0008406742594191385,
+   "original_theta": 0.0517,
+   "original_p": 0.00548,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "x_sup",
+    "x_n_det_image",
+    "x_det_min_side",
+    "x_det_area"
+   ]
+  },
+  {
+   "claim": "stage1:red_mask",
+   "panel": "stage",
+   "treatment": "s1_red_ratio",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -2.808693,
+   "se": 1.499292,
+   "ci95": [
+    -5.74725,
+    0.129864
+   ],
+   "p": 0.061020510346563084,
+   "original_theta": -1.571387,
+   "original_p": 0.384835,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "n_gt",
+    "s2_kept_area_ratio",
+    "s3_n_contours",
+    "s4_n_total_candidates",
+    "s5_pass_rate",
+    "s6_dedup_rate"
+   ]
+  },
+  {
+   "claim": "stage2:denoise",
+   "panel": "stage",
+   "treatment": "s2_kept_area_ratio",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.233796,
+   "se": 0.177035,
+   "ci95": [
+    -0.580778,
+    0.113186
+   ],
+   "p": 0.18662815132104127,
+   "original_theta": -1.792326,
+   "original_p": 0.004583,
+   "sign_match": true,
+   "significance_match": false,
+   "replicated": false,
+   "covariates": [
+    "n_gt",
+    "s1_red_ratio",
+    "s3_n_contours",
+    "s4_n_total_candidates",
+    "s5_pass_rate",
+    "s6_dedup_rate"
+   ]
+  },
+  {
+   "claim": "stage3:outer_contours",
+   "panel": "stage",
+   "treatment": "s3_n_contours",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -0.434697,
+   "se": 0.31635,
+   "ci95": [
+    -1.054731,
+    0.185336
+   ],
+   "p": 0.16940960587015752,
+   "original_theta": 0.494134,
+   "original_p": 0.090562,
+   "sign_match": false,
+   "significance_match": true,
+   "replicated": false,
+   "covariates": [
+    "n_gt",
+    "s1_red_ratio",
+    "s2_kept_area_ratio",
+    "s4_n_total_candidates",
+    "s5_pass_rate",
+    "s6_dedup_rate"
+   ]
+  },
+  {
+   "claim": "stage4:base_quads",
+   "panel": "stage",
+   "treatment": "s4_n_total_candidates",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 0.184326,
+   "se": 0.110405,
+   "ci95": [
+    -0.032064,
+    0.400715
+   ],
+   "p": 0.09500942292355075,
+   "original_theta": 0.282581,
+   "original_p": 0.17454,
+   "sign_match": true,
+   "significance_match": true,
+   "replicated": true,
+   "covariates": [
+    "n_gt",
+    "s1_red_ratio",
+    "s2_kept_area_ratio",
+    "s3_n_contours",
+    "s5_pass_rate",
+    "s6_dedup_rate"
+   ]
+  },
+  {
+   "claim": "stage5:admission",
+   "panel": "stage",
+   "treatment": "s5_pass_rate",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": 1.880586,
+   "se": 0.431166,
+   "ci95": [
+    1.035517,
+    2.725656
+   ],
+   "p": 1.2919869698313491e-05,
+   "original_theta": 1.598792,
+   "original_p": 0.09235,
+   "sign_match": true,
+   "significance_match": false,
+   "replicated": false,
+   "covariates": [
+    "n_gt",
+    "s1_red_ratio",
+    "s2_kept_area_ratio",
+    "s3_n_contours",
+    "s4_n_total_candidates",
+    "s6_dedup_rate"
+   ]
+  },
+  {
+   "claim": "stage6:dedup",
+   "panel": "stage",
+   "treatment": "s6_dedup_rate",
+   "outcome": "tp",
+   "n_units": 500,
+   "n_blocks": 500,
+   "n_covariates": 6,
+   "learner": "linear_regression",
+   "n_folds": 3,
+   "fold_seed": 42,
+   "theta": -1.624704,
+   "se": 0.452237,
+   "ci95": [
+    -2.511072,
+    -0.738335
+   ],
+   "p": 0.0003274834442479335,
+   "original_theta": 1.094931,
+   "original_p": 0.370967,
+   "sign_match": false,
+   "significance_match": false,
+   "replicated": false,
+   "covariates": [
+    "n_gt",
+    "s1_red_ratio",
+    "s2_kept_area_ratio",
+    "s3_n_contours",
+    "s4_n_total_candidates",
+    "s5_pass_rate"
+   ]
+  }
+ ],
+ "refutations": [
+  {
+   "claim": "P1-a:edge",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.001984,
+   "placebo_thetas": [
+    0.053927,
+    -0.054714,
+    -0.021079,
+    0.091442,
+    0.042679,
+    0.01328,
+    -0.066218,
+    -0.049528,
+    -0.030944
+   ],
+   "p_placebo": 1.0,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "P1-a:blend",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  },
+  {
+   "claim": "P1-b:tol",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.001098,
+   "placebo_thetas": [
+    0.00143,
+    -0.005773,
+    -0.00573,
+    0.001108,
+    0.005863,
+    -0.002379,
+    0.00155,
+    -0.002748,
+    9.3e-05
+   ],
+   "p_placebo": 0.9,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "P1-c:band",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": -0.009203,
+   "placebo_thetas": [
+    0.015554,
+    -0.014685,
+    -0.005244,
+    0.002121,
+    0.016161,
+    -0.002562,
+    0.031861,
+    0.004544,
+    0.008206
+   ],
+   "p_placebo": 0.5,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "P1-d:joint",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  },
+  {
+   "claim": "P2-a:any",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": -0.207329,
+   "placebo_thetas": [
+    -0.022196,
+    -0.008263,
+    0.019146,
+    0.017002,
+    0.026516,
+    0.005053,
+    0.023908,
+    0.009829,
+    0.009096
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "P2-a:bin",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": -0.092435,
+   "placebo_thetas": [
+    -0.002825,
+    0.011449,
+    -0.011927,
+    -0.002534,
+    -0.0098,
+    -0.00708,
+    -0.002079,
+    -0.00136,
+    -0.010203
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "P2-b:oracle",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.218274,
+   "placebo_thetas": [
+    -0.013187,
+    0.002107,
+    0.023691,
+    0.002459,
+    0.022216,
+    -0.074612,
+    -0.024628,
+    0.040307,
+    0.041237
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "P2-b:wide",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.01806,
+   "placebo_thetas": [
+    0.035308,
+    0.022437,
+    0.018412,
+    -0.044958,
+    -0.041502,
+    0.004133,
+    -0.037594,
+    0.038644,
+    -0.034375
+   ],
+   "p_placebo": 0.9,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "P2-c:y5",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.536048,
+   "placebo_thetas": [
+    0.011303,
+    -0.048916,
+    -0.062416,
+    0.0272,
+    -0.022968,
+    -0.007605,
+    -0.023315,
+    0.032066,
+    0.001663
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "P2-c:y12",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.380071,
+   "placebo_thetas": [
+    -0.038255,
+    -0.055069,
+    -0.018742,
+    -0.006937,
+    -0.032772,
+    0.006882,
+    0.104695,
+    -0.037028,
+    0.080528
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "P2-d:cap",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": -0.049972,
+   "placebo_thetas": [
+    0.016221,
+    -0.001662,
+    -0.056492,
+    -0.01912,
+    0.016213,
+    -0.021345,
+    0.031693,
+    -0.001801,
+    -0.020941
+   ],
+   "p_placebo": 0.2,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "P2-e:agree",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.076148,
+   "placebo_thetas": [
+    0.006805,
+    0.027096,
+    0.011871,
+    0.011885,
+    0.030079,
+    -0.001877,
+    0.02911,
+    0.007639,
+    0.006799
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "stage1:red_mask",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": -2.808693,
+   "placebo_thetas": [
+    1.235391,
+    -1.383293,
+    0.35092,
+    -0.705459,
+    -3.25455,
+    1.59964,
+    -2.443242,
+    0.488416,
+    -1.248824
+   ],
+   "p_placebo": 0.2,
+   "resolution": 0.1,
+   "verdict": "WEAK"
+  },
+  {
+   "claim": "stage2:denoise",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  },
+  {
+   "claim": "stage3:outer_contours",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  },
+  {
+   "claim": "stage4:base_quads",
+   "status": "DONE",
+   "method": "placebo treatment permutation",
+   "n_perm": 9,
+   "theta_observed": 0.184326,
+   "placebo_thetas": [
+    -0.000367,
+    0.009477,
+    -0.003929,
+    0.00812,
+    0.002402,
+    -0.003682,
+    -0.003046,
+    0.014765,
+    0.022803
+   ],
+   "p_placebo": 0.1,
+   "resolution": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "claim": "stage5:admission",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  },
+  {
+   "claim": "stage6:dedup",
+   "status": "NOT-ATTEMPTED",
+   "reason": "claim did not replicate; no refutation required",
+   "p_placebo": null,
+   "n_perm": 0
+  }
+ ],
+ "refutation_summary": {
+  "attempted": 13,
+  "not_attempted": 6,
+  "pass": [
+   "P2-a:any",
+   "P2-a:bin",
+   "P2-b:oracle",
+   "P2-c:y5",
+   "P2-c:y12",
+   "P2-e:agree",
+   "stage4:base_quads"
+  ],
+  "weak": [
+   "P1-a:edge",
+   "P1-b:tol",
+   "P1-c:band",
+   "P2-b:wide",
+   "P2-d:cap",
+   "stage1:red_mask"
+  ],
+  "method": "placebo treatment permutation, 9 per claim, resolution p=0.1"
+ }
+}

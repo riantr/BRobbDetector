@@ -573,6 +573,31 @@ above. Held-out re-check for any candidate: `python proto/sweep_real.py --seed 1
 and `--seed 2` (seed 0 is the tuning set); the baseline's own held-out scores are
 in *Held-out validation* above.
 
+### Baseline re-freeze (2026-11-05) — pm_v10 unchanged
+
+The baseline was re-frozen at **pm_v10** after the LOOP-45 / LOOP-46 verification
+rounds. A live end-to-end run (`proto/scope78_parity.py --run-csharp`) again
+produced **1070 detections**, parity `py=1070 cs=1070 mismatched images=0`, and
+the exact four-D table above — so LOOP-45/46 adopted **no detector change** and
+pm_v10 remains the current best.
+
+- **LOOP-45 (MoonBit DoubleML replication, `riantr/moonbit_doubleML@0.164.62`)**:
+  the OR2 causal claims replicate **11/13** (the two misses are null-sign
+  claims); the 6-stage observational panel replicates only **2/6** (`stage2`
+  loses significance, `stage3`/`stage6` flip sign, `stage5` flips). All three
+  quick recall levers (`card`, `side3`, `local`) are **NOT-REPLICATED**
+  (`card` literal no-op; `side3` loses 3/5 TP; `local` floods rawFP 169→518).
+- **LOOP-46 (diagnostic-first FN routing)**: the min-side census stopped the line
+  at 3 eligible FN; the user authorised the mean-side support >= 0.6 revision,
+  giving **33 eligible FN** (`no_proposal` 21). Lever C (hysteresis red mask)
+  was the only eligible lever: seed 0 **+9 TP / −14 trueFP at D=5** (p=0.019,
+  +13/+9/+5/+6 TP at D=3/5/8/12), but seed 1 flat (p=0.998) and seed 2 +6 TP
+  (p=0.082) → **NOT-REPLICATED, not adopted**. A/B/D/E/F remain `NOT-ATTEMPTED`
+  (not dead).
+- One-stop comparison: **`benchmark/current_vs_baseline.md`** (+ `.json`) —
+  identity check against the frozen baseline, the pm_v9 / pm_v8 / pm_v7 lineage,
+  and the LOOP-46 candidate rows.
+
 ### Historical baseline (invalid GT — Compare-V1, 746 boxes)
 
 | D | TP | FN | rawFP | trueFP | recall | corrected_f1 |
